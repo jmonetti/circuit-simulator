@@ -72,7 +72,7 @@ public:
 		 * @return (int) cantidad de caracteres recibidos.
 		 *
 		 */
-		int recive(char* stream,unsigned int size);
+		int receive(char* stream,unsigned int size);
 
 		/**
 		 * Cancela el socket
