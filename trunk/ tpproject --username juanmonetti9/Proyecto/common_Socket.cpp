@@ -156,37 +156,27 @@ void Socket::close(){
 }
 /*----------------------------------------------------------------------------*/
 
-int Socket::recive(char* stream,unsigned int size){
+int Socket::receive(char* stream,unsigned int size){
 
 	if(es_valido() && size>0){
 
-		unsigned int cant_recibidos =0;
-		int aux_cant=0;
+		//recibo un caracter
+		int aux_cant = ::recv(this->fd, stream, size, MSG_NOSIGNAL);
 
-		do{
-			//recibo un caracter
-			aux_cant = ::recv(this->fd, stream + cant_recibidos,1, MSG_NOSIGNAL);
-			//si devolvio -1 lanzo la excepcion
-			if(aux_cant == -1 ){
-				std::string strError = "Error Socket -recive() -valor de recv(-1):";
-				strError += strerror(errno);
-				throw std::runtime_error(strError.c_str());
-			}
-			//si devolvio 0 lanzo excepcion
-			if(aux_cant == 0 ){
-				throw std::runtime_error("Error Socket -recive(): Fichero cerrado");
-			}
+		//si devolvio -1 lanzo la excepcion
+		if(aux_cant == -1 ){
+			std::string strError = "Error Socket -recive() -valor de recv(-1):";
+			strError += strerror(errno);
+			throw std::runtime_error(strError.c_str());
+		}
 
-			cant_recibidos++;
-
-		}while(cant_recibidos < size && (stream[cant_recibidos-1]!='\0'));
-
-		//si el ultimo caracter recibido no es un fin de cadena lo remplazo por uno
-		if(stream[cant_recibidos-1]!='\0'){
-			stream[cant_recibidos-1]='\0';
+		//si devolvio 0 lanzo excepcion
+		if(aux_cant == 0 ){
+			throw std::runtime_error("Error Socket -recive(): Fichero cerrado");
 		}
 
 		return aux_cant;
+
 	}
 	else
 		throw std::runtime_error("Error Socket -recive(): Socket invalido");
@@ -200,31 +190,23 @@ int Socket::send(const char* stream,unsigned int size){
 
 	if(es_valido() && size>0){
 
-		unsigned int cant_enviados=0;
-		int cantidad_aux=0;
+		//mando el mensaje
+		int cantidad_aux = ::send(this->fd, stream, size, MSG_NOSIGNAL);
 
-		do{
-			//mando el mensaje
-			cantidad_aux = ::send(this->fd, stream + cant_enviados,1, MSG_NOSIGNAL);
+		//si devolvio -1 lanzo la excepcion
+		if(cantidad_aux == -1){
+			std::string strError = "Error en send: ";
+			strError += strerror(errno);
+			throw std::runtime_error(strError.c_str());
+		}
 
-			//si devolvio -1 lanzo la excepcion
-			if(cantidad_aux == -1){
-				std::string strError = "Error en send: ";
-				strError += strerror(errno);
-				throw std::runtime_error(strError.c_str());
-			}
-			//si devolvio 0 lanzo excepcion
-			if(cantidad_aux == 0 ){
-				throw std::runtime_error("Error Socket - send(): Fichero cerrado");
+		//si devolvio 0 lanzo excepcion
+		if(cantidad_aux == 0 ){
+			throw std::runtime_error("Error Socket - send(): Fichero cerrado");
 
-			}
-			cant_enviados++;
+		}
 
-
-		}while(cant_enviados < size && (stream[cant_enviados-1]!='\0'));
-
-		return cant_enviados;
-
+		return cantidad_aux;
 	}
 	else
 		throw std::runtime_error("Error Socket -Send(): (Socket invalido) o (size<=0)");
