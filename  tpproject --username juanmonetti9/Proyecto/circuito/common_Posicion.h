@@ -10,6 +10,12 @@ public:
 
 	virtual ~Posicion();
 
+private:
+
+	int x;
+
+	int y;
+
 };
 
 #endif /* COMMON_POSICION_H_ */
