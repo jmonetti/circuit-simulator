@@ -1,7 +1,7 @@
-#include "common_Decorador_Ventana.h"
-#include "common_Decorador_Scroll.h"
-#include "common_Box_Ventana.h"
-#include "common_Decorador_Menu.h"
+#include "vista/common_Decorador_Ventana.h"
+#include "vista/common_Decorador_Scroll.h"
+#include "vista/common_Box_Ventana.h"
+#include "vista/common_Decorador_Menu.h"
 #include "gtkmm.h"
 int main(int argc,char* argv[]){
 
