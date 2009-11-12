@@ -5,6 +5,9 @@
 #define COMMON_CIRCUITO_H_
 
 #include "common_Componente.h"
+#include "common_Entrada.h"
+#include "common_Salida.h"
+#include <list>
 
 class Circuito {
 
@@ -17,6 +20,12 @@ public:
 	void simular();
 
 	int getTiempoTransicion();
+
+private:
+
+	std::list<Componente*> componentes;
+	std::list<Entrada*> entradas;
+	std::list<Salida*> salidas;
 
 };
 

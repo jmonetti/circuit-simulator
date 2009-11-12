@@ -3,6 +3,8 @@
 #define COMMON_NOT_H_
 
 #include "common_Compuerta.h"
+#include "common_EntradaCompuerta.h"
+#include "common_SalidaCompuerta.h"
 
 class NOT: public Compuerta {
 
@@ -17,6 +19,11 @@ public:
 	void eliminar();
 
 	bool simular();
+
+private:
+
+	EntradaCompuerta* entrada;
+	SalidaCompuerta* salida;
 
 };
 

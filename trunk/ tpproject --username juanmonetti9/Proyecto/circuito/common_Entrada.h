@@ -3,6 +3,7 @@
 #define COMMON_ENTRADA_H_
 
 #include "common_Compuerta.h"
+#include "common_SalidaCompuerta.h"
 
 class Entrada: public Compuerta {
 
@@ -19,6 +20,10 @@ public:
 	Entrada* getEntrada();
 
 	bool simular();
+
+private:
+
+	SalidaCompuerta* salida;
 
 };
 
