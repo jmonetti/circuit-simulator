@@ -9,35 +9,45 @@ Protocolo::Protocolo(Socket *socket) {
 
 }
 
-int Protocolo::recibirMensaje(std::string &mensaje) {
+void Protocolo::recibirMensaje(std::string &mensaje) {
 
 	char stream[SIZE_RECIBIR];
 
-	while (true) {
+	try{
+		while (true) {
 
-		std::string::size_type index = this->mensajeSiguiente.find_first_of('\n');
+			std::string::size_type index = this->mensajeSiguiente.find_first_of('\n');
 
-		if ( index != std::string::npos ) {
+			if ( index != std::string::npos ) {
 
-			mensaje.assign(this->mensajeSiguiente,0,index+1);
+				mensaje.assign(this->mensajeSiguiente,0,index+1);
 
-			this->mensajeSiguiente= mensajeSiguiente.erase(0,index+1);
+				this->mensajeSiguiente= mensajeSiguiente.erase(0,index+1);
 
-			return 0;
+				return;
+
+			}
+
+			int aux= 0;
+
+			aux= this->socket->receive(stream,SIZE_RECIBIR);
+
+			this->mensajeSiguiente.append(stream,aux);
 
 		}
+	}
+	catch(std::runtime_error &e)
+	{
+		//TODO
+		std::cout<<e.what()<<"\n";
+		//TODO fin
 
-		int aux= 0;
-
-		aux= this->socket->receive(stream,SIZE_RECIBIR);
-
-		this->mensajeSiguiente.append(stream,aux);
-
+		throw std::runtime_error("Error al intentar recibir mensaje");
 	}
 
 }
 
-int Protocolo::enviarMensaje(const std::string &mensaje) {
+void Protocolo::enviarMensaje(const std::string &mensaje) {
 
 	std::string::size_type size= mensaje.size();
 
@@ -47,15 +57,23 @@ int Protocolo::enviarMensaje(const std::string &mensaje) {
 	unsigned cantidadEscrito= 0;
 	//Valor devuelto por enviar
 	int aux=0;
+	try{
+		while (cantidadEscrito < size) {
 
-	while (cantidadEscrito < size) {
+			aux= this->socket->send(stream + cantidadEscrito, size - cantidadEscrito);
 
-		aux= this->socket->send(stream + cantidadEscrito, size - cantidadEscrito);
+			cantidadEscrito+= aux;
 
-		cantidadEscrito+= aux;
+		}
+	}
+	catch(std::runtime_error &e)
+	{
+		//TODO
+		std::cout<<e.what()<<"\n";
+		//TODO fin
 
+		throw std::runtime_error("Error al intentar enviar mensaje");
 	}
 
-	return 0;
 
 }
