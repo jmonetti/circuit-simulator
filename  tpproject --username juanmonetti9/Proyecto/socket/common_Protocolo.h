@@ -13,15 +13,15 @@ public:
 
 	Protocolo(Socket* socket);
 
-	int recibirMensaje(std::string &mensaje);
+	void recibirMensaje(std::string &mensaje);
 
-	int enviarMensaje(const std::string &mensaje);
+	void enviarMensaje(const std::string &mensaje);
 
 private:
 
 	Socket* socket;
 	std::string mensajeSiguiente;
-	static const unsigned int SIZE_RECIBIR = 5;
+	static const unsigned int SIZE_RECIBIR = 10;
 
 };
 
