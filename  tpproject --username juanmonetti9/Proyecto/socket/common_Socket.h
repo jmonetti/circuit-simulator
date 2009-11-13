@@ -29,12 +29,6 @@ public:
 		Socket();
 
 		/**
-		 * Destructor publico.
-		 *
-		 */
-		~Socket();
-
-		/**
 		 * Avisa al sistema que comience a atender la conexión de red, y queda
 		 * dispuesto a recibir ordenes de aceptacion de clientes.
 		 */
