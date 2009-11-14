@@ -6,6 +6,7 @@
 
 #include "gtkmm.h"
 #include "common_Componente_Visual.h"
+#include "common_Boton.h"
 
 const int SIZE_COMPUERTA=40;
 const int WIDTH_botton=75;
@@ -18,15 +19,8 @@ class Vista_Panel: public Componente_Visual{
 
 	private:
 	GtkWidget* box_panel;
-	GtkWidget* AND;
-	GtkWidget* OR;
-	GtkWidget* XOR;
-	GtkWidget* NOT;
-	GtkWidget* PISTA;
-	GtkWidget* ENTRADA;
-	GtkWidget* SALIDA;
-	GtkWidget* DELETE;
-	GtkWidget* INVERTIR;
+	const static int CANT_BOTONES= 5;
+	Boton botones[CANT_BOTONES];
 
 
 	public:
