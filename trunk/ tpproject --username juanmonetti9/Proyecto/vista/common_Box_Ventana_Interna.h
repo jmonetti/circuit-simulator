@@ -8,12 +8,14 @@
 #include "common_Componente_Visual.h"
 
 #include "gtkmm.h"
+#include "common_Grilla.h"
 
 class Box_Ventana_Interna: public Componente_Visual{
 
 private:
 	//atributo
 	GtkWidget* _box_ventana;
+	Grilla grilla;
 
 
 public:
