@@ -24,6 +24,7 @@ class Vista_Panel: public Componente_Visual{
 
 
 	public:
+
 		/**
 		 * Constructor
 		 */

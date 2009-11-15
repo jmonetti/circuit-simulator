@@ -12,7 +12,6 @@ class Decorador_Ventana: public Decorador{
 private:
 	//atributo
 	GtkWidget* _ventana;
-	GtkWidget* _menu;
 
 
 public:
