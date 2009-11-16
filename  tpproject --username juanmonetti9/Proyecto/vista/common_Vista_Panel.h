@@ -6,11 +6,21 @@
 
 #include "gtkmm.h"
 #include "common_Componente_Visual.h"
-#include "common_Boton.h"
+#include "botones/common_Boton_AND.h"
+#include "botones/common_Boton_OR.h"
+#include "botones/common_Boton_XOR.h"
+#include "botones/common_Boton_NOT.h"
+#include "botones/common_Boton_Pista.h"
+#include "botones/common_Boton_Selector.h"
+#include "botones/common_Boton_Delete.h"
+#include "botones/common_Boton_Simular.h"
+#include "botones/common_Boton_Invertir.h"
+#include "botones/common_Boton_Imprimir.h"
+
 
 const int SIZE_COMPUERTA=40;
 const int WIDTH_botton=75;
-const int HEIGHT_botton=32;
+const int HEIGHT_botton=132;
 const int WIDTH_scroll=500;
 const int HEIGHT_scroll=580;
 
@@ -20,7 +30,16 @@ class Vista_Panel: public Componente_Visual{
 	private:
 	GtkWidget* box_panel;
 	const static int CANT_BOTONES= 5;
-	Boton botones[CANT_BOTONES];
+	Boton_OR OR;
+	Boton_AND AND;
+	Boton_NOT NOT;
+	Boton_Pista PISTA;
+	Boton_XOR XOR;
+	Boton_Selector Select;
+	Boton_Simular simular;
+	Boton_Delete delet;
+	Boton_Invertir invert;
+	Boton_Imprimir imprimir;
 
 
 	public:
@@ -48,3 +67,4 @@ class Vista_Panel: public Componente_Visual{
 
 };
 #endif
+

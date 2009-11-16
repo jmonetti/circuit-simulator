@@ -10,8 +10,9 @@ Box_Ventana::Box_Ventana():_decorador_scroll(&_box_ventana_int){
 
 	//incluyo el panel en el box
 	gtk_container_add (GTK_CONTAINER (_box_ventana),_panel.getWidget());
-	//TODO
-	_decorador_scroll.set_dimensiones(500,500);
+
+	//TODO gronchada para dimensinar
+	_decorador_scroll.set_dimensiones(700,500);
 	//fin TODO
 
 	gtk_container_add (GTK_CONTAINER (_box_ventana),_decorador_scroll.getWidget());

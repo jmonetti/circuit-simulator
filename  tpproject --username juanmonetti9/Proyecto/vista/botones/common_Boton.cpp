@@ -2,12 +2,16 @@
 /**************************   	Grupo 8     *************************/
 
 #include "common_Boton.h"
+#include "../../controlador/common_Controlador_Boton.h"
 
 Boton::Boton() {
 
 	box= gtk_hbox_new(false,0);
 
 	boton= gtk_button_new();
+
+
+
 	gtk_container_add(GTK_CONTAINER(boton), box);
 
 }
