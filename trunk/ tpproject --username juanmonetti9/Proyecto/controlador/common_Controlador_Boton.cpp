@@ -67,6 +67,18 @@ void Controlador_Boton::callback_Imprimir( GtkWidget *widget,gpointer callback_d
 	g_print("Apretado el Imprimir\n");
 	//fin TODO
 }
+
+void Controlador_Boton::callback_Upload( GtkWidget *widget,gpointer callback_data ){
+	//TODO
+	g_print("Apretado el Upload\n");
+	//fin TODO
+}
+
+void Controlador_Boton::callback_Download( GtkWidget *widget,gpointer callback_data ){
+	//TODO
+	g_print("Apretado el download\n");
+	//fin TODO
+}
 Controlador_Boton::~Controlador_Boton() {
 
 }

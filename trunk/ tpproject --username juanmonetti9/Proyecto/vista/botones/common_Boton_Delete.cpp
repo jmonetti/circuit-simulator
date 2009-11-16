@@ -8,9 +8,7 @@
 Boton_Delete::Boton_Delete():Boton() {
 
 	agregarImagen((gchar*)"imagenes/delete.png");
-	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_Delete), NULL);
-
-
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_Delete), NULL);
 
 }
 

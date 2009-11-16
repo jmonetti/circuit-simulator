@@ -7,7 +7,8 @@
 Boton_AND::Boton_AND():Boton() {
 
 	agregarImagen((gchar*)"imagenes/AND.png");
-	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_AND), NULL);
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_AND), NULL);
+
 }
 
 Boton_AND::~Boton_AND() {

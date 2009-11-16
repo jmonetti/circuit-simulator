@@ -29,6 +29,10 @@ public:
 
 	static void callback_Imprimir( GtkWidget *widget,gpointer callback_data );
 
+	static void callback_Upload( GtkWidget *widget,gpointer callback_data );
+
+	static void callback_Download( GtkWidget *widget,gpointer callback_data );
+
 	virtual ~Controlador_Boton();
 };
 

@@ -10,9 +10,9 @@ Boton::Boton() {
 
 	boton= gtk_button_new();
 
-
-
 	gtk_container_add(GTK_CONTAINER(boton), box);
+
+	gtk_widget_set_usize(getWidget(),WIDTH_boton,HEIGHT_boton);
 
 }
 
@@ -36,7 +36,11 @@ void Boton::show() {
 GtkWidget* Boton::getWidget() {
 
 	return boton;
+}
 
+GtkWidget* Boton::getBoton(){
+
+	return boton;
 }
 
 void Boton::escalar(int fa) {
