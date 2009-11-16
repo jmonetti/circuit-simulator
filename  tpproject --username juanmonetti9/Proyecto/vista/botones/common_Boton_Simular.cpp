@@ -7,7 +7,7 @@
 Boton_Simular::Boton_Simular():Boton() {
 
 	agregarImagen((gchar*)"imagenes/Simulacion.png");
-	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_Simulacion), NULL);
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_Simulacion), NULL);
 
 
 }

@@ -7,7 +7,7 @@
 Boton_XOR::Boton_XOR():Boton() {
 
 	agregarImagen((gchar*)"imagenes/XOR.png");
-	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_XOR), NULL);
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_XOR), NULL);
 
 
 }

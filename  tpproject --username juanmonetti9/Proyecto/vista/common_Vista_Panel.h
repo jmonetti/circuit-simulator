@@ -16,11 +16,13 @@
 #include "botones/common_Boton_Simular.h"
 #include "botones/common_Boton_Invertir.h"
 #include "botones/common_Boton_Imprimir.h"
+#include "botones/common_Boton_Download.h"
+#include "botones/common_Boton_Upload.h"
+#include "common_Box_herramientas_Circuito.h"
+#include "common_Box_herramientas_options.h"
 
 
 const int SIZE_COMPUERTA=40;
-const int WIDTH_botton=75;
-const int HEIGHT_botton=132;
 const int WIDTH_scroll=500;
 const int HEIGHT_scroll=580;
 
@@ -28,18 +30,11 @@ const int HEIGHT_scroll=580;
 class Vista_Panel: public Componente_Visual{
 
 	private:
+
 	GtkWidget* box_panel;
-	const static int CANT_BOTONES= 5;
-	Boton_OR OR;
-	Boton_AND AND;
-	Boton_NOT NOT;
-	Boton_Pista PISTA;
-	Boton_XOR XOR;
-	Boton_Selector Select;
-	Boton_Simular simular;
-	Boton_Delete delet;
-	Boton_Invertir invert;
-	Boton_Imprimir imprimir;
+	Box_herramientas_Circuito box_circuit;
+	Box_herramientas_Options box_options;
+
 
 
 	public:

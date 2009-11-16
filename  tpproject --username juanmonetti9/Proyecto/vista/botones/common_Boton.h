@@ -7,6 +7,9 @@
 #include <gtkmm.h>
 #include "../common_Componente_Visual.h"
 
+const int HEIGHT_boton = 29;
+const int WIDTH_boton = 70;
+
 class Boton : public Componente_Visual{
 
 public:
@@ -18,6 +21,8 @@ public:
 	void show();
 
 	GtkWidget* getWidget();
+
+	GtkWidget* getBoton();
 
 	void escalar(int fa);
 

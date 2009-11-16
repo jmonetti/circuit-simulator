@@ -7,7 +7,7 @@
 Boton_Invertir::Boton_Invertir():Boton() {
 
 	agregarImagen((gchar*)"imagenes/invert.png");
-	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_Invertir), NULL);
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_Invertir), NULL);
 
 
 }
