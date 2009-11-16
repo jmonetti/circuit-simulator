@@ -5,7 +5,7 @@
 #define COMMON_BOTON_H_
 
 #include <gtkmm.h>
-#include "common_Componente_Visual.h"
+#include "../common_Componente_Visual.h"
 
 class Boton : public Componente_Visual{
 

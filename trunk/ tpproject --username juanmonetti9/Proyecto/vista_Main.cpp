@@ -9,9 +9,12 @@ int main(int argc,char* argv[]){
 	gtk_init (&argc,&argv);
 	Box_Ventana box;
 	Decorador_Scroll scroll(&box);
-	scroll.set_dimensiones(800,700);
 	Decorador_Menu menu(&scroll);
 	Decorador_Ventana ventana(&menu);
+	//TODO gronchada para darle el tamanio a la ventana
+	gtk_widget_set_usize(ventana.getWidget(),800,600);
+	//fin TODO
+
 	ventana.show();
 	gtk_main ();
 
