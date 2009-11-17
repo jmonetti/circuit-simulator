@@ -21,10 +21,7 @@ public:
 
 private:
 
-	GtkWidget* tabla;
-	const static gint CANT_FILAS= 20;
-	const static gint CANT_COLUMNAS= 20;
-	GtkWidget* imagenes[CANT_FILAS][CANT_COLUMNAS];
+	GtkWidget* frame;
 
 };
 
