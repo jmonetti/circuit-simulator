@@ -14,7 +14,7 @@ Box_herramientas_Circuito::Box_herramientas_Circuito() {
 	gtk_box_pack_start (GTK_BOX (_panel), NOT.getWidget(),false,false,0);
 	gtk_box_pack_start (GTK_BOX (_panel), XOR.getWidget(),false,false,0);
 	gtk_box_pack_start (GTK_BOX (_panel), PISTA.getWidget(),false,false,0);
-	//gtk_box_pack_start (GTK_BOX (_panel), Delete.getWidget(),false,false,0);
+	gtk_box_pack_start (GTK_BOX (_panel), Delete.getWidget(),false,false,0);
 	gtk_box_pack_start (GTK_BOX (_panel), invert.getWidget(),false,false,0);
 
 
@@ -27,7 +27,7 @@ void Box_herramientas_Circuito::show(){
 	NOT.show();
 	XOR.show();
 	PISTA.show();
-	//Delete.show();
+	Delete.show();
 	gtk_widget_show (_panel);
 }
 
