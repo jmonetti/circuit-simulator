@@ -5,13 +5,13 @@
 
 Grilla::Grilla() {
 
-	tabla= gtk_table_new(CANT_FILAS,CANT_COLUMNAS,false);
+	tabla= gtk_table_new(CANT_FILAS,CANT_COLUMNAS,true);
 
 	for (int i = 0; i < CANT_FILAS; ++i) {
 
 		for (int j = 0; j < CANT_COLUMNAS; ++j) {
 
-			imagenes[i][j]= gtk_image_new_from_file("imagenes/puntos1.jpg");
+			imagenes[i][j]= gtk_image_new_from_file("imagenes/punto.png");
 
 		}
 	}
@@ -26,17 +26,6 @@ Grilla::Grilla() {
 		}
 
 	}
-	gtk_widget_hide(imagenes[0][0]);
-	gtk_widget_hide(imagenes[0][1]);
-	gtk_widget_hide(imagenes[1][0]);
-	gtk_widget_hide(imagenes[1][1]);
-	gtk_widget_hide(imagenes[2][0]);
-	gtk_widget_hide(imagenes[2][1]);
-
-
-	GtkWidget* imagen= gtk_image_new_from_file("imagenes/AND.png");
-	gtk_table_attach_defaults(GTK_TABLE(tabla),imagen, 0,3,0,2);
-	gtk_widget_show(imagen);
 
 }
 
