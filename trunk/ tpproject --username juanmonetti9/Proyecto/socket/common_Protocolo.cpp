@@ -58,7 +58,6 @@ void Protocolo::enviarMensaje(const std::string &mensaje) {
 		while (cantidadEscrito < size) {
 
 			aux= this->socket->send(stream + cantidadEscrito, size - cantidadEscrito);
-			cout<<"Aux: "<<aux<<"\n";
 			cantidadEscrito+= aux;
 
 		}
