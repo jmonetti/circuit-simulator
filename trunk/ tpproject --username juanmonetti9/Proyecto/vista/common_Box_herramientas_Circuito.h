@@ -27,7 +27,7 @@ private:
 	Boton_Pista PISTA;
 	Boton_XOR XOR;
 	Boton_Invertir invert;
-	//Boton_Delete Delete;
+	Boton_Delete Delete;
 
 
 public:

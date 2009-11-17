@@ -26,8 +26,6 @@ private:
 	const static gint CANT_COLUMNAS= 20;
 	GtkWidget* imagenes[CANT_FILAS][CANT_COLUMNAS];
 
-
-
 };
 
 #endif /* COMMON_GRILLA_H_ */
