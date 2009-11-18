@@ -5,7 +5,7 @@
 
 Grilla::Grilla() {
 
-	frame= gtk_frame_new("Area diseño...");
+	frame= gtk_frame_new(" Area de diseño ");
 
 }
 
