@@ -2,34 +2,44 @@
 #ifndef COMMON_SALIDACOMPUERTA_H_
 #define COMMON_SALIDACOMPUERTA_H_
 
-#include "common_Componente.h"
 #include "common_Compuerta.h"
 
 class EntradaCompuerta;
 
-class SalidaCompuerta: public Componente {
+class SalidaCompuerta {
 
 public:
 
-	SalidaCompuerta();
+	SalidaCompuerta(int id);
 
-	virtual ~SalidaCompuerta();
-
-	int getTiempoTransicion();
-
-	void eliminar();
+	int calcularTiempoTransicion();
 
 	bool simular();
 
+	void reset();
+
 	void setValorSalida(bool valor);
 
+	void setTiempoTransicion(int valor);
+
+	void setCompuerta(Compuerta* compuerta);
+
+	void setSalida(EntradaCompuerta* salida);
+
+	int getId();
+
 private:
+
+	int id;
 
 	Compuerta* compuerta;
 	EntradaCompuerta* salida;
 
 	bool valor;
-	bool valido;
+	bool validoValor;
+
+	bool validoTiempo;
+	int tiempoTransicion;
 
 };
 

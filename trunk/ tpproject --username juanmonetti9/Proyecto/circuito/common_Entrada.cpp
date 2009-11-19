@@ -1,34 +1,38 @@
 
 #include "common_Entrada.h"
 
-Entrada::Entrada() {
-	// TODO Auto-generated constructor stub
+Entrada::Entrada(int id,SalidaCompuerta* salida) : Compuerta(id){
+
+	this->salida= salida;
 
 }
 
 Entrada::~Entrada() {
-	// TODO Auto-generated destructor stub
-}
 
-int Entrada::getTiempoTransicion() {
-
-	return 0;
+	delete salida;
 
 }
 
-void Entrada::eliminar() {
+void Entrada::calcularTiempoTransicion() {
 
+	this->salida->setTiempoTransicion(0);
 
 }
 
-Entrada* Entrada::getEntrada() {
+Entrada* Entrada::getEntrada(){
 
 	return this;
 
 }
 
-bool Entrada::simular() {
+void Entrada::simular() {
 
-	return true;
+	this->salida->setValorSalida(valor);
+
+}
+
+void Entrada::setValorEntrada(bool valor) {
+
+	this->valor= valor;
 
 }

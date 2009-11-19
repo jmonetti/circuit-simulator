@@ -1,30 +1,37 @@
 #include "common_EntradaCompuerta.h"
 
-EntradaCompuerta::EntradaCompuerta() {
+EntradaCompuerta::EntradaCompuerta(int id) {
 
-	// TODO Auto-generated constructor stub
-
-}
-
-EntradaCompuerta::~EntradaCompuerta() {
-
-	// TODO Auto-generated destructor stub
+	this->id= id;
 
 }
 
-int EntradaCompuerta::getTiempoTransicion() {
+int EntradaCompuerta::calcularTiempoTransicion() {
 
-	return 0;
-
-}
-
-void EntradaCompuerta::eliminar() {
-
+	return entrada->calcularTiempoTransicion();
 
 }
 
 bool EntradaCompuerta::simular() {
 
-	return true;
+	return entrada->simular();
+
+}
+
+void EntradaCompuerta::setCompuerta(Compuerta* compuerta) {
+
+	this->compuerta= compuerta;
+
+}
+
+void EntradaCompuerta::setEntrada(SalidaCompuerta* entrada) {
+
+	this->entrada= entrada;
+
+}
+
+int EntradaCompuerta::getId() {
+
+	return id;
 
 }

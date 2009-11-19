@@ -10,20 +10,19 @@ class NOT: public Compuerta {
 
 public:
 
-	NOT();
+	NOT(int id,int tiempoTransicion, EntradaCompuerta* entrada, SalidaCompuerta* salida);
 
 	virtual ~NOT();
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
 
-	void eliminar();
-
-	bool simular();
+	void simular();
 
 private:
 
 	EntradaCompuerta* entrada;
 	SalidaCompuerta* salida;
+	int tiempoTransicion;
 
 };
 

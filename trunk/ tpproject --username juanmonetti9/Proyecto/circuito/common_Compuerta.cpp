@@ -1,22 +1,26 @@
 #include "common_Compuerta.h"
 
-Compuerta::Compuerta() {
-	// TODO Auto-generated constructor stub
+Compuerta::Compuerta(int id) {
+
+	this->id= id;
 
 }
 
-Compuerta::~Compuerta() {
-	// TODO Auto-generated destructor stub
-}
-
-Entrada* Compuerta::getEntrada() {
+Entrada* Compuerta::getEntrada(){
 
 	return NULL;
 
 }
 
-Salida* Compuerta::getSalida() {
+Salida* Compuerta::getSalida(){
 
 	return NULL;
 
 }
+
+int Compuerta::getId() {
+
+	return id;
+
+}
+

@@ -10,20 +10,19 @@ class XOR: public Compuerta {
 
 public:
 
-	XOR();
+	XOR(int id, int tiempoTransicion,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida);
 
 	virtual ~XOR();
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
 
-	void eliminar();
-
-	bool simular();
+	void simular();
 
 private:
 
 	EntradaCompuerta* entradas[2];
 	SalidaCompuerta* salida;
+	int tiempoTransicion;
 
 };
 
