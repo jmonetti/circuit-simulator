@@ -8,24 +8,21 @@
 Decorador_Menu::Decorador_Menu(Componente_Visual* componente):Decorador(componente){
 
 
+	//Creo barra de menu
+	menu_bar = gtk_menu_bar_new();
+	gtk_widget_show(menu_bar);
+	//creo la caja contenedora y le agrego el manu bar
+	_box= gtk_vbox_new(false,0);
+	gtk_box_pack_start(GTK_BOX(_box), menu_bar, FALSE, FALSE, 2);
+	//agrego el componente decorado
+	gtk_container_add (GTK_CONTAINER (_box),componente->getWidget());
+
+	//agrego opciones de menu
 	cargar_Opcion_Archivo();
 	cargar_Opcion_Ventana();
 	cargar_Opcion_Circuito();
 
-	//Creo barra de menu
-	menu_bar = gtk_menu_bar_new();
-	gtk_widget_show(menu_bar);
 
-    //Agrego los submenues a la barra de menu
-    gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), root_menu[0]);
-    gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), root_menu[1]);
-    gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), root_menu[2]);
-
-    //creo la caja contenedora y le agrego el manu bar
-    _box= gtk_vbox_new(false,0);
-    gtk_box_pack_start(GTK_BOX(_box), menu_bar, FALSE, FALSE, 2);
-    //agrego el componente decorado
-    gtk_container_add (GTK_CONTAINER (_box),componente->getWidget());
 
 }
 
@@ -62,7 +59,7 @@ void Decorador_Menu::cargar_Opcion_Archivo(){
 	items_archivo[3] = gtk_menu_item_new_with_label("Imprimir");
 	gtk_menu_append(GTK_MENU (menu[0]), items_archivo[3]);
 	gtk_widget_show(items_archivo[3]);
-	gtk_signal_connect_object(GTK_OBJECT(items_archivo[2]), "activate",
+	gtk_signal_connect_object(GTK_OBJECT(items_archivo[3]), "activate",
 				GTK_SIGNAL_FUNC(Controlador_Archivo::callback_Imprimir), NULL);
 	//Creo e inicializo el item Cerrar
 	items_archivo[4] = gtk_menu_item_new_with_label("Cerrar");
@@ -72,6 +69,9 @@ void Decorador_Menu::cargar_Opcion_Archivo(){
 			GTK_SIGNAL_FUNC(Controlador_Archivo::callback_cerrar), NULL);
 	//lo cargo
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (root_menu[0]), menu[0]);
+
+	//Agrego los submenues a la barra de menu
+	 gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), root_menu[0]);
 }
 
 
@@ -92,6 +92,9 @@ void Decorador_Menu::cargar_Opcion_Ventana(){
 
 	//lo cargo
     gtk_menu_item_set_submenu(GTK_MENU_ITEM (root_menu[1]), menu[1]);
+    //Agrego los submenues a la barra de menu
+    gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), root_menu[1]);
+
 
 }
 
@@ -152,6 +155,8 @@ void Decorador_Menu::cargar_Opcion_Circuito(){
 
 	//lo cargo
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (root_menu[2]), menu[2]);
+	//Agrego los submenues a la barra de menu
+	gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), root_menu[2]);
 
 }
 

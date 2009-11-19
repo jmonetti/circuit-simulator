@@ -22,7 +22,8 @@ Box_Ventana_Interna::Box_Ventana_Interna(){
 void Box_Ventana_Interna::agregar_AreaDisenio(){
 
 	grilla.show();
-	gtk_notebook_append_page (GTK_NOTEBOOK (noteb), grilla.getWidget(), grilla.get_tabGrilla());
+	tab_grilla.show();
+	gtk_notebook_append_page (GTK_NOTEBOOK (noteb), grilla.getWidget(), tab_grilla.getWidget());
 
 }
 /*----------------------------------------------------------------------------*/

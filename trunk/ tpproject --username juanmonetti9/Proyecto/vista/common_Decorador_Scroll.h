@@ -38,7 +38,7 @@ public:
 	/**
 	 * Redimensiona el Decorador_scroll con los parametros pasados
 	 * @param:
-	 * (int) weight nuevo ancho
+	 * (int) widht nuevo ancho
 	 * (int) height nuevo largo
 	 */
 	void set_dimensiones(int weight, int height);

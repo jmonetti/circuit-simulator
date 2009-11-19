@@ -5,10 +5,14 @@
 
 Box_herramientas_Circuito::Box_herramientas_Circuito() {
 
+	//box con primera columna de botones
 	_panel=gtk_vbox_new(false,0);
-	gtk_container_border_width (GTK_CONTAINER (_panel), 10);
-
-	//Incluyoa los botones en _panel
+	gtk_widget_set_usize(_panel,WIDTH_BOTONERA,HEIGH_BOTONERA);
+	//box botonera principal
+	_panel_size=gtk_hbox_new(false,0);
+	gtk_box_pack_start (GTK_BOX (_panel_size),_panel,false,false,0);
+	gtk_container_border_width (GTK_CONTAINER (_panel_size), 10);
+	//Incluyo los botones en _panel_size
 	gtk_box_pack_start (GTK_BOX (_panel), simular.getWidget(),false,false,0);
 	gtk_box_pack_start (GTK_BOX (_panel), upload.getWidget(),false,false,0);
 	gtk_box_pack_start (GTK_BOX (_panel), download.getWidget(),false,false,0);
@@ -22,13 +26,8 @@ Box_herramientas_Circuito::Box_herramientas_Circuito() {
 	gtk_box_pack_start (GTK_BOX (_panel), invertL.getWidget(),false,false,0);
 	gtk_box_pack_start (GTK_BOX (_panel), Delete.getWidget(),false,false,0);
 
-
-
-
-
-
-
 }
+
 void Box_herramientas_Circuito::show(){
 
 	invert.show();
@@ -43,6 +42,7 @@ void Box_herramientas_Circuito::show(){
 	simular.show();
 	download.show();
 	upload.show();
+	gtk_widget_show (_panel_size);
 	gtk_widget_show (_panel);
 }
 
@@ -53,7 +53,7 @@ void Box_herramientas_Circuito::escalar(int _fa){
 
 GtkWidget* Box_herramientas_Circuito::getWidget(){
 
-	return _panel;
+	return _panel_size;
 }
 
 Box_herramientas_Circuito::~Box_herramientas_Circuito() {

@@ -9,6 +9,7 @@
 
 #include "gtkmm.h"
 #include "common_Grilla.h"
+#include "common_Tab_Grilla.h"
 #include <list>
 
 class Box_Ventana_Interna: public Componente_Visual{
@@ -18,6 +19,7 @@ private:
 	GtkWidget* _box_ventana;
 	GtkWidget* noteb;
 	Grilla grilla;
+	Tab_Grilla tab_grilla;
 
 
 public:
