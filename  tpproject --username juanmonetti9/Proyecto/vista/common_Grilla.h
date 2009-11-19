@@ -19,9 +19,20 @@ public:
 
 	GtkWidget* getWidget();
 
+	GtkWidget* get_tabGrilla();
+
 private:
 
-	GtkWidget* frame;
+	GtkWidget* notebook;
+	GtkWidget* tab_noteb1;
+	GtkWidget* tab_noteb2;
+	GtkWidget* box_noteb1;
+	GtkWidget* box_noteb2;
+	GtkWidget* tab_grilla;
+	GtkWidget* label_grilla;
+	GtkWidget* boton_grilla;
+	GtkWidget* box_image;
+	GtkWidget* imagen;
 
 };
 

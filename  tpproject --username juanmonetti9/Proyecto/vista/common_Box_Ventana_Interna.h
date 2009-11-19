@@ -9,18 +9,22 @@
 
 #include "gtkmm.h"
 #include "common_Grilla.h"
+#include <list>
 
 class Box_Ventana_Interna: public Componente_Visual{
 
 private:
 	//atributo
 	GtkWidget* _box_ventana;
+	GtkWidget* noteb;
 	Grilla grilla;
 
 
 public:
 
 	Box_Ventana_Interna();
+
+	void agregar_AreaDisenio();
 
 	/**
 	 * Muestra el componente Visual

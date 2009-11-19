@@ -2,17 +2,17 @@
 /**************************   	Grupo 8     *************************/
 
 #include "common_Boton.h"
-#include "../../controlador/common_Controlador_Boton.h"
+#include "../../controlador/common_Controlador_Circuito.h"
 
 Boton::Boton() {
 
 	box= gtk_hbox_new(false,0);
-
 	boton= gtk_button_new();
+	tooltip= gtk_tooltips_new();
 
 	gtk_container_add(GTK_CONTAINER(boton), box);
 
-	gtk_widget_set_usize(getWidget(),WIDTH_boton,HEIGHT_boton);
+	//gtk_widget_set_usize(getWidget(),WIDTH_boton,HEIGHT_boton);
 
 }
 
@@ -24,6 +24,10 @@ void Boton::agregarImagen(gchar* image) {
 
 	gtk_widget_show(imagen);
 
+}
+void Boton::agregarToolTip(gchar* etiqueta) {
+
+	gtk_tooltips_set_tip(tooltip,boton,etiqueta,NULL);
 }
 
 void Boton::show() {

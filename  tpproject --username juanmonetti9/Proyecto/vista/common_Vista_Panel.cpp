@@ -2,7 +2,7 @@
 /**************************   Grupo 8                 *************************/
 
 #include "common_Vista_Panel.h"
-#include "../controlador/common_Controlador_Boton.h"
+
 
 Vista_Panel::Vista_Panel(){
 

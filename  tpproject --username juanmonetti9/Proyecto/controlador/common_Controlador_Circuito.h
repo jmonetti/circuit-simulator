@@ -1,13 +1,13 @@
 /**************************   Clase Controlador Boton  **************/
 /**************************   	Grupo 8                **************/
 
-#ifndef COMMON_CONTROLADOR_BOTON_H_
-#define COMMON_CONTROLADOR_BOTON_H_
+#ifndef COMMON_CONTROLADOR_CIRCUITO_H_
+#define COMMON_CONTROLADOR_CIRCUITO_H_
 #include "gtkmm.h"
 
-class Controlador_Boton {
+class Controlador_Circuito {
 public:
-	Controlador_Boton();
+	Controlador_Circuito();
 
 	static void callback_AND( GtkWidget *widget,gpointer callback_data );
 
@@ -23,17 +23,14 @@ public:
 
 	static void callback_Delete( GtkWidget *widget,gpointer callback_data );
 
-	static void callback_Invertir( GtkWidget *widget,gpointer callback_data );
+	static void callback_InvertirR( GtkWidget *widget,gpointer callback_data );
+
+	static void callback_InvertirL( GtkWidget *widget,gpointer callback_data );
 
 	static void callback_Simulacion( GtkWidget *widget,gpointer callback_data );
 
-	static void callback_Imprimir( GtkWidget *widget,gpointer callback_data );
 
-	static void callback_Upload( GtkWidget *widget,gpointer callback_data );
-
-	static void callback_Download( GtkWidget *widget,gpointer callback_data );
-
-	virtual ~Controlador_Boton();
+	virtual ~Controlador_Circuito();
 };
 
 #endif /* COMMON_CONTROLADOR_BOTON_H_ */

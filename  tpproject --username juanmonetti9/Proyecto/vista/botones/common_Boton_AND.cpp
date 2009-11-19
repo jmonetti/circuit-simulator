@@ -2,12 +2,13 @@
 /**************************   	Grupo 8       ***********************/
 
 #include "common_Boton_AND.h"
-#include "../../controlador/common_Controlador_Boton.h"
+#include "../../controlador/common_Controlador_Circuito.h"
 
 Boton_AND::Boton_AND():Boton() {
 
 	agregarImagen((gchar*)"imagenes/AND.png");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_AND), NULL);
+	agregarToolTip((gchar*)"Agregar compuerta AND");
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_AND), NULL);
 
 }
 
