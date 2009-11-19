@@ -21,11 +21,16 @@
 #include "botones/common_Boton_Download.h"
 #include "botones/common_Boton_Upload.h"
 
+
+const int WIDTH_BOTONERA= 68;
+const int HEIGH_BOTONERA=100;
+
 class Box_herramientas_Circuito: public Componente_Visual {
 
 private:
 
 	GtkWidget* _panel;
+	GtkWidget* _panel_size;
 
 	Boton_OR OR;
 	Boton_AND AND;
