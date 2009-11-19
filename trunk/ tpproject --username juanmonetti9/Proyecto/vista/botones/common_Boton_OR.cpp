@@ -2,13 +2,14 @@
 /**************************   	Grupo 8       ***********************/
 
 #include "common_Boton_OR.h"
-#include "../../controlador/common_Controlador_Boton.h"
+#include "../../controlador/common_Controlador_Circuito.h"
 
 
 Boton_OR::Boton_OR():Boton() {
 
 	agregarImagen((gchar*)"imagenes/OR.png");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Boton::callback_OR), NULL);
+	agregarToolTip((gchar*)"Agregar compuerta OR");
+	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_OR), NULL);
 
 
 }

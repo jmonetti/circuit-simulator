@@ -18,6 +18,8 @@ public:
 
 	void agregarImagen(gchar* image);
 
+	void agregarToolTip(gchar* etiqueta);
+
 	void show();
 
 	GtkWidget* getWidget();
@@ -30,6 +32,8 @@ private:
 
 	GtkWidget* boton;
 	GtkWidget* box;
+	GtkTooltips* tooltip;
+
 
 
 };

@@ -14,6 +14,12 @@
 #include "botones/common_Boton_Pista.h"
 #include "botones/common_Boton_Delete.h"
 #include "botones/common_Boton_Invertir.h"
+#include "botones/common_Boton_Selector.h"
+#include "botones/common_Boton_Simular.h"
+#include "botones/common_Boton_Invertir.h"
+#include "botones/common_Boton_InvertirL.h"
+#include "botones/common_Boton_Download.h"
+#include "botones/common_Boton_Upload.h"
 
 class Box_herramientas_Circuito: public Componente_Visual {
 
@@ -27,7 +33,12 @@ private:
 	Boton_Pista PISTA;
 	Boton_XOR XOR;
 	Boton_Invertir invert;
+	Boton_InvertirL invertL;
 	Boton_Delete Delete;
+	Boton_Selector Select;
+	Boton_Simular simular;
+	Boton_Download download;
+	Boton_Upload upload;
 
 
 public:

@@ -12,14 +12,20 @@ class Decorador_Menu :public Decorador{
 
 private:
 
+	GtkWidget* _box;
+	GtkWidget* menu_bar;
 	GtkWidget* menu[4];
 	GtkWidget* root_menu[4];
-	GtkWidget* menu_1_items[4];
-	GtkWidget* menu_2_items[4];
-	GtkWidget* menu_bar;
-	GtkWidget* _box;
+	GtkWidget* items_archivo[5];
+	GtkWidget* items_ventana[5];
+	GtkWidget* items_circuito[6];
 
 
+	void cargar_Opcion_Archivo();
+
+	void cargar_Opcion_Ventana();
+
+	void cargar_Opcion_Circuito();
 
 	public:
 		/**
