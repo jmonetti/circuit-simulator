@@ -2,27 +2,30 @@
 #ifndef COMMON_COMPUERTA_H_
 #define COMMON_COMPUERTA_H_
 
-#include "common_Componente.h"
 #include <stdlib.h>
 
 class Entrada;
 class Salida;
 
-class Compuerta : public Componente{
+class Compuerta {
 
 public:
 
-	Compuerta();
-
-	virtual ~Compuerta();
+	Compuerta(int id);
 
 	virtual Entrada* getEntrada();
 
 	virtual Salida* getSalida();
 
+	virtual void simular() = 0;
+
+	virtual void calcularTiempoTransicion() = 0;
+
+	int getId();
+
 private:
 
-	int tiempoTransicion;
+	int id;
 
 };
 

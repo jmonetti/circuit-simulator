@@ -9,20 +9,19 @@ class OR: public Compuerta {
 
 public:
 
-	OR();
+	OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida);
 
 	virtual ~OR();
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
 
-	void eliminar();
-
-	bool simular();
+	void simular();
 
 private:
 
 	EntradaCompuerta* entradas[2];
 	SalidaCompuerta* salida;
+	int tiempoTransicion;
 
 };
 

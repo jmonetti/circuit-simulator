@@ -9,21 +9,22 @@ class Entrada: public Compuerta {
 
 public:
 
-	Entrada();
+	Entrada(int id,SalidaCompuerta* salida);
 
 	virtual ~Entrada();
 
-	int getTiempoTransicion();
-
-	void eliminar();
+	void calcularTiempoTransicion();
 
 	Entrada* getEntrada();
 
-	bool simular();
+	void simular();
+
+	void setValorEntrada(bool valor);
 
 private:
 
 	SalidaCompuerta* salida;
+	bool valor;
 
 };
 

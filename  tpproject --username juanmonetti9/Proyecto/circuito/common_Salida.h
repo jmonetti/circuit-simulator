@@ -9,21 +9,26 @@ class Salida: public Compuerta {
 
 public:
 
-	Salida();
+	Salida(int id, EntradaCompuerta* entrada);
 
 	virtual ~Salida();
 
-	int getTiempoTransicion();
-
-	void eliminar();
+	void calcularTiempoTransicion();
 
 	Salida* getSalida();
 
-	bool simular();
+	void simular();
+
+	bool getValor();
+
+	int getTiempoTransicion();
+
 
 private:
 
 	EntradaCompuerta* entrada;
+	bool valor;
+	int tiempoTransicion;
 
 };
 

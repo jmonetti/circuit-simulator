@@ -2,28 +2,30 @@
 #ifndef COMMON_ENTRADACOMPUERTA_H_
 #define COMMON_ENTRADACOMPUERTA_H_
 
-#include "common_Componente.h"
 #include "common_SalidaCompuerta.h"
 #include "common_Compuerta.h"
 
-class EntradaCompuerta: public Componente {
+class EntradaCompuerta {
 
 public:
 
-	EntradaCompuerta();
+	EntradaCompuerta(int id);
 
-	virtual ~EntradaCompuerta();
-
-	int getTiempoTransicion();
-
-	void eliminar();
+	int calcularTiempoTransicion();
 
 	bool simular();
+
+	void setCompuerta(Compuerta* compuerta);
+
+	void setEntrada(SalidaCompuerta* entrada);
+
+	int getId();
 
 private:
 
 	Compuerta* compuerta;
 	SalidaCompuerta* entrada;
+	int id;
 
 };
 

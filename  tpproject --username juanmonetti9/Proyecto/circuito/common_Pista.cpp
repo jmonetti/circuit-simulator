@@ -3,30 +3,30 @@
 
 #include "common_Pista.h"
 
-Pista::Pista() {
+Pista::Pista(int id, EntradaCompuerta* entrada, SalidaCompuerta* salida) : Compuerta(id){
 
-	// TODO Auto-generated constructor stub
+	this->entrada= entrada;
+	this->salida= salida;
 
 }
 
 Pista::~Pista() {
 
-	// TODO Auto-generated destructor stub
+	delete entrada;
+	delete salida;
 
 }
 
-int Pista::getTiempoTransicion() {
+void Pista::calcularTiempoTransicion() {
 
-	return 0;
+	int tiempo= entrada->calcularTiempoTransicion();
 
-}
-
-void Pista::eliminar() {
+	salida->setTiempoTransicion(tiempo);
 
 }
 
-bool Pista::simular() {
+void Pista::simular() {
 
-	return true;
+	salida->setValorSalida(entrada->simular());
 
 }

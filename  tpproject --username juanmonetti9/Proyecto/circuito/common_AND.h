@@ -10,20 +10,19 @@ class AND: public Compuerta {
 
 public:
 
-	AND();
+	AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2,SalidaCompuerta* salida);
 
 	virtual ~AND();
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
 
-	void eliminar();
-
-	bool simular();
+	void simular();
 
 private:
 
 	EntradaCompuerta* entradas[2];
-	SalidaCompuerta salida;
+	SalidaCompuerta* salida;
+	int tiempoTransicion;
 
 };
 

@@ -1,27 +1,36 @@
 #include "common_CajaNegra.h"
 
-CajaNegra::CajaNegra() {
-	// TODO Auto-generated constructor stub
+CajaNegra::CajaNegra(int id,std::vector<EntradaCompuerta*> &entradas, std::vector<SalidaCompuerta*> &salidas)
+: Compuerta(id){
+
+	this->entradas= entradas;
+	this->salidas= salidas;
 
 }
 
 CajaNegra::~CajaNegra() {
-	// TODO Auto-generated destructor stub
+
+	for (unsigned int i = 0; i < entradas.size(); ++i) {
+
+		delete entradas[i];
+
+	}
+
+	for (unsigned int i = 0; i < salidas.size(); ++i) {
+
+		delete salidas[i];
+
+	}
 }
 
-int CajaNegra::getTiempoTransicion() {
+void CajaNegra::calcularTiempoTransicion() {
 
-	return 0;
-
-}
-
-void CajaNegra::eliminar() {
-
+	//TODO
 
 }
 
-bool CajaNegra::simular() {
+void CajaNegra::simular() {
 
-	return true;
+	//TODO
 
 }

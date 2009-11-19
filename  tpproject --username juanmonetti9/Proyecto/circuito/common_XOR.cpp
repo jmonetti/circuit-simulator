@@ -1,27 +1,45 @@
 
 #include "common_XOR.h"
 
-XOR::XOR() {
-	// TODO Auto-generated constructor stub
+XOR::XOR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida)
+: Compuerta(id){
+
+	this->entradas[0] = entrada1;
+	this->entradas[1] = entrada2;
+	this->salida= salida;
+	this->tiempoTransicion= tiempoTransicion;
 
 }
 
 XOR::~XOR() {
-	// TODO Auto-generated destructor stub
-}
 
-int XOR::getTiempoTransicion() {
-
-	return 0;
+	delete[] entradas;
+	delete salida;
 
 }
 
-void XOR::eliminar() {
+void XOR::calcularTiempoTransicion() {
+
+	int tiempo1= entradas[0]->calcularTiempoTransicion();
+	int tiempo2= entradas[1]->calcularTiempoTransicion();
+
+	if (tiempo1 > tiempo2) {
+
+		this->salida->setTiempoTransicion(tiempo1 + this->tiempoTransicion);
+
+	}else{
+
+		this->salida->setTiempoTransicion(tiempo2 + this->tiempoTransicion);
+
+	}
 
 }
 
-bool XOR::simular() {
+void XOR::simular() {
 
-	return true;
+	bool valor1= entradas[0]->simular();
+	bool valor2= entradas[1]->simular();
+
+	this->salida->setValorSalida(valor1 ^ valor2);
 
 }

@@ -12,17 +12,13 @@ class Pista: public Compuerta {
 
 public:
 
-	Pista();
+	Pista(int id, EntradaCompuerta* entrada,SalidaCompuerta* salida);
 
 	virtual ~Pista();
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
 
-	void eliminar();
-
-	bool simular();
-
-private:
+	void simular();
 
 private:
 

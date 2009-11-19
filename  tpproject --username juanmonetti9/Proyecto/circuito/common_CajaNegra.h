@@ -11,15 +11,13 @@ class CajaNegra: public Compuerta {
 
 public:
 
-	CajaNegra();
+	CajaNegra(int id,std::vector<EntradaCompuerta*> &entradas, std::vector<SalidaCompuerta*> &salidas);
 
 	virtual ~CajaNegra();
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
 
-	void eliminar();
-
-	bool simular();
+	void simular();
 
 private:
 

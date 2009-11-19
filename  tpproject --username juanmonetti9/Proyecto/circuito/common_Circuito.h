@@ -4,10 +4,10 @@
 #ifndef COMMON_CIRCUITO_H_
 #define COMMON_CIRCUITO_H_
 
-#include "common_Componente.h"
+#include "common_Compuerta.h"
 #include "common_Entrada.h"
 #include "common_Salida.h"
-#include <list>
+#include <vector>
 
 class Circuito {
 
@@ -17,15 +17,36 @@ public:
 
 	virtual ~Circuito();
 
-	void simular();
+	void simular(bool* entradas);
 
-	int getTiempoTransicion();
+	void calcularTiempoTransicion();
+
+	void agregarCompuerta(Compuerta* compuerta);
+
+	void agregarEntradaCompuerta(EntradaCompuerta* entrada);
+
+	void agregarSalidaCompuerta(SalidaCompuerta* salida);
+
+	int getContadorCompuertas();
+
+	int getContadorEntradasCompuerta();
+
+	int getContadorSalidasCompuerta();
 
 private:
 
-	std::list<Componente*> componentes;
-	std::list<Entrada*> entradas;
-	std::list<Salida*> salidas;
+	void setearEntradas(bool* entradas);
+	void reset();
+
+	std::vector<Compuerta*> compuertas;
+	std::vector<EntradaCompuerta*> entradasCompuerta;
+	std::vector<SalidaCompuerta*> salidasCompuerta;
+	std::vector<Entrada*> entradas;
+	std::vector<Salida*> salidas;
+
+	int contadorCompuertas;
+	int contadorEntradasCompuertas;
+	int contadorSalidasCompuertas;
 
 };
 

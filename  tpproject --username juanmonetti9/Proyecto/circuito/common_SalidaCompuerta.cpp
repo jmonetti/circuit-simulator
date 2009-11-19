@@ -1,35 +1,73 @@
 
 #include "common_SalidaCompuerta.h"
 
-SalidaCompuerta::SalidaCompuerta() {
+SalidaCompuerta::SalidaCompuerta(int id) {
 
-	// TODO Auto-generated constructor stub
-
-}
-
-SalidaCompuerta::~SalidaCompuerta() {
-
-	// TODO Auto-generated destructor stub
+	validoValor= false;
+	validoTiempo= false;
+	this->id= id;
 
 }
 
-int SalidaCompuerta::getTiempoTransicion() {
+int SalidaCompuerta::calcularTiempoTransicion() {
 
-	return 0;
+	if (!validoTiempo) {
 
-}
+		compuerta->calcularTiempoTransicion();
 
-void SalidaCompuerta::eliminar() {
+	}
 
+	validoTiempo= true;
+	return tiempoTransicion;
 
 }
 
 bool SalidaCompuerta::simular() {
 
-	return true;
+	if (!validoValor) {
+
+		compuerta->simular();
+
+	}
+
+	validoValor= true;
+	return valor;
+
+}
+
+void SalidaCompuerta::reset() {
+
+	validoValor= false;
+	validoTiempo= false;
 
 }
 
 void SalidaCompuerta::setValorSalida(bool valor) {
+
+	this->valor = valor;
+
+}
+
+void SalidaCompuerta::setTiempoTransicion(int tiempo) {
+
+	this->tiempoTransicion= tiempo;
+
+}
+
+void SalidaCompuerta::setCompuerta(Compuerta* compuerta) {
+
+	this->compuerta= compuerta;
+
+}
+
+void SalidaCompuerta::setSalida(EntradaCompuerta* salida) {
+
+	this->salida= salida;
+
+}
+
+int SalidaCompuerta::getId() {
+
+	return id;
 
 }

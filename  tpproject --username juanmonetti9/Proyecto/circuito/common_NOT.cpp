@@ -1,26 +1,32 @@
 #include "common_NOT.h"
 
-NOT::NOT() {
-	// TODO Auto-generated constructor stub
+NOT::NOT(int id,int tiempoTransicion,EntradaCompuerta* entrada,SalidaCompuerta* salida)
+: Compuerta(id) {
+
+	this->entrada= entrada;
+	this->salida= salida;
+	this->tiempoTransicion= tiempoTransicion;
 
 }
 
 NOT::~NOT() {
-	// TODO Auto-generated destructor stub
-}
 
-int NOT::getTiempoTransicion() {
-
-	return 0;
+	delete entrada;
+	delete salida;
 
 }
 
-void NOT::eliminar() {
+void NOT::calcularTiempoTransicion() {
+
+	int tiempo= this->entrada->calcularTiempoTransicion() + this->tiempoTransicion;
+	this->salida->setTiempoTransicion(tiempo);
 
 }
 
-bool NOT::simular() {
+void NOT::simular() {
 
-	return true;
+	bool valor= this->entrada->simular();
+
+	this->salida->setValorSalida(!valor);
 
 }
