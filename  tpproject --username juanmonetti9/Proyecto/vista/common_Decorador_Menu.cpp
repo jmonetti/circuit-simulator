@@ -87,8 +87,8 @@ void Decorador_Menu::cargar_Opcion_Ventana(){
 	items_ventana[0] = gtk_menu_item_new_with_label("Cerrar Actual");
 	gtk_menu_append(GTK_MENU (menu[1]), items_ventana[0]);
 	gtk_widget_show(items_ventana[0]);
-	gtk_signal_connect_object(GTK_OBJECT(items_ventana[0]), "activate",
-				GTK_SIGNAL_FUNC(Controlador_Archivo::callback_cerrar_ventana_circuit), NULL);
+	//gtk_signal_connect_object(GTK_OBJECT(items_ventana[0]), "activate",
+	//			GTK_SIGNAL_FUNC(Controlador_Archivo::callback_cerrar_ventana_circuit), NULL);
 
 	//lo cargo
     gtk_menu_item_set_submenu(GTK_MENU_ITEM (root_menu[1]), menu[1]);

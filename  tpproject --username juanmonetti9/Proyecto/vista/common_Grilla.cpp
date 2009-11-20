@@ -11,10 +11,6 @@ Grilla::Grilla() {
 	tab_noteb2= gtk_label_new ("Tabla logica");
 	box_noteb1= gtk_hbox_new(false,0);
 	box_noteb2= gtk_hbox_new(false,0);
-	gtk_widget_show(tab_noteb1);
-	gtk_widget_show(tab_noteb2);
-	gtk_widget_show(box_noteb1);
-	gtk_widget_show(box_noteb2);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook),box_noteb1,tab_noteb1);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), box_noteb2,tab_noteb2);
 
@@ -23,6 +19,10 @@ Grilla::Grilla() {
 
 void Grilla::show() {
 
+	gtk_widget_show(tab_noteb1);
+	gtk_widget_show(tab_noteb2);
+	gtk_widget_show(box_noteb1);
+	gtk_widget_show(box_noteb2);
 	gtk_widget_show(notebook);
 
 
