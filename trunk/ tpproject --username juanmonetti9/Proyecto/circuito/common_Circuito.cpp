@@ -2,7 +2,6 @@
 /**************************      Grupo 8     **************************************/
 
 #include "common_Circuito.h"
-#include <iostream>
 
 Circuito::Circuito() {
 
@@ -22,33 +21,41 @@ Circuito::~Circuito() {
 
 }
 
-void Circuito::simular(bool* entradas) {
+bool* Circuito::simular(bool* entradas) {
 
 	this->setearEntradas(entradas);
 
 	this->reset();
 
+	bool* retorno= new bool[salidas.size()];
+
 	for (unsigned int var = 0; var < salidas.size(); ++var) {
 
 		salidas[var]->simular();
 
-		std::cout<<"Salida: "<<salidas[var]->getValor()<<std::endl;
+		retorno[var]= salidas[var]->getValor();
 
 	}
 
+	return retorno;
+
 }
 
-void Circuito::calcularTiempoTransicion() {
+int* Circuito::calcularTiempoTransicion() {
 
 	this->reset();
+
+	int* retorno= new int[salidas.size()];
 
 	for (unsigned int var = 0; var < salidas.size(); ++var) {
 
 		salidas[var]->calcularTiempoTransicion();
 
-		std::cout<<"Salida: "<<salidas[var]->getTiempoTransicion()<<std::endl;
+		retorno[var]= salidas[var]->getTiempoTransicion();
 
 	}
+
+	return retorno;
 
 }
 
@@ -94,6 +101,18 @@ void Circuito::agregarSalidaCompuerta(SalidaCompuerta* salida) {
 
 }
 
+unsigned int Circuito::getCantidadEntradas() const{
+
+	return entradas.size();
+
+}
+
+unsigned int Circuito::getCantidadSalidas() const{
+
+	return salidas.size();
+
+}
+
 int Circuito::getContadorCompuertas() {
 
 	return contadorCompuertas;
@@ -127,6 +146,44 @@ void Circuito::reset() {
 
 		salidasCompuerta[i]->reset();
 
+	}
+
+}
+
+void Circuito::conectar(int idSalida,int idEntrada) {
+
+	SalidaCompuerta* salida= NULL;
+	EntradaCompuerta* entrada= NULL;
+
+	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
+
+		if (salidasCompuerta[var]->getId() == idSalida) {
+
+			salida= salidasCompuerta[var];
+			break;
+
+		}
+
+	}
+
+	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
+
+		if (entradasCompuerta[var] -> getId() == idEntrada) {
+
+			entrada= entradasCompuerta[var];
+			break;
+
+		}
+
+	}
+
+	if (entrada && salida) {
+
+		salida->setSalida(entrada);
+		entrada->setEntrada(salida);
+
+	}else{
+		//TODO
 	}
 
 }
