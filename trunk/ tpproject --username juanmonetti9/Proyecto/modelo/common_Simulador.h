@@ -2,7 +2,7 @@
 #ifndef COMMON_SIMULADOR_H_
 #define COMMON_SIMULADOR_H_
 
-#include "common_Circuito.h"
+#include "../circuito/common_Circuito.h"
 #include "common_Resultado.h"
 #include <vector>
 
