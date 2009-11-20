@@ -17,9 +17,9 @@ public:
 
 	virtual ~Circuito();
 
-	void simular(bool* entradas);
+	bool* simular(bool* entradas);
 
-	void calcularTiempoTransicion();
+	int* calcularTiempoTransicion();
 
 	void agregarCompuerta(Compuerta* compuerta);
 
@@ -27,11 +27,17 @@ public:
 
 	void agregarSalidaCompuerta(SalidaCompuerta* salida);
 
+	unsigned int getCantidadEntradas() const;
+
+	unsigned int getCantidadSalidas() const;
+
 	int getContadorCompuertas();
 
 	int getContadorEntradasCompuerta();
 
 	int getContadorSalidasCompuerta();
+
+	void conectar(int idSalida,int idEntrada);
 
 private:
 

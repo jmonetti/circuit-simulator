@@ -9,18 +9,18 @@ class FactoryCompuerta {
 
 public:
 
-	enum TIPO_COMPUERTA { AND , OR , NOT , XOR , PISTA , ENTRADA , SALIDA};
-	static Compuerta* crearCompuerta(TIPO_COMPUERTA tipo, Circuito* circuito, int tiempoTransicion = 0);
+	enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA};
+	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion = 0);
 
 private:
 
-	static void crearAND(Circuito* circuito,int tiempo);
-	static void crearOR(Circuito* circuito,int tiempo);
-	static void crearNOT(Circuito* circuito,int tiempo);
-	static void crearXOR(Circuito* circuito,int tiempo);
-	static void crearPISTA(Circuito* circuito);
-	static void crearENTRADA(Circuito* circuito);
-	static void crearSALIDA(Circuito* circuito);
+	static void crearAND(Circuito &circuito,int tiempo);
+	static void crearOR(Circuito &circuito,int tiempo);
+	static void crearNOT(Circuito &circuito,int tiempo);
+	static void crearXOR(Circuito &circuito,int tiempo);
+	static void crearPISTA(Circuito &circuito);
+	static void crearENTRADA(Circuito &circuito);
+	static void crearSALIDA(Circuito &circuito);
 
 };
 
