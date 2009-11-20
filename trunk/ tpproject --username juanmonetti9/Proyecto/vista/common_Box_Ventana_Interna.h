@@ -9,17 +9,24 @@
 
 #include "gtkmm.h"
 #include "common_Grilla.h"
-#include "common_Tab_Grilla.h"
 #include <list>
 
 class Box_Ventana_Interna: public Componente_Visual{
 
 private:
+
+	std::list<Grilla*> _grillas;
 	//atributo
 	GtkWidget* _box_ventana;
 	GtkWidget* noteb;
+
 	Grilla grilla;
-	Tab_Grilla tab_grilla;
+	//todo
+	Grilla grilla1;
+	Grilla grilla2;
+	//fin todo
+
+
 
 
 public:
@@ -27,6 +34,8 @@ public:
 	Box_Ventana_Interna();
 
 	void agregar_AreaDisenio();
+
+
 
 	/**
 	 * Muestra el componente Visual
@@ -38,6 +47,10 @@ public:
 	 * @param: factor de amplificacion de la escala
 	 */
 	virtual void escalar(int _fa);
+
+	void eliminar_pestania_actual();
+
+	void agregar_pestania();
 
 	/**
 	 * Retorna el widget

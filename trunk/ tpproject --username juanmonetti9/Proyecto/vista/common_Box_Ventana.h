@@ -10,6 +10,7 @@
 #include "common_Componente_Visual.h"
 #include "common_Box_Ventana_Interna.h"
 #include "common_Decorador_Ventana.h"
+#include "botones/common_Boton_CloseWin.h"
 
 
 #include "gtkmm.h"
@@ -22,6 +23,10 @@ private:
 	Vista_Panel _panel;
 	Box_Ventana_Interna _box_ventana_int;
 	Decorador_Scroll _decorador_scroll;
+	GtkWidget* box_boton;
+	Boton_CloseWin _boton_close_pestania;
+
+
 
 
 
