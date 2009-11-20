@@ -6,6 +6,45 @@
 #include <iostream>
 #include "pruebas.h"
 
+void imprimir(Circuito &circuito) {
+
+	std::vector<Resultado*>* resultados= Simulador::simular(circuito);
+
+		Resultado* resultado;
+
+		for (unsigned int var = 0; var < resultados->size(); ++var) {
+
+			resultado= resultados->at(var);
+
+			std::cout<<"Entrada: ";
+
+			for (unsigned int j = 0; j < circuito.getCantidadEntradas(); ++j) {
+
+				std::cout<<resultado->getEntradas()[j];
+
+			}
+
+			std::cout<<std::endl;
+
+			std::cout<<"Salida: ";
+
+			for (unsigned int j = 0; j < circuito.getCantidadSalidas(); ++j) {
+
+				std::cout<<resultado->getSalidas()[j];
+
+			}
+
+			std::cout<<std::endl;
+
+			delete resultado;
+
+		}
+
+		delete resultados;
+
+
+}
+
 
 void pruebaCircuitosSeparados() {
 
@@ -58,40 +97,7 @@ void pruebaCircuitosSeparados() {
 	}
 
 
-
-	std::vector<Resultado*>* resultados= Simulador::simular(circuito);
-
-	Resultado* resultado;
-
-	for (unsigned int var = 0; var < resultados->size(); ++var) {
-
-		resultado= resultados->at(var);
-
-		std::cout<<"Entrada: ";
-
-		for (unsigned int j = 0; j < circuito.getCantidadEntradas(); ++j) {
-
-			std::cout<<resultado->getEntradas()[j];
-
-		}
-
-		std::cout<<std::endl;
-
-		std::cout<<"Salida: ";
-
-		for (unsigned int j = 0; j < circuito.getCantidadSalidas(); ++j) {
-
-			std::cout<<resultado->getSalidas()[j];
-
-		}
-
-		std::cout<<std::endl;
-
-		delete resultado;
-
-	}
-
-	delete resultados;
+	imprimir(circuito);
 
 }
 
@@ -117,38 +123,45 @@ void pruebaSumaDeUnBit() {
 	circuito.conectar(1,4);
 	circuito.conectar(3,5);
 
-	std::vector<Resultado*>* resultados= Simulador::simular(circuito);
+	imprimir(circuito);
 
-	Resultado* resultado;
+}
 
-	for (unsigned int var = 0; var < resultados->size(); ++var) {
+void pruebaSumaTresEntradas() {
 
-		resultado= resultados->at(var);
+	Circuito circuito;
 
-		std::cout<<"Entrada: ";
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_ENTRADA,circuito);
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_ENTRADA,circuito);
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_ENTRADA,circuito);
 
-		for (unsigned int j = 0; j < circuito.getCantidadEntradas(); ++j) {
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_XOR,circuito,10);
 
-			std::cout<<resultado->getEntradas()[j];
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_AND,circuito,10);
 
-		}
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_XOR,circuito,10);
 
-		std::cout<<std::endl;
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_AND,circuito,10);
 
-		std::cout<<"Salida: ";
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_OR,circuito,10);
 
-		for (unsigned int j = 0; j < circuito.getCantidadSalidas(); ++j) {
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_SALIDA,circuito);
 
-			std::cout<<resultado->getSalidas()[j];
+	FactoryCompuerta::crearCompuerta(FactoryCompuerta::T_SALIDA,circuito);
 
-		}
+	circuito.conectar(0,0);
+	circuito.conectar(1,1);
+	circuito.conectar(0,2);
+	circuito.conectar(1,3);
+	circuito.conectar(3,4);
+	circuito.conectar(3,7);
+	circuito.conectar(2,5);
+	circuito.conectar(2,6);
+	circuito.conectar(5,11);
+	circuito.conectar(4,9);
+	circuito.conectar(6,8);
+	circuito.conectar(7,10);
 
-		std::cout<<std::endl;
-
-		delete resultado;
-
-	}
-
-	delete resultados;
+	imprimir(circuito);
 
 }

@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 
 	pruebaCircuitosSeparados();
 
-	std::cout << "Presione Enter para continuar con la proxima prueba... " << std::endl;
+	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
 
 	std::cin.get();
 
@@ -21,7 +21,18 @@ int main(int argc, char **argv) {
 
 	pruebaSumaDeUnBit();
 
-	std::cout << "Presione Enter para finalizar... " << std::endl;
+	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << std::endl << std::endl;
+
+	std::cout << "Prueba De Suma Con Tres Entradas: " << std::endl << std::endl;
+
+	pruebaSumaTresEntradas();
+
+
+	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 
 	std::cin.get();
 
