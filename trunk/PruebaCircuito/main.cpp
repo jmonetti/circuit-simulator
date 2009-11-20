@@ -3,8 +3,6 @@
 
 int main(int argc, char **argv) {
 
-	char seguir;
-
 	std::cout << "Presione Enter para comenzar las pruebas... " << std::endl;
 
 	std::cin.get();
