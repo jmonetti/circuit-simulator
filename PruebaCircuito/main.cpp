@@ -31,6 +31,26 @@ int main(int argc, char **argv) {
 
 	pruebaSumaTresEntradas();
 
+	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << std::endl << std::endl;
+
+	std::cout << "Prueba De Alarmas: " << std::endl << std::endl;
+
+	pruebaAlarmas();
+
+	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << std::endl << std::endl;
+
+	std::cout << "Prueba De Tablero: " << std::endl << std::endl;
+
+	pruebaTablero();
+
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 
