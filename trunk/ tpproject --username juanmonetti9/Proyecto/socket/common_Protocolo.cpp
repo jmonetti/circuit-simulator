@@ -4,9 +4,17 @@
 #include "common_Protocolo.h"
 #include <iostream>
 using namespace std;
+
 Protocolo::Protocolo(Socket *socket) {
 
+	this->socket->close();
 	this->socket= socket;
+
+}
+
+Protocolo::~Protocolo() {
+
+	delete socket;
 
 }
 
@@ -67,5 +75,11 @@ void Protocolo::enviarMensaje(const std::string &mensaje) {
 		throw std::runtime_error("Error al intentar enviar mensaje");
 	}
 
+
+}
+
+void Protocolo::shutdown() {
+
+	socket->shutdown();
 
 }
