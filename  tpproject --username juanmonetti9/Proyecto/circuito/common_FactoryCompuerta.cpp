@@ -1,15 +1,15 @@
 
 #include "common_FactoryCompuerta.h"
-#include "common_EntradaCompuerta.h"
-#include "common_SalidaCompuerta.h"
-#include "common_Entrada.h"
-#include "common_Salida.h"
-#include "common_AND.h"
-#include "common_NOT.h"
-#include "common_OR.h"
-#include "common_XOR.h"
-#include "common_Compuerta.h"
-#include "common_Pista.h"
+#include "compuertas/common_EntradaCompuerta.h"
+#include "compuertas/common_SalidaCompuerta.h"
+#include "compuertas/common_Entrada.h"
+#include "compuertas/common_Salida.h"
+#include "compuertas/common_AND.h"
+#include "compuertas/common_NOT.h"
+#include "compuertas/common_OR.h"
+#include "compuertas/common_XOR.h"
+#include "compuertas/common_Compuerta.h"
+#include "compuertas/common_Pista.h"
 
 void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion) {
 
