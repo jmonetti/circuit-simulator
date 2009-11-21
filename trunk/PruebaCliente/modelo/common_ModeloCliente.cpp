@@ -39,7 +39,7 @@ int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiemp
 }
 
 
-std::vector<Resultado*>* ModeloCliente::simular(int idCircuito) {
+std::vector<ResultadoSimulacion*>* ModeloCliente::simular(int idCircuito) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
@@ -47,11 +47,11 @@ std::vector<Resultado*>* ModeloCliente::simular(int idCircuito) {
 
 }
 
-int* ModeloCliente::calcularTiempoTransicion(int idCircuito) {
+ResultadoTiempo* ModeloCliente::calcularTiempoTransicion(int idCircuito) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	return circuito->calcularTiempoTransicion();
+	return new ResultadoTiempo(circuito->calcularTiempoTransicion(),circuito->getCantidadSalidas());
 
 }
 

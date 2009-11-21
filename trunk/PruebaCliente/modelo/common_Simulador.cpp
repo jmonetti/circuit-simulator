@@ -2,9 +2,9 @@
 #include "common_Simulador.h"
 #include <math.h>
 
-std::vector<Resultado*>* Simulador::simular(Circuito &circuito) {
+std::vector<ResultadoSimulacion*>* Simulador::simular(Circuito &circuito) {
 
-	std::vector<Resultado*>* retorno= new std::vector<Resultado*>();
+	std::vector<ResultadoSimulacion*>* retorno= new std::vector<ResultadoSimulacion*>();
 
 	unsigned int cantidadEntradas= circuito.getCantidadEntradas();
 	unsigned int cantidadSalidas= circuito.getCantidadSalidas();
@@ -24,7 +24,7 @@ std::vector<Resultado*>* Simulador::simular(Circuito &circuito) {
 
 		salidas= circuito.simular(entradas);
 
-		Resultado* resultado = new Resultado(entradas,salidas,cantidadEntradas,cantidadSalidas);
+		ResultadoSimulacion* resultado = new ResultadoSimulacion(entradas,salidas,cantidadEntradas,cantidadSalidas);
 		retorno->push_back(resultado);
 
 		if (i < potencia - 1) {

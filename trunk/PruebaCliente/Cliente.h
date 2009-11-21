@@ -4,7 +4,9 @@
 
 #include "modelo/common_ModeloCliente.h"
 #include <vector>
-#include "modelo/common_Resultado.h"
+#include "modelo/common_ResultadoSimulacion.h"
+#include "modelo/common_ResultadoTiempo.h"
+
 
 class Cliente {
 
@@ -16,17 +18,17 @@ public:
 
 	void crearCircuitos();
 
-	std::vector<Resultado*>* simularCircuitosSeparados();
-	std::vector<Resultado*>* simularSumaDeUnBit();
-	std::vector<Resultado*>* simularSumaTresEntradas();
-	std::vector<Resultado*>* simularAlarmas();
-	std::vector<Resultado*>* simularTablero();
+	std::vector<ResultadoSimulacion*>* simularCircuitosSeparados();
+	std::vector<ResultadoSimulacion*>* simularSumaDeUnBit();
+	std::vector<ResultadoSimulacion*>* simularSumaTresEntradas();
+	std::vector<ResultadoSimulacion*>* simularAlarmas();
+	std::vector<ResultadoSimulacion*>* simularTablero();
 
-	int* calcularTiempoCircuitosSeparados();
-	int* calcularTiempoSumaDeUnBit();
-	int* calcularTiempoSumaTresEntradas();
-	int* calcularTiempoAlarmas();
-	int* calcularTablero();
+	ResultadoTiempo* calcularTiempoCircuitosSeparados();
+	ResultadoTiempo* calcularTiempoSumaDeUnBit();
+	ResultadoTiempo* calcularTiempoSumaTresEntradas();
+	ResultadoTiempo* calcularTiempoAlarmas();
+	ResultadoTiempo* calcularTiempoTablero();
 
 private:
 

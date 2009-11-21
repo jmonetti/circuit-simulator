@@ -3,14 +3,14 @@
 #define COMMON_SIMULADOR_H_
 
 #include "../circuito/common_Circuito.h"
-#include "common_Resultado.h"
+#include "common_ResultadoSimulacion.h"
 #include <vector>
 
 class Simulador {
 
 public:
 
-	std::vector<Resultado*>* simular(Circuito &circuito);
+	std::vector<ResultadoSimulacion*>* simular(Circuito &circuito);
 
 private:
 
