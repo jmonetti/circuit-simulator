@@ -13,9 +13,13 @@ public:
 
 	Protocolo(Socket* socket);
 
+	virtual ~Protocolo();
+
 	void recibirMensaje(std::string &mensaje);
 
 	void enviarMensaje(const std::string &mensaje);
+
+	void shutdown();
 
 private:
 
