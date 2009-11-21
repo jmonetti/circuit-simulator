@@ -40,7 +40,7 @@ public:
 
 	void enviar(const std::string &nombreCircuito,const Servidor &servidor);
 
-	CajaNegra* recibir(const std::string &nombreCircuito,const Servidor &servidor);
+	int recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor);
 
 
 private:
