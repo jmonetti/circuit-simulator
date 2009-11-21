@@ -1,10 +1,13 @@
 
 #include "common_Resultado.h"
 
-Resultado::Resultado(bool* entradas, bool* salidas) {
+Resultado::Resultado(bool* entradas, bool* salidas,unsigned int cantEntradas,unsigned int cantSalidas) {
 
 	this->entradas= entradas;
 	this->salidas= salidas;
+
+	this->cantEntradas= cantEntradas;
+	this->cantSalidas= cantSalidas;
 
 }
 
@@ -24,5 +27,17 @@ bool* Resultado::getEntradas() {
 bool* Resultado::getSalidas() {
 
 	return salidas;
+
+}
+
+unsigned int Resultado::getCantidadEntradas() const{
+
+	return cantEntradas;
+
+}
+
+unsigned int Resultado::getCantidadSalidas() const {
+
+	return cantSalidas;
 
 }

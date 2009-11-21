@@ -10,11 +10,11 @@ class Simulador {
 
 public:
 
-	static std::vector<Resultado*>* simular(Circuito &circuito);
+	std::vector<Resultado*>* simular(Circuito &circuito);
 
 private:
 
-	static bool* generarEntradas(int i, unsigned int cantidadEntradas,const bool* entradasAnt);
+	bool* generarEntradas(int i, unsigned int cantidadEntradas,const bool* entradasAnt);
 };
 
 #endif /* COMMON_SIMULADOR_H_ */

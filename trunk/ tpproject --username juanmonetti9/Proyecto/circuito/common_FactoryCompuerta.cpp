@@ -11,6 +11,7 @@
 #include "compuertas/common_Compuerta.h"
 #include "compuertas/common_Pista.h"
 
+
 void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion) {
 
 	switch (tipo) {

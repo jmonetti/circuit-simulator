@@ -9,7 +9,7 @@ Persistencia::~Persistencia() {
 	// TODO Auto-generated destructor stub
 }
 
-void Persistencia::guardar(Circuito* circuito) {
+void Persistencia::guardar(const Circuito &circuito) {
 
 
 }

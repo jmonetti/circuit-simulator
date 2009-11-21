@@ -4,12 +4,12 @@
 
 #include "compuertas/common_Compuerta.h"
 #include "common_Circuito.h"
+#include "../common/constantes.h"
 
 class FactoryCompuerta {
 
 public:
 
-	enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA};
 	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion = 0);
 
 private:

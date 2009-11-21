@@ -6,7 +6,7 @@ class Resultado {
 
 public:
 
-	Resultado(bool* entradas,bool* salidas);
+	Resultado(bool* entradas,bool* salidas, unsigned int cantEntradas,unsigned int cantSalidas);
 
 	virtual ~Resultado();
 
@@ -15,10 +15,17 @@ public:
 
 	bool* getSalidas();
 
+	unsigned int getCantidadEntradas() const;
+
+	unsigned int getCantidadSalidas() const;
+
 private:
 
 	bool* entradas;
 	bool* salidas;
+
+	unsigned int cantEntradas;
+	unsigned int cantSalidas;
 
 };
 

@@ -3,11 +3,12 @@
 
 #include "common_Circuito.h"
 
-Circuito::Circuito() {
+Circuito::Circuito(int id) {
 
 	this->contadorCompuertas= 0;
 	this->contadorEntradasCompuertas= 0;
 	this->contadorSalidasCompuertas= 0;
+	this->id= id;
 
 }
 
@@ -142,25 +143,6 @@ int Circuito::getContadorEntradasCompuerta() {
 	return contadorEntradasCompuertas;
 
 }
-void Circuito::setearEntradas(bool* entradas) {
-
-	for (unsigned int i = 0; i < this->entradas.size(); ++i) {
-
-		this->entradas[i]->setValorEntrada(entradas[i]);
-
-	}
-
-}
-
-void Circuito::reset() {
-
-	for (unsigned int i = 0; i < salidasCompuerta.size(); ++i) {
-
-		salidasCompuerta[i]->reset();
-
-	}
-
-}
 
 void Circuito::conectar(int idSalida,int idEntrada) {
 
@@ -196,6 +178,32 @@ void Circuito::conectar(int idSalida,int idEntrada) {
 
 	}else{
 		//TODO
+	}
+
+}
+
+int Circuito::getId() {
+
+	return id;
+
+}
+
+void Circuito::setearEntradas(bool* entradas) {
+
+	for (unsigned int i = 0; i < this->entradas.size(); ++i) {
+
+		this->entradas[i]->setValorEntrada(entradas[i]);
+
+	}
+
+}
+
+void Circuito::reset() {
+
+	for (unsigned int i = 0; i < salidasCompuerta.size(); ++i) {
+
+		salidasCompuerta[i]->reset();
+
 	}
 
 }
