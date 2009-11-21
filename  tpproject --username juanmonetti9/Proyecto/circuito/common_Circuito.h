@@ -13,7 +13,7 @@ class Circuito {
 
 public:
 
-	Circuito();
+	Circuito(int id);
 
 	virtual ~Circuito();
 
@@ -39,6 +39,8 @@ public:
 
 	void conectar(int idSalida,int idEntrada);
 
+	int getId();
+
 private:
 
 	void setearEntradas(bool* entradas);
@@ -50,6 +52,7 @@ private:
 	std::vector<Entrada*> entradas;
 	std::vector<Salida*> salidas;
 
+	int id;
 	int contadorCompuertas;
 	int contadorEntradasCompuertas;
 	int contadorSalidasCompuertas;

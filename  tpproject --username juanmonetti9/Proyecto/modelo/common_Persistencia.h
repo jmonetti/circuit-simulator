@@ -13,7 +13,7 @@ public:
 
 	virtual ~Persistencia();
 
-	void guardar(Circuito *circuito);
+	void guardar(const Circuito &circuito);
 
 	Circuito* recuperar(const std::string &nombreCircuito);
 

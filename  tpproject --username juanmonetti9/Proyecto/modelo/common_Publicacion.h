@@ -5,21 +5,17 @@
 #include "common_Servidor.h"
 #include <vector>
 #include "common_Resultado.h"
-#include "../circuito/common_Circuito.h"
+#include "../circuito/compuertas/common_CajaNegra.h"
 
 class Publicacion {
 
 public:
 
-	Publicacion();
+	void enviar(const std::string &nombreCircuito, const Servidor &servidor);
 
-	virtual ~Publicacion();
+	std::vector<Resultado*>* simular(const std::string &nombreCircuito,const Servidor &servidor);
 
-	void enviar(const std::string &nombreCircuito, Servidor servidor);
-
-	std::vector<Resultado*>* simular(const std::string &nombreCircuito, Servidor servidor);
-
-	Circuito* recibir(const std::string &nombreCircuito,Servidor servidor);
+	CajaNegra* recibir(const std::string &nombreCircuito,const Servidor &servidor);
 
 
 };

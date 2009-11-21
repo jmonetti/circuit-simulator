@@ -7,6 +7,7 @@ std::vector<Resultado*>* Simulador::simular(Circuito &circuito) {
 	std::vector<Resultado*>* retorno= new std::vector<Resultado*>();
 
 	unsigned int cantidadEntradas= circuito.getCantidadEntradas();
+	unsigned int cantidadSalidas= circuito.getCantidadSalidas();
 
 	bool* salidas;
 	bool* entradas= new bool[cantidadEntradas];
@@ -23,7 +24,7 @@ std::vector<Resultado*>* Simulador::simular(Circuito &circuito) {
 
 		salidas= circuito.simular(entradas);
 
-		Resultado* resultado = new Resultado(entradas,salidas);
+		Resultado* resultado = new Resultado(entradas,salidas,cantidadEntradas,cantidadSalidas);
 		retorno->push_back(resultado);
 
 		if (i < potencia - 1) {
