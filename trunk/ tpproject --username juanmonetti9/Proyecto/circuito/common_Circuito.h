@@ -4,9 +4,9 @@
 #ifndef COMMON_CIRCUITO_H_
 #define COMMON_CIRCUITO_H_
 
-#include "common_Compuerta.h"
-#include "common_Entrada.h"
-#include "common_Salida.h"
+#include "compuertas/common_Compuerta.h"
+#include "compuertas/common_Entrada.h"
+#include "compuertas/common_Salida.h"
 #include <vector>
 
 class Circuito {

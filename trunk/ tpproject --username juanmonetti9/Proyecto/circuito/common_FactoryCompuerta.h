@@ -2,7 +2,7 @@
 #ifndef COMMON_FACTORYCOMPUERTA_H_
 #define COMMON_FACTORYCOMPUERTA_H_
 
-#include "common_Compuerta.h"
+#include "compuertas/common_Compuerta.h"
 #include "common_Circuito.h"
 
 class FactoryCompuerta {
