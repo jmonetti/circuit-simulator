@@ -2,11 +2,12 @@
 #include <iostream>
 #include "Cliente.h"
 #include <vector>
-#include "modelo/common_Resultado.h"
+#include "modelo/common_ResultadoSimulacion.h"
+#include "modelo/common_ResultadoTiempo.h"
 
-void imprimir(std::vector<Resultado*>* resultados) {
+void imprimirSimulacion(std::vector<ResultadoSimulacion*>* resultados) {
 
-	Resultado* resultado;
+	ResultadoSimulacion* resultado;
 
 	for (unsigned int var = 0; var < resultados->size(); ++var) {
 
@@ -40,6 +41,20 @@ void imprimir(std::vector<Resultado*>* resultados) {
 
 }
 
+void imprimirTiempo(ResultadoTiempo* resultado) {
+
+	int* tiempos= resultado->getTiempos();
+
+	for (unsigned int var = 0; var < resultado->getCantidad(); ++var) {
+
+		std::cout << "Tiempo: "  << tiempos[var] << std::endl;
+
+	}
+
+	delete resultado;
+
+}
+
 int main(int argc, char **argv) {
 
 	Cliente cliente;
@@ -52,7 +67,11 @@ int main(int argc, char **argv) {
 
 	std::cout << "Prueba De Circuitos Separados: " << std::endl << std::endl;
 
-	imprimir(cliente.simularCircuitosSeparados());
+	imprimirSimulacion(cliente.simularCircuitosSeparados());
+
+	std::cout << std::endl;
+
+	imprimirTiempo(cliente.calcularTiempoCircuitosSeparados());
 
 
 
@@ -64,9 +83,11 @@ int main(int argc, char **argv) {
 
 	std::cout << "Prueba De Suma De Un Bit: " << std::endl << std::endl;
 
-	imprimir(cliente.simularSumaDeUnBit());
+	imprimirSimulacion(cliente.simularSumaDeUnBit());
 
+	std::cout << std::endl;
 
+	imprimirTiempo(cliente.calcularTiempoSumaDeUnBit());
 
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
 
@@ -76,7 +97,11 @@ int main(int argc, char **argv) {
 
 	std::cout << "Prueba De Suma Con Tres Entradas: " << std::endl << std::endl;
 
-	imprimir(cliente.simularSumaTresEntradas());
+	imprimirSimulacion(cliente.simularSumaTresEntradas());
+
+	std::cout << std::endl;
+
+	imprimirTiempo(cliente.calcularTiempoSumaTresEntradas());
 
 
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
@@ -87,7 +112,11 @@ int main(int argc, char **argv) {
 
 	std::cout << "Prueba De Alarmas: " << std::endl << std::endl;
 
-	imprimir(cliente.simularAlarmas());
+	imprimirSimulacion(cliente.simularAlarmas());
+
+	std::cout << std::endl;
+
+	imprimirTiempo(cliente.calcularTiempoAlarmas());
 
 
 
@@ -99,7 +128,11 @@ int main(int argc, char **argv) {
 
 	std::cout << "Prueba De Tablero: " << std::endl << std::endl;
 
-	imprimir(cliente.simularTablero());
+	imprimirSimulacion(cliente.simularTablero());
+
+	std::cout << std::endl;
+
+	imprimirTiempo(cliente.calcularTiempoTablero());
 
 
 

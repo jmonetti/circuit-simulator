@@ -7,7 +7,7 @@ void Publicacion::enviar(const std::string &nombreCircuito,const Servidor &servi
 
 }
 
-std::vector<Resultado*>* Publicacion::simular(const std::string &nombreCircuito,const Servidor &servidor) {
+std::vector<ResultadoSimulacion*>* Publicacion::simular(const std::string &nombreCircuito,const Servidor &servidor) {
 
 	return NULL;
 

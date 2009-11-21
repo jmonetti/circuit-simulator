@@ -310,32 +310,62 @@ int Cliente::crearTablero() {
 
 }
 
-std::vector<Resultado*>* Cliente::simularCircuitosSeparados() {
+std::vector<ResultadoSimulacion*>* Cliente::simularCircuitosSeparados() {
 
 	return modelo.simular(idCircuitos[0]);
 
 }
 
-std::vector<Resultado*>* Cliente::simularSumaDeUnBit() {
+std::vector<ResultadoSimulacion*>* Cliente::simularSumaDeUnBit() {
 
 	return modelo.simular(idCircuitos[1]);
 
 }
 
-std::vector<Resultado*>* Cliente::simularSumaTresEntradas() {
+std::vector<ResultadoSimulacion*>* Cliente::simularSumaTresEntradas() {
 
 	return modelo.simular(idCircuitos[2]);
 
 }
 
-std::vector<Resultado*>* Cliente::simularAlarmas() {
+std::vector<ResultadoSimulacion*>* Cliente::simularAlarmas() {
 
 	return modelo.simular(idCircuitos[3]);
 
 }
 
-std::vector<Resultado*>* Cliente::simularTablero() {
+std::vector<ResultadoSimulacion*>* Cliente::simularTablero() {
 
 	return modelo.simular(idCircuitos[4]);
+
+}
+
+ResultadoTiempo* Cliente::calcularTiempoCircuitosSeparados() {
+
+	return modelo.calcularTiempoTransicion(idCircuitos[0]);
+
+}
+
+ResultadoTiempo* Cliente::calcularTiempoSumaDeUnBit() {
+
+	return modelo.calcularTiempoTransicion(idCircuitos[1]);
+
+}
+
+ResultadoTiempo* Cliente::calcularTiempoSumaTresEntradas() {
+
+	return modelo.calcularTiempoTransicion(idCircuitos[2]);
+
+}
+
+ResultadoTiempo* Cliente::calcularTiempoAlarmas() {
+
+	return modelo.calcularTiempoTransicion(idCircuitos[3]);
+
+}
+
+ResultadoTiempo* Cliente::calcularTiempoTablero() {
+
+	return modelo.calcularTiempoTransicion(idCircuitos[4]);
 
 }

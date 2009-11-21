@@ -7,7 +7,8 @@
 
 #include "../circuito/common_Circuito.h"
 #include "../circuito/compuertas/common_CajaNegra.h"
-#include "common_Resultado.h"
+#include "common_ResultadoSimulacion.h"
+#include "common_ResultadoTiempo.h"
 #include "common_Servidor.h"
 #include "common_Persistencia.h"
 #include "common_Publicacion.h"
@@ -27,9 +28,9 @@ public:
 
 	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
 
-	std::vector<Resultado*>* simular(int idCircuito);
+	std::vector<ResultadoSimulacion*>* simular(int idCircuito);
 
-	int* calcularTiempoTransicion(int idCircuito);
+	ResultadoTiempo* calcularTiempoTransicion(int idCircuito);
 
 	void conectar(int idCircuito, int idSalida,int idEntrada);
 
