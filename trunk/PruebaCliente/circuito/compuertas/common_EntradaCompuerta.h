@@ -3,7 +3,10 @@
 #define COMMON_ENTRADACOMPUERTA_H_
 
 #include "common_SalidaCompuerta.h"
-#include "common_Compuerta.h"
+
+class SalidaCompuerta;
+
+class Compuerta;
 
 class EntradaCompuerta {
 

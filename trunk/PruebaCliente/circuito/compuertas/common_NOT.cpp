@@ -16,17 +16,26 @@ NOT::~NOT() {
 
 }
 
-void NOT::calcularTiempoTransicion() {
+void NOT::actuarSimular(bool* entradas) {
 
-	int tiempo= this->entrada->calcularTiempoTransicion() + this->tiempoTransicion;
-	this->salida->setTiempoTransicion(tiempo);
+	salida->setValorSalida(!*entradas);
 
 }
 
-void NOT::simular() {
+void NOT::actuarTiempo(int tiempo) {
 
-	bool valor= this->entrada->simular();
+	salida->setTiempoTransicion(tiempo + tiempoTransicion);
 
-	this->salida->setValorSalida(!valor);
+}
+
+EntradaCompuerta** NOT::getEntradasCompuerta() {
+
+	return &entrada;
+
+}
+
+int NOT::getCantidadEntradas() {
+
+	return 1;
 
 }

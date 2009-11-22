@@ -3,7 +3,9 @@
 #define COMMON_COMPUERTA_H_
 
 #include <stdlib.h>
+#include "common_EntradaCompuerta.h"
 
+class EntradaCompuerta;
 class Entrada;
 class Salida;
 
@@ -17,11 +19,21 @@ public:
 
 	virtual Salida* getSalida();
 
-	virtual void simular() = 0;
+	virtual void simular();
 
-	virtual void calcularTiempoTransicion() = 0;
+	virtual void calcularTiempoTransicion();
 
 	int getId();
+
+protected:
+
+	virtual void actuarSimular(bool* entradas)= 0;
+
+	virtual void actuarTiempo(int tiempo) = 0;
+
+	virtual EntradaCompuerta** getEntradasCompuerta() = 0;
+
+	virtual int getCantidadEntradas() = 0;
 
 private:
 

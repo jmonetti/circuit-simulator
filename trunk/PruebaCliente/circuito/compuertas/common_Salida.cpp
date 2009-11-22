@@ -13,21 +13,9 @@ Salida::~Salida() {
 
 }
 
-void Salida::calcularTiempoTransicion() {
-
-	this->tiempoTransicion= entrada->calcularTiempoTransicion();
-
-}
-
 Salida* Salida::getSalida(){
 
 	return this;
-
-}
-
-void Salida::simular() {
-
-	this->valor= entrada->simular();
 
 }
 
@@ -40,5 +28,29 @@ bool Salida::getValor() {
 int Salida::getTiempoTransicion() {
 
 	return tiempoTransicion;
+
+}
+
+void Salida::actuarSimular(bool* entradas) {
+
+	valor= *entradas;
+
+}
+
+void Salida::actuarTiempo(int tiempo) {
+
+	tiempoTransicion= tiempo;
+
+}
+
+EntradaCompuerta** Salida::getEntradasCompuerta() {
+
+	return &entrada;
+
+}
+
+int Salida::getCantidadEntradas() {
+
+	return 1;
 
 }

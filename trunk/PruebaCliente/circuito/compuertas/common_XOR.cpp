@@ -18,28 +18,26 @@ XOR::~XOR() {
 
 }
 
-void XOR::calcularTiempoTransicion() {
+void XOR::actuarSimular(bool* entradas) {
 
-	int tiempo1= entradas[0]->calcularTiempoTransicion();
-	int tiempo2= entradas[1]->calcularTiempoTransicion();
-
-	if (tiempo1 > tiempo2) {
-
-		this->salida->setTiempoTransicion(tiempo1 + this->tiempoTransicion);
-
-	}else{
-
-		this->salida->setTiempoTransicion(tiempo2 + this->tiempoTransicion);
-
-	}
+	salida->setValorSalida(entradas[0] ^ entradas[1]);
 
 }
 
-void XOR::simular() {
+void XOR::actuarTiempo(int tiempo) {
 
-	bool valor1= entradas[0]->simular();
-	bool valor2= entradas[1]->simular();
+	salida->setTiempoTransicion(tiempo + tiempoTransicion);
 
-	this->salida->setValorSalida(valor1 ^ valor2);
+}
+
+EntradaCompuerta** XOR::getEntradasCompuerta() {
+
+	return entradas;
+
+}
+
+int XOR::getCantidadEntradas() {
+
+	return 2;
 
 }
