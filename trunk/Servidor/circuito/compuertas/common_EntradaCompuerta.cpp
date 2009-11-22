@@ -1,4 +1,5 @@
 #include "common_EntradaCompuerta.h"
+#include "../../excepciones/common_CircuitoException.h"
 
 EntradaCompuerta::EntradaCompuerta(int id) {
 
@@ -8,11 +9,25 @@ EntradaCompuerta::EntradaCompuerta(int id) {
 
 int EntradaCompuerta::calcularTiempoTransicion() {
 
+	if (!entrada) {
+
+		throw CircuitoException("Circuito Incompleto");
+
+	}
+
+
 	return entrada->calcularTiempoTransicion();
 
 }
 
 bool EntradaCompuerta::simular() {
+
+	if (!entrada) {
+
+		throw CircuitoException("Circuito Incompleto");
+
+	}
+
 
 	return entrada->simular();
 

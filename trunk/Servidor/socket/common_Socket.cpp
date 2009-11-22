@@ -3,6 +3,7 @@
 
 
 #include "common_Socket.h"
+#include "../excepciones/common_SocketException.h"
 
 /*----------------------------------------------------------------------------*/
 Socket::Socket(){
@@ -51,15 +52,15 @@ void Socket::listen(unsigned short port, int backlog) {
 				::close(fd);
 				std::string strError="Error Socket -Listen():";
 				strError += strerror(errno);
-				throw std::runtime_error(strError.c_str());
+				throw SocketException(strError);
 			}
 
 		}
 	}
-	catch(std::runtime_error &e){
+	catch(SocketException &e){
 		valido = false;
 		::close(fd);
-		throw std::runtime_error("Error Socket - listen().");
+		throw SocketException("Error Socket - listen().");
 
 	}
 
@@ -88,11 +89,11 @@ void Socket::bind(unsigned short puerto){
 
 				std::string mensaje_error = "Error Socket -bind(): ";
 				mensaje_error += strerror(errno);
-				throw std::runtime_error(mensaje_error.c_str());;
+				throw SocketException(mensaje_error.c_str());;
 			}
 		}
 		else
-			throw std::runtime_error("Error Socket -bind(): Socket invalido");
+			throw SocketException("Error Socket -bind(): Socket invalido");
 
 }
 /*----------------------------------------------------------------------------*/
@@ -110,7 +111,7 @@ void Socket::connect(const std::string& host, unsigned int port){
 		if (!(he= gethostbyname(host.c_str()))) {
 			valido =false;
 			::close(fd);
-			throw std::runtime_error ("Error Socket- connect() - gethostbyname().");
+			throw SocketException ("Error Socket- connect() - gethostbyname().");
 
 		}
 
@@ -131,12 +132,12 @@ void Socket::connect(const std::string& host, unsigned int port){
 			valido = false;
 			std::string strError = "Error Socket -connect(): ";
 			strError += strerror(errno);
-			throw std::runtime_error(strError.c_str());
+			throw SocketException(strError.c_str());
 		}
 	}
 	else{
 		valido = false;
-		throw std::runtime_error("Error Socket -connect(): Socket invalido");
+		throw SocketException("Error Socket -connect(): Socket invalido");
 	}
 
 }
@@ -158,11 +159,11 @@ Socket* Socket::accept(){
 		else{
 			std::string strError="Error Socket -accept():";
 			strError += strerror(errno);
-			throw std::runtime_error(strError.c_str());
+			throw SocketException(strError.c_str());
 		}
 	}
 	else
-		throw std::runtime_error("Error Socket -accept(): Socket Invalido");
+		throw SocketException("Error Socket -accept(): Socket Invalido");
 }
 /*----------------------------------------------------------------------------*/
 
@@ -189,19 +190,19 @@ int Socket::receive(char* stream,unsigned int size){
 		if(aux_cant == -1 ){
 			std::string strError = "Error Socket -recive() -valor de recv(-1):";
 			strError += strerror(errno);
-			throw std::runtime_error(strError.c_str());
+			throw SocketException(strError.c_str());
 		}
 
 		//si devolvio 0 lanzo excepcion
 		if(aux_cant == 0 ){
-			throw std::runtime_error("Error Socket -recive(): Fichero cerrado");
+			throw SocketException("Error Socket -recive(): Fichero cerrado");
 		}
 
 		return aux_cant;
 
 	}
 	else
-		throw std::runtime_error("Error Socket -recive(): Socket invalido");
+		throw SocketException("Error Socket -recive(): Socket invalido");
 
 
 }
@@ -219,19 +220,19 @@ int Socket::send(const char* stream,unsigned int size){
 		if(cantidad_aux == -1){
 			std::string strError = "Error en send: ";
 			strError += strerror(errno);
-			throw std::runtime_error(strError.c_str());
+			throw SocketException(strError.c_str());
 		}
 
 		//si devolvio 0 lanzo excepcion
 		if(cantidad_aux == 0 ){
-			throw std::runtime_error("Error Socket - send(): Fichero cerrado");
+			throw SocketException("Error Socket - send(): Fichero cerrado");
 
 		}
 
 		return cantidad_aux;
 	}
 	else
-		throw std::runtime_error("Error Socket -Send(): (Socket invalido) o (size<=0)");
+		throw SocketException("Error Socket -Send(): (Socket invalido) o (size<=0)");
 }
 /*----------------------------------------------------------------------------*/
 
@@ -242,12 +243,12 @@ void Socket::shutdown(){
 		int error=::shutdown(fd,SHUT_RDWR);
 		//si la variable error es -1 lanzo una excepcion
 		if(error==-1){
-			throw std::runtime_error("Error Socket -cancelar_socket() -valor recibido(-1)");
+			throw SocketException("Error Socket -cancelar_socket() -valor recibido(-1)");
 		}
 	}
 	else{
 
-		throw std::runtime_error("Error Socket -cancelar_socket(): Socket invalido");
+		throw SocketException("Error Socket -cancelar_socket(): Socket invalido");
 	}
 }
 

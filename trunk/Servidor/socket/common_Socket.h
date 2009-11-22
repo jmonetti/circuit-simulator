@@ -7,7 +7,6 @@
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <stdexcept>
 #include <errno.h>
 #include <string.h>
 #include <iostream>
