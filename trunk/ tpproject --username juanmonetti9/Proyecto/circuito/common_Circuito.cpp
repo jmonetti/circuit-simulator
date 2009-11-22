@@ -99,6 +99,34 @@ void Circuito::agregarCompuerta(Compuerta* compuerta) {
 
 }
 
+void Circuito::eliminarCompuerta(int idCompuerta) {
+
+	Compuerta* compuerta= NULL;
+
+	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+		if (compuertas[var]->getId() == idCompuerta) {
+
+			compuerta= compuertas[var];
+			//TODO
+			break;
+
+		}
+
+	}
+
+	if (compuerta) {
+
+		//TODO
+
+	}else{
+
+		throw CircuitoException("No se pudo eliminar compuerta. Compuerta invalida");
+
+	}
+
+}
+
 void Circuito::agregarEntradaCompuerta(EntradaCompuerta* entrada) {
 
 	entradasCompuerta.push_back(entrada);
