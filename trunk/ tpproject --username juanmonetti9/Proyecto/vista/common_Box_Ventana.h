@@ -22,7 +22,6 @@ private:
 	GtkWidget* _box_ventana;
 	Vista_Panel _panel;
 	Box_Ventana_Interna _box_ventana_int;
-	Decorador_Scroll _decorador_scroll;
 	GtkWidget* box_boton;
 	Boton_CloseWin _boton_close_pestania;
 
