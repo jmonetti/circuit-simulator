@@ -2,6 +2,7 @@
 /**************************      Grupo 8     **************************************/
 
 #include "common_Circuito.h"
+#include "../excepciones/common_CircuitoException.h"
 
 Circuito::Circuito(int id) {
 
@@ -177,7 +178,9 @@ void Circuito::conectar(int idSalida,int idEntrada) {
 		entrada->setEntrada(salida);
 
 	}else{
-		//TODO
+
+		throw CircuitoException("No se pudo realizar la conexion entre compuertas. Entrada/Salida invalida");
+
 	}
 
 }

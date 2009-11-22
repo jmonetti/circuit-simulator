@@ -3,6 +3,7 @@
 
 #include "common_Protocolo.h"
 #include <iostream>
+#include "../excepciones/common_SocketException.h"
 using namespace std;
 
 Protocolo::Protocolo(Socket *socket) {
@@ -45,9 +46,9 @@ void Protocolo::recibirMensaje(std::string &mensaje) {
 
 		}
 	}
-	catch(std::runtime_error &e)
+	catch(SocketException &e)
 	{
-		throw std::runtime_error("Error al intentar recibir mensaje");
+		throw SocketException("Error al intentar recibir mensaje");
 	}
 
 }
@@ -70,9 +71,9 @@ void Protocolo::enviarMensaje(const std::string &mensaje) {
 
 		}
 	}
-	catch(std::runtime_error &e)
+	catch(SocketException &e)
 	{
-		throw std::runtime_error("Error al intentar enviar mensaje");
+		throw SocketException("Error al intentar enviar mensaje");
 	}
 
 

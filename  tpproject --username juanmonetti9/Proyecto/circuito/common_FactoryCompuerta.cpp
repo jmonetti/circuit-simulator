@@ -10,6 +10,7 @@
 #include "compuertas/common_XOR.h"
 #include "compuertas/common_Compuerta.h"
 #include "compuertas/common_Pista.h"
+#include "../excepciones/common_CircuitoException.h"
 
 
 void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion) {
@@ -53,7 +54,8 @@ void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, i
 
 		default:
 
-			//TODO
+			throw CircuitoException("Tipo de compuerta invalida");
+
 			break;
 
 	}
