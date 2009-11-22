@@ -5,6 +5,7 @@
 #define CLASS_COMMON_BOX_VENTANA_INTERNA_H
 
 #include "common_Vista_Panel.h"
+#include "common_Decorador_Scroll.h"
 #include "common_Componente_Visual.h"
 
 #include "gtkmm.h"
@@ -19,8 +20,9 @@ private:
 	//atributo
 	GtkWidget* _box_ventana;
 	GtkWidget* noteb;
-
 	Grilla grilla;
+	Decorador_Scroll scroll_grilla;
+
 	//todo
 	Grilla grilla1;
 	Grilla grilla2;
