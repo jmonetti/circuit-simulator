@@ -1,5 +1,6 @@
 
 #include "common_ModeloCliente.h"
+#include <iterator>
 #include "../circuito/common_FactoryCompuerta.h"
 
 ModeloCliente::ModeloCliente() {
@@ -26,6 +27,30 @@ int ModeloCliente::crearNuevo() {
 
 }
 
+void ModeloCliente::eliminar(int idCircuito) {
+
+	std::vector<Circuito*>::iterator iterador= circuitos.begin();
+
+	while (iterador != circuitos.end()) {
+
+		Circuito* circuito= *iterador;
+
+		if (circuito->getId() == idCircuito) {
+
+			iterador= circuitos.erase(iterador);
+			delete circuito;
+			return;
+
+		}else{
+
+			++iterador;
+
+		}
+
+	}
+
+}
+
 int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
@@ -35,6 +60,14 @@ int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiemp
 	FactoryCompuerta::crearCompuerta(tipo, *circuito, tiempoTransicion);
 
 	return idCompuerta;
+
+}
+
+void ModeloCliente::eliminarCompuerta(int idCircuito,int idCompuerta) {
+
+	Circuito* circuito= obtenerCircuito(idCircuito);
+
+	circuito->eliminarCompuerta(idCompuerta);
 
 }
 

@@ -23,6 +23,8 @@ public:
 
 	void agregarCompuerta(Compuerta* compuerta);
 
+	void eliminarCompuerta(int idCompuerta);
+
 	void agregarEntradaCompuerta(EntradaCompuerta* entrada);
 
 	void agregarSalidaCompuerta(SalidaCompuerta* salida);

@@ -26,7 +26,11 @@ public:
 
 	int crearNuevo();
 
+	void eliminar(int idCircuito);
+
 	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
+
+	void eliminarCompuerta(int idCircuito,int idCompuerta);
 
 	std::vector<ResultadoSimulacion*>* simular(int idCircuito);
 
