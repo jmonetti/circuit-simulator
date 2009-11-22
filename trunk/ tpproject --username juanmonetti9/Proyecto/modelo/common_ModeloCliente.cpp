@@ -18,12 +18,11 @@ ModeloCliente::~ModeloCliente() {
 	}
 }
 
-int ModeloCliente::crearNuevo() {
+void ModeloCliente::crearNuevo() {
 
 	Circuito* circuito= new Circuito(contadorId);
 	circuitos.push_back(circuito);
 	contadorId++;
-	return contadorId - 1;
 
 }
 
@@ -51,15 +50,11 @@ void ModeloCliente::eliminar(int idCircuito) {
 
 }
 
-int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
+void ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	int idCompuerta= circuito->getContadorCompuertas();
-
 	FactoryCompuerta::crearCompuerta(tipo, *circuito, tiempoTransicion);
-
-	return idCompuerta;
 
 }
 
@@ -118,15 +113,13 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,const Servidor &ser
 
 }
 
-int ModeloCliente::recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor) {
+void ModeloCliente::recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor) {
 
 	CajaNegra* compuerta= publicacion.recibir(nombreCircuito,servidor);
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
 	circuito->agregarCompuerta(compuerta);
-
-	return circuito->getContadorCompuertas() - 1;
 
 }
 
