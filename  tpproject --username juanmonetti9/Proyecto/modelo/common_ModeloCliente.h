@@ -24,11 +24,11 @@ public:
 
 	virtual ~ModeloCliente();
 
-	int crearNuevo();
+	void crearNuevo();
 
 	void eliminar(int idCircuito);
 
-	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
+	void agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
 
 	void eliminarCompuerta(int idCircuito,int idCompuerta);
 
@@ -44,7 +44,7 @@ public:
 
 	void enviar(const std::string &nombreCircuito,const Servidor &servidor);
 
-	int recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor);
+	void recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor);
 
 
 private:
