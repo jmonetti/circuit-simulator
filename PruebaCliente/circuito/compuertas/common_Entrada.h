@@ -13,13 +13,20 @@ public:
 
 	virtual ~Entrada();
 
-	void calcularTiempoTransicion();
-
 	Entrada* getEntrada();
 
-	void simular();
-
 	void setValorEntrada(bool valor);
+
+protected:
+
+	virtual void actuarSimular(bool* entradas);
+
+	virtual void actuarTiempo(int tiempo);
+
+	virtual EntradaCompuerta** getEntradasCompuerta();
+
+	virtual int getCantidadEntradas();
+
 
 private:
 

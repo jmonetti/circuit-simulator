@@ -13,21 +13,9 @@ Entrada::~Entrada() {
 
 }
 
-void Entrada::calcularTiempoTransicion() {
-
-	this->salida->setTiempoTransicion(0);
-
-}
-
 Entrada* Entrada::getEntrada(){
 
 	return this;
-
-}
-
-void Entrada::simular() {
-
-	this->salida->setValorSalida(valor);
 
 }
 
@@ -36,3 +24,28 @@ void Entrada::setValorEntrada(bool valor) {
 	this->valor= valor;
 
 }
+
+void Entrada::actuarSimular(bool* entradas) {
+
+	salida->setValorSalida(valor);
+
+}
+
+void Entrada::actuarTiempo(int tiempo) {
+
+	salida->setTiempoTransicion(tiempo);
+
+}
+
+EntradaCompuerta** Entrada::getEntradasCompuerta() {
+
+	return NULL;
+
+}
+
+int Entrada::getCantidadEntradas() {
+
+	return 0;
+
+}
+

@@ -17,16 +17,26 @@ Pista::~Pista() {
 
 }
 
-void Pista::calcularTiempoTransicion() {
+void Pista::actuarSimular(bool* entradas) {
 
-	int tiempo= entrada->calcularTiempoTransicion();
+	salida->setValorSalida(*entradas);
+
+}
+
+void Pista::actuarTiempo(int tiempo) {
 
 	salida->setTiempoTransicion(tiempo);
 
 }
 
-void Pista::simular() {
+EntradaCompuerta** Pista::getEntradasCompuerta() {
 
-	salida->setValorSalida(entrada->simular());
+	return &entrada;
+
+}
+
+int Pista::getCantidadEntradas() {
+
+	return 1;
 
 }

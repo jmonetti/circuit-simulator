@@ -18,31 +18,26 @@ AND::~AND() {
 
 }
 
-void AND::calcularTiempoTransicion() {
+EntradaCompuerta** AND::getEntradasCompuerta() {
 
-
-	int tiempoEntrada1= entradas[0]->calcularTiempoTransicion();
-	int tiempoEntrada2= entradas[1]->calcularTiempoTransicion();
-
-	if (tiempoEntrada1 > tiempoEntrada2) {
-
-		salida->setTiempoTransicion(tiempoEntrada1 + this->tiempoTransicion);
-
-	}else{
-
-		salida->setTiempoTransicion(tiempoEntrada2 + this->tiempoTransicion);
-
-	}
-
+	return entradas;
 
 }
 
-void AND::simular() {
+int AND::getCantidadEntradas() {
 
-	bool entrada1= entradas[0]->simular();
-	bool entrada2= entradas[1]->simular();
-
-	salida->setValorSalida(entrada1 && entrada2);
+	return 2;
 
 }
 
+void AND::actuarSimular(bool* entradas) {
+
+	salida->setValorSalida(entradas[0] && entradas[1]);
+
+}
+
+void AND::actuarTiempo(int tiempo) {
+
+	salida->setTiempoTransicion(tiempo + tiempoTransicion);
+
+}

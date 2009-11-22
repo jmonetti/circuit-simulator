@@ -1,7 +1,8 @@
 #include "common_CajaNegra.h"
+#include "../../modelo/common_ResultadoSimulacion.h"
 
-CajaNegra::CajaNegra(int id,std::vector<EntradaCompuerta*> &entradas, std::vector<SalidaCompuerta*> &salidas)
-: Compuerta(id){
+CajaNegra::CajaNegra(int id,std::vector<EntradaCompuerta*> &entradas, std::vector<SalidaCompuerta*> &salidas,Servidor &servidor)
+: Compuerta(id), servidor(servidor){
 
 	this->entradas= entradas;
 	this->salidas= salidas;
@@ -29,8 +30,27 @@ void CajaNegra::calcularTiempoTransicion() {
 
 }
 
-void CajaNegra::simular() {
+void CajaNegra::actuarSimular(bool* entradas) {
 
-	//TODO
+	bool* resultado= publicacion.simular(nombre,servidor,entradas);
+
+	for (unsigned int var = 0; var < salidas.size(); ++var) {
+
+		salidas[var]->setValorSalida(resultado[var]);
+
+	}
 
 }
+
+EntradaCompuerta** CajaNegra::getEntradasCompuerta() {
+
+	return entradas._M_allocate(entradas.size());
+
+}
+
+int CajaNegra::getCantidadEntradas() {
+
+	return entradas.size();
+
+}
+

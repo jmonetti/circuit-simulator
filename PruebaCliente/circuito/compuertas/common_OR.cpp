@@ -17,29 +17,26 @@ OR::~OR() {
 
 }
 
-void OR::calcularTiempoTransicion() {
+void OR::actuarSimular(bool* entradas) {
 
-	int tiempo1= entradas[0]->calcularTiempoTransicion();
-	int tiempo2= entradas[1]->calcularTiempoTransicion();
-
-	if (tiempo1 > tiempo2) {
-
-		this->salida->setTiempoTransicion(tiempo1 + this->tiempoTransicion);
-
-	}else{
-
-		this->salida->setTiempoTransicion(tiempo2 + this->tiempoTransicion);
-
-	}
+	salida->setValorSalida(entradas[0] || entradas[1]);
 
 }
 
-void OR::simular() {
+void OR::actuarTiempo(int tiempo) {
 
-	bool valor1= entradas[0]->simular();
-	bool valor2= entradas[1]->simular();
-
-	salida->setValorSalida(valor1 || valor2);
+	salida->setTiempoTransicion(tiempo + tiempoTransicion);
 
 }
 
+EntradaCompuerta** OR::getEntradasCompuerta() {
+
+	return entradas;
+
+}
+
+int OR::getCantidadEntradas() {
+
+	return 2;
+
+}
