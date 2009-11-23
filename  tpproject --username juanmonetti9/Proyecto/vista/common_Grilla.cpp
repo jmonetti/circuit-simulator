@@ -203,7 +203,7 @@ void Grilla::draw_XOR(GtkWidget *widget, gdouble x, gdouble y){
   gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x,update_rect.y,10,30,-5850,11700);
   gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-3,update_rect.y,10,30,-5850,11700);
 
-  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x+35,update_rect.y+15,update_rect.x+40,update_rect.y+15);
+  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x+35,update_rect.y+15,update_rect.x+39,update_rect.y+15);
   //informa que la zona dada por update_rect debe actualizarse, el widget
   //generara un evento de exposicion
   gtk_widget_draw (widget, &update_rect);
