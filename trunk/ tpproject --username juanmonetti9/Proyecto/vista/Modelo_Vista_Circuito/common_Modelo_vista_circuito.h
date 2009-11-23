@@ -36,7 +36,7 @@ public:
 
 	Modelo_vista_circuito();
 
-	bool agregar_compuerta(int x,int y,EstadoCelda _estado);
+	bool agregar_compuerta(int* x,int* y,EstadoCelda _estado);
 
 	int de_pixel_a_fila(int x);
 

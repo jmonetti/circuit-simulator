@@ -16,15 +16,15 @@ Modelo_vista_circuito::Modelo_vista_circuito() {
 
 }
 
-int Modelo_vista_circuito::de_pixel_a_fila(int x){
+int Modelo_vista_circuito::de_pixel_a_fila(int y){
 
-	int fila=(x*FILAS_MODELO)/PIXELES_WIDTH;
+	int fila=(y*FILAS_MODELO)/PIXELES_HEIGHT;
 	return fila;
 }
 
-int Modelo_vista_circuito::de_pixel_a_col(int y){
+int Modelo_vista_circuito::de_pixel_a_col(int x){
 
-	int columna = (y*COLUMNAS_MODELO)/PIXELES_HEIGHT;
+	int columna = (x*COLUMNAS_MODELO)/PIXELES_WIDTH;
 	return columna;
 }
 
@@ -41,10 +41,14 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 }
 
 
-bool Modelo_vista_circuito::agregar_compuerta(int x,int y,EstadoCelda _estado){
+bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado){
 	bool agregada;
-	Celda* aux= modelo_grilla[de_pixel_a_fila(x)][de_pixel_a_col(y)];
+	int fila= de_pixel_a_fila(*y);
+	int col= de_pixel_a_col(*x);
+	Celda* aux= modelo_grilla[fila][col];
 
+	*y= (fila*13)+7; //TODO
+	*x= col*13+7;  //TODO
 
 	//TODO case con _estado
 	agregada=aux->agregar_compuerta_XOR();
