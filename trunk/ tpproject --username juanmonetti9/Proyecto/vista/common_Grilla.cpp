@@ -3,6 +3,7 @@
 
 #include "common_Grilla.h"
 GdkPixmap *Grilla::pixmap = NULL;
+Modelo_vista_circuito Grilla::matriz;
 
 
 Grilla::Grilla() {
@@ -149,7 +150,7 @@ void Grilla::draw_AND(GtkWidget *widget, gdouble x, gdouble y){
   update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
   update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
 
-  //Dibujo compuerta not
+  //Dibujo compuerta and
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+5,update_rect.x+5,update_rect.y+10);
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+25,update_rect.x+5,update_rect.y+20);
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x+5,update_rect.y,update_rect.x+5,update_rect.y+30);
@@ -171,7 +172,7 @@ void Grilla::draw_OR(GtkWidget *widget, gdouble x, gdouble y){
   update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
   update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
 
-  //Dibujo compuerta not
+  //Dibujo compuerta or
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+10,update_rect.x+8,update_rect.y+10);
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+20,update_rect.x+8,update_rect.y+20);
   gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-25,update_rect.y,60,30,-5850,11700);
@@ -195,9 +196,7 @@ void Grilla::draw_XOR(GtkWidget *widget, gdouble x, gdouble y){
   update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
   update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
 
-  //Dibujo compuerta not
-
-
+  //Dibujo compuerta xor
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+5,update_rect.x+5,update_rect.y+5);
   gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+25,update_rect.x+5,update_rect.y+25);
   gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-25,update_rect.y,60,30,-5850,11700);
@@ -217,7 +216,19 @@ gint Grilla::button_press_event (GtkWidget *widget, GdkEventButton *event){
 
   if (event->button == 1 && pixmap != NULL){
 	  // si es el boton izq del raton
-	  draw_XOR(widget, event->x, event->y);
+	  //intento agregar una compuerta
+	  bool agregada= Grilla::matriz.agregar_compuerta(event->x,event->y,XOR);
+	  if(agregada){
+		  //TODO
+		  g_print("Agregada true tendria que dibujar XOR \n");
+		  //fin TODO
+		  draw_XOR(widget, event->x, event->y);
+	  }
+	  else{
+		  //TODO
+		  g_print("Agregada FALSE \n");
+		  //fin TODO
+	  }
 
   }
 
@@ -243,7 +254,8 @@ gint Grilla::motion_notify_event (GtkWidget *widget, GdkEventMotion *event){
 
     }
 
-  if (state & GDK_BUTTON1_MASK && pixmap != NULL){
+  //TODO cambiar GDK_BUTTON3_MASK por boton 1
+  if (state & GDK_BUTTON3_MASK && pixmap != NULL){
 	  //Si muevo y tengo presionado el boton izq del raton
 	  draw_XOR(widget, x, y);
   }
