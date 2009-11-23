@@ -197,13 +197,13 @@ void Grilla::draw_XOR(GtkWidget *widget, gdouble x, gdouble y){
   update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
 
   //Dibujo compuerta xor
-  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+5,update_rect.x+5,update_rect.y+5);
-  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+25,update_rect.x+5,update_rect.y+25);
-  gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-25,update_rect.y,60,30,-5850,11700);
-  gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x,update_rect.y,10,30,-5850,11700);
-  gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-3,update_rect.y,10,30,-5850,11700);
+  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+7,update_rect.x+5,update_rect.y+7);
+  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x,update_rect.y+33,update_rect.x+5,update_rect.y+33);
+  gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-25,update_rect.y,60,39,-5850,11700);
+  gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x,update_rect.y,10,39,-5850,11700);
+  gdk_draw_arc(pixmap, widget->style->black_gc,false,update_rect.x-3,update_rect.y,10,39,-5850,11700);
 
-  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x+35,update_rect.y+15,update_rect.x+39,update_rect.y+15);
+  gdk_draw_line(pixmap, widget->style->black_gc,update_rect.x+35,update_rect.y+17,update_rect.x+39,update_rect.y+17);
   //informa que la zona dada por update_rect debe actualizarse, el widget
   //generara un evento de exposicion
   gtk_widget_draw (widget, &update_rect);
