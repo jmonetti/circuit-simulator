@@ -5,10 +5,11 @@
 #define COMMON_GRILLA_H_
 
 #include "common_Componente_Visual.h"
+#include "Modelo_Vista_Circuito/common_Modelo_vista_circuito.h"
 #include <gtkmm.h>
 
 //constantes de tamanio del drawing area
-const int DRW_AREA_WIDTH= 1200;
+const int DRW_AREA_WIDTH= 1170;
 const int DRW_AREA_HEIGHT= 800;
 
 //constante de tamanio del area de dibujo de una compuerta
@@ -42,6 +43,9 @@ private:
 	GtkWidget* tab_noteb2;
 	GtkWidget* box_noteb1;
 	GtkWidget* box_noteb2;
+
+	static Modelo_vista_circuito matriz;
+
 
 
 

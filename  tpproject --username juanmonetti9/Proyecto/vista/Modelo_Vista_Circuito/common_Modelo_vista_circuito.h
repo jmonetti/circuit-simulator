@@ -4,31 +4,45 @@
 #ifndef COMMON_MODELO_VISTA_CIRCUITO_H_
 #define COMMON_MODELO_VISTA_CIRCUITO_H_
 
-#include "common_compuerta.h"
+
+#include "common_Celda.h"
 
 #include <string.h>
+#include <gtkmm.h>
 
+// declaracion foward
+//todo class Celda;
 
-class Celda; // declaracion foward
 //defino al dato del modelo
 typedef struct Celda* Dato_circuito;
 typedef struct Celda  Dato_circuito_base;
 
 //Constantes del tamanio del modelo
-const int PIXELES_WITH= 1170;
-const int PIXELES_HEIGHT= 800;
-const int FILAS_MODELO= 80;
+const int PIXELES_WIDTH= 1170;
+const int PIXELES_HEIGHT= 780;
+const int FILAS_MODELO= 60;
 const int COLUMNAS_MODELO= 90;
 
 class Modelo_vista_circuito {
 
 private:
 
-	Dato_circuito** modelo_grilla;
+	Dato_circuito  modelo_grilla[COLUMNAS_MODELO][FILAS_MODELO];
+
+
+
 
 public:
 
 	Modelo_vista_circuito();
+
+	bool agregar_compuerta(int x,int y,EstadoCelda _estado);
+
+	int de_pixel_a_fila(int x);
+
+	int de_pixel_a_col(int y);
+
+	Celda* get_celda(int fila,int colum);
 
 	virtual ~Modelo_vista_circuito();
 };

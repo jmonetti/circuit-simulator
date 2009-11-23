@@ -4,10 +4,15 @@
  *  Created on: 22/11/2009
  *      Author: juanm
  */
-#include "common_Entorno.h"
 
 #ifndef COMMON_CELDA_H_
 #define COMMON_CELDA_H_
+
+
+#include <list>
+
+enum EstadoCelda{VACIA,XOR,OR,NOT,AND,PISTA,SALIDA,ENTRADA};
+
 
 class Modelo_vista_circuito; //declaracion forward
 
@@ -16,15 +21,16 @@ class Celda {
 private:
 
 	Modelo_vista_circuito* grilla;//Grilla en la cual se encuentra la celda
-	Entorno* entorno;	//Puntero al entorno de la celda
-	bool ocupada;		//Representa si la celda ya esta ocupada
+	std::list<Celda*> entorno;	  //Entorno de la celda
+	EstadoCelda estado; //estado de la celda
 	unsigned int fila; 	//Fila de la celda
 	unsigned int colum;	//columna de la celda
 	unsigned int fila_padre;  	//Fila del padre de la celda
 	unsigned int colum_padre;	//columna del padre de la celda
 
 
-	bool agregar_entorno_compuerta();
+
+	bool agregar_entorno_compuerta(EstadoCelda _estado);
 
 
 public:
@@ -42,12 +48,12 @@ public:
 	bool agregar_compuerta_XOR();
 
 	/**
-	 * Setea el valor del atributo ocupada en true
+	 * Setea el valor del atributo estado con el parametro _estado
 	 */
-	void ocupar_celda();
+	void ocupar_celda(EstadoCelda _estado);
 
 	/**
-	 * Setea el valor del atributo ocupada en false
+	 * Setea el valor del atributo estado en VACIA
 	 */
 	void desocupar_celda();
 
@@ -56,6 +62,13 @@ public:
 	 */
 	bool esta_ocupada();
 
+	int get_fila()const;
+
+	int get_colum()const;
+
+	void vaciar_entorno();
+
+	void set_info_padre(int fila, int columna);
 
 	virtual ~Celda();
 };
