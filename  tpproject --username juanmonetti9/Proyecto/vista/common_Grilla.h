@@ -10,13 +10,13 @@
 
 //constantes de tamanio del drawing area
 const int DRW_AREA_WIDTH= 1170;
-const int DRW_AREA_HEIGHT= 800;
+const int DRW_AREA_HEIGHT= 780;
 
 //constante de tamanio del area de dibujo de una compuerta
-const int COMPUERTA_WIDTH= 40;
-const int COMPUERTA_HEIGHT= 30;
+const int COMPUERTA_WIDTH= 39;
+const int COMPUERTA_HEIGHT= 39;
 
-const GdkColor color={1,1000,1,1};
+
 
 
 

@@ -217,12 +217,15 @@ gint Grilla::button_press_event (GtkWidget *widget, GdkEventButton *event){
   if (event->button == 1 && pixmap != NULL){
 	  // si es el boton izq del raton
 	  //intento agregar una compuerta
-	  bool agregada= Grilla::matriz.agregar_compuerta(event->x,event->y,XOR);
+
+	  int x=event->x;
+	  int y=event->y;
+	  bool agregada= Grilla::matriz.agregar_compuerta(&x,&y,XOR);
 	  if(agregada){
 		  //TODO
 		  g_print("Agregada true tendria que dibujar XOR \n");
 		  //fin TODO
-		  draw_XOR(widget, event->x, event->y);
+		  draw_XOR(widget, x, y);
 	  }
 	  else{
 		  //TODO
