@@ -1,9 +1,9 @@
-/**************************   Clase GRILLA   *************************/
-/**************************   	Grupo 8      *************************/
+/**************************   Modelo Circuito  ***********************/
+/**************************   	Grupo 8        ***********************/
 
 
 #include "common_Modelo_vista_circuito.h"
-// todo #include "common_Celda.h"
+
 
 Modelo_vista_circuito::Modelo_vista_circuito() {
 
@@ -52,12 +52,7 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado)
 
 	//TODO case con _estado
 	agregada=aux->agregar_compuerta_XOR();
-	//TODO
-	if(agregada)
-		g_print("Agregada TRUE en agregar compuerta modelo XOR \n");
-	else
-		g_print("Agregada FALSE en agregar compuerta Modelo \n");
-	//fin TODO
+
 	//fin TODO
 
 	return agregada;
@@ -65,4 +60,9 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado)
 
 Modelo_vista_circuito::~Modelo_vista_circuito() {
 
+	for (int i = 0; i < FILAS_MODELO; i++){
+		for (int j = 0; j < COLUMNAS_MODELO; j++){
+			delete modelo_grilla[i][j];
+		}
+	}
 }

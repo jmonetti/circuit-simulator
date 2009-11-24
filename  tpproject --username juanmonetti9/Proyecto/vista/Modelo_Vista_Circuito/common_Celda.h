@@ -1,9 +1,5 @@
-/*
- * common_Celda.h
- *
- *  Created on: 22/11/2009
- *      Author: juanm
- */
+/**************************   Clase Celda      ***********************/
+/**************************   	Grupo 8        ***********************/
 
 #ifndef COMMON_CELDA_H_
 #define COMMON_CELDA_H_
@@ -44,7 +40,6 @@ public:
 	 * @return (true) en caso de haber agregado la celda
 	 * 		   (false) en caso de que no se pueda agregar
 	 */
-
 	bool agregar_compuerta_XOR();
 
 	/**
