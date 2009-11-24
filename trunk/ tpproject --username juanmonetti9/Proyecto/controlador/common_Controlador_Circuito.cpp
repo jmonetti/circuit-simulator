@@ -18,21 +18,27 @@ void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
 	gtk_widget_show(boton);
 
 	GtkWidget* combo= gtk_combo_new();
-    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry), "Tiempo Transicion");
 
     GList *glist = NULL;
 
+    char* texto[100];
 
     for (int var = 0; var < 100; ++var) {
 
-
-		char texto[4];
-    	sprintf(texto,"%d",var);
-    	glist = g_list_append (glist, texto);
+    	texto[var]= new char[4];
+    	sprintf(texto[var],"%d",var);
+    	glist = g_list_append (glist, texto[var]);
 
 	}
 
     gtk_combo_set_popdown_strings (GTK_COMBO (combo), glist);
+
+    for (int var = 0; var < 100; ++var) {
+
+        delete[] texto[var];
+
+   	}
+
 
     g_list_free( glist );
 
