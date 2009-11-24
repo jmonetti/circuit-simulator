@@ -42,6 +42,8 @@ public:
 	 */
 	bool agregar_compuerta_XOR();
 
+	void eliminar_componente();
+
 	/**
 	 * Setea el valor del atributo estado con el parametro _estado
 	 */
@@ -59,7 +61,11 @@ public:
 
 	int get_fila()const;
 
+	int get_fila_padre()const;
+
 	int get_colum()const;
+
+	int get_colum_padre()const;
 
 	void vaciar_entorno();
 
