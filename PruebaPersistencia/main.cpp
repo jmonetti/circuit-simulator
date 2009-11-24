@@ -44,25 +44,81 @@ int main(int argc, char **argv) {
 
 	Cliente cliente;
 
+	std::string ruta;
+
 	cliente.crearCircuitos();
 
 	std::cout << "Presione Enter para comenzar las pruebas... " << std::endl;
 
 	std::cin.get();
 
-	std::cout << "Prueba De Circuitos Separados: " << std::endl << std::endl;
+	std::cout << "Prueba De Circuito Basico: " << std::endl << std::endl;
 
 	imprimir(cliente.simularCircuitoBasico());
 
-	std::cout << "Ingrese el nombre del archivo donde se guardara (Ej: miCircuito.xml): " << std::endl;
-
-	std::string ruta;
-
-	cin >> ruta;
+	ruta = "miCircuitoBasico.xml";
 
 	cliente.guardarCircuitoBasico(ruta);
 
-	std::cout << "Circuito Guardado Correctamente..." << std::endl;
+	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << "Prueba De Circuito NOT: " << std::endl << std::endl;
+
+	imprimir(cliente.simularCircuitoNOT());
+
+	ruta = "miCircuitoNOT.xml";
+
+	cliente.guardarCircuitoNOT(ruta);
+
+	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << "Prueba De Circuito AND: " << std::endl << std::endl;
+
+	imprimir(cliente.simularCircuitoAND());
+
+	ruta = "miCircuitoAND.xml";
+
+	cliente.guardarCircuitoAND(ruta);
+
+	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << "Prueba De Circuito Suma de un Bit: " << std::endl << std::endl;
+
+	imprimir(cliente.simularSumaDeUnBit());
+
+	ruta = "miSumaDeUnBit.xml";
+
+	cliente.guardarSumaDeUnBit(ruta);
+
+	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << "Prueba De Circuitos Separados " << std::endl << std::endl;
+
+	imprimir(cliente.simularCircuitosSeparados());
+
+	ruta = "misCircuitosSeparados.xml";
+
+	cliente.guardarCircuitosSeparados(ruta);
+
+	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << "Prueba De Circuitos Suma de tres Entradas " << std::endl << std::endl;
+
+	imprimir(cliente.simularSumaTresEntradas());
+
+	ruta = "miSumaTresEntradas.xml";
+
+	cliente.guardarSumaTresEntradas(ruta);
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 
