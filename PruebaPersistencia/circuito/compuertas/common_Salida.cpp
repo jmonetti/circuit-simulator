@@ -87,7 +87,17 @@ void Salida::guardar(DOMDocument* doc, DOMNode* padre) {
     atributo2->setNodeValue(tempStr);
     elem_Salida->setAttributeNode(atributo2);
 
-    this->entrada->guardar(doc, elem_Salida);
+    /******* ATRIBUTO CONEXION ENTRADA *****************/
+    XMLString::transcode("conexionE", tempStr, 99);
+    DOMAttr* atributo3 = doc->createAttribute(tempStr);
+
+    std::stringstream converter3;
+    converter3 << entrada->getConexion();
+    aux = converter3.str();
+
+    XMLString::transcode(aux.c_str(),tempStr,99);
+    atributo3->setNodeValue(tempStr);
+    elem_Salida->setAttributeNode(atributo3);
 
     padre->appendChild(elem_Salida);
 
