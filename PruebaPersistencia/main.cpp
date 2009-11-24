@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
 
 	cliente.recuperarCircuito(ruta);
 
-	imprimir(cliente.simularCircuitoBasico());
+	//imprimir(cliente.simularCircuitoBasico());
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 
