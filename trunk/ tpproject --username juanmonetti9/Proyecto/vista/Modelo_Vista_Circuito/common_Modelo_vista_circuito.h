@@ -1,6 +1,5 @@
-/**************************   Clase GRILLA   *************************/
-/**************************   	Grupo 8      *************************/
-
+/**************************   Modelo Circuito  ***********************/
+/**************************   	Grupo 8        ***********************/
 #ifndef COMMON_MODELO_VISTA_CIRCUITO_H_
 #define COMMON_MODELO_VISTA_CIRCUITO_H_
 
@@ -15,7 +14,6 @@
 
 //defino al dato del modelo
 typedef struct Celda* Dato_circuito;
-typedef struct Celda  Dato_circuito_base;
 
 //Constantes del tamanio del modelo
 const int PIXELES_WIDTH= 1170;
@@ -30,19 +28,17 @@ private:
 	Dato_circuito  modelo_grilla[COLUMNAS_MODELO][FILAS_MODELO];
 
 
-
-
 public:
 
 	Modelo_vista_circuito();
 
 	bool agregar_compuerta(int* x,int* y,EstadoCelda _estado);
 
+	Celda* get_celda(int fila,int colum);
+
 	int de_pixel_a_fila(int x);
 
 	int de_pixel_a_col(int y);
-
-	Celda* get_celda(int fila,int colum);
 
 	virtual ~Modelo_vista_circuito();
 };

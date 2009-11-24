@@ -1,24 +1,18 @@
-/*
- * common_Celda.cpp
- *
- *  Created on: 22/11/2009
- *      Author: juanm
- */
+/**************************   Clase Celda      ***********************/
+/**************************   	Grupo 8        ***********************/
 
 #include "common_Celda.h"
 #include "common_Modelo_vista_circuito.h"
 #include <stdlib.h>
+
 typedef std::list<Celda*>::const_iterator LI;//iterador de la lista
 
 Celda::Celda(Modelo_vista_circuito* _grilla,unsigned int _fila,unsigned int _col){
 
-
-		grilla=_grilla;
-		fila= _fila;
-		colum=_col;
-		estado=VACIA;
-
-
+	grilla=_grilla;
+	fila= _fila;
+	colum=_col;
+	estado=VACIA;
 }
 
 bool Celda::agregar_compuerta_XOR(){
@@ -26,8 +20,7 @@ bool Celda::agregar_compuerta_XOR(){
 	bool agregada=true;
 
 	if(!esta_ocupada()){
-		//TODO
-		g_print("** Como no esta ocupada agrego el entorno de (%d,%d) \n",fila,colum);
+
 		agregada=agregar_entorno_compuerta(XOR);
 
 		if(agregada){
@@ -65,25 +58,21 @@ bool Celda::agregar_entorno_compuerta(EstadoCelda _estado){
 				}
 				else
 					retorno =false;
-
 			}
 		}
 	}
-	if(!retorno){
-		g_print("* Agregar_entorno() , if del final\n");
+
+	if(!retorno)
 		vaciar_entorno();
-	}
+
 
 	return retorno;
 
 }
 
-
-
 void Celda::ocupar_celda(EstadoCelda _estado){
-	g_print("*  Ocupo:      (%d,%d)\n",get_fila(),get_colum());
-	estado= _estado;
 
+	estado= _estado;
 }
 
 int Celda::get_fila()const{
@@ -97,16 +86,17 @@ int Celda::get_colum()const{
 }
 
 void Celda::vaciar_entorno(){
+
 	bool vacia = entorno.empty();
-	Celda* aux;
+
 	if(!vacia){
+		Celda* aux;
 		do{
 			aux = entorno.back();
 			entorno.pop_back();
 			vacia=entorno.empty();
 		}while(!vacia);
 	}
-
 }
 
 void Celda::desocupar_celda(){
@@ -124,7 +114,6 @@ void Celda::desocupar_celda(){
 	estado=VACIA;
 	fila_padre=0;
 	colum_padre=0;
-
 }
 
 void Celda::set_info_padre(int fila, int columna){
@@ -138,12 +127,11 @@ void Celda::set_info_padre(int fila, int columna){
 bool Celda::esta_ocupada(){
 
 	if(estado==VACIA){
-		g_print("*  Esta vacia: (%d,%d)\n",fila,colum);
+		g_print("Esta vacia\n");
 		return false;
 	}
 	else
 		return true;
-
 }
 
 Celda::~Celda() {
