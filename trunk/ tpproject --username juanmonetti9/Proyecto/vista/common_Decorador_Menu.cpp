@@ -137,14 +137,14 @@ void Decorador_Menu::cargar_Opcion_Circuito(){
 	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[4]);
 	gtk_widget_show(items_circuito[4]);
 	gtk_signal_connect_object(GTK_OBJECT(items_circuito[4]), "activate",
-			GTK_SIGNAL_FUNC(Controlador_Archivo::callback_Upload), NULL);
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Upload), NULL);
 
 	//Creo e inicializo el item descargar circuito
 	items_circuito[5] = gtk_menu_item_new_with_label("Descargar Circuito");
 	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[5]);
 	gtk_widget_show(items_circuito[5]);
 	gtk_signal_connect_object(GTK_OBJECT(items_circuito[5]), "activate",
-			GTK_SIGNAL_FUNC(Controlador_Archivo::callback_Download), NULL);
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Download), NULL);
 
 	//Creo e inicializo el item Simular
 	items_circuito[6] = gtk_menu_item_new_with_label("Simular");

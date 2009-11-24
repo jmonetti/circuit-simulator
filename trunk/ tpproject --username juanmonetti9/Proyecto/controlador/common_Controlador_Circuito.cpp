@@ -4,6 +4,43 @@
 #include "common_Controlador_Circuito.h"
 #include "stdlib.h"
 
+void Controlador_Circuito::crearVentanaDialogoServidor() {
+
+	GtkWidget* cuadro= gtk_dialog_new();
+	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Servidor");
+
+	GtkWidget* boton= gtk_button_new_with_label("Aceptar");
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
+	gtk_widget_show(boton);
+
+	boton= gtk_button_new_with_label("Cancelar");
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
+	gtk_widget_show(boton);
+
+    GtkWidget* label = gtk_label_new ("Host:");
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+    gtk_widget_show(label);
+
+
+    GtkWidget* entry= gtk_entry_new();
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), entry, TRUE, TRUE, 0);
+    gtk_widget_show(entry);
+
+    label = gtk_label_new ("Puerto:");
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
+    gtk_widget_show (label);
+    gtk_widget_show(label);
+
+
+    entry= gtk_entry_new();
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), entry, TRUE, TRUE, 0);
+	gtk_widget_show(entry);
+
+
+	gtk_widget_show(cuadro);
+}
+
 void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
 
 	GtkWidget* cuadro= gtk_dialog_new();
@@ -47,6 +84,24 @@ void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
 
 	gtk_widget_show(cuadro);
 
+
+}
+
+void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_data ){
+	//TODO
+	g_print("Apretado el Upload\n");
+	//fin TODO
+
+	crearVentanaDialogoServidor();
+
+}
+
+void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callback_data ){
+	//TODO
+	g_print("Apretado el download\n");
+	//fin TODO
+
+	crearVentanaDialogoServidor();
 
 }
 
