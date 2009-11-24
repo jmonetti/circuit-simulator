@@ -31,6 +31,10 @@ public:
 
 
 	virtual ~Controlador_Circuito();
+
+private:
+
+	static void crearVentanaDialogoPuertas(const char* titulo);
 };
 
 #endif /* COMMON_CONTROLADOR_BOTON_H_ */
