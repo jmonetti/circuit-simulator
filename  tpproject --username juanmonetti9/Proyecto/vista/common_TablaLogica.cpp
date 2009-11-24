@@ -58,7 +58,7 @@ void TablaLogica::crear() {
 			"Entrada 1" , "Entrada 2" , "Salida 1" , ""
 	};
 
-	char* titles[3];
+	char* titles[4];
 
 	for (int var = 0; var < 4; ++var) {
 
