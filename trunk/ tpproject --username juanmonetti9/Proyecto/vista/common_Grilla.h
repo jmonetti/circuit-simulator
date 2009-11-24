@@ -6,6 +6,7 @@
 
 #include "common_Componente_Visual.h"
 #include "Modelo_Vista_Circuito/common_Modelo_vista_circuito.h"
+#include "common_TablaLogica.h"
 #include <gtkmm.h>
 
 //constantes de tamanio del drawing area
@@ -42,7 +43,7 @@ private:
 	GtkWidget* tab_noteb1;
 	GtkWidget* tab_noteb2;
 	GtkWidget* box_noteb1;
-	GtkWidget* box_noteb2;
+	TablaLogica tablaLogica;
 
 	static Modelo_vista_circuito matriz;
 

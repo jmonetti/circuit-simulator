@@ -52,9 +52,9 @@ Grilla::Grilla() {
 							GDK_POINTER_MOTION_HINT_MASK);
 
 	//fin TODO
-	box_noteb2= gtk_hbox_new(false,0);
+	tablaLogica.completar();
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook),box_noteb1,tab_noteb1);
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), box_noteb2,tab_noteb2);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), tablaLogica.getWidget(),tab_noteb2);
 
 
 }
@@ -65,7 +65,7 @@ void Grilla::show() {
 	gtk_widget_show(tab_noteb1);
 	gtk_widget_show(tab_noteb2);
 	gtk_widget_show(box_noteb1);
-	gtk_widget_show(box_noteb2);
+	tablaLogica.show();
 	gtk_widget_show(notebook);
 
 
