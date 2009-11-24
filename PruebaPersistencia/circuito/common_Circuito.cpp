@@ -216,18 +216,6 @@ void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
     XMLString::transcode("Circuito", tempStr, 99);
     DOMElement*   elem_circuito = doc->createElement(tempStr);
 
-    /******* ATRIBUTO ID-ENTRADA*****************/
-    XMLString::transcode("id", tempStr, 99);
-    DOMAttr* atributo = doc->createAttribute(tempStr);
-
-    std::stringstream converter;
-    converter << this->getId();
-    aux = converter.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo->setNodeValue(tempStr);
-    elem_circuito->setAttributeNode(atributo);
-
 	for (unsigned int var = 0; var < compuertas.size(); ++var) {
 
 		compuertas[var]->guardar(doc, elem_circuito);

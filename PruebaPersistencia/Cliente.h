@@ -41,6 +41,8 @@ public:
 	void guardarCircuitosSeparados(std::string &ruta);
 
 	void guardarSumaTresEntradas(std::string &ruta);
+
+	void recuperarCircuito(std::string &ruta);
 ;
 
 private:

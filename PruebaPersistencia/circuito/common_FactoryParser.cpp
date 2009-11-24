@@ -19,8 +19,8 @@
 #include "compuertas/common_Pista.h"
 
 
-void FactoryParser::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito,int idCompuerta, int tiempoTransicion,
-		int idEntrada1,int idEntrada2,int idSalida, bool valor) {
+void FactoryParser::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito,int idCompuerta,
+		int tiempoTransicion,int idSalida, int idEntrada1,int idEntrada2) {
 
 	switch (tipo) {
 
@@ -51,12 +51,12 @@ void FactoryParser::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito,int i
 
 		case T_ENTRADA:
 
-			crearENTRADA(circuito,idCompuerta,idSalida,valor);
+			crearENTRADA(circuito,idCompuerta,idSalida);
 			break;
 
 		case T_SALIDA:
 
-			crearSALIDA(circuito,idCompuerta,idEntrada1,valor);
+			crearSALIDA(circuito,idCompuerta,idEntrada1);
 			break;
 
 		default:
@@ -151,7 +151,7 @@ void FactoryParser::crearPISTA(Circuito &circuito,int idCompuerta,int idEntrada,
 
 }
 
-void FactoryParser::crearENTRADA(Circuito &circuito,int idCompuerta,int idSalida, bool valor) {
+void FactoryParser::crearENTRADA(Circuito &circuito,int idCompuerta,int idSalida) {
 
 	SalidaCompuerta* salidaEntrada= new SalidaCompuerta(idSalida);
 	circuito.agregarSalidaCompuerta(salidaEntrada);
@@ -163,7 +163,7 @@ void FactoryParser::crearENTRADA(Circuito &circuito,int idCompuerta,int idSalida
 
 }
 
-void FactoryParser::crearSALIDA(Circuito &circuito,int idCompuerta,int idEntrada, bool valor) {
+void FactoryParser::crearSALIDA(Circuito &circuito,int idCompuerta,int idEntrada) {
 
 	EntradaCompuerta* entradaSalida= new EntradaCompuerta(idEntrada);
 	circuito.agregarEntradaCompuerta(entradaSalida);

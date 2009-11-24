@@ -52,17 +52,17 @@ int main(int argc, char **argv) {
 
 	std::cin.get();
 
-	std::cout << "Prueba De Circuito Basico: " << std::endl << std::endl;
+	//std::cout << "Prueba De Circuito Basico: " << std::endl << std::endl;
 
-	imprimir(cliente.simularCircuitoBasico());
+	//imprimir(cliente.simularCircuitoBasico());
 
-	ruta = "miCircuitoBasico.xml";
+	//ruta = "miCircuitoBasico.xml";
 
-	cliente.guardarCircuitoBasico(ruta);
+	//cliente.guardarCircuitoBasico(ruta);
 
-	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+	//std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
 
-	std::cin.get();
+	//std::cin.get();
 
 	std::cout << "Prueba De Circuito NOT: " << std::endl << std::endl;
 
@@ -119,6 +119,18 @@ int main(int argc, char **argv) {
 	ruta = "miSumaTresEntradas.xml";
 
 	cliente.guardarSumaTresEntradas(ruta);
+
+	std::cout << "Presione Enter para cargar el Circuito Basico ... " << std::endl;
+
+	std::cin.get();
+
+	std::cout << "Recuperando y probando Circuito Basico... " << std::endl << std::endl;
+
+	ruta = 	"miCircuitoBasico.xml";
+
+	cliente.recuperarCircuito(ruta);
+
+	imprimir(cliente.simularCircuitoBasico());
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 

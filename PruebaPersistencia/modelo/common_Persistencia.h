@@ -20,7 +20,6 @@
 class Circuito;
 #include <xercesc/util/PlatformUtils.hpp>
 
-
 using namespace xercesc;
 using namespace std;
 
@@ -34,25 +33,25 @@ public:
 
 	void guardar(const Circuito &circuito, std::string &ruta);
 
-	Circuito* recuperar(const std::string &nombreCircuito);
+	Circuito* recuperar(int idCircuito, const std::string &nombreCircuito);
 
 private:
 
-	Circuito* parserCircuito(DOMElement* ElementoCte);
+	Circuito* parserCircuito(DOMElement* ElementoCte, int idCircuito);
 
 	void parserSalida(DOMElement* ElementoCte, Circuito* circuito);
 
-	void parserEntrada(DOMElement* ElementoCte);
+	void parserEntrada(DOMElement* ElementoCte, Circuito* circuito);
 
-	void parserNOT(DOMElement* ElementoCte);
+	void parserNOT(DOMElement* ElementoCte, Circuito* circuito);
 
-	void parserAND(DOMElement* ElementoCte);
+	void parserAND(DOMElement* ElementoCte, Circuito* circuito);
 
-	void parserOR(DOMElement* ElementoCte);
+	void parserOR(DOMElement* ElementoCte, Circuito* circuito);
 
-	void parserXOR(DOMElement* ElementoCte);
+	void parserXOR(DOMElement* ElementoCte, Circuito* circuito);
 
-	void parserPista(DOMElement* ElementoCte);
+	void parserPista(DOMElement* ElementoCte, Circuito* circuito);
 
 
 

@@ -11,7 +11,6 @@
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 
 #include "../circuito/common_Circuito.h"
-
 #include "../circuito/common_FactoryParser.h"
 
 #include "common_Persistencia.h"
@@ -126,7 +125,7 @@ void Persistencia::guardar(const Circuito &circuito, std::string &ruta) {
 }
 
 
-Circuito* Persistencia::recuperar(const std::string &nombreCircuito) {
+Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircuito) {
 
 	// Test to see if the file is ok.
 
@@ -174,7 +173,7 @@ Circuito* Persistencia::recuperar(const std::string &nombreCircuito) {
 			   DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
 			   if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
 			   {
-				   return parserCircuito(ElementoCte);
+				   return parserCircuito(ElementoCte, idCircuito);
 			   }
 			}
 	   }
@@ -188,17 +187,9 @@ Circuito* Persistencia::recuperar(const std::string &nombreCircuito) {
 
 }
 
-Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte) {
+Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito) {
 
-	std::string aux;
-
-	XMLCh* ATTR_ID = XMLString::transcode("id");
-	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
-	aux = XMLString::transcode(attr_id->getValue());
-
-	int id = atoi(aux.c_str());
-
-	Circuito* circuito = new Circuito(id);
+	Circuito* circuito = new Circuito(idCircuito);
 
 	DOMNodeList*      salidas = ElementoCte->getChildNodes();
 	const  XMLSize_t cantSalidas = salidas->getLength();
@@ -217,7 +208,52 @@ Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte) {
 		   {
 			  parserSalida(ElementoCte, circuito);
 
+			  break;
+
 		   }
+
+		   if(XMLString::equals(ElementoCte->getTagName(), TAG_ENTRADA))
+		   {
+		      parserEntrada(ElementoCte, circuito);
+
+		      break;
+
+		    }
+			if(XMLString::equals(ElementoCte->getTagName(), TAG_NOT)){
+
+			   parserNOT(ElementoCte, circuito);
+
+			   break;
+
+			}
+			if(XMLString::equals(ElementoCte->getTagName(), TAG_AND)){
+
+			   parserAND(ElementoCte, circuito);
+
+			   break;
+
+			}
+			if(XMLString::equals(ElementoCte->getTagName(), TAG_OR)){
+
+			   parserOR(ElementoCte, circuito);
+
+			   break;
+
+			}
+			if(XMLString::equals(ElementoCte->getTagName(), TAG_XOR)){
+
+			   parserXOR(ElementoCte, circuito);
+
+			   break;
+
+			}
+			if(XMLString::equals(ElementoCte->getTagName(), TAG_PISTA)){
+
+			   parserPista(ElementoCte, circuito);
+
+			   break;
+			}
+
 	   }
 	}
 
@@ -241,69 +277,54 @@ void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
 	int idEntrada = atoi(aux.c_str());
 
-	XMLCh* ATTR_VALOR = XMLString::transcode("Valor");
-	DOMAttr* attr_valor = ElementoCte->getAttributeNode(ATTR_VALOR);
-	aux = XMLString::transcode(attr_valor->getValue());
+	XMLCh* ATTR_CONEXION = XMLString::transcode("conexionE");
+	DOMAttr* attr_conexion = ElementoCte->getAttributeNode(ATTR_CONEXION);
+	aux = XMLString::transcode(attr_conexion->getValue());
 
-	bool valor = atoi(aux.c_str());
+	int conexionE = atoi(aux.c_str());
 
-	//FactoryParser::crearCompuerta(T_SALIDA,circuito, id )
+	FactoryParser::crearCompuerta(T_SALIDA,*circuito, id,0,0,idEntrada);
 
-	//if(XMLString::equals(ElementoCte->getTagName(), TAG_ENTRADA)){
-
-	  // parserEntrada(ElementoCte);
-
-//	}
-	if(XMLString::equals(ElementoCte->getTagName(), TAG_NOT)){
-
-	   parserNOT(ElementoCte);
-
-	}
-	if(XMLString::equals(ElementoCte->getTagName(), TAG_AND)){
-
-	   parserAND(ElementoCte);
-
-	}
-	if(XMLString::equals(ElementoCte->getTagName(), TAG_OR)){
-
-	   parserOR(ElementoCte);
-
-	}
-	if(XMLString::equals(ElementoCte->getTagName(), TAG_XOR)){
-
-	   parserXOR(ElementoCte);
-
-	}
-	if(XMLString::equals(ElementoCte->getTagName(), TAG_PISTA)){
-
-	   parserPista(ElementoCte);
-
-	}
-
-
+	circuito->conectar(conexionE,idEntrada);
 
 }
 
-void Persistencia::parserEntrada(DOMElement* ElementoCte) {
+void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
+
+	std::string aux;
+
+	XMLCh* ATTR_ID = XMLString::transcode("id");
+	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+	aux = XMLString::transcode(attr_id->getValue());
+
+	int id = atoi(aux.c_str());
+
+	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
+	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
+	aux = XMLString::transcode(attr_id_salida->getValue());
+
+	int idSalida = atoi(aux.c_str());
+
+	FactoryParser::crearCompuerta(T_ENTRADA,*circuito, id,0, idSalida);
 
 }
 
-void Persistencia::parserNOT(DOMElement* ElementoCte){
+void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
 
 }
 
-void Persistencia::parserAND(DOMElement* ElementoCte) {
+void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
 
 }
 
-void Persistencia::parserOR(DOMElement* ElementoCte) {
+void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
 
 }
 
-void Persistencia::parserXOR(DOMElement* ElementoCte) {
+void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
 
 }
 
-void Persistencia::parserPista(DOMElement* ElementoCte) {
+void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 
 }

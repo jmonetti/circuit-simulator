@@ -27,7 +27,7 @@ public:
 
 	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
 
-	std::vector<Resultado*>* simular(int idCircuito);
+	std::vector<Resultado*>* simular(int idCircuito );
 
 	int* calcularTiempoTransicion(int idCircuito);
 

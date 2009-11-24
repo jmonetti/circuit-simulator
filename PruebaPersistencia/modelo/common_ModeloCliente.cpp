@@ -2,6 +2,7 @@
 #include "common_ModeloCliente.h"
 #include "../circuito/common_FactoryCompuerta.h"
 
+
 ModeloCliente::ModeloCliente() {
 
 	contadorId= 0;
@@ -73,9 +74,11 @@ void ModeloCliente::guardar(int idCircuito, std::string &ruta) {
 
 void ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
-	Circuito* circuito= persistencia.recuperar(nombreCircuito);
+	Circuito* circuito= persistencia.recuperar(contadorId,nombreCircuito);
 
 	circuitos.push_back(circuito);
+
+	contadorId++;
 
 }
 

@@ -13,12 +13,12 @@ Cliente::~Cliente() {
 
 void Cliente::crearCircuitos() {
 
-	idCircuitos[0]= crearCircuitoBasico();
-	idCircuitos[1]= crearCircuitoNOT();
-	idCircuitos[2]= crearCircuitoAND();
-	idCircuitos[3]= crearSumaDeUnBit();
-	idCircuitos[4]= crearCircuitosSeparados();
-	idCircuitos[5]= crearSumaTresEntradas();
+	//idCircuitos[0]= crearCircuitoBasico();
+	idCircuitos[0]= crearCircuitoNOT();
+	idCircuitos[1]= crearCircuitoAND();
+	idCircuitos[2]= crearSumaDeUnBit();
+	idCircuitos[3]= crearCircuitosSeparados();
+	idCircuitos[4]= crearSumaTresEntradas();
 }
 
 int Cliente::crearCircuitoBasico() {
@@ -187,7 +187,8 @@ int Cliente::crearSumaTresEntradas() {
 
 std::vector<Resultado*>* Cliente::simularCircuitoBasico() {
 
-	return modelo.simular(idCircuitos[0]);
+	//return modelo.simular(idCircuitos[0]);
+	return modelo.simular(5);
 
 }
 
@@ -199,25 +200,25 @@ std::vector<Resultado*>* Cliente::simularCircuitoNOT() {
 
 std::vector<Resultado*>* Cliente::simularCircuitoAND() {
 
-	return modelo.simular(idCircuitos[2]);
+	return modelo.simular(idCircuitos[1]);
 
 }
 
 std::vector<Resultado*>* Cliente::simularSumaDeUnBit() {
 
-	return modelo.simular(idCircuitos[3]);
+	return modelo.simular(idCircuitos[2]);
 
 }
 
 std::vector<Resultado*>* Cliente::simularCircuitosSeparados() {
 
-	return modelo.simular(idCircuitos[4]);
+	return modelo.simular(idCircuitos[3]);
 
 }
 
 std::vector<Resultado*>* Cliente::simularSumaTresEntradas() {
 
-	return modelo.simular(idCircuitos[5]);
+	return modelo.simular(idCircuitos[4]);
 
 }
 
@@ -228,26 +229,32 @@ void Cliente::guardarCircuitoBasico(std::string &ruta) {
 
 void Cliente::guardarCircuitoNOT(std::string &ruta) {
 
-	modelo.guardar(idCircuitos[1], ruta);
+	modelo.guardar(idCircuitos[0], ruta);
 }
 
 void Cliente::guardarCircuitoAND(std::string &ruta) {
 
-	modelo.guardar(idCircuitos[2], ruta);
+	modelo.guardar(idCircuitos[1], ruta);
 }
 
 void Cliente::guardarSumaDeUnBit(std::string &ruta) {
 
-	modelo.guardar(idCircuitos[3], ruta);
+	modelo.guardar(idCircuitos[2], ruta);
 }
 
 void Cliente::guardarCircuitosSeparados(std::string &ruta) {
 
-	modelo.guardar(idCircuitos[4], ruta);
+	modelo.guardar(idCircuitos[3], ruta);
 }
 
 void Cliente::guardarSumaTresEntradas(std::string &ruta) {
 
-	modelo.guardar(idCircuitos[5], ruta);
+	modelo.guardar(idCircuitos[4], ruta);
+}
+
+void Cliente::recuperarCircuito(std::string &ruta) {
+
+	modelo.recuperar(ruta);
+
 }
 
