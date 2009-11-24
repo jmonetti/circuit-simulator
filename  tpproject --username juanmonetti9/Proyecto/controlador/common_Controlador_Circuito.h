@@ -9,6 +9,10 @@ class Controlador_Circuito {
 public:
 	Controlador_Circuito();
 
+	static void callback_Upload( GtkWidget *widget,gpointer callback_data );
+
+	static void callback_Download( GtkWidget *widget,gpointer callback_data );
+
 	static void callback_AND( GtkWidget *widget,gpointer callback_data );
 
 	static void callback_OR( GtkWidget *widget,gpointer callback_data );
@@ -35,6 +39,8 @@ public:
 private:
 
 	static void crearVentanaDialogoPuertas(const char* titulo);
+
+	static void crearVentanaDialogoServidor();
 };
 
 #endif /* COMMON_CONTROLADOR_BOTON_H_ */

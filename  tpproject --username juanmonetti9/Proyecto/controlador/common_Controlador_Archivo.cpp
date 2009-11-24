@@ -10,17 +10,6 @@ void Controlador_Archivo::callback_Imprimir( GtkWidget *widget,gpointer callback
 	//fin TODO
 }
 
-void Controlador_Archivo::callback_Upload( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el Upload\n");
-	//fin TODO
-}
-
-void Controlador_Archivo::callback_Download( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el download\n");
-	//fin TODO
-}
 void Controlador_Archivo::callback_nuevo(GtkWidget *widget, gpointer callback_data ){
 
 	//TODO
