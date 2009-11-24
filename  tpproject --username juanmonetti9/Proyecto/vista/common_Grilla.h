@@ -17,6 +17,20 @@ const int DRW_AREA_HEIGHT= 780;
 const int COMPUERTA_WIDTH= 39;
 const int COMPUERTA_HEIGHT= 39;
 
+// defino tamanios de envio
+#define _BYTE   8
+#define _WORD   16
+#define _DWORD  32
+
+//Defino un listado de la informacion que el widget destino aceptara.
+enum {TARGET_STRING};
+
+
+static GtkTargetEntry target_list[] = {{ (gchar*)"STRING",0, TARGET_STRING },};
+
+//cantidad de elementos de target_list
+static guint n_targets = G_N_ELEMENTS (target_list);
+
 
 
 
@@ -46,7 +60,8 @@ private:
 	TablaLogica tablaLogica;
 
 	static Modelo_vista_circuito matriz;
-
+	static int pos_x; //pos de comienzo de arrastre
+	static int pos_y; //pos de comienzo de arrastre
 
 
 
@@ -80,6 +95,8 @@ private:
 	 * Dibuja la compuerta XOR en la pantalla
 	 */
 	static void draw_XOR(GtkWidget *widget, gdouble x, gdouble y);
+
+	static void draw_sin_commpuerta(GtkWidget *widget, gdouble x, gdouble y);
 	/**
 	 * Controlador del evento de presionar el primer boton del raton
 	 */
@@ -88,6 +105,10 @@ private:
 	 * Controlador del evento de mover el raton
 	 */
 	static gint motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
+
+	static gboolean drag_drop_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time,gpointer user_data);
+	static void drag_data_get_handl(GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data,guint target_type, guint time, gpointer user_data);
+	static void drag_data_received_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y,GtkSelectionData *selection_data, guint target_type, guint time,gpointer data);
 
 
 };

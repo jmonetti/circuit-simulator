@@ -15,6 +15,18 @@ Celda::Celda(Modelo_vista_circuito* _grilla,unsigned int _fila,unsigned int _col
 	estado=VACIA;
 }
 
+void Celda::eliminar_componente(){
+
+	if(esta_ocupada()){
+
+		Celda* padre= grilla->get_celda(fila_padre,colum_padre);
+		padre->desocupar_celda();
+
+	}
+
+}
+
+
 bool Celda::agregar_compuerta_XOR(){
 
 	bool agregada=true;
@@ -80,6 +92,18 @@ int Celda::get_fila()const{
 	return fila;
 }
 
+int Celda::get_fila_padre()const{
+
+	return fila_padre;
+
+}
+
+int Celda::get_colum_padre()const{
+
+	return colum_padre;
+
+}
+
 int Celda::get_colum()const{
 
 	return colum;
@@ -111,6 +135,7 @@ void Celda::desocupar_celda(){
 		vaciar_entorno();
 
 	}
+	g_print("Desocupo celda (%d,%d)\n",this->fila,this->colum);
 	estado=VACIA;
 	fila_padre=0;
 	colum_padre=0;
@@ -127,7 +152,6 @@ void Celda::set_info_padre(int fila, int columna){
 bool Celda::esta_ocupada(){
 
 	if(estado==VACIA){
-		g_print("Esta vacia\n");
 		return false;
 	}
 	else

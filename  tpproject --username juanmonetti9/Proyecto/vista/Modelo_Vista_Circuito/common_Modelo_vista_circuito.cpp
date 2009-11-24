@@ -40,6 +40,32 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
 }
 
+bool Modelo_vista_circuito::hay_componente(int* x,int* y){
+
+
+
+	int fila= de_pixel_a_fila(*y);
+	int col= de_pixel_a_col(*x);
+	Celda* aux= modelo_grilla[fila][col];
+	bool retorno=aux->esta_ocupada();
+
+	if(retorno){
+
+		*y= (aux->get_fila_padre()*13)+7; //TODO
+		*x= aux->get_colum_padre()*13+7;  //TODO
+
+	}
+
+	return aux->esta_ocupada();
+}
+bool Modelo_vista_circuito::eliminar_componente(int x,int y){
+
+	int fila= de_pixel_a_fila(y);
+	int col= de_pixel_a_col(x);
+	Celda* aux= modelo_grilla[fila][col];
+	aux->eliminar_componente();
+
+}
 
 bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado){
 	bool agregada;

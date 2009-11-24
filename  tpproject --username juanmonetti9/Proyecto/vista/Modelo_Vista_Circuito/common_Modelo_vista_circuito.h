@@ -34,6 +34,10 @@ public:
 
 	bool agregar_compuerta(int* x,int* y,EstadoCelda _estado);
 
+	bool hay_componente(int* x,int* y);
+
+	bool eliminar_componente(int x,int y);
+
 	Celda* get_celda(int fila,int colum);
 
 	int de_pixel_a_fila(int x);
