@@ -1,0 +1,10 @@
+
+<XML>
+
+  <Circuito id="0">
+    <Salida Valor="1" id="1" idEntrada="0">
+      <Entrada Valor="1" id="0" idSalida="0"/>
+    </Salida>
+  </Circuito>
+
+</XML>
