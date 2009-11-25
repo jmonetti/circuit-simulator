@@ -22,7 +22,7 @@ public:
 
 	void show();
 
-	GtkWidget* getWidget();
+	virtual GtkWidget* getWidget();
 
 	GtkWidget* getBoton();
 
