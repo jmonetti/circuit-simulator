@@ -23,11 +23,6 @@ public:
 	 */
 	virtual void show();
 
-	/**
-	 * Da un nuevo tamanio al componente visual
-	 * @param: factor de amplificacion de la escala
-	 */
-	virtual void escalar(int _fa);
 
 	/**
 	 * Retorna el widget

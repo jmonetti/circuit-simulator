@@ -6,13 +6,13 @@
 #define COMMON_FACHADA_VISTA_H_
 
 #include "common_Decorador_Menu.h"
-#include "common_Box_ventana.h"
+#include "common_Decorador_Box_ventana.h"
 class Fachada_vista {
 
 private:
 
 	Decorador_Menu* Menu;
-	Box_ventana* Ventana;
+	Decorador_Box_ventana* Ventana;
 
 public:
 

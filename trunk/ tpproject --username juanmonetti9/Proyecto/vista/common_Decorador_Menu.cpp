@@ -166,12 +166,11 @@ void Decorador_Menu::show(){
     gtk_widget_show(_box);
 }
 /*----------------------------------------------------------------------------*/
-void Decorador_Menu::escalar(int _fa){
-
-}
 
 GtkWidget* Decorador_Menu::getWidget(){
 	return _box;
 }
+
+/*----------------------------------------------------------------------------*/
 
 

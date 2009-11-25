@@ -38,11 +38,6 @@ private:
 		 */
 		void show();
 
-		/**
-		 * Da un nuevo tamanio al componente visual
-		 * @param: factor de amplificacion de la escala
-		 */
-		void escalar(int _fa);
 
 		/**
 		 * Retorna el widget

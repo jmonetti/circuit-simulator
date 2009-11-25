@@ -26,12 +26,7 @@ void Decorador_Scroll::show(){
 	gtk_widget_show (_scroll);
 
 }
-/*----------------------------------------------------------------------------*/
 
-void Decorador_Scroll::escalar(int _fa){
-
-
-}
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Decorador_Scroll::getWidget(){

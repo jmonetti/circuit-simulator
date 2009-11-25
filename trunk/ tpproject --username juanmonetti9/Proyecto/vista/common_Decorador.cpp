@@ -14,9 +14,5 @@ Decorador::Decorador(Componente_Visual* componente){
 void Decorador::show_componente(){
 	_componente->show();
 }
-/*----------------------------------------------------------------------------*/
 
-void Decorador::escalar_componente(int _fa){
-	_componente->escalar(_fa);
-}
 /*----------------------------------------------------------------------------*/

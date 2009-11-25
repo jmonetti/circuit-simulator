@@ -38,13 +38,7 @@ void Decorador_Ventana::show(){
 	//TODO Dejo a la ventana en espera de que suceda algún tipo de evento
 	// gtk_main ();
 }
-/*----------------------------------------------------------------------------*/
 
-void Decorador_Ventana::escalar(int _fa){
-
-	escalar_componente(_fa);
-	gtk_widget_set_usize(_ventana,_fa*WEIGHT_Ventana,_fa*HEIGHT_Ventana);
-}
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Decorador_Ventana::getWidget(){

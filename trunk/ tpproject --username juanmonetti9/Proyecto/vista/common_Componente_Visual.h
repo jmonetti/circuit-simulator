@@ -19,11 +19,6 @@ class Componente_Visual{
 		 */
 		virtual void show()=0;
 
-		/**
-		 * Da un nuevo tamanio al componente visual
-		 * @param: factor de amplificacion de la escala
-		 */
-		virtual void escalar(int _fa)=0;
 
 		/**
 		 * Retorna el widget
