@@ -1,6 +1,5 @@
 
 #include "common_SalidaCompuerta.h"
-#include "common_EntradaCompuerta.h"
 
 SalidaCompuerta::SalidaCompuerta(int id) {
 
@@ -70,11 +69,5 @@ void SalidaCompuerta::setSalida(EntradaCompuerta* salida) {
 int SalidaCompuerta::getId() {
 
 	return id;
-
-}
-
-void SalidaCompuerta::guardar(DOMDocument* doc, DOMNode* padre) {
-
-    this->compuerta->guardar(doc, padre);
 
 }

@@ -1,5 +1,6 @@
 
 #include "common_ModeloCliente.h"
+#include <iterator>
 #include "../circuito/common_FactoryCompuerta.h"
 
 

@@ -1,5 +1,4 @@
 #include "common_EntradaCompuerta.h"
-#include "common_SalidaCompuerta.h"
 
 EntradaCompuerta::EntradaCompuerta(int id) {
 
@@ -36,8 +35,3 @@ int EntradaCompuerta::getConexion() {
 	return entrada->getId();
 }
 
-void EntradaCompuerta::guardar(DOMDocument* doc, DOMNode* padre) {
-
-    this->entrada->guardar(doc, padre);
-
-}

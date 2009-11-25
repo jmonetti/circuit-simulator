@@ -9,9 +9,6 @@
 #include "compuertas/common_Salida.h"
 #include <vector>
 
-#include <xercesc/dom/DOMDocument.hpp>
-
-using namespace std;
 
 class Circuito {
 
@@ -26,6 +23,8 @@ public:
 	int* calcularTiempoTransicion();
 
 	void agregarCompuerta(Compuerta* compuerta);
+
+	void eliminarCompuerta(int idCompuerta);
 
 	void agregarEntradaCompuerta(EntradaCompuerta* entrada);
 

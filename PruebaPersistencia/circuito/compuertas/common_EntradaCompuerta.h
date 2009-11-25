@@ -5,8 +5,6 @@
 #include "common_SalidaCompuerta.h"
 #include "common_Compuerta.h"
 
-class SalidaCompuerta;
-
 class EntradaCompuerta {
 
 public:
@@ -22,8 +20,6 @@ public:
 	int getId();
 
 	int getConexion();
-
-	void guardar(DOMDocument* doc, DOMNode* padre);
 
 private:
 

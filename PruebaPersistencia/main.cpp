@@ -120,15 +120,15 @@ int main(int argc, char **argv) {
 
 	cliente.guardarSumaTresEntradas(ruta);
 
-	std::cout << "Presione Enter para cargar el Circuito Basico ... " << std::endl;
+	//std::cout << "Presione Enter para cargar el Circuito Basico ... " << std::endl;
 
-	std::cin.get();
+	//std::cin.get();
 
-	std::cout << "Recuperando y probando Circuito Basico... " << std::endl << std::endl;
+	//std::cout << "Recuperando y probando Circuito Basico... " << std::endl << std::endl;
 
-	ruta = 	"miCircuitoBasico.xml";
+	//ruta = 	"miXMLPrueba.xml";
 
-	cliente.recuperarCircuito(ruta);
+	//cliente.recuperarCircuito(ruta);
 
 	//imprimir(cliente.simularCircuitoBasico());
 

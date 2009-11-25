@@ -164,7 +164,15 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 		   DOMElement* elementRoot = xmlDoc->getDocumentElement();
 		   if( !elementRoot ) throw(std::runtime_error( "empty XML document" ));
 
-		   DOMNode* circuito = elementRoot->getFirstChild();
+	//	   DOMNode* circuito = elementRoot->getFirstChild();
+
+		   /****************************/
+		   DOMNodeList*      XML = elementRoot->getChildNodes();
+
+		   XMLSize_t i = 0;
+
+		   DOMNode* circuito = XML->item(i);
+		   /****************************/
 
 		   if( circuito->getNodeType() &&  // true is not NULL
 				   circuito->getNodeType() == DOMNode::ELEMENT_NODE ) // is element

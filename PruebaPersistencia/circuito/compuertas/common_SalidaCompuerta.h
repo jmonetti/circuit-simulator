@@ -28,8 +28,6 @@ public:
 
 	int getId();
 
-	void guardar(DOMDocument* doc, DOMNode* padre);
-
 private:
 
 	int id;
