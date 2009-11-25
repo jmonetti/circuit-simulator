@@ -33,12 +33,6 @@ bool EntradaCompuerta::simular() {
 
 }
 
-void EntradaCompuerta::setCompuerta(Compuerta* compuerta) {
-
-	this->compuerta= compuerta;
-
-}
-
 void EntradaCompuerta::setEntrada(SalidaCompuerta* entrada) {
 
 	this->entrada= entrada;
@@ -50,3 +44,9 @@ int EntradaCompuerta::getId() {
 	return id;
 
 }
+
+int EntradaCompuerta::getConexion() {
+
+	return entrada->getId();
+}
+

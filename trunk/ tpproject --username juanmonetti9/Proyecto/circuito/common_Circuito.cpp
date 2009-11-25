@@ -213,7 +213,7 @@ void Circuito::conectar(int idSalida,int idEntrada) {
 
 }
 
-int Circuito::getId() {
+int Circuito::getId() const{
 
 	return id;
 
@@ -239,4 +239,20 @@ void Circuito::reset() {
 
 }
 
+void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
 
+	XMLCh tempStr[100];
+	std::string aux;
+
+    XMLString::transcode("Circuito", tempStr, 99);
+    DOMElement*   elem_circuito = doc->createElement(tempStr);
+
+	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+		compuertas[var]->guardar(doc, elem_circuito);
+
+	}
+
+	padre->appendChild(elem_circuito);
+
+}

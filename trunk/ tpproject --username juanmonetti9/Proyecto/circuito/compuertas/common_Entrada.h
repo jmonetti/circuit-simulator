@@ -21,6 +21,10 @@ public:
 
 	void setValorEntrada(bool valor);
 
+	bool getValorEntrada() const;
+
+	void guardar(DOMDocument* doc, DOMNode* padre);
+
 private:
 
 	SalidaCompuerta* salida;
