@@ -8,7 +8,7 @@ Boton_NOT::Boton_NOT():Boton() {
 
 	agregarImagen((gchar*)"imagenes/NOT.png");
 	agregarToolTip((gchar*)"Agregar compuerta NOT");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_NOT), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_NOT), NULL);
 
 }
 

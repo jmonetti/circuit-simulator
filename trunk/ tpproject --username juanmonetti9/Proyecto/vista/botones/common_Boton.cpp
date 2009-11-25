@@ -42,10 +42,6 @@ GtkWidget* Boton::getWidget() {
 	return boton;
 }
 
-GtkWidget* Boton::getBoton(){
-
-	return boton;
-}
 
 void Boton::escalar(int fa) {
 

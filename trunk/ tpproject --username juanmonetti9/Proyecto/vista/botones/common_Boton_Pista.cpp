@@ -8,7 +8,7 @@ Boton_Pista::Boton_Pista() {
 
 	agregarImagen((gchar*)"imagenes/PISTA.png");
 	agregarToolTip((gchar*)"Agregar Pista");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_Pista), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_Pista), NULL);
 
 }
 

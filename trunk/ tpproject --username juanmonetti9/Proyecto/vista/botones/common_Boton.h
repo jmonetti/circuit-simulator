@@ -24,8 +24,6 @@ public:
 
 	virtual GtkWidget* getWidget();
 
-	GtkWidget* getBoton();
-
 	void escalar(int fa);
 
 private:

@@ -10,7 +10,7 @@
 Boton_Abrir::Boton_Abrir():Boton() {
 	agregarImagen((gchar*)"imagenes/abrir.png");
 	agregarToolTip((gchar*)"Abrir circuito");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_abrir), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_abrir), NULL);
 
 
 }
