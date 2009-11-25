@@ -27,7 +27,7 @@ GtkWidget*  Boton_Close_pestania::get_Box_Widget(){
 
 
 void Boton_Close_pestania::conectar(void* param){
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_cerrar_ventana_circuit), param);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_cerrar_ventana_circuit), param);
 }
 
 Boton_Close_pestania::~Boton_Close_pestania() {

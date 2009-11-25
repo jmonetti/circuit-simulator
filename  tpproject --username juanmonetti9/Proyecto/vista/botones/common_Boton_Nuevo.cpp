@@ -11,7 +11,7 @@ Boton_Nuevo::Boton_Nuevo():Boton() {
 
 	agregarImagen((gchar*)"imagenes/new.png");
 	agregarToolTip((gchar*)"Nuevo circuito");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_nuevo), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_nuevo), NULL);
 
 
 

@@ -10,7 +10,7 @@
 Boton_guardar::Boton_guardar() {
 	agregarImagen((gchar*)"imagenes/guardar.png");
 	agregarToolTip((gchar*)"Guardar circuito");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_guardar), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_guardar), NULL);
 
 
 

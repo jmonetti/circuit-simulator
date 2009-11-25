@@ -8,7 +8,7 @@ Boton_Imprimir::Boton_Imprimir():Boton() {
 
 	agregarImagen((gchar*)"imagenes/print.png");
 	agregarToolTip((gchar*)"Imprimir");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_Imprimir), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Archivo::callback_Imprimir), NULL);
 
 
 }

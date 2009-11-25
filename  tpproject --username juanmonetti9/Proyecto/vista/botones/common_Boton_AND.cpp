@@ -8,7 +8,7 @@ Boton_AND::Boton_AND():Boton() {
 
 	agregarImagen((gchar*)"imagenes/AND.png");
 	agregarToolTip((gchar*)"Agregar compuerta AND");
-	gtk_signal_connect (GTK_OBJECT (getBoton()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_AND), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_AND), NULL);
 
 }
 
