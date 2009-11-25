@@ -8,6 +8,15 @@ int Grilla::pos_x; //pos de comienzo de arrastre
 int Grilla::pos_y; //pos de comienzo de arrastre
 
 
+//Defino un listado de la informacion que el widget destino aceptara.
+enum {TARGET_STRING};
+
+
+static GtkTargetEntry target_list[] = {{ (gchar*)"STRING",0, TARGET_STRING },};
+
+//cantidad de elementos de target_list
+static guint n_targets = G_N_ELEMENTS (target_list);
+
 Grilla::Grilla() {
 
 	Box_notebook= gtk_hbox_new(false,0);

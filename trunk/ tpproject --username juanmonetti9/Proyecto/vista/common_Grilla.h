@@ -22,14 +22,7 @@ const int COMPUERTA_HEIGHT= 39;
 #define _WORD   16
 #define _DWORD  32
 
-//Defino un listado de la informacion que el widget destino aceptara.
-enum {TARGET_STRING};
 
-
-static GtkTargetEntry target_list[] = {{ (gchar*)"STRING",0, TARGET_STRING },};
-
-//cantidad de elementos de target_list
-static guint n_targets = G_N_ELEMENTS (target_list);
 
 
 
