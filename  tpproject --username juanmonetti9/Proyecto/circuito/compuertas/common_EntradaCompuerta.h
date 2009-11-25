@@ -15,15 +15,14 @@ public:
 
 	bool simular();
 
-	void setCompuerta(Compuerta* compuerta);
-
 	void setEntrada(SalidaCompuerta* entrada);
 
 	int getId();
 
+	int getConexion();
+
 private:
 
-	Compuerta* compuerta;
 	SalidaCompuerta* entrada;
 	int id;
 

@@ -23,6 +23,8 @@ public:
 
 	int getTiempoTransicion();
 
+	void guardar(DOMDocument* doc, DOMNode* padre);
+
 
 private:
 

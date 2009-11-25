@@ -75,8 +75,6 @@ void FactoryCompuerta::crearAND(Circuito &circuito,int tiempo) {
 	Compuerta* compuerta= new AND(circuito.getContadorCompuertas(),tiempo,entrada1,entrada2,salida);
 	circuito.agregarCompuerta(compuerta);
 
-	entrada1->setCompuerta(compuerta);
-	entrada2->setCompuerta(compuerta);
 	salida->setCompuerta(compuerta);
 
 }
@@ -95,8 +93,6 @@ void FactoryCompuerta::crearOR(Circuito &circuito,int tiempo) {
 	Compuerta* compuerta= new OR(circuito.getContadorCompuertas(),tiempo,entrada1,entrada2,salida);
 	circuito.agregarCompuerta(compuerta);
 
-	entrada1->setCompuerta(compuerta);
-	entrada2->setCompuerta(compuerta);
 	salida->setCompuerta(compuerta);
 
 }
@@ -112,7 +108,6 @@ void FactoryCompuerta::crearNOT(Circuito &circuito,int tiempo) {
 	Compuerta* compuerta= new NOT(circuito.getContadorCompuertas(),tiempo,entrada,salida);
 	circuito.agregarCompuerta(compuerta);
 
-	entrada->setCompuerta(compuerta);
 	salida->setCompuerta(compuerta);
 
 }
@@ -131,8 +126,6 @@ void FactoryCompuerta::crearXOR(Circuito &circuito,int tiempo) {
 	Compuerta* compuerta= new XOR(circuito.getContadorCompuertas(),tiempo,entrada1,entrada2,salida);
 	circuito.agregarCompuerta(compuerta);
 
-	entrada1->setCompuerta(compuerta);
-	entrada2->setCompuerta(compuerta);
 	salida->setCompuerta(compuerta);
 
 }
@@ -148,7 +141,6 @@ void FactoryCompuerta::crearPISTA(Circuito &circuito) {
 	Compuerta* compuerta= new Pista(circuito.getContadorCompuertas(),entrada,salida);
 	circuito.agregarCompuerta(compuerta);
 
-	entrada->setCompuerta(compuerta);
 	salida->setCompuerta(compuerta);
 
 }
@@ -172,7 +164,5 @@ void FactoryCompuerta::crearSALIDA(Circuito &circuito) {
 
 	Compuerta* compuerta= new Salida(circuito.getContadorCompuertas(),entradaSalida);
 	circuito.agregarCompuerta(compuerta);
-
-	entradaSalida->setCompuerta(compuerta);
 
 }

@@ -20,12 +20,12 @@ public:
 
 	void simular();
 
+	void guardar(DOMDocument* doc, DOMNode* padre);
+
 private:
 
 	EntradaCompuerta* entrada;
 	SalidaCompuerta* salida;
-
-
 
 };
 

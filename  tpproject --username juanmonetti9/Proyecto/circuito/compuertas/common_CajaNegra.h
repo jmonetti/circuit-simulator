@@ -19,6 +19,8 @@ public:
 
 	void simular();
 
+	void guardar(DOMDocument* doc, DOMNode* padre){} //TODO
+
 private:
 
 	std::vector<EntradaCompuerta*> entradas;

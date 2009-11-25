@@ -18,6 +18,8 @@ public:
 
 	void simular();
 
+	void guardar(DOMDocument* doc, DOMNode* padre);
+
 private:
 
 	EntradaCompuerta* entradas[2];

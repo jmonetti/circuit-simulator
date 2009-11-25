@@ -9,6 +9,7 @@
 #include "compuertas/common_Salida.h"
 #include <vector>
 
+
 class Circuito {
 
 public:
@@ -41,7 +42,9 @@ public:
 
 	void conectar(int idSalida,int idEntrada);
 
-	int getId();
+	int getId() const;
+
+	void guardar(DOMDocument* doc, DOMNode* padre) const;
 
 private:
 
