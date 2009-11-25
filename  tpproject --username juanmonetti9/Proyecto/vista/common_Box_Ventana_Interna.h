@@ -7,8 +7,7 @@
 #include "common_Vista_Panel.h"
 #include "common_Decorador_Scroll.h"
 #include "common_Componente_Visual.h"
-
-#include "gtkmm.h"
+#include <gtkmm.h>
 #include "common_Grilla.h"
 #include <list>
 
@@ -16,8 +15,8 @@ class Box_Ventana_Interna: public Componente_Visual{
 
 private:
 
-	std::list<Grilla*> _grillas;
 	//atributo
+	std::list<Grilla*> _grillas;
 	GtkWidget* _box_ventana;
 	GtkWidget* noteb;
 	Grilla grilla;

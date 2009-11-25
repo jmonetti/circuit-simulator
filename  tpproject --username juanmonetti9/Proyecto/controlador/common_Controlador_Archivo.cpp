@@ -36,7 +36,7 @@ void Controlador_Archivo::callback_cerrar_ventana_circuit(GtkWidget *widget, gpo
 	//TODO
 	g_print("Cerrar ventana circuito\n");
 	//fin TODO
-	((Box_Ventana_Interna*)callback_data)->eliminar_pestania_actual();
+	//TODO((Box_Ventana_Interna*)callback_data)->eliminar_pestania_actual();
 }
 
 
