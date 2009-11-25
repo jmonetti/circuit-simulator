@@ -38,7 +38,7 @@ public:
 
 	void conectar(int idCircuito, int idSalida,int idEntrada);
 
-	void guardar(int idCircuito);
+	void guardar(int idCircuito, std::string &ruta);
 
 	void recuperar(const std::string &nombreCircuito);
 

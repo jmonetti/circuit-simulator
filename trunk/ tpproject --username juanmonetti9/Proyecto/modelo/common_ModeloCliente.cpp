@@ -91,17 +91,17 @@ void ModeloCliente::conectar(int idCircuito,int idSalida,int idEntrada) {
 
 }
 
-void ModeloCliente::guardar(int idCircuito) {
+void ModeloCliente::guardar(int idCircuito, std::string &ruta) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	persistencia.guardar(*circuito);
+	persistencia.guardar(*circuito, ruta);
 
 }
 
 void ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
-	Circuito* circuito= persistencia.recuperar(nombreCircuito);
+	Circuito* circuito= persistencia.recuperar(contadorId, nombreCircuito);
 
 	circuitos.push_back(circuito);
 
