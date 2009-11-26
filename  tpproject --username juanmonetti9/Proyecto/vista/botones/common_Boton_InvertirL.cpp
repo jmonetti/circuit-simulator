@@ -9,7 +9,7 @@
 /**************************   	Grupo 8            *******************/
 
 #include "common_Boton_InvertirL.h"
-#include "../../controlador/common_Controlador_Circuito.h"
+#include "../../controlador/common_Controladores_Circuito.h"
 
 Boton_InvertirL::Boton_InvertirL():Boton() {
 

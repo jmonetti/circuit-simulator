@@ -1,21 +1,17 @@
 /**************************   Clase Controlador Boton  **************/
 /**************************   	Grupo 8                **************/
 
-#ifndef COMMON_CONTROLADOR_CIRCUITO_H_
-#define COMMON_CONTROLADOR_CIRCUITO_H_
+#ifndef COMMON_CONTROLADORES_CIRCUITO_H_
+#define COMMON_CONTROLADORES_CIRCUITO_H_
 #include <gtkmm.h>
 #include "Modelo_vista_circ/common_Modelo_vista_circuito.h"
+#include "common_Controlador.h"
 
 class Controlador_Circuito {
 
-private:
-	static Modelo_vista_circuito matriz;
-	static int pos_x; //pos de comienzo de arrastre
-	static int pos_y; //pos de comienzo de arrastre
 
 public:
 
-	Controlador_Circuito();
 
 	static void callback_Upload( GtkWidget *widget,gpointer callback_data );
 
@@ -55,7 +51,7 @@ public:
 	static gboolean drag_drop_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time,gpointer user_data);
 
 
-	virtual ~Controlador_Circuito();
+
 
 private:
 

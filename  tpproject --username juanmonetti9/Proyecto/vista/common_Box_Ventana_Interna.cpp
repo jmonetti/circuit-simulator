@@ -53,6 +53,10 @@ void Box_Ventana_Interna::agregar_pestania(){
 	                                GtkWidget   *tab_label );
 
 }
+
+void Box_Ventana_Interna::dibujar_compuerta_xor(gdouble x,gdouble y){
+	grilla.draw_XOR(x,y);
+}
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Box_Ventana_Interna::getWidget(){

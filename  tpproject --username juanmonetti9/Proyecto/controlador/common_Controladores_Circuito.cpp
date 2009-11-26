@@ -1,12 +1,10 @@
 /**************************   Clase Controlador Boton  **************/
 /**************************   	Grupo 8                **************/
 
-#include "common_Controlador_Circuito.h"
+#include "common_Controladores_Circuito.h"
 #include "stdlib.h"
 
-Modelo_vista_circuito Controlador_Circuito::matriz;
-int Controlador_Circuito::pos_x; //pos de comienzo de arrastre
-int Controlador_Circuito::pos_y; //pos de comienzo de arrastre
+
 
 void Controlador_Circuito::crearVentanaDialogoServidor() {
 
@@ -188,37 +186,22 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
 
   if (event->button == 1 ){
 	  // si es el boton izq del raton
-	  //intento agregar una compuerta
-	  int x=event->x;
-	  int y=event->y;
-	  //bool agregada= Grilla::matriz.agregar_compuerta(&x,&y,XOR);
-	  //if(agregada){
-		  //TODO
-		  //g_print("Agregada true tendria que dibujar XOR \n");
-		  g_print("Presiono boton uno en: (%d,%d)\n",x,y);
-		  //fin TODO
-		//  draw_XOR(widget, x, y);
-	  /*}
-	  else{
-		  //TODO
-		  g_print("Agregada FALSE \n");
-		  //fin TODO
-	  }*/
+	  Controlador* controlador=Controlador::get_instancia();
+	  controlador->agregar_componente(event->x,event->y,XOR);
+
   }
-  if (event->button == 3 ){
+ /* if (event->button == 3 ){
 	  pos_x=event->x;
 	  pos_y=event->y;
 
 	  g_print ("Presiono el boton en (%d,%d)\n",pos_x,pos_y);
-  }
+  }*/
   return true;
 }
 
 /*----------------------------------------------------------------------------*/
 
 gboolean Controlador_Circuito::drag_drop_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time,gpointer user_data){
-
-
 
 	//TODO Chequeo si el lugar donde dropie es valido
 	g_print ("Ubicacion de drop de -drag_drop_handl-> (%d,%d)\n",x,y);
@@ -242,6 +225,4 @@ gboolean Controlador_Circuito::drag_drop_handl(GtkWidget *widget, GdkDragContext
     return  true;
 }
 
-Controlador_Circuito::~Controlador_Circuito() {
 
-}

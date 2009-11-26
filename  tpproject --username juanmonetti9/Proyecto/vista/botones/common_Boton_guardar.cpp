@@ -6,7 +6,7 @@
  */
 
 #include "common_Boton_guardar.h"
-#include "../../controlador/common_Controlador_Archivo.h"
+#include "../../controlador/common_Controladores_Archivo.h"
 Boton_guardar::Boton_guardar() {
 	agregarImagen((gchar*)"imagenes/guardar.png");
 	agregarToolTip((gchar*)"Guardar circuito");

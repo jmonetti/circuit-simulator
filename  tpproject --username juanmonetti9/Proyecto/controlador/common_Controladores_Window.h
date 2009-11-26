@@ -1,8 +1,8 @@
 /**************************   Clase Controlador Ventana  ************/
 /**************************   	Grupo 8                  *************/
 
-#ifndef COMMON_CONTROLADOR_WINDOW_H_
-#define COMMON_CONTROLADOR_WINDOW_H_
+#ifndef COMMON_CONTROLADORES_WINDOW_H_
+#define COMMON_CONTROLADORES_WINDOW_H_
 
 #include "gtkmm.h"
 

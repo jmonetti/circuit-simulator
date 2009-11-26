@@ -3,7 +3,7 @@
 
 
 #include "common_Boton_Selector.h"
-#include "../../controlador/common_Controlador_Circuito.h"
+#include "../../controlador/common_Controladores_Circuito.h"
 
 Boton_Selector::Boton_Selector():Boton() {
 

@@ -2,7 +2,7 @@
 /**************************   	Grupo 8       ***********************/
 
 #include "common_Boton_AND.h"
-#include "../../controlador/common_Controlador_Circuito.h"
+#include "../../controlador/common_Controladores_Circuito.h"
 
 Boton_AND::Boton_AND():Boton() {
 

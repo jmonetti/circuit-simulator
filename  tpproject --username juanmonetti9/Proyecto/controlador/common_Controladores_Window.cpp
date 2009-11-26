@@ -1,7 +1,7 @@
 /**************************   Clase Controlador Ventana  ************/
 /**************************   	Grupo 8                  *************/
 
-#include "common_Controlador_Window.h"
+#include "common_Controladores_Window.h"
 
 
 gint Controlador_Ventana::delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)	{

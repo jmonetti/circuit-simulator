@@ -26,19 +26,7 @@ const int CELDA_HEIGHT= 12;
 #define _DWORD  32
 
 
-
-
 class Grilla: public Componente_Visual {
-
-public:
-
-	Grilla();
-
-	void show();
-
-	void escalar(int fa);
-
-	GtkWidget* getWidget();
 
 
 private:
@@ -53,6 +41,17 @@ private:
 	GtkWidget* box_size_pestania_uno;
 	GtkWidget* tab_pestania_dos;
 	TablaLogica tablaLogica;
+
+
+public:
+
+	Grilla();
+
+	void show();
+
+	void escalar(int fa);
+
+	GtkWidget* getWidget();
 
 
 

@@ -2,7 +2,7 @@
 /**************************   Grupo 8                  ************************/
 
 #include "common_Decorador_Ventana.h"
-#include "../controlador/common_Controlador_Window.h"
+#include "../controlador/common_Controladores_Window.h"
 
 /*----------------------------------------------------------------------------*/
 
