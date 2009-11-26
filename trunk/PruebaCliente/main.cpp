@@ -2,8 +2,8 @@
 #include <iostream>
 #include "Cliente.h"
 #include <vector>
-#include "modelo/common_ResultadoSimulacion.h"
-#include "modelo/common_ResultadoTiempo.h"
+#include "modelo/simulacion/common_ResultadoSimulacion.h"
+#include "modelo/simulacion/common_ResultadoTiempo.h"
 
 void imprimirSimulacion(std::vector<ResultadoSimulacion*>* resultados) {
 
