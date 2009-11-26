@@ -8,29 +8,21 @@ Box_Ventana_Interna::Box_Ventana_Interna():scroll_grilla(&grilla){
 	//Creo el box de la ventana
 	_box_ventana= gtk_hbox_new(false,0);
 	gtk_container_border_width (GTK_CONTAINER (_box_ventana), 10);
-	//Creo la notebook
+	//Creo la notebook y la incluyo en la caja
 	noteb= gtk_notebook_new();
 	gtk_notebook_set_tab_pos((GtkNotebook*)noteb,GTK_POS_RIGHT);
-	gtk_widget_show (noteb);
-	agregar_AreaDisenio();
-	//TODO Solo para mostrar una grilla mas
-	//grilla1.show();
-	//GtkWidget* label_grilla= gtk_label_new ("Circuito");
-	//gtk_notebook_append_page (GTK_NOTEBOOK (noteb), grilla1.getWidget(),label_grilla);
-	//fin TODO
-	//Agrego la notebook a la obx principal
 	gtk_container_add (GTK_CONTAINER (_box_ventana),noteb);
-
-
-
+	//agrego un area de disenio
+	agregar_AreaDisenio();
 }
+/*----------------------------------------------------------------------------*/
 
 void Box_Ventana_Interna::agregar_AreaDisenio(){
 
 
-	scroll_grilla.show();
 	GtkWidget* label_grilla= gtk_label_new ("Circuito");
 	gtk_notebook_append_page (GTK_NOTEBOOK (noteb),scroll_grilla.getWidget(),label_grilla);
+	scroll_grilla.show();
 
 }
 /*----------------------------------------------------------------------------*/
@@ -38,6 +30,7 @@ void Box_Ventana_Interna::agregar_AreaDisenio(){
 void Box_Ventana_Interna::show(){
 
     gtk_widget_show (_box_ventana);
+    gtk_widget_show (noteb);
 
 }
 /*----------------------------------------------------------------------------*/

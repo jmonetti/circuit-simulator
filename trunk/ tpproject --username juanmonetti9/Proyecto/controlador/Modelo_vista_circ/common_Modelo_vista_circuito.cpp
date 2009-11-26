@@ -51,8 +51,8 @@ bool Modelo_vista_circuito::hay_componente(int* x,int* y){
 
 	if(retorno){
 
-		*y= (aux->get_fila_padre()*13)+7; //TODO
-		*x= aux->get_colum_padre()*13+7;  //TODO
+		*y= (aux->get_fila_padre()*12)+6; //TODO
+		*x= aux->get_colum_padre()*12+6;  //TODO
 
 	}
 
@@ -65,6 +65,8 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 	Celda* aux= modelo_grilla[fila][col];
 	aux->eliminar_componente();
 
+	return true;//TODO
+
 }
 
 bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado){
@@ -73,8 +75,8 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado)
 	int col= de_pixel_a_col(*x);
 	Celda* aux= modelo_grilla[fila][col];
 
-	*y= (fila*13)+7; //TODO
-	*x= col*13+7;  //TODO
+	*y= (fila*12)+6; //TODO
+	*x= col*12+6;  //TODO
 
 	//TODO case con _estado
 	agregada=aux->agregar_compuerta_XOR();
