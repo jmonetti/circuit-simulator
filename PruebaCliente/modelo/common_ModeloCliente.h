@@ -5,14 +5,14 @@
 #include <vector>
 #include <string>
 
-#include "../circuito/common_Circuito.h"
-#include "../circuito/compuertas/common_CajaNegra.h"
-#include "common_ResultadoSimulacion.h"
-#include "common_ResultadoTiempo.h"
-#include "common_Servidor.h"
-#include "common_Persistencia.h"
-#include "common_Publicacion.h"
-#include "common_Simulador.h"
+#include "circuito/common_Circuito.h"
+#include "circuito/compuertas/common_CajaNegra.h"
+#include "simulacion/common_ResultadoSimulacion.h"
+#include "simulacion/common_ResultadoTiempo.h"
+#include "publicacion/common_Servidor.h"
+#include "persistencia/common_Persistencia.h"
+#include "publicacion/common_Publicacion.h"
+#include "simulacion/common_Simulador.h"
 #include "../common/constantes.h"
 
 
@@ -24,9 +24,13 @@ public:
 
 	virtual ~ModeloCliente();
 
-	int crearNuevo();
+	void crearNuevo();
 
-	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
+	void eliminar(int idCircuito);
+
+	void agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
+
+	void eliminarCompuerta(int idCircuito,int idCompuerta);
 
 	std::vector<ResultadoSimulacion*>* simular(int idCircuito);
 
@@ -34,13 +38,15 @@ public:
 
 	void conectar(int idCircuito, int idSalida,int idEntrada);
 
-	void guardar(int idCircuito);
+	void desconectar(int idCircuito, int idSalida, int idEntrada);
+
+	void guardar(int idCircuito, std::string &ruta);
 
 	void recuperar(const std::string &nombreCircuito);
 
 	void enviar(const std::string &nombreCircuito,const Servidor &servidor);
 
-	int recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor);
+	void recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor);
 
 
 private:
