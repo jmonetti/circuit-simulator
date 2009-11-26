@@ -65,6 +65,8 @@ int main(int argc, char **argv) {
 
 	std::cin.get();
 
+
+
 	std::cout << "Prueba De Circuitos Separados: " << std::endl << std::endl;
 
 	imprimirSimulacion(cliente.simularCircuitosSeparados());

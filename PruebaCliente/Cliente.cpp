@@ -66,7 +66,6 @@ int Cliente::crearCircuitosSeparados() {
 
 		modelo.conectar(id,9 + 2*i,9 + 2*i);
 		modelo.conectar(id,9 + 2*i+1,9 + 2*i+1);
-		modelo.conectar(id,9 + 2*i+2,9 + 2*i+2);
 
 	}
 
