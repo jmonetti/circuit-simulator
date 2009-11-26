@@ -2,6 +2,7 @@
 /**************************      Grupo 8     **************************************/
 
 #include "common_Circuito.h"
+#include <iostream>
 
 Circuito::Circuito(int id) {
 
@@ -177,7 +178,9 @@ void Circuito::conectar(int idSalida,int idEntrada) {
 		entrada->setEntrada(salida);
 
 	}else{
-		//TODO
+
+		std::cout<<"Exception Circuito"<<std::endl;
+
 	}
 
 }

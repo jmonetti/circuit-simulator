@@ -51,7 +51,7 @@ private:
 
 	int idCircuitos[6];
 
-	//int crearCircuitoBasico();
+	int crearCircuitoBasico();
 
 	int crearCircuitoNOT();
 

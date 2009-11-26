@@ -13,7 +13,7 @@ Cliente::~Cliente() {
 
 void Cliente::crearCircuitos() {
 
-	//idCircuitos[0]= crearCircuitoBasico();
+	idCircuitos[0]= crearCircuitoBasico();
 	idCircuitos[0]= crearCircuitoNOT();
 	idCircuitos[1]= crearCircuitoAND();
 	idCircuitos[2]= crearSumaDeUnBit();
@@ -21,7 +21,7 @@ void Cliente::crearCircuitos() {
 	idCircuitos[4]= crearSumaTresEntradas();
 }
 
-/*int Cliente::crearCircuitoBasico() {
+int Cliente::crearCircuitoBasico() {
 
 	int id= modelo.crearNuevo();
 	modelo.agregarCompuerta(id,T_ENTRADA);
@@ -32,7 +32,7 @@ void Cliente::crearCircuitos() {
 
 	return id;
 
-}*/
+}
 
 int Cliente::crearCircuitoNOT() {
 
@@ -138,7 +138,6 @@ int Cliente::crearCircuitosSeparados() {
 
 		modelo.conectar(id,9 + 2*i,9 + 2*i);
 		modelo.conectar(id,9 + 2*i+1,9 + 2*i+1);
-		modelo.conectar(id,9 + 2*i+2,9 + 2*i+2);
 
 	}
 
@@ -185,11 +184,11 @@ int Cliente::crearSumaTresEntradas() {
 
 }
 
-/*std::vector<Resultado*>* Cliente::simularCircuitoBasico() {
+std::vector<Resultado*>* Cliente::simularCircuitoBasico() {
 
 	return modelo.simular(idCircuitos[0]);
 
-}*/
+}
 
 std::vector<Resultado*>* Cliente::simularCircuitoNOT() {
 
@@ -221,10 +220,10 @@ std::vector<Resultado*>* Cliente::simularSumaTresEntradas() {
 
 }
 
-/*void Cliente::guardarCircuitoBasico(std::string &ruta) {
+void Cliente::guardarCircuitoBasico(std::string &ruta) {
 
 	modelo.guardar(idCircuitos[0], ruta);
-}*/
+}
 
 void Cliente::guardarCircuitoNOT(std::string &ruta) {
 
