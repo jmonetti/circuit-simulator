@@ -15,11 +15,12 @@
 //defino al dato del modelo
 typedef struct Celda* Dato_circuito;
 
+
 //Constantes del tamanio del modelo
-const int PIXELES_WIDTH= 1170;
+const int PIXELES_WIDTH= 1200;
 const int PIXELES_HEIGHT= 780;
-const int FILAS_MODELO= 60;
-const int COLUMNAS_MODELO= 90;
+const int FILAS_MODELO= 65;
+const int COLUMNAS_MODELO= 100;
 
 class Modelo_vista_circuito {
 

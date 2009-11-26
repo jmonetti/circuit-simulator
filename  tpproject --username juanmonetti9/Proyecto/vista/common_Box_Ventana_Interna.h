@@ -24,8 +24,7 @@ private:
 
 	//todo
 	Grilla grilla1;
-	Grilla grilla2;
-	//fin todo
+
 
 
 

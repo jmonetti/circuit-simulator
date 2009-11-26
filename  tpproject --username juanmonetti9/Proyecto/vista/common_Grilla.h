@@ -5,7 +5,6 @@
 #define COMMON_GRILLA_H_
 
 #include "common_Componente_Visual.h"
-#include "Modelo_Vista_Circuito/common_Modelo_vista_circuito.h"
 #include "common_TablaLogica.h"
 #include <gtkmm.h>
 
@@ -14,16 +13,17 @@ const int DRW_AREA_WIDTH= 1170;
 const int DRW_AREA_HEIGHT= 780;
 
 //constante de tamanio del area de dibujo de una compuerta
-const int COMPUERTA_WIDTH= 39;
-const int COMPUERTA_HEIGHT= 39;
+const int COMPUERTA_WIDTH= 36;
+const int COMPUERTA_HEIGHT= 36;
+
+//constantes de tamanio de una celda
+const int CELDA_WIDTH= 12;
+const int CELDA_HEIGHT= 12;
 
 // defino tamanios de envio
 #define _BYTE   8
 #define _WORD   16
 #define _DWORD  32
-
-
-
 
 
 
@@ -45,63 +45,51 @@ private:
 
 	//GdkPixmap (pixmap intermedio)
 	static GdkPixmap *pixmap;
-	GtkWidget* Box_notebook;
+	GtkWidget* box_notebook;
 	GtkWidget* notebook;
-	GtkWidget* tab_noteb1;
-	GtkWidget* tab_noteb2;
-	GtkWidget* box_noteb1;
+	GtkWidget* tab_pestania_uno;
+	GtkWidget* drawing_area;
+	GtkWidget* box_pestania_uno;
+	GtkWidget* box_size_pestania_uno;
+	GtkWidget* tab_pestania_dos;
 	TablaLogica tablaLogica;
 
-	static Modelo_vista_circuito matriz;
-	static int pos_x; //pos de comienzo de arrastre
-	static int pos_y; //pos de comienzo de arrastre
 
-
-
-	/**
-	 * Controlador de evento para la creacion de un pixmap, este se invoca
-	 * cada vez que se cambia el tamanio de la ventana, como cuando se crea
-	 * @return (true) evento ya gestionado
-	 */
-	static gint configure_event (GtkWidget *widget, GdkEventConfigure *event);
-
-	/**
-	 * Controlador de evento de expocicion, copia la porcion relevante del pixmap
-	 * en la pantalla
-	 * Se determina el area a redibujar del campo event->area
-	 */
-	static gint expose_event (GtkWidget *widget, GdkEventExpose *event);
 
 	/**
 	 * Dibuja la compuerta NOT en la pantalla
 	 */
-	static void draw_NOT(GtkWidget *widget, gdouble x, gdouble y);
+	void draw_NOT(gdouble x, gdouble y);
 	/**
 	 * Dibuja la compuerta AND en la pantalla
 	 */
-	static void draw_AND(GtkWidget *widget, gdouble x, gdouble y);
+	void draw_AND(gdouble x, gdouble y);
 	/**
 	 * Dibuja la compuerta OR en la pantalla
 	 */
-	static void draw_OR(GtkWidget *widget, gdouble x, gdouble y);
+	void draw_OR(gdouble x, gdouble y);
 	/**
 	 * Dibuja la compuerta XOR en la pantalla
 	 */
-	static void draw_XOR(GtkWidget *widget, gdouble x, gdouble y);
+	void draw_XOR(gdouble x, gdouble y);
 
-	static void draw_sin_commpuerta(GtkWidget *widget, gdouble x, gdouble y);
 	/**
-	 * Controlador del evento de presionar el primer boton del raton
+	 * Borra una compuerta del drawing area
 	 */
-	static gint button_press_event (GtkWidget *widget, GdkEventButton *event);
-	/**
-	 * Controlador del evento de mover el raton
-	 */
-	static gint motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
+	void draw_sin_commpuerta(gdouble x, gdouble y);
 
-	static gboolean drag_drop_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time,gpointer user_data);
-	static void drag_data_get_handl(GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data,guint target_type, guint time, gpointer user_data);
-	static void drag_data_received_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y,GtkSelectionData *selection_data, guint target_type, guint time,gpointer data);
+
+	/**
+	 * Crea el pixmap
+	 */
+	static void crear_pixmap (GtkWidget *widget, GdkEventConfigure *event);
+
+	/**
+	 * Redibuja un sector del pixmap area del pixmap
+	 */
+	static void exponer_pixmap (GtkWidget *widget, GdkEventExpose *event);
+
+
 
 
 };

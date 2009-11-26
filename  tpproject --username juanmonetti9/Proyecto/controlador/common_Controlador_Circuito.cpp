@@ -4,6 +4,10 @@
 #include "common_Controlador_Circuito.h"
 #include "stdlib.h"
 
+Modelo_vista_circuito Controlador_Circuito::matriz;
+int Controlador_Circuito::pos_x; //pos de comienzo de arrastre
+int Controlador_Circuito::pos_y; //pos de comienzo de arrastre
+
 void Controlador_Circuito::crearVentanaDialogoServidor() {
 
 	GtkWidget* cuadro= gtk_dialog_new();
@@ -177,6 +181,66 @@ void Controlador_Circuito::callback_InvertirR( GtkWidget *widget,gpointer callba
 	//fin TODO
 }
 
+
+/*----------------------------------------------------------------------------*/
+
+gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton *event){
+
+  if (event->button == 1 ){
+	  // si es el boton izq del raton
+	  //intento agregar una compuerta
+	  int x=event->x;
+	  int y=event->y;
+	  //bool agregada= Grilla::matriz.agregar_compuerta(&x,&y,XOR);
+	  //if(agregada){
+		  //TODO
+		  //g_print("Agregada true tendria que dibujar XOR \n");
+		  g_print("Presiono boton uno en: (%d,%d)\n",x,y);
+		  //fin TODO
+		//  draw_XOR(widget, x, y);
+	  /*}
+	  else{
+		  //TODO
+		  g_print("Agregada FALSE \n");
+		  //fin TODO
+	  }*/
+  }
+  if (event->button == 3 ){
+	  pos_x=event->x;
+	  pos_y=event->y;
+
+	  g_print ("Presiono el boton en (%d,%d)\n",pos_x,pos_y);
+  }
+  return true;
+}
+
+/*----------------------------------------------------------------------------*/
+
+gboolean Controlador_Circuito::drag_drop_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time,gpointer user_data){
+
+
+
+	//TODO Chequeo si el lugar donde dropie es valido
+	g_print ("Ubicacion de drop de -drag_drop_handl-> (%d,%d)\n",x,y);
+/*
+	int _x=x;
+	int _y=y;
+	int _pos_x=pos_x;
+	int _pos_y=pos_y;
+	if(matriz.hay_componente(&_pos_x,&_pos_y)){
+
+		bool agregado= matriz.agregar_compuerta(&_x,&_y,XOR);
+		if(agregado){
+			draw_XOR(widget, _x, _y);
+			g_print ("Agregue xor enn -> (%d,%d)\n",_x,_y);
+			matriz.eliminar_componente(_pos_x,_pos_y);
+			g_print ("Elimine\n");
+			draw_sin_commpuerta(widget,_pos_x,_pos_y);
+		}
+	}
+*/
+    return  true;
+}
 
 Controlador_Circuito::~Controlador_Circuito() {
 
