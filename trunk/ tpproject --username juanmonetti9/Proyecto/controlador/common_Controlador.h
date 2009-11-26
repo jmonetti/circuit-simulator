@@ -31,7 +31,7 @@ public:
 
 	void set_pos_y_click(int y);
 
-	void agregar_componente(int x,int y,EstadoCelda _estado);
+	void agregar_componente(int x,int y,Tipo_Celda _tipo);
 
 	void eliminar_componente(int x,int y);
 

@@ -12,7 +12,7 @@ Celda::Celda(Modelo_vista_circuito* _grilla,unsigned int _fila,unsigned int _col
 	grilla=_grilla;
 	fila= _fila;
 	colum=_col;
-	estado=VACIA;
+	estado=TVACIA;
 }
 
 void Celda::eliminar_componente(){
@@ -33,11 +33,11 @@ bool Celda::agregar_compuerta_XOR(){
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_compuerta(XOR);
+		agregada=agregar_entorno_compuerta(TXOR);
 
 		if(agregada){
 			set_info_padre(fila,colum);
-			ocupar_celda(XOR);
+			ocupar_celda(TXOR);
 		}
 
 	}
@@ -47,7 +47,7 @@ bool Celda::agregar_compuerta_XOR(){
 	return agregada;
 }
 
-bool Celda::agregar_entorno_compuerta(EstadoCelda _estado){
+bool Celda::agregar_entorno_compuerta(Tipo_Celda _tipo){
 
 	bool retorno= true;
 	int f=fila;
@@ -62,7 +62,7 @@ bool Celda::agregar_entorno_compuerta(EstadoCelda _estado){
 				if(retorno && aux){
 					if(!aux->esta_ocupada() ){
 						aux->set_info_padre(f,c);
-						aux->ocupar_celda(_estado);
+						aux->ocupar_celda(_tipo);
 						entorno.push_front(aux);
 					}
 					else
@@ -82,9 +82,9 @@ bool Celda::agregar_entorno_compuerta(EstadoCelda _estado){
 
 }
 
-void Celda::ocupar_celda(EstadoCelda _estado){
+void Celda::ocupar_celda(Tipo_Celda _tipo){
 
-	estado= _estado;
+	estado= _tipo;
 }
 
 int Celda::get_fila()const{
@@ -136,7 +136,7 @@ void Celda::desocupar_celda(){
 
 	}
 	g_print("Desocupo celda (%d,%d)\n",this->fila,this->colum);
-	estado=VACIA;
+	estado=TVACIA;
 	fila_padre=0;
 	colum_padre=0;
 }
@@ -151,7 +151,7 @@ void Celda::set_info_padre(int fila, int columna){
 
 bool Celda::esta_ocupada(){
 
-	if(estado==VACIA){
+	if(estado==TVACIA){
 		return false;
 	}
 	else

@@ -187,7 +187,7 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
   if (event->button == 1 ){
 	  // si es el boton izq del raton
 	  Controlador* controlador=Controlador::get_instancia();
-	  controlador->agregar_componente(event->x,event->y,XOR);
+	  controlador->agregar_componente(event->x,event->y,TXOR);
 
   }
  /* if (event->button == 3 ){

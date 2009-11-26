@@ -18,7 +18,7 @@ private:
 
 	Modelo_vista_circuito* grilla;//Grilla en la cual se encuentra la celda
 	std::list<Celda*> entorno;	  //Entorno de la celda
-	EstadoCelda estado; //estado de la celda
+	Tipo_Celda estado; //estado de la celda
 	unsigned int fila; 	//Fila de la celda
 	unsigned int colum;	//columna de la celda
 	unsigned int fila_padre;  	//Fila del padre de la celda
@@ -26,7 +26,7 @@ private:
 
 
 
-	bool agregar_entorno_compuerta(EstadoCelda _estado);
+	bool agregar_entorno_compuerta(Tipo_Celda _tipo);
 
 
 public:
@@ -47,7 +47,7 @@ public:
 	/**
 	 * Setea el valor del atributo estado con el parametro _estado
 	 */
-	void ocupar_celda(EstadoCelda _estado);
+	void ocupar_celda(Tipo_Celda _estado);
 
 	/**
 	 * Setea el valor del atributo estado en VACIA
