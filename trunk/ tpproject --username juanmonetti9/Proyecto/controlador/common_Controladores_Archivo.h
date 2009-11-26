@@ -2,8 +2,8 @@
 /**************************   	Grupo 8                 *************/
 
 
-#ifndef COMMON_CONTROLADOR_ARCHIVO_H_
-#define COMMON_CONTROLADOR_ARCHIVO_H_
+#ifndef COMMON_CONTROLADORES_ARCHIVO_H_
+#define COMMON_CONTROLADORES_ARCHIVO_H_
 #include <gtkmm.h>
 
 class Controlador_Archivo {

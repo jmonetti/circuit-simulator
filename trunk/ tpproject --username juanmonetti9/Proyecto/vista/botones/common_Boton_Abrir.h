@@ -8,7 +8,7 @@
 #ifndef COMMON_BOTON_ABRIR_H_
 #define COMMON_BOTON_ABRIR_H_
 
-#include "../../controlador/common_Controlador_Archivo.h"
+
 
 #include "common_Boton.h"
 

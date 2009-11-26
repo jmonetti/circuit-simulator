@@ -1,7 +1,7 @@
 /**************************   Clase Controlador Archivo *************/
 /**************************   	Grupo 8                 *************/
 
-#include "common_Controlador_Archivo.h"
+#include "common_Controladores_Archivo.h"
 #include "../vista/common_Box_Ventana_Interna.h"
 
 void Controlador_Archivo::callback_Imprimir( GtkWidget *widget,gpointer callback_data ){

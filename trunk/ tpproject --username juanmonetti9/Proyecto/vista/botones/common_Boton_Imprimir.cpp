@@ -2,7 +2,7 @@
 /**************************   	Grupo 8            *******************/
 
 #include "common_Boton_Imprimir.h"
-#include "../../controlador/common_Controlador_Archivo.h"
+#include "../../controlador/common_Controladores_Archivo.h"
 
 Boton_Imprimir::Boton_Imprimir():Boton() {
 

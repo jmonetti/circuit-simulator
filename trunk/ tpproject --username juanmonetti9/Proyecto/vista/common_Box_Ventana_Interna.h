@@ -48,6 +48,12 @@ public:
 	 */
 	virtual void escalar(int _fa);
 
+	/**
+	 * TODO este va a dibujar cualquier compuerta
+	 * y sobre la pestania actual CAMBIAR
+	 */
+	void dibujar_compuerta_xor(gdouble x,gdouble y);
+
 	void eliminar_pestania_actual();
 
 	void agregar_pestania();

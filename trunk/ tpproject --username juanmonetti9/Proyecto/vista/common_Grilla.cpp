@@ -2,7 +2,7 @@
 /**************************   	Grupo 8      *************************/
 
 #include "common_Grilla.h"
-#include "../controlador/common_Controlador_Circuito.h"
+#include "../controlador/common_Controladores_Circuito.h"
 GdkPixmap *Grilla::pixmap = NULL;
 
 

@@ -2,8 +2,8 @@
 /**************************   Grupo 8                      ********************/
 
 #include "common_Decorador_Menu.h"
-#include "../controlador/common_Controlador_Archivo.h"
-#include "../controlador/common_Controlador_Circuito.h"
+#include "../controlador/common_Controladores_Archivo.h"
+#include "../controlador/common_Controladores_Circuito.h"
 
 Decorador_Menu::Decorador_Menu(Componente_Visual* componente):Decorador(componente){
 

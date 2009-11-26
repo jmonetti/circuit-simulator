@@ -3,7 +3,10 @@
 #include "vista/common_Decorador_Box_ventana.h"
 #include "vista/common_Box_Ventana_Interna.h"
 #include "vista/common_Decorador_Menu.h"
+#include "vista/common_Fachada_vista.h"
+#include "controlador/common_Controlador.h"
 #include "gtkmm.h"
+#include <iostream>
 int main(int argc,char* argv[]){
 
 	//inicializo y arranco la libreria
@@ -17,8 +20,15 @@ int main(int argc,char* argv[]){
 	gtk_widget_set_usize(ventana.getWidget(),890,600);
 	//fin TODO
 
+	Fachada_vista fachada(&ventana_interna);
+	Controlador* controlador=Controlador::crear_instancia(&fachada);
 	ventana.show();
+
+
 	gtk_main ();
+
+	//libero la memoria reservada para el controlador
+	delete controlador;
 
 	return 0;
 }

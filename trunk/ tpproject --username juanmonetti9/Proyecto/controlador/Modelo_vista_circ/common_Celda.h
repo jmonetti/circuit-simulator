@@ -6,8 +6,8 @@
 
 
 #include <list>
+#include "../../common/constantes.h"
 
-enum EstadoCelda{VACIA,XOR,OR,NOT,AND,PISTA,SALIDA,ENTRADA};
 
 
 class Modelo_vista_circuito; //declaracion forward

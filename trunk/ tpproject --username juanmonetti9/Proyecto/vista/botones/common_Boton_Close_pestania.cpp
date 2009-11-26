@@ -6,7 +6,7 @@
  */
 
 #include "common_Boton_Close_pestania.h"
-#include "../../controlador/common_Controlador_Archivo.h"
+#include "../../controlador/common_Controladores_Archivo.h"
 
 Boton_Close_pestania::Boton_Close_pestania():Boton() {
 	box_boton= gtk_vbox_new(false,false);

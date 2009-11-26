@@ -6,6 +6,7 @@
  */
 
 #include "common_Boton_Nuevo.h"
+#include "../../controlador/common_Controladores_Archivo.h"
 
 Boton_Nuevo::Boton_Nuevo():Boton() {
 

@@ -5,20 +5,24 @@
 #ifndef COMMON_FACHADA_VISTA_H_
 #define COMMON_FACHADA_VISTA_H_
 
-#include "common_Decorador_Menu.h"
-#include "common_Decorador_Box_ventana.h"
+#include "common_Box_Ventana_Interna.h"
+#include <gtkmm.h>
+#include "../common/constantes.h"
+
 class Fachada_vista {
 
 private:
 
-	Decorador_Menu* Menu;
-	Decorador_Box_ventana* Ventana;
+	Box_Ventana_Interna* ventana_interna;
+
 
 public:
 
-	Fachada_vista();
+	Fachada_vista(Box_Ventana_Interna* ventata_int);
 
-	virtual ~Fachada_vista();
+	void dibujar_componente(gdouble x,gdouble y,EstadoCelda estado);
+
+
 };
 
 #endif /* COMMON_FACHADA_VISTA_H_ */

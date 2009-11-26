@@ -6,6 +6,7 @@
  */
 
 #include "common_Boton_Abrir.h"
+#include "../../controlador/common_Controladores_Archivo.h"
 
 Boton_Abrir::Boton_Abrir():Boton() {
 	agregarImagen((gchar*)"imagenes/abrir.png");

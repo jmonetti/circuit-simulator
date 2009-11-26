@@ -2,7 +2,7 @@
 /**************************   	Grupo 8       ***********************/
 
 #include "common_Boton_OR.h"
-#include "../../controlador/common_Controlador_Circuito.h"
+#include "../../controlador/common_Controladores_Circuito.h"
 
 
 Boton_OR::Boton_OR():Boton() {
