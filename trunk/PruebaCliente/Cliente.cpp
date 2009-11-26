@@ -22,7 +22,9 @@ void Cliente::crearCircuitos() {
 
 int Cliente::crearCircuitosSeparados() {
 
-	int id= modelo.crearNuevo();
+	modelo.crearNuevo();
+
+	int id= 0;
 
 	for (int i = 0; i < 3; ++i) {
 
@@ -75,7 +77,10 @@ int Cliente::crearCircuitosSeparados() {
 
 int Cliente::crearSumaDeUnBit() {
 
-	int id= modelo.crearNuevo();
+	modelo.crearNuevo();
+
+	int id= 1;
+
 	modelo.agregarCompuerta(id,T_ENTRADA);
 
 	modelo.agregarCompuerta(id,T_ENTRADA);
@@ -101,7 +106,9 @@ int Cliente::crearSumaDeUnBit() {
 
 int Cliente::crearSumaTresEntradas() {
 
-	int id= modelo.crearNuevo();
+	modelo.crearNuevo();
+
+	int id= 2;
 
 	modelo.agregarCompuerta(id,T_ENTRADA);
 	modelo.agregarCompuerta(id,T_ENTRADA);
@@ -140,7 +147,9 @@ int Cliente::crearSumaTresEntradas() {
 
 int Cliente::crearAlarmas() {
 
-	int id= modelo.crearNuevo();
+	modelo.crearNuevo();
+
+	int id= 3;
 
 	modelo.agregarCompuerta(id,T_ENTRADA);
 	modelo.agregarCompuerta(id,T_ENTRADA);
@@ -198,7 +207,9 @@ int Cliente::crearAlarmas() {
 
 int Cliente::crearTablero() {
 
-	int id= modelo.crearNuevo();
+	modelo.crearNuevo();
+
+	int id= 4;
 
 	modelo.agregarCompuerta(id,T_ENTRADA);
 	modelo.agregarCompuerta(id,T_ENTRADA);

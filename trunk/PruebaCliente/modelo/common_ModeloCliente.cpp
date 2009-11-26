@@ -1,6 +1,7 @@
 
 #include "common_ModeloCliente.h"
-#include "../circuito/common_FactoryCompuerta.h"
+#include <iterator>
+#include "circuito/common_FactoryCompuerta.h"
 
 ModeloCliente::ModeloCliente() {
 
@@ -17,24 +18,51 @@ ModeloCliente::~ModeloCliente() {
 	}
 }
 
-int ModeloCliente::crearNuevo() {
+void ModeloCliente::crearNuevo() {
 
 	Circuito* circuito= new Circuito(contadorId);
 	circuitos.push_back(circuito);
 	contadorId++;
-	return contadorId - 1;
 
 }
 
-int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
+void ModeloCliente::eliminar(int idCircuito) {
+
+	std::vector<Circuito*>::iterator iterador= circuitos.begin();
+
+	while (iterador != circuitos.end()) {
+
+		Circuito* circuito= *iterador;
+
+		if (circuito->getId() == idCircuito) {
+
+			iterador= circuitos.erase(iterador);
+			delete circuito;
+			return;
+
+		}else{
+
+			++iterador;
+
+		}
+
+	}
+
+}
+
+void ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	int idCompuerta= circuito->getContadorCompuertas();
-
 	FactoryCompuerta::crearCompuerta(tipo, *circuito, tiempoTransicion);
 
-	return idCompuerta;
+}
+
+void ModeloCliente::eliminarCompuerta(int idCircuito,int idCompuerta) {
+
+	Circuito* circuito= obtenerCircuito(idCircuito);
+
+	circuito->eliminarCompuerta(idCompuerta);
 
 }
 
@@ -63,17 +91,17 @@ void ModeloCliente::conectar(int idCircuito,int idSalida,int idEntrada) {
 
 }
 
-void ModeloCliente::guardar(int idCircuito) {
+void ModeloCliente::guardar(int idCircuito, std::string &ruta) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	persistencia.guardar(*circuito);
+	persistencia.guardar(*circuito, ruta);
 
 }
 
 void ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
-	Circuito* circuito= persistencia.recuperar(nombreCircuito);
+	Circuito* circuito= persistencia.recuperar(contadorId, nombreCircuito);
 
 	circuitos.push_back(circuito);
 
@@ -85,15 +113,13 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,const Servidor &ser
 
 }
 
-int ModeloCliente::recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor) {
+void ModeloCliente::recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor) {
 
 	CajaNegra* compuerta= publicacion.recibir(nombreCircuito,servidor);
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
 	circuito->agregarCompuerta(compuerta);
-
-	return circuito->getContadorCompuertas() - 1;
 
 }
 
