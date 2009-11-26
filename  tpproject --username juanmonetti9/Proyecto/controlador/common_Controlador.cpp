@@ -46,15 +46,15 @@ void  Controlador::set_pos_y_click(int y){
 }
 /*----------------------------------------------------------------------------*/
 
-void Controlador::agregar_componente(int x,int y,EstadoCelda _estado){
+void Controlador::agregar_componente(int x,int y,Tipo_Celda _tipo){
 
 	int _x=x;
 	int _y=y;
 
-	bool agregada= matriz.agregar_compuerta(&_x,&_y,XOR);
+	bool agregada= matriz.agregar_compuerta(&_x,&_y,TXOR);
 
 	if(agregada){
-	  fachada_vista->dibujar_componente(_x,_y,XOR);
+	  fachada_vista->dibujar_componente(_x,_y,TXOR);
 	}
 }
 /*----------------------------------------------------------------------------*/

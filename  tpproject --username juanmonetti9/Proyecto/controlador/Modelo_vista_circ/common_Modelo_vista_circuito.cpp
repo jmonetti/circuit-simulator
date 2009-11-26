@@ -69,7 +69,7 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 
 }
 
-bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,EstadoCelda _estado){
+bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,Tipo_Celda _tipo){
 	bool agregada;
 	int fila= de_pixel_a_fila(*y);
 	int col= de_pixel_a_col(*x);

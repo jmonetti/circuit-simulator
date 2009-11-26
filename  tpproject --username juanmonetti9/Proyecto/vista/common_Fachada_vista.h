@@ -20,7 +20,7 @@ public:
 
 	Fachada_vista(Box_Ventana_Interna* ventata_int);
 
-	void dibujar_componente(gdouble x,gdouble y,EstadoCelda estado);
+	void dibujar_componente(gdouble x,gdouble y,Tipo_Celda tipo);
 
 
 };

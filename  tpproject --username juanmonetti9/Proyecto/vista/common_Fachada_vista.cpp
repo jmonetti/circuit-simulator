@@ -9,7 +9,7 @@ Fachada_vista::Fachada_vista(Box_Ventana_Interna* ventana_int) {
 }
 
 
-void Fachada_vista::dibujar_componente(gdouble x,gdouble y,EstadoCelda estado){
+void Fachada_vista::dibujar_componente(gdouble x,gdouble y,Tipo_Celda tipo){
 
 	ventana_interna->dibujar_compuerta_xor(x,y);
 };
