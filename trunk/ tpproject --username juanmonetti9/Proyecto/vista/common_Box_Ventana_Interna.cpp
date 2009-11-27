@@ -66,9 +66,12 @@ void Box_Ventana_Interna::dibujar_compuerta(gdouble x,gdouble y,Tipo_Celda tipo)
 				break;
 	case TOR:	grilla.draw_OR(x,y);
 				break;
+	case TVACIA:grilla.draw_sin_commpuerta(x,y);
+				break;
+
 	case TENTRADA:break;//todo
 	case TPISTA:break;//todo
-	case TVACIA:break;//todo
+
 	case TSALIDA:break;//todo
 	}
 

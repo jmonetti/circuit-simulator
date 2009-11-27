@@ -8,6 +8,7 @@
 #include "Acciones/common_Accion_NULA.h"
 #include "Acciones/common_Accion_Draw_NOT.h"
 #include "Acciones/common_Accion_Draw_OR.h"
+#include "Acciones/common_Accion_Borrar.h"
 
 
 
@@ -132,7 +133,6 @@ void Controlador_Circuito::callback_AND( GtkWidget *widget,gpointer callback_dat
 	if(controlador){
 		controlador->agregar_accion(new Accion_Draw_AND(controlador));
 	}
-	//crearVentanaDialogoPuertas("AND");
 
 }
 
@@ -144,7 +144,6 @@ void Controlador_Circuito::callback_OR( GtkWidget *widget,gpointer callback_data
 		controlador->agregar_accion(new Accion_OR(controlador));
 	}
 
-	//crearVentanaDialogoPuertas("OR");
 
 }
 
@@ -156,8 +155,6 @@ void Controlador_Circuito::callback_XOR( GtkWidget *widget,gpointer callback_dat
 		controlador->agregar_accion(new Accion_Draw_XOR(controlador));
 	}
 
-	//crearVentanaDialogoPuertas("XOR");
-
 }
 
 void Controlador_Circuito::callback_NOT( GtkWidget *widget,gpointer callback_data ){
@@ -168,13 +165,14 @@ void Controlador_Circuito::callback_NOT( GtkWidget *widget,gpointer callback_dat
 		controlador->agregar_accion(new Accion_NOT(controlador));
 	}
 
-	//crearVentanaDialogoPuertas("NOT");
 }
 
 void Controlador_Circuito::callback_Selector( GtkWidget *widget,gpointer callback_data ){
+
 	//TODO
-	g_print("Apretado el Selector\n");
-	//fin TODO
+		g_print("Apretado el Select\n");
+		//fin TODO
+
 }
 
 void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_data ){
@@ -195,9 +193,13 @@ void Controlador_Circuito::callback_Simulacion( GtkWidget *widget,gpointer callb
 }
 
 void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el Delete\n");
-	//fin TODO
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_Borrar(controlador));
+	}
+
 }
 
 void Controlador_Circuito::callback_InvertirL( GtkWidget *widget,gpointer callback_data ){
