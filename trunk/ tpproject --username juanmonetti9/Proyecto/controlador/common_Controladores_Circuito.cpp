@@ -5,6 +5,9 @@
 #include "stdlib.h"
 #include "Acciones/common_Accion_Draw_XOR.h"
 #include "Acciones/common_Accion_Draw_AND.h"
+#include "Acciones/common_Accion_NULA.h"
+#include "Acciones/common_Accion_Draw_NOT.h"
+#include "Acciones/common_Accion_Draw_OR.h"
 
 
 
@@ -92,6 +95,12 @@ void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
 }
 
 void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_NULA(controlador));
+	}
 	//TODO
 	g_print("Apretado el Upload\n");
 	//fin TODO
@@ -101,6 +110,12 @@ void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_
 }
 
 void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_NULA(controlador));
+	}
 	//TODO
 	g_print("Apretado el download\n");
 	//fin TODO
@@ -122,11 +137,14 @@ void Controlador_Circuito::callback_AND( GtkWidget *widget,gpointer callback_dat
 }
 
 void Controlador_Circuito::callback_OR( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el OR\n");
-	//fin TODO
 
-	crearVentanaDialogoPuertas("OR");
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_OR(controlador));
+	}
+
+	//crearVentanaDialogoPuertas("OR");
 
 }
 
@@ -143,11 +161,14 @@ void Controlador_Circuito::callback_XOR( GtkWidget *widget,gpointer callback_dat
 }
 
 void Controlador_Circuito::callback_NOT( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el NOT\n");
-	//fin TODO
 
-	crearVentanaDialogoPuertas("NOT");
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_NOT(controlador));
+	}
+
+	//crearVentanaDialogoPuertas("NOT");
 }
 
 void Controlador_Circuito::callback_Selector( GtkWidget *widget,gpointer callback_data ){
@@ -163,6 +184,11 @@ void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_d
 }
 
 void Controlador_Circuito::callback_Simulacion( GtkWidget *widget,gpointer callback_data ){
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_NULA(controlador));
+	}
 	//TODO
 	g_print("Apretado el Simulacion\n");
 	//fin TODO
