@@ -98,14 +98,13 @@ void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
 
 void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_data ){
 
+	//TODO
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_NULA(controlador));
 	}
-	//TODO
-	g_print("Apretado el Upload\n");
-	//fin TODO
 
 	crearVentanaDialogoServidor();
 
@@ -116,6 +115,7 @@ void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callbac
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_NULA(controlador));
 	}
 	//TODO
@@ -132,6 +132,7 @@ void Controlador_Circuito::callback_AND( GtkWidget *widget,gpointer callback_dat
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_Draw_AND(controlador));
 	}
 
@@ -142,6 +143,7 @@ void Controlador_Circuito::callback_OR( GtkWidget *widget,gpointer callback_data
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_OR(controlador));
 	}
 
@@ -153,6 +155,7 @@ void Controlador_Circuito::callback_XOR( GtkWidget *widget,gpointer callback_dat
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_Draw_XOR(controlador));
 	}
 
@@ -163,6 +166,7 @@ void Controlador_Circuito::callback_NOT( GtkWidget *widget,gpointer callback_dat
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_NOT(controlador));
 	}
 
@@ -173,27 +177,34 @@ void Controlador_Circuito::callback_Selector( GtkWidget *widget,gpointer callbac
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->conectar_drag_drop();
 		controlador->agregar_accion(new Accion_Drag_Drop(controlador));
 	}
 
 }
 
 void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_data ){
+
 	//TODO
-	g_print("Apretado el Pista\n");
-	//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->agregar_accion(new Accion_NULA(controlador));
+	}
+
 }
 
 void Controlador_Circuito::callback_Simulacion( GtkWidget *widget,gpointer callback_data ){
 
+	//TODO
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_NULA(controlador));
 	}
-	//TODO
-	g_print("Apretado el Simulacion\n");
-	//fin TODO
+
 }
 
 void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_data ){
@@ -201,6 +212,7 @@ void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
+		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_Borrar(controlador));
 	}
 
@@ -208,14 +220,23 @@ void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_
 
 void Controlador_Circuito::callback_InvertirL( GtkWidget *widget,gpointer callback_data ){
 	//TODO
-	g_print("Apretado el Invertir Left\n");
-	//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->agregar_accion(new Accion_NULA(controlador));
+	}
 }
 
 void Controlador_Circuito::callback_InvertirR( GtkWidget *widget,gpointer callback_data ){
+
 	//TODO
-	g_print("Apretado el Invertir Right\n");
-	//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->agregar_accion(new Accion_NULA(controlador));
+	}
 }
 
 
@@ -249,7 +270,8 @@ gboolean Controlador_Circuito::drag_drop_handl(GtkWidget *widget, GdkDragContext
 	 Controlador* controlador=Controlador::get_instancia();
 
 	 if(controlador)
-		 controlador->arrastrar(x,y);
+		 if(controlador->get_arrastre_activo())
+			 controlador->arrastrar(x,y);
     return  true;
 }
 

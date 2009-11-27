@@ -18,6 +18,7 @@ private:
 	Modelo_vista_circuito matriz; //matriz que representa el modelo
 	Fachada_vista* fachada_vista;
 	Accion* accion;
+	bool arrstre_activo;
 	int pos_x; //pos de clickeo
 	int pos_y; //pos de clickeo
 
@@ -41,6 +42,12 @@ public:
 	void agregar_componente(int x,int y,Tipo_Celda _tipo);
 
 	void eliminar_componente(int x,int y);
+
+	void conectar_drag_drop();
+
+	void desconectar_drag_drop();
+
+	bool get_arrastre_activo()const;
 
 	static Controlador* crear_instancia(Fachada_vista* fachada);
 

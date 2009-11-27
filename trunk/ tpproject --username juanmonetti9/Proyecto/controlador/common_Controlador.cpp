@@ -13,6 +13,7 @@ Controlador::Controlador(Fachada_vista* fachada) {
 
 	fachada_vista=fachada;
 	accion=new Accion_NULA(this);
+	arrstre_activo=false;
 
 }
 
@@ -111,6 +112,28 @@ void Controlador::eliminar_componente(int x,int y){
 
 	}
 
+
+}
+
+void Controlador::conectar_drag_drop(){
+
+	if(!arrstre_activo){
+		fachada_vista->activar_dnd();
+		arrstre_activo=true;
+	}
+}
+
+void Controlador::desconectar_drag_drop(){
+
+	if(arrstre_activo){
+		fachada_vista->desactivar_dnd();
+		arrstre_activo=false;
+	}
+}
+
+bool Controlador::get_arrastre_activo()const{
+
+	return arrstre_activo;
 
 }
 /*----------------------------------------------------------------------------*/

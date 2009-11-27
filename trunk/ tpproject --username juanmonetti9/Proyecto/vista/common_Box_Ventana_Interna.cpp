@@ -54,6 +54,16 @@ void Box_Ventana_Interna::agregar_pestania(){
 
 }
 
+void Box_Ventana_Interna::connect_dnd(){
+
+	grilla.conectar_DnD();
+}
+
+void Box_Ventana_Interna::disconnect_dnd(){
+
+	grilla.desconectar_DnD();
+}
+
 void Box_Ventana_Interna::dibujar_compuerta(gdouble x,gdouble y,Tipo_Celda tipo){
 
 	switch(tipo){

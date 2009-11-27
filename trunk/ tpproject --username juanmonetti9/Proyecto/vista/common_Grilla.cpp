@@ -31,14 +31,15 @@ Grilla::Grilla() {
 	box_size_pestania_uno=gtk_vbox_new(false,0);
 	//Creo el widget drawing area
 	drawing_area = gtk_drawing_area_new ();
+	//Seteo los eventos que se notificaran al drawing area
+	gtk_widget_set_events (drawing_area, GDK_BUTTON_PRESS_MASK | GDK_POINTER_MOTION_MASK );
 	//Seteo el tamanio por defecto del drawing area
 	gtk_drawing_area_size (GTK_DRAWING_AREA (drawing_area),DRW_AREA_WIDTH,
 							  DRW_AREA_HEIGHT);
-
-
 	//Seteo el drawing area para que sea dropeable
 	gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
 	gtk_drag_source_set(drawing_area,GDK_BUTTON1_MASK,target_list,n_targets,GDK_ACTION_COPY);
+
 
 	//incluyo el drawing area en la caja
 	gtk_box_pack_start (GTK_BOX (box_size_pestania_uno), drawing_area, false,false,false);
@@ -64,9 +65,8 @@ Grilla::Grilla() {
 	gtk_signal_connect (GTK_OBJECT (drawing_area), "button_press_event",
 						  (GtkSignalFunc)Controlador_Circuito::button_press_event, NULL);
 	//conecto con el controlador para cuando se suelte la seleccion en el destino.
-	g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
-	//Seteo los eventos que se notificaran al drawing area
-	gtk_widget_set_events (drawing_area, GDK_BUTTON_PRESS_MASK | GDK_POINTER_MOTION_MASK );
+	id_manejador_dnd=g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
+
 
 
 }
@@ -147,10 +147,8 @@ void Grilla::draw_NOT(gdouble x, gdouble y){
 	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
 
 	 //Dibujo compuerta NOT
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
-						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-						 update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
+	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),
+						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(2*CELDA_WIDTH)+(CELDA_WIDTH/2),update_rect.y+(COMPUERTA_WIDTH/2));
 	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT);
 	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT,update_rect.x+(2*CELDA_WIDTH)+(CELDA_WIDTH/2),update_rect.y+(COMPUERTA_WIDTH/2));
@@ -159,6 +157,26 @@ void Grilla::draw_NOT(gdouble x, gdouble y){
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
 	 gtk_widget_draw (drawing_area, &update_rect);
+
+
+}
+
+void Grilla::desconectar_DnD(){
+
+	//gtk_drag_dest_unset(drawing_area);
+	//gtk_drag_source_unset(drawing_area);
+
+
+}
+
+void Grilla::conectar_DnD(){
+
+	//Seteo el drawing area para que sea dropeable
+	//gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
+	//gtk_drag_source_set(drawing_area,GDK_BUTTON1_MASK,target_list,n_targets,GDK_ACTION_COPY);
+	//Seteo el drawing area para que sea dropeable
+	//gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
+
 
 }
 /*----------------------------------------------------------------------------*/
@@ -185,6 +203,7 @@ void Grilla::draw_AND(gdouble x, gdouble y){
 	  //informa que la zona dada por update_rect debe actualizarse, el widget
 	  //generara un evento de exposicion
 	  gtk_widget_draw (drawing_area, &update_rect);
+
 
 }
 /*----------------------------------------------------------------------------*/

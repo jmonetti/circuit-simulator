@@ -41,7 +41,7 @@ private:
 	GtkWidget* box_size_pestania_uno;
 	GtkWidget* tab_pestania_dos;
 	TablaLogica tablaLogica;
-
+	gint id_manejador_dnd;
 
 public:
 
@@ -54,6 +54,11 @@ public:
 	GtkWidget* getWidget();
 
 
+
+
+	void desconectar_DnD();
+
+	void conectar_DnD();
 
 	/**
 	 * Dibuja la compuerta NOT en la pantalla
