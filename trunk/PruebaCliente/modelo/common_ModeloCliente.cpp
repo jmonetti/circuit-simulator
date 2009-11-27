@@ -105,6 +105,13 @@ void ModeloCliente::conectar(int idCircuito,int idSalida,int idEntrada) {
 
 }
 
+void ModeloCliente::desconectar(int idCircuito,int idSalida,int idEntrada) {
+
+	Circuito* circuito= obtenerCircuito(idCircuito);
+
+	circuito->desconectar(idSalida, idEntrada);
+}
+
 void ModeloCliente::guardar(int idCircuito) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
