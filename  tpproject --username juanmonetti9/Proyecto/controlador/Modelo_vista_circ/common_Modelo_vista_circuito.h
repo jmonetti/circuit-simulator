@@ -33,9 +33,9 @@ public:
 
 	Modelo_vista_circuito();
 
-	bool agregar_compuerta(int* x,int* y,Tipo_Celda _tipo);
+	bool agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo);
 
-	bool hay_componente(int* x,int* y,Tipo_Celda* tipo);
+	bool hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo);
 
 	bool eliminar_componente(int x,int y);
 

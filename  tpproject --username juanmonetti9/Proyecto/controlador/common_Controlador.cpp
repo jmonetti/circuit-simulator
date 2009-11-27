@@ -70,7 +70,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 	int _y=y;
 	int _pos_x=pos_x;
 	int _pos_y=pos_y;
-	Tipo_Celda _tipo;
+	TIPO_COMPUERTA _tipo;
 
 	if(matriz.hay_componente(&_pos_x,&_pos_y,&_tipo)){
 
@@ -78,7 +78,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 		if(agregado){
 			fachada_vista->dibujar_componente(_x, _y,_tipo);
 			matriz.eliminar_componente(_pos_x,_pos_y);
-			fachada_vista->dibujar_componente(_pos_x,_pos_y,TVACIA);
+			fachada_vista->dibujar_componente(_pos_x,_pos_y,T_VACIA);
 
 		}
 	}
@@ -86,7 +86,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 }
 /*----------------------------------------------------------------------------*/
 
-void Controlador::agregar_componente(int x,int y,Tipo_Celda _tipo){
+void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 	int _x=x;
 	int _y=y;
@@ -103,12 +103,12 @@ void Controlador::eliminar_componente(int x,int y){
 
 	int _x=x;
 	int _y=y;
-	Tipo_Celda _tipo;
+	TIPO_COMPUERTA _tipo;
 
 	if(matriz.hay_componente(&_x,&_y,&_tipo)){
 
 		matriz.eliminar_componente(_x,_y);
-		fachada_vista->dibujar_componente(_x,_y,TVACIA);
+		fachada_vista->dibujar_componente(_x,_y,T_VACIA);
 
 	}
 

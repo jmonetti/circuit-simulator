@@ -18,7 +18,7 @@ private:
 
 	Modelo_vista_circuito* grilla;//Grilla en la cual se encuentra la celda
 	std::list<Celda*> entorno;	  //Entorno de la celda
-	Tipo_Celda estado; //estado de la celda
+	TIPO_COMPUERTA estado; //estado de la celda
 	unsigned int fila; 	//Fila de la celda
 	unsigned int colum;	//columna de la celda
 	unsigned int fila_padre;  	//Fila del padre de la celda
@@ -26,7 +26,7 @@ private:
 
 
 
-	bool agregar_entorno_compuerta(Tipo_Celda _tipo);
+	bool agregar_entorno_compuerta(TIPO_COMPUERTA _tipo);
 
 
 public:
@@ -40,14 +40,14 @@ public:
 	 * @return (true) en caso de haber agregado la celda
 	 * 		   (false) en caso de que no se pueda agregar
 	 */
-	bool agregar_compuerta(Tipo_Celda tipo);
+	bool agregar_compuerta(TIPO_COMPUERTA tipo);
 
 	void eliminar_componente();
 
 	/**
 	 * Setea el valor del atributo estado con el parametro _estado
 	 */
-	void ocupar_celda(Tipo_Celda _estado);
+	void ocupar_celda(TIPO_COMPUERTA _estado);
 
 	/**
 	 * Setea el valor del atributo estado en VACIA
@@ -71,7 +71,7 @@ public:
 
 	void set_info_padre(int fila, int columna);
 
-	Tipo_Celda get_tipo_celda()const;
+	TIPO_COMPUERTA get_tipo_celda()const;
 
 	virtual ~Celda();
 };

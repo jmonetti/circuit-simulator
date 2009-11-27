@@ -39,7 +39,7 @@ public:
 
 	void ejecutar_accion(gdouble x,gdouble y);
 
-	void agregar_componente(int x,int y,Tipo_Celda _tipo);
+	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo);
 
 	void eliminar_componente(int x,int y);
 

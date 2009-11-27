@@ -40,7 +40,7 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
 }
 
-bool Modelo_vista_circuito::hay_componente(int* x,int* y,Tipo_Celda* tipo){
+bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
 
 
 
@@ -70,7 +70,7 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 
 }
 
-bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,Tipo_Celda _tipo){
+bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo){
 	bool agregada;
 	int fila= de_pixel_a_fila(*y);
 	int col= de_pixel_a_col(*x);

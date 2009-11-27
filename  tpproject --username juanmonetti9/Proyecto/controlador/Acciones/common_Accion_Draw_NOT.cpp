@@ -10,7 +10,7 @@ Accion_NOT::Accion_NOT(Controlador* controlador):Accion(controlador) {
 
 void Accion_NOT::ejecutar(gdouble x,gdouble y){
 
-	get_controlador()->agregar_componente(x,y,TNOT);
+	get_controlador()->agregar_componente(x,y,T_NOT);
 }
 Accion_NOT::~Accion_NOT() {
 
