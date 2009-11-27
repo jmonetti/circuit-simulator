@@ -58,15 +58,15 @@ Grilla::Grilla() {
 	//conecto con la señal ("configure_event") producido al modificar el tamanio del drawing area
 	gtk_signal_connect (GTK_OBJECT(drawing_area),"configure_event",
 						  (GtkSignalFunc)crear_pixmap, NULL);
+
+
 	//conecto con la señal ("button_press_event") de precionar el boton del mouse
 	gtk_signal_connect (GTK_OBJECT (drawing_area), "button_press_event",
 						  (GtkSignalFunc)Controlador_Circuito::button_press_event, NULL);
 	//conecto con el controlador para cuando se suelte la seleccion en el destino.
 	g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
 	//Seteo los eventos que se notificaran al drawing area
-	gtk_widget_set_events (drawing_area, GDK_EXPOSURE_MASK | GDK_LEAVE_NOTIFY_MASK |
-							GDK_BUTTON_PRESS_MASK | GDK_POINTER_MOTION_MASK |
-							GDK_POINTER_MOTION_HINT_MASK);
+	gtk_widget_set_events (drawing_area, GDK_BUTTON_PRESS_MASK | GDK_POINTER_MOTION_MASK );
 
 
 }
@@ -241,5 +241,8 @@ void Grilla::draw_XOR(gdouble x, gdouble y){
   //generara un evento de exposicion
   gtk_widget_draw (drawing_area, &update_rect);
 
+
 }
+
+
 /*----------------------------------------------------------------------------*/

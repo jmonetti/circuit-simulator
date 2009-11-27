@@ -3,6 +3,8 @@
 
 #include "common_Controladores_Circuito.h"
 #include "stdlib.h"
+#include "Acciones/common_Accion_Draw_XOR.h"
+#include "Acciones/common_Accion_Draw_AND.h"
 
 
 
@@ -109,11 +111,13 @@ void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callbac
 
 
 void Controlador_Circuito::callback_AND( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el AND\n");
-	//fin TODO
 
-	crearVentanaDialogoPuertas("AND");
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_Draw_AND(controlador));
+	}
+	//crearVentanaDialogoPuertas("AND");
 
 }
 
@@ -127,11 +131,14 @@ void Controlador_Circuito::callback_OR( GtkWidget *widget,gpointer callback_data
 }
 
 void Controlador_Circuito::callback_XOR( GtkWidget *widget,gpointer callback_data ){
-	//TODO
-	g_print("Apretado el XOR\n");
-	//fin TODO
 
-	crearVentanaDialogoPuertas("XOR");
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_Draw_XOR(controlador));
+	}
+
+	//crearVentanaDialogoPuertas("XOR");
 
 }
 
@@ -187,7 +194,9 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
   if (event->button == 1 ){
 	  // si es el boton izq del raton
 	  Controlador* controlador=Controlador::get_instancia();
-	  controlador->agregar_componente(event->x,event->y,TXOR);
+
+	  if(controlador)
+		  controlador->ejecutar_accion(event->x,event->y);
 
   }
  /* if (event->button == 3 ){

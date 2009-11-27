@@ -7,6 +7,8 @@
 #include "Modelo_vista_circ/common_Modelo_vista_circuito.h"
 #include "../vista/common_Fachada_vista.h"
 #include "../common/constantes.h"
+#include "Acciones/common_Accion_NULA.h"
+#include "Acciones/common_Accion.h"
 
 class Controlador {
 
@@ -15,6 +17,7 @@ private:
 	//Atributos
 	Modelo_vista_circuito matriz; //matriz que representa el modelo
 	Fachada_vista* fachada_vista;
+	Accion* accion;
 	int pos_x; //pos de clickeo
 	int pos_y; //pos de clickeo
 
@@ -30,6 +33,10 @@ public:
 	void set_pos_x_click(int x);
 
 	void set_pos_y_click(int y);
+
+	void agregar_accion(Accion* nueva_accion);
+
+	void ejecutar_accion(gdouble x,gdouble y);
 
 	void agregar_componente(int x,int y,Tipo_Celda _tipo);
 

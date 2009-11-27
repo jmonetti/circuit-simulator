@@ -9,6 +9,7 @@
 #include "common_Componente_Visual.h"
 #include <gtkmm.h>
 #include "common_Grilla.h"
+#include "../common/constantes.h"
 #include <list>
 
 class Box_Ventana_Interna: public Componente_Visual{
@@ -52,7 +53,7 @@ public:
 	 * TODO este va a dibujar cualquier compuerta
 	 * y sobre la pestania actual CAMBIAR
 	 */
-	void dibujar_compuerta_xor(gdouble x,gdouble y);
+	void dibujar_compuerta(gdouble x,gdouble y,Tipo_Celda tipo);
 
 	void eliminar_pestania_actual();
 

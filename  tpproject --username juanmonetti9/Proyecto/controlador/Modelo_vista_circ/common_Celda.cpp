@@ -27,17 +27,17 @@ void Celda::eliminar_componente(){
 }
 
 
-bool Celda::agregar_compuerta_XOR(){
+bool Celda::agregar_compuerta(Tipo_Celda tipo){
 
 	bool agregada=true;
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_compuerta(TXOR);
+		agregada=agregar_entorno_compuerta(tipo);
 
 		if(agregada){
 			set_info_padre(fila,colum);
-			ocupar_celda(TXOR);
+			ocupar_celda(tipo);
 		}
 
 	}
