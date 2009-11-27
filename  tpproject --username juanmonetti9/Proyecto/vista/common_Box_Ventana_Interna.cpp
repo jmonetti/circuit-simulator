@@ -62,6 +62,14 @@ void Box_Ventana_Interna::dibujar_compuerta(gdouble x,gdouble y,Tipo_Celda tipo)
 				break;
 	case TAND:	grilla.draw_AND(x,y);
 				break;
+	case TNOT:	grilla.draw_NOT(x,y);
+				break;
+	case TOR:	grilla.draw_OR(x,y);
+				break;
+	case TENTRADA:break;//todo
+	case TPISTA:break;//todo
+	case TVACIA:break;//todo
+	case TSALIDA:break;//todo
 	}
 
 }
