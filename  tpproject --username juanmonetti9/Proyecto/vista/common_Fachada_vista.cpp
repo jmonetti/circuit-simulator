@@ -13,3 +13,15 @@ void Fachada_vista::dibujar_componente(gdouble x,gdouble y,Tipo_Celda tipo){
 
 	ventana_interna->dibujar_compuerta(x,y,tipo);
 };
+
+
+void Fachada_vista::activar_dnd(){
+
+	ventana_interna->connect_dnd();
+}
+
+void Fachada_vista::desactivar_dnd(){
+
+	ventana_interna->disconnect_dnd();
+
+}

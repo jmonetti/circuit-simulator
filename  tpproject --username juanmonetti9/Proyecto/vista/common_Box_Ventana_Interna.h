@@ -55,6 +55,10 @@ public:
 	 */
 	void dibujar_compuerta(gdouble x,gdouble y,Tipo_Celda tipo);
 
+	void connect_dnd();
+
+	void disconnect_dnd();
+
 	void eliminar_pestania_actual();
 
 	void agregar_pestania();

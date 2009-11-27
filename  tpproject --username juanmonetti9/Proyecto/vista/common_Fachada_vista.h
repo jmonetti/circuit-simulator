@@ -22,6 +22,9 @@ public:
 
 	void dibujar_componente(gdouble x,gdouble y,Tipo_Celda tipo);
 
+	void activar_dnd();
+
+	void desactivar_dnd();
 
 };
 
