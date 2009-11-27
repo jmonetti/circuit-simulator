@@ -35,7 +35,7 @@ public:
 
 	bool agregar_compuerta(int* x,int* y,Tipo_Celda _tipo);
 
-	bool hay_componente(int* x,int* y);
+	bool hay_componente(int* x,int* y,Tipo_Celda* tipo);
 
 	bool eliminar_componente(int x,int y);
 

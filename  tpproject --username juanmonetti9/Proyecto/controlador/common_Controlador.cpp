@@ -62,6 +62,27 @@ void  Controlador::set_pos_y_click(int y){
 
 	pos_y=y;
 }
+
+void Controlador::arrastrar(gdouble x, gdouble y){
+
+	int _x=x;
+	int _y=y;
+	int _pos_x=pos_x;
+	int _pos_y=pos_y;
+	Tipo_Celda _tipo;
+
+	if(matriz.hay_componente(&_pos_x,&_pos_y,&_tipo)){
+
+		bool agregado= matriz.agregar_compuerta(&_x,&_y,_tipo);
+		if(agregado){
+			fachada_vista->dibujar_componente(_x, _y,_tipo);
+			matriz.eliminar_componente(_pos_x,_pos_y);
+			fachada_vista->dibujar_componente(_pos_x,_pos_y,TVACIA);
+
+		}
+	}
+
+}
 /*----------------------------------------------------------------------------*/
 
 void Controlador::agregar_componente(int x,int y,Tipo_Celda _tipo){
@@ -81,8 +102,9 @@ void Controlador::eliminar_componente(int x,int y){
 
 	int _x=x;
 	int _y=y;
+	Tipo_Celda _tipo;
 
-	if(matriz.hay_componente(&_x,&_y)){
+	if(matriz.hay_componente(&_x,&_y,&_tipo)){
 
 		matriz.eliminar_componente(_x,_y);
 		fachada_vista->dibujar_componente(_x,_y,TVACIA);

@@ -40,7 +40,7 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
 }
 
-bool Modelo_vista_circuito::hay_componente(int* x,int* y){
+bool Modelo_vista_circuito::hay_componente(int* x,int* y,Tipo_Celda* tipo){
 
 
 
@@ -55,6 +55,7 @@ bool Modelo_vista_circuito::hay_componente(int* x,int* y){
 		*x= aux->get_colum_padre()*12+6;  //TODO
 
 	}
+	*tipo=aux->get_tipo_celda();
 
 	return aux->esta_ocupada();
 }
