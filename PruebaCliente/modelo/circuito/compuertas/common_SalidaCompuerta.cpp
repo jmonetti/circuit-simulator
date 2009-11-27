@@ -72,3 +72,15 @@ int SalidaCompuerta::getId() {
 	return id;
 
 }
+
+int SalidaCompuerta::getConexion() {
+
+	if (salida) {
+
+		return salida->getId();
+
+	}
+
+	return -1;
+
+}

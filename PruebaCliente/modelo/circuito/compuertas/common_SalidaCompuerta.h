@@ -28,6 +28,8 @@ public:
 
 	int getId();
 
+	int getConexion();
+
 private:
 
 	int id;

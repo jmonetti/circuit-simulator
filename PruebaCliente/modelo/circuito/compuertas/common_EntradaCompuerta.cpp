@@ -47,6 +47,13 @@ int EntradaCompuerta::getId() {
 
 int EntradaCompuerta::getConexion() {
 
-	return entrada->getId();
+	if (entrada) {
+
+		return entrada->getId();
+
+	}
+
+	return -1;
+
 }
 
