@@ -182,30 +182,8 @@ int Circuito::getContadorEntradasCompuerta() const{
 
 void Circuito::conectar(int idSalida,int idEntrada) {
 
-	SalidaCompuerta* salida= NULL;
-	EntradaCompuerta* entrada= NULL;
-
-	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
-
-		if (salidasCompuerta[var]->getId() == idSalida) {
-
-			salida= salidasCompuerta[var];
-			break;
-
-		}
-
-	}
-
-	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
-
-		if (entradasCompuerta[var] -> getId() == idEntrada) {
-
-			entrada= entradasCompuerta[var];
-			break;
-
-		}
-
-	}
+	SalidaCompuerta* salida= obtenerSalidaCompuerta(idSalida);
+	EntradaCompuerta* entrada= obtenerEntradaCompuerta(idEntrada);
 
 	if (entrada && salida) {
 
@@ -222,7 +200,19 @@ void Circuito::conectar(int idSalida,int idEntrada) {
 
 void Circuito::desconectar(int idSalida,int idEntrada) {
 
+	SalidaCompuerta* salida= obtenerSalidaCompuerta(idSalida);
+	EntradaCompuerta* entrada= obtenerEntradaCompuerta(idEntrada);
 
+	if (entrada && salida) {
+
+		salida->setSalida(NULL);
+		entrada->setEntrada(NULL);
+
+	}else{
+
+		throw CircuitoException("No se pudo realizar la desconexion entre compuertas. Entrada/Salida invalida");
+
+	}
 
 }
 
@@ -245,6 +235,38 @@ void Circuito::setearEntradas(bool* entradas) {
 		this->entradas[i]->setValorEntrada(entradas[i]);
 
 	}
+
+}
+
+EntradaCompuerta* Circuito::obtenerEntradaCompuerta(int idEntrada) {
+
+	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
+
+		if (entradasCompuerta[var] -> getId() == idEntrada) {
+
+			return entradasCompuerta[var];
+
+		}
+
+	}
+
+	return NULL;
+
+}
+
+SalidaCompuerta* Circuito::obtenerSalidaCompuerta(int idSalida) {
+
+	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
+
+		if (salidasCompuerta[var]->getId() == idSalida) {
+
+			return salidasCompuerta[var];
+
+		}
+
+	}
+
+	return NULL;
 
 }
 

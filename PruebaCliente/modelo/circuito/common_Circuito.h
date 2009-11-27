@@ -53,6 +53,9 @@ public:
 
 private:
 
+	EntradaCompuerta* obtenerEntradaCompuerta(int idEntrada);
+	SalidaCompuerta* obtenerSalidaCompuerta(int idSalida);
+
 	void setearEntradas(bool* entradas);
 	void reset();
 
