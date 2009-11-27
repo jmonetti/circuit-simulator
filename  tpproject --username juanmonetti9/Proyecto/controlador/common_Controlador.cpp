@@ -79,6 +79,17 @@ void Controlador::agregar_componente(int x,int y,Tipo_Celda _tipo){
 
 void Controlador::eliminar_componente(int x,int y){
 
+	int _x=x;
+	int _y=y;
+
+	if(matriz.hay_componente(&_x,&_y)){
+
+		matriz.eliminar_componente(_x,_y);
+		fachada_vista->dibujar_componente(_x,_y,TVACIA);
+
+	}
+
+
 }
 /*----------------------------------------------------------------------------*/
 
