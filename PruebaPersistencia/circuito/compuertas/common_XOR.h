@@ -10,7 +10,7 @@ class XOR: public Compuerta {
 
 public:
 
-	XOR(int id, int tiempoTransicion,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida);
+	XOR(int id,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida);
 
 	virtual ~XOR();
 

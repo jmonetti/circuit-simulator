@@ -238,11 +238,12 @@ void Circuito::reset() {
 
 }
 
-void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
+void Circuito::guardar(DOMDocument* doc) const{
 
 	XMLCh tempStr[100];
 	std::string aux;
-
+	DOMNode* nodoPadre = doc->getFirstChild();
+	
     XMLString::transcode("Circuito", tempStr, 99);
     DOMElement*   elem_circuito = doc->createElement(tempStr);
 
@@ -251,8 +252,8 @@ void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
 		compuertas[var]->guardar(doc, elem_circuito);
 
 	}
-
-	padre->appendChild(elem_circuito);
+	
+	nodoPadre->appendChild(elem_circuito);
 
 }
 

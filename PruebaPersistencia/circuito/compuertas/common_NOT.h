@@ -10,7 +10,7 @@ class NOT: public Compuerta {
 
 public:
 
-	NOT(int id,int tiempoTransicion, EntradaCompuerta* entrada, SalidaCompuerta* salida);
+	NOT(int id, EntradaCompuerta* entrada, SalidaCompuerta* salida);
 
 	virtual ~NOT();
 

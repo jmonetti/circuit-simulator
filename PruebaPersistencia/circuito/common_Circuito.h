@@ -44,7 +44,7 @@ public:
 
 	int getId() const;
 
-	void guardar(DOMDocument* doc, DOMNode* padre) const;
+	void guardar(DOMDocument* doc) const;
 
 private:
 

@@ -9,7 +9,7 @@ class OR: public Compuerta {
 
 public:
 
-	OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida);
+	OR(int id, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida);
 
 	virtual ~OR();
 

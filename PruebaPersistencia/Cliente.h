@@ -24,9 +24,9 @@ public:
 
 	std::vector<Resultado*>* simularSumaDeUnBit();
 
-	std::vector<Resultado*>* simularCircuitosSeparados();
-
 	std::vector<Resultado*>* simularSumaTresEntradas();
+
+	std::vector<Resultado*>* simularCircuitoNuevo();
 
 	int* calcularTiempoCircuitoBasico();
 
@@ -38,8 +38,6 @@ public:
 
 	void guardarSumaDeUnBit(std::string &ruta);
 
-	void guardarCircuitosSeparados(std::string &ruta);
-
 	void guardarSumaTresEntradas(std::string &ruta);
 
 	void recuperarCircuito(std::string &ruta);
@@ -49,7 +47,7 @@ private:
 
 	ModeloCliente modelo;
 
-	int idCircuitos[6];
+	int idCircuitos[10];
 
 	int crearCircuitoBasico();
 
@@ -58,8 +56,6 @@ private:
 	int crearCircuitoAND();
 
 	int crearSumaDeUnBit();
-
-	int crearCircuitosSeparados();
 
 	int crearSumaTresEntradas();
 

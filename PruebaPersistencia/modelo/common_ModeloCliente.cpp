@@ -28,13 +28,13 @@ int ModeloCliente::crearNuevo() {
 
 }
 
-int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
+int ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
 	int idCompuerta= circuito->getContadorCompuertas();
 
-	FactoryCompuerta::crearCompuerta(tipo, *circuito, tiempoTransicion);
+	FactoryCompuerta::crearCompuerta(tipo, *circuito);
 
 	return idCompuerta;
 
@@ -108,5 +108,11 @@ Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 	}
 
 	return NULL;
+
+}
+
+int ModeloCliente::getUltimo() const {
+
+	return contadorId-1;
 
 }

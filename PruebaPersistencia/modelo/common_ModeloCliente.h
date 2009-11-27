@@ -25,7 +25,7 @@ public:
 
 	int crearNuevo();
 
-	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo, int tiempoTransicion= 0);
+	int agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo);
 
 	std::vector<Resultado*>* simular(int idCircuito );
 
@@ -40,6 +40,8 @@ public:
 	void enviar(const std::string &nombreCircuito,const Servidor &servidor);
 
 	CajaNegra* recibir(const std::string &nombreCircuito,const Servidor &servidor);
+
+	int getUltimo() const; //TODO
 
 
 private:

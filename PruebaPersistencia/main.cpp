@@ -52,17 +52,17 @@ int main(int argc, char **argv) {
 
 	std::cin.get();
 
-	//std::cout << "Prueba De Circuito Basico: " << std::endl << std::endl;
+	std::cout << "Prueba De Circuito Basico: " << std::endl << std::endl;
 
-	//imprimir(cliente.simularCircuitoBasico());
+	imprimir(cliente.simularCircuitoBasico());
 
-	//ruta = "miCircuitoBasico.xml";
+	ruta = "miCircuitoBasico.xml";
 
-	//cliente.guardarCircuitoBasico(ruta);
+	cliente.guardarCircuitoBasico(ruta);
 
-	//std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
+	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
 
-	//std::cin.get();
+	std::cin.get();
 
 	std::cout << "Prueba De Circuito NOT: " << std::endl << std::endl;
 
@@ -100,18 +100,6 @@ int main(int argc, char **argv) {
 
 	std::cin.get();
 
-	std::cout << "Prueba De Circuitos Separados " << std::endl << std::endl;
-
-	imprimir(cliente.simularCircuitosSeparados());
-
-	ruta = "misCircuitosSeparados.xml";
-
-	cliente.guardarCircuitosSeparados(ruta);
-
-	std::cout << "Presione Enter para continuar con el siguiente circuito... " << std::endl;
-
-	std::cin.get();
-
 	std::cout << "Prueba De Circuitos Suma de tres Entradas " << std::endl << std::endl;
 
 	imprimir(cliente.simularSumaTresEntradas());
@@ -120,17 +108,17 @@ int main(int argc, char **argv) {
 
 	cliente.guardarSumaTresEntradas(ruta);
 
-	//std::cout << "Presione Enter para cargar el Circuito Basico ... " << std::endl;
+	std::cout << "Presione Enter para cargar el Circuito Basico ... " << std::endl;
 
-	//std::cin.get();
+	std::cin.get();
 
-	//std::cout << "Recuperando y probando Circuito Basico... " << std::endl << std::endl;
+	std::cout << "Recuperando y probando Circuito Basico... " << std::endl << std::endl;
 
-	//ruta = 	"miXMLPrueba.xml";
+	ruta = 	"miXML.xml";
 
-	//cliente.recuperarCircuito(ruta);
+	cliente.recuperarCircuito(ruta);
 
-	//imprimir(cliente.simularCircuitoBasico());
+	imprimir(cliente.simularCircuitoNuevo());
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 

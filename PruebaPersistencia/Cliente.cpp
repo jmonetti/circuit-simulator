@@ -17,7 +17,6 @@ void Cliente::crearCircuitos() {
 	idCircuitos[0]= crearCircuitoNOT();
 	idCircuitos[1]= crearCircuitoAND();
 	idCircuitos[2]= crearSumaDeUnBit();
-	idCircuitos[3]= crearCircuitosSeparados();
 	idCircuitos[4]= crearSumaTresEntradas();
 }
 
@@ -73,11 +72,11 @@ int Cliente::crearSumaDeUnBit() {
 
 	modelo.agregarCompuerta(id,T_ENTRADA);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_AND);
 
 	modelo.agregarCompuerta(id,T_SALIDA);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarCompuerta(id,T_XOR);
 
 	modelo.agregarCompuerta(id,T_SALIDA);
 
@@ -92,59 +91,6 @@ int Cliente::crearSumaDeUnBit() {
 
 }
 
-int Cliente::crearCircuitosSeparados() {
-
-	int id= modelo.crearNuevo();
-
-	for (int i = 0; i < 3; ++i) {
-
-		modelo.agregarCompuerta(id,T_ENTRADA);
-		modelo.agregarCompuerta(id,T_ENTRADA);
-		switch (i) {
-
-		case 0:
-			modelo.agregarCompuerta(id,T_AND,10);
-			break;
-		case 1:
-			modelo.agregarCompuerta(id,T_OR,10);
-			break;
-		case 2:
-			modelo.agregarCompuerta(id,T_XOR,10);
-
-		}
-		modelo.agregarCompuerta(id,T_SALIDA);
-
-		modelo.conectar(id,3*i,3*i);
-		modelo.conectar(id,3*i+1,3*i+1);
-		modelo.conectar(id,3*i+2,3*i+2);
-
-	}
-
-	for (int i = 0; i < 2; ++i) {
-
-		modelo.agregarCompuerta(id,T_ENTRADA);
-		switch (i) {
-
-		case 0:
-			modelo.agregarCompuerta(id,T_NOT,10);
-			break;
-
-		case 1:
-
-			modelo.agregarCompuerta(id,T_PISTA);
-
-		}
-		modelo.agregarCompuerta(id,T_SALIDA);
-
-		modelo.conectar(id,9 + 2*i,9 + 2*i);
-		modelo.conectar(id,9 + 2*i+1,9 + 2*i+1);
-
-	}
-
-	return id;
-
-}
-
 int Cliente::crearSumaTresEntradas() {
 
 	int id= modelo.crearNuevo();
@@ -153,15 +99,15 @@ int Cliente::crearSumaTresEntradas() {
 	modelo.agregarCompuerta(id,T_ENTRADA);
 	modelo.agregarCompuerta(id,T_ENTRADA);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarCompuerta(id,T_XOR);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_AND);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarCompuerta(id,T_XOR);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_AND);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_OR);
 
 	modelo.agregarCompuerta(id,T_SALIDA);
 
@@ -208,9 +154,9 @@ std::vector<Resultado*>* Cliente::simularSumaDeUnBit() {
 
 }
 
-std::vector<Resultado*>* Cliente::simularCircuitosSeparados() {
+std::vector<Resultado*>* Cliente::simularCircuitoNuevo() {
 
-	return modelo.simular(idCircuitos[3]);
+	return modelo.simular(modelo.getUltimo());
 
 }
 
@@ -238,11 +184,6 @@ void Cliente::guardarCircuitoAND(std::string &ruta) {
 void Cliente::guardarSumaDeUnBit(std::string &ruta) {
 
 	modelo.guardar(idCircuitos[2], ruta);
-}
-
-void Cliente::guardarCircuitosSeparados(std::string &ruta) {
-
-	modelo.guardar(idCircuitos[3], ruta);
 }
 
 void Cliente::guardarSumaTresEntradas(std::string &ruta) {

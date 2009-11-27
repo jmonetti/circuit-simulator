@@ -15,6 +15,11 @@
 
 #include "common_Persistencia.h"
 
+//TODO
+#include <iostream>
+using namespace std;
+
+
 Persistencia::Persistencia() {
 
 	try
@@ -74,14 +79,14 @@ void Persistencia::guardar(const Circuito &circuito, std::string &ruta) {
 
 
 	XMLCh tempStr[100];
-	XMLString::transcode("XML", tempStr, 99);
+	XMLString::transcode("LS", tempStr, 99);
 	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
 
 	//TODO CREAR ARBOL DE DATOS
 
 	DOMDocument*   doc = impl->createDocument(0, TAG_INITIALIZER, 0);
 
-	circuito.guardar(doc, doc->getFirstChild());
+	circuito.guardar(doc);
 
     DOMLSSerializer* theSerializer = ((DOMImplementationLS*)impl)->createLSSerializer();
 
@@ -164,26 +169,18 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 		   DOMElement* elementRoot = xmlDoc->getDocumentElement();
 		   if( !elementRoot ) throw(std::runtime_error( "empty XML document" ));
 
-	//	   DOMNode* circuito = elementRoot->getFirstChild();
+		   DOMNodeList*      hijo = elementRoot->getChildNodes();
 
-		   /****************************/
-		   DOMNodeList*      XML = elementRoot->getChildNodes();
-
-		   XMLSize_t i = 0;
-
-		   DOMNode* circuito = XML->item(i);
-		   /****************************/
-
+		   DOMNode* circuito = hijo->item(1);
 		   if( circuito->getNodeType() &&  // true is not NULL
-				   circuito->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+			 circuito->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
 		   {
-			   // Found node which is an Element. Re-cast node as element
-			   DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
-			   if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
-			   {
+				DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
+				if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
+				{
 				   return parserCircuito(ElementoCte, idCircuito);
-			   }
-			}
+				}
+		   }
 	   }
 	   catch( xercesc::XMLException& e )
 	   {
@@ -212,56 +209,60 @@ Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito) 
 	   {
 		   // Found node which is an Element. Re-cast node as element
 		   DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( SalidaActual );
-		   if( XMLString::equals(ElementoCte->getTagName(), TAG_SALIDA))
-		   {
-			  parserSalida(ElementoCte, circuito);
-
-			  break;
-
-		   }
 
 		   if(XMLString::equals(ElementoCte->getTagName(), TAG_ENTRADA))
 		   {
 		      parserEntrada(ElementoCte, circuito);
 
-		      break;
-
 		    }
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_NOT)){
+		   else
+		   {
+			   if(XMLString::equals(ElementoCte->getTagName(), TAG_NOT)){
 
-			   parserNOT(ElementoCte, circuito);
+				   parserNOT(ElementoCte, circuito);
 
-			   break;
+				}
+			   else
+			   {
+				   if(XMLString::equals(ElementoCte->getTagName(), TAG_AND)){
 
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_AND)){
+				   parserAND(ElementoCte, circuito);
 
-			   parserAND(ElementoCte, circuito);
+				   }
+				   else
+				   {
+					   if(XMLString::equals(ElementoCte->getTagName(), TAG_OR)){
 
-			   break;
+						   parserOR(ElementoCte, circuito);
 
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_OR)){
+					   }
+					   else
+					   {
+							if(XMLString::equals(ElementoCte->getTagName(), TAG_XOR)){
 
-			   parserOR(ElementoCte, circuito);
+							   parserXOR(ElementoCte, circuito);
 
-			   break;
+							}
+							else
+							{
+								if(XMLString::equals(ElementoCte->getTagName(), TAG_PISTA)){
 
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_XOR)){
+									parserPista(ElementoCte, circuito);
 
-			   parserXOR(ElementoCte, circuito);
+								}
+								else
+								{
+									if( XMLString::equals(ElementoCte->getTagName(), TAG_SALIDA))
+									{
+										parserSalida(ElementoCte, circuito);
 
-			   break;
-
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_PISTA)){
-
-			   parserPista(ElementoCte, circuito);
-
-			   break;
-			}
-
+									}
+								}
+							}
+					   }
+				   }
+			   }
+		   }
 	   }
 	}
 
@@ -291,7 +292,7 @@ void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
 	int conexionE = atoi(aux.c_str());
 
-	FactoryParser::crearCompuerta(T_SALIDA,*circuito, id,0,0,idEntrada);
+	FactoryParser::crearCompuerta(T_SALIDA,*circuito, id,0,idEntrada);
 
 	circuito->conectar(conexionE,idEntrada);
 
@@ -313,26 +314,211 @@ void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
 
 	int idSalida = atoi(aux.c_str());
 
-	FactoryParser::crearCompuerta(T_ENTRADA,*circuito, id,0, idSalida);
+	FactoryParser::crearCompuerta(T_ENTRADA,*circuito, id, idSalida);
 
 }
 
 void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
 
+	std::string aux;
+
+	XMLCh* ATTR_ID = XMLString::transcode("id");
+	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+	aux = XMLString::transcode(attr_id->getValue());
+
+	int id = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA = XMLString::transcode("idEntrada");
+	DOMAttr* attr_id_entrada = ElementoCte->getAttributeNode(ATTR_ENTRADA);
+	aux = XMLString::transcode(attr_id_entrada->getValue());
+
+	int idEntrada = atoi(aux.c_str());
+
+	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
+	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
+	aux = XMLString::transcode(attr_id_salida->getValue());
+
+	int idSalida = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION = XMLString::transcode("conexionE");
+	DOMAttr* attr_conexion = ElementoCte->getAttributeNode(ATTR_CONEXION);
+	aux = XMLString::transcode(attr_conexion->getValue());
+
+	int conexionE = atoi(aux.c_str());
+
+	FactoryParser::crearCompuerta(T_NOT,*circuito, id, idSalida,idEntrada);
+
+	circuito->conectar(conexionE,idEntrada);
+
 }
 
 void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
 
+	std::string aux;
+
+	XMLCh* ATTR_ID = XMLString::transcode("id");
+	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+	aux = XMLString::transcode(attr_id->getValue());
+
+	int id = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA1 = XMLString::transcode("idEntrada1");
+	DOMAttr* attr_id_entrada1 = ElementoCte->getAttributeNode(ATTR_ENTRADA1);
+	aux = XMLString::transcode(attr_id_entrada1->getValue());
+
+	int idEntrada1 = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA2 = XMLString::transcode("idEntrada2");
+	DOMAttr* attr_id_entrada2 = ElementoCte->getAttributeNode(ATTR_ENTRADA2);
+	aux = XMLString::transcode(attr_id_entrada2->getValue());
+
+	int idEntrada2 = atoi(aux.c_str());
+
+	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
+	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
+	aux = XMLString::transcode(attr_id_salida->getValue());
+
+	int idSalida = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION1 = XMLString::transcode("conexionE1");
+	DOMAttr* attr_conexion1 = ElementoCte->getAttributeNode(ATTR_CONEXION1);
+	aux = XMLString::transcode(attr_conexion1->getValue());
+
+	int conexionE1 = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION2 = XMLString::transcode("conexionE2");
+	DOMAttr* attr_conexion2 = ElementoCte->getAttributeNode(ATTR_CONEXION2);
+	aux = XMLString::transcode(attr_conexion2->getValue());
+
+	int conexionE2 = atoi(aux.c_str());
+
+	FactoryParser::crearCompuerta(T_AND,*circuito, id, idSalida,idEntrada1,idEntrada2);
+
+	circuito->conectar(conexionE1,idEntrada1);
+	circuito->conectar(conexionE2,idEntrada2);
 }
 
 void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
 
+	std::string aux;
+
+	XMLCh* ATTR_ID = XMLString::transcode("id");
+	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+	aux = XMLString::transcode(attr_id->getValue());
+
+	int id = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA1 = XMLString::transcode("idEntrada1");
+	DOMAttr* attr_id_entrada1 = ElementoCte->getAttributeNode(ATTR_ENTRADA1);
+	aux = XMLString::transcode(attr_id_entrada1->getValue());
+
+	int idEntrada1 = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA2 = XMLString::transcode("idEntrada2");
+	DOMAttr* attr_id_entrada2 = ElementoCte->getAttributeNode(ATTR_ENTRADA2);
+	aux = XMLString::transcode(attr_id_entrada2->getValue());
+
+	int idEntrada2 = atoi(aux.c_str());
+
+	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
+	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
+	aux = XMLString::transcode(attr_id_salida->getValue());
+
+	int idSalida = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION1 = XMLString::transcode("conexionE1");
+	DOMAttr* attr_conexion1 = ElementoCte->getAttributeNode(ATTR_CONEXION1);
+	aux = XMLString::transcode(attr_conexion1->getValue());
+
+	int conexionE1 = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION2 = XMLString::transcode("conexionE2");
+	DOMAttr* attr_conexion2 = ElementoCte->getAttributeNode(ATTR_CONEXION2);
+	aux = XMLString::transcode(attr_conexion2->getValue());
+
+	int conexionE2 = atoi(aux.c_str());
+
+	FactoryParser::crearCompuerta(T_OR,*circuito, id, idSalida,idEntrada1,idEntrada2);
+
+	circuito->conectar(conexionE1,idEntrada1);
+	circuito->conectar(conexionE2,idEntrada2);
 }
 
 void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
 
+	std::string aux;
+
+	XMLCh* ATTR_ID = XMLString::transcode("id");
+	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+	aux = XMLString::transcode(attr_id->getValue());
+
+	int id = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA1 = XMLString::transcode("idEntrada1");
+	DOMAttr* attr_id_entrada1 = ElementoCte->getAttributeNode(ATTR_ENTRADA1);
+	aux = XMLString::transcode(attr_id_entrada1->getValue());
+
+	int idEntrada1 = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA2 = XMLString::transcode("idEntrada2");
+	DOMAttr* attr_id_entrada2 = ElementoCte->getAttributeNode(ATTR_ENTRADA2);
+	aux = XMLString::transcode(attr_id_entrada2->getValue());
+
+	int idEntrada2 = atoi(aux.c_str());
+
+	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
+	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
+	aux = XMLString::transcode(attr_id_salida->getValue());
+
+	int idSalida = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION1 = XMLString::transcode("conexionE1");
+	DOMAttr* attr_conexion1 = ElementoCte->getAttributeNode(ATTR_CONEXION1);
+	aux = XMLString::transcode(attr_conexion1->getValue());
+
+	int conexionE1 = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION2 = XMLString::transcode("conexionE2");
+	DOMAttr* attr_conexion2 = ElementoCte->getAttributeNode(ATTR_CONEXION2);
+	aux = XMLString::transcode(attr_conexion2->getValue());
+
+	int conexionE2 = atoi(aux.c_str());
+
+	FactoryParser::crearCompuerta(T_XOR,*circuito, id, idSalida,idEntrada1,idEntrada2);
+
+	circuito->conectar(conexionE1,idEntrada1);
+	circuito->conectar(conexionE2,idEntrada2);
 }
 
 void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 
+	std::string aux;
+
+	XMLCh* ATTR_ID = XMLString::transcode("id");
+	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+	aux = XMLString::transcode(attr_id->getValue());
+
+	int id = atoi(aux.c_str());
+
+	XMLCh* ATTR_ENTRADA = XMLString::transcode("idEntrada");
+	DOMAttr* attr_id_entrada = ElementoCte->getAttributeNode(ATTR_ENTRADA);
+	aux = XMLString::transcode(attr_id_entrada->getValue());
+
+	int idEntrada = atoi(aux.c_str());
+
+	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
+	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
+	aux = XMLString::transcode(attr_id_salida->getValue());
+
+	int idSalida = atoi(aux.c_str());
+
+	XMLCh* ATTR_CONEXION = XMLString::transcode("conexionE");
+	DOMAttr* attr_conexion = ElementoCte->getAttributeNode(ATTR_CONEXION);
+	aux = XMLString::transcode(attr_conexion->getValue());
+
+	int conexionE = atoi(aux.c_str());
+
+	FactoryParser::crearCompuerta(T_PISTA,*circuito, id, idSalida,idEntrada);
+
+	circuito->conectar(conexionE,idEntrada);
 }

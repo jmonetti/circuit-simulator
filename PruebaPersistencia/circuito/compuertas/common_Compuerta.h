@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 #include <xercesc/dom/DOMDocument.hpp>
-
+#include "../../common/constantes.h"
 #include "../../modelo/common_Persistencia.h"
 
 class Entrada;

@@ -1,11 +1,11 @@
 #include "common_NOT.h"
 
-NOT::NOT(int id,int tiempoTransicion,EntradaCompuerta* entrada,SalidaCompuerta* salida)
+NOT::NOT(int id,EntradaCompuerta* entrada,SalidaCompuerta* salida)
 : Compuerta(id) {
 
 	this->entrada= entrada;
 	this->salida= salida;
-	this->tiempoTransicion= tiempoTransicion;
+	this->tiempoTransicion= TIEMPOCOMPUERTA;
 
 }
 
@@ -76,18 +76,6 @@ void NOT::guardar(DOMDocument* doc, DOMNode* padre) {
     XMLString::transcode(aux.c_str(),tempStr,99);
     atributo2->setNodeValue(tempStr);
     elem_NOT->setAttributeNode(atributo2);
-
-    /******* ATRIBUTO Tiempo Transicion*****************/
-    XMLString::transcode("tiempoTransicion", tempStr, 99);
-    DOMAttr* atributo3 = doc->createAttribute(tempStr);
-
-    std::stringstream converter3;
-    converter3 << tiempoTransicion;
-    aux = converter3.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo3->setNodeValue(tempStr);
-    elem_NOT->setAttributeNode(atributo3);
 
     /******* ATRIBUTO CONEXION ENTRADA *****************/
     XMLString::transcode("conexionE", tempStr, 99);

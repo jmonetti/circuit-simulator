@@ -1,12 +1,12 @@
 #include "common_OR.h"
 
-OR::OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida)
+OR::OR(int id,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida)
 : Compuerta(id){
 
 	this->entradas[0]= entrada1;
 	this->entradas[1]= entrada2;
 	this->salida= salida;
-	this->tiempoTransicion= tiempoTransicion;
+	this->tiempoTransicion= TIEMPOCOMPUERTA;
 
 }
 
@@ -98,18 +98,6 @@ void OR::guardar(DOMDocument* doc, DOMNode* padre) {
     XMLString::transcode(aux.c_str(),tempStr,99);
     atributo3->setNodeValue(tempStr);
     elem_OR->setAttributeNode(atributo3);
-
-    /******* ATRIBUTO Tiempo Transicion*****************/
-    XMLString::transcode("tiempoTransicion", tempStr, 99);
-    DOMAttr* atributo4 = doc->createAttribute(tempStr);
-
-    std::stringstream converter4;
-    converter4 << tiempoTransicion;
-    aux = converter4.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo4->setNodeValue(tempStr);
-    elem_OR->setAttributeNode(atributo4);
 
     /******* ATRIBUTO CONEXION ENTRADA 1*****************/
     XMLString::transcode("conexionE1", tempStr, 99);

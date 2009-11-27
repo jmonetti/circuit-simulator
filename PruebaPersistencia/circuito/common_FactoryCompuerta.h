@@ -10,14 +10,14 @@ class FactoryCompuerta {
 
 public:
 
-	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion = 0);
+	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito);
 
 private:
 
-	static void crearAND(Circuito &circuito,int tiempo);
-	static void crearOR(Circuito &circuito,int tiempo);
-	static void crearNOT(Circuito &circuito,int tiempo);
-	static void crearXOR(Circuito &circuito,int tiempo);
+	static void crearAND(Circuito &circuito);
+	static void crearOR(Circuito &circuito);
+	static void crearNOT(Circuito &circuito);
+	static void crearXOR(Circuito &circuito);
 	static void crearPISTA(Circuito &circuito);
 	static void crearENTRADA(Circuito &circuito);
 	static void crearSALIDA(Circuito &circuito);

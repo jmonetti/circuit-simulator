@@ -15,14 +15,14 @@
 class FactoryParser {
 public:
 
-	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito,int idCompuerta,int tiempoTransicion = 0,int idSalida = 0, int idEntrada1 = 0,int idEntrada2 = 0);
+	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito,int idCompuerta,int idSalida = 0, int idEntrada1 = 0,int idEntrada2 = 0);
 
 private:
 
-	static void crearAND(Circuito &circuito,int idCompuerta,int tiempo,int idEntrada1,int idEntrada2, int idSalida);
-	static void crearOR(Circuito &circuito,int idCompuerta,int tiempo,int idEntrada1,int idEntrada2, int idSalida);
-	static void crearNOT(Circuito &circuito,int idCompuerta,int tiempo,int idEntrada, int idSalida);
-	static void crearXOR(Circuito &circuito,int idCompuerta,int tiempo,int idEntrada1,int idEntrada2, int idSalida);
+	static void crearAND(Circuito &circuito,int idCompuerta,int idEntrada1,int idEntrada2, int idSalida);
+	static void crearOR(Circuito &circuito,int idCompuerta,int idEntrada1,int idEntrada2, int idSalida);
+	static void crearNOT(Circuito &circuito,int idCompuerta,int idEntrada, int idSalida);
+	static void crearXOR(Circuito &circuito,int idCompuerta,int idEntrada1,int idEntrada2, int idSalida);
 	static void crearPISTA(Circuito &circuito,int idCompuerta,int idEntrada, int idSalida);
 	static void crearENTRADA(Circuito &circuito,int idCompuerta,int idSalida);
 	static void crearSALIDA(Circuito &circuito,int idCompuerta,int idEntrada);
