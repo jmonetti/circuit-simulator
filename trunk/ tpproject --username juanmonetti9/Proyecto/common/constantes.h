@@ -4,9 +4,7 @@
 
 
 //Definicion para el tipo de compuertas
-enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA};
+enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA, T_VACIA};
 
-//Definicion para el tipo de celdas
-enum Tipo_Celda{TVACIA,TXOR,TOR,TNOT,TAND,TPISTA,TSALIDA,TENTRADA};
 
 #endif /* CONSTANTES_H_ */

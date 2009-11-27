@@ -10,7 +10,7 @@ Accion_OR::Accion_OR(Controlador* controlador):Accion(controlador) {
 }
 
 void Accion_OR::ejecutar(gdouble x,gdouble y){
-	get_controlador()->agregar_componente(x,y,TOR);
+	get_controlador()->agregar_componente(x,y,T_OR);
 }
 
 Accion_OR::~Accion_OR() {

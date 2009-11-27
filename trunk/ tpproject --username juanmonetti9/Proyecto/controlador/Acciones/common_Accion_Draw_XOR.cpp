@@ -12,7 +12,7 @@ Accion_Draw_XOR::Accion_Draw_XOR(Controlador* controlador):Accion(controlador) {
 
 void Accion_Draw_XOR::ejecutar(gdouble x,gdouble y){
 
-	get_controlador()->agregar_componente(x,y,TXOR);
+	get_controlador()->agregar_componente(x,y,T_XOR);
 
 }
 Accion_Draw_XOR::~Accion_Draw_XOR() {
