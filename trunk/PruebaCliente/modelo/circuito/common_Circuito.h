@@ -41,6 +41,10 @@ public:
 
 	int getContadorSalidasCompuerta() const;
 
+	std::vector<Entrada*>& getEntradas();
+
+	std::vector<Salida*>& getSalidas();
+
 	void conectar(int idSalida,int idEntrada);
 
 	void desconectar(int idSalida,int idEntrada);

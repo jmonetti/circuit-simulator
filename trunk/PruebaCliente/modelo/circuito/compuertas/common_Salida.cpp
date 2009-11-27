@@ -32,13 +32,13 @@ void Salida::simular() {
 
 }
 
-bool Salida::getValor() {
+bool Salida::getValor() const{
 
 	return valor;
 
 }
 
-int Salida::getTiempoTransicion() {
+int Salida::getTiempoTransicion() const{
 
 	return tiempoTransicion;
 
@@ -47,6 +47,12 @@ int Salida::getTiempoTransicion() {
 TIPO_COMPUERTA Salida::getTipo() const{
 
 	return T_SALIDA;
+
+}
+
+std::string Salida::getNombre() const{
+
+	return nombre;
 
 }
 

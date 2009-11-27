@@ -20,9 +20,11 @@ public:
 
 	void simular();
 
-	bool getValor();
+	bool getValor() const;
 
-	int getTiempoTransicion();
+	int getTiempoTransicion() const;
+
+	std::string getNombre() const;
 
 	TIPO_COMPUERTA getTipo() const;
 

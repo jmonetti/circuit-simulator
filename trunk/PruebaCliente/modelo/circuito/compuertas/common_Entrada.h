@@ -24,6 +24,8 @@ public:
 
 	bool getValorEntrada() const;
 
+	std::string getNombre() const;
+
 	TIPO_COMPUERTA getTipo() const;
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
