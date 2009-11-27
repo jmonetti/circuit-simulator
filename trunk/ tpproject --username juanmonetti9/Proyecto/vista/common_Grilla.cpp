@@ -38,7 +38,7 @@ Grilla::Grilla() {
 
 	//Seteo el drawing area para que sea dropeable
 	gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
-	gtk_drag_source_set(drawing_area,GDK_BUTTON3_MASK,target_list,n_targets,GDK_ACTION_COPY);
+	gtk_drag_source_set(drawing_area,GDK_BUTTON1_MASK,target_list,n_targets,GDK_ACTION_COPY);
 
 	//incluyo el drawing area en la caja
 	gtk_box_pack_start (GTK_BOX (box_size_pestania_uno), drawing_area, false,false,false);

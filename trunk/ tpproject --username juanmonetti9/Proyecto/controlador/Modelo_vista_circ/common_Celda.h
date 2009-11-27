@@ -71,6 +71,8 @@ public:
 
 	void set_info_padre(int fila, int columna);
 
+	Tipo_Celda get_tipo_celda()const;
+
 	virtual ~Celda();
 };
 

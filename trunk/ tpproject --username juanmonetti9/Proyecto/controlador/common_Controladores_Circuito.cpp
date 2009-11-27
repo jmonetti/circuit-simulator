@@ -9,6 +9,7 @@
 #include "Acciones/common_Accion_Draw_NOT.h"
 #include "Acciones/common_Accion_Draw_OR.h"
 #include "Acciones/common_Accion_Borrar.h"
+#include "Acciones/common_Accion_Drag_Drop.h"
 
 
 
@@ -169,9 +170,11 @@ void Controlador_Circuito::callback_NOT( GtkWidget *widget,gpointer callback_dat
 
 void Controlador_Circuito::callback_Selector( GtkWidget *widget,gpointer callback_data ){
 
-	//TODO
-		g_print("Apretado el Select\n");
-		//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->agregar_accion(new Accion_Drag_Drop(controlador));
+	}
 
 }
 
@@ -182,6 +185,7 @@ void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_d
 }
 
 void Controlador_Circuito::callback_Simulacion( GtkWidget *widget,gpointer callback_data ){
+
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
@@ -240,25 +244,12 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
 
 gboolean Controlador_Circuito::drag_drop_handl(GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time,gpointer user_data){
 
-	//TODO Chequeo si el lugar donde dropie es valido
-	g_print ("Ubicacion de drop de -drag_drop_handl-> (%d,%d)\n",x,y);
-/*
-	int _x=x;
-	int _y=y;
-	int _pos_x=pos_x;
-	int _pos_y=pos_y;
-	if(matriz.hay_componente(&_pos_x,&_pos_y)){
 
-		bool agregado= matriz.agregar_compuerta(&_x,&_y,XOR);
-		if(agregado){
-			draw_XOR(widget, _x, _y);
-			g_print ("Agregue xor enn -> (%d,%d)\n",_x,_y);
-			matriz.eliminar_componente(_pos_x,_pos_y);
-			g_print ("Elimine\n");
-			draw_sin_commpuerta(widget,_pos_x,_pos_y);
-		}
-	}
-*/
+	 // si es el boton izq del raton
+	 Controlador* controlador=Controlador::get_instancia();
+
+	 if(controlador)
+		 controlador->arrastrar(x,y);
     return  true;
 }
 

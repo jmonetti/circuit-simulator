@@ -46,6 +46,8 @@ public:
 
 	static Controlador* get_instancia();
 
+	void arrastrar(gdouble x, gdouble y);
+
 	virtual ~Controlador();
 };
 

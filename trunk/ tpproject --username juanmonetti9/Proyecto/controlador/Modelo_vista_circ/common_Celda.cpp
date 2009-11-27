@@ -149,6 +149,12 @@ void Celda::set_info_padre(int fila, int columna){
 	}
 }
 
+Tipo_Celda Celda::get_tipo_celda()const{
+
+	return estado;
+
+}
+
 bool Celda::esta_ocupada(){
 
 	if(estado==TVACIA){
