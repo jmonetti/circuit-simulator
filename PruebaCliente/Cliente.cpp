@@ -29,10 +29,12 @@ int Cliente::crearCircuitosSeparados() {
 
 	int id= 0;
 
+	std::string nom("");
+
 	for (int i = 0; i < 3; ++i) {
 
-		modelo.agregarEntrada(id,posicion,"Entrada 1");
-		modelo.agregarEntrada(id,posicion,"Entrada 1");
+		modelo.agregarEntrada(id,posicion,nom);
+		modelo.agregarEntrada(id,posicion,nom);
 		switch (i) {
 
 		case 0:
@@ -45,7 +47,7 @@ int Cliente::crearCircuitosSeparados() {
 			modelo.agregarCompuerta(id,T_XOR,posicion);
 
 		}
-		modelo.agregarSalida(id,posicion,"Salida 1");
+		modelo.agregarSalida(id,posicion,nom);
 
 		modelo.conectar(id,3*i,3*i);
 		modelo.conectar(id,3*i+1,3*i+1);
@@ -55,7 +57,7 @@ int Cliente::crearCircuitosSeparados() {
 
 	for (int i = 0; i < 2; ++i) {
 
-		modelo.agregarEntrada(id,posicion,"Entrada 1");
+		modelo.agregarEntrada(id,posicion,nom);
 		switch (i) {
 
 		case 0:
@@ -67,7 +69,7 @@ int Cliente::crearCircuitosSeparados() {
 			modelo.agregarCompuerta(id,T_PISTA,posicion);
 
 		}
-		modelo.agregarSalida(id,posicion,"Salida 1");
+		modelo.agregarSalida(id,posicion,nom);
 
 		modelo.conectar(id,9 + 2*i,9 + 2*i);
 		modelo.conectar(id,9 + 2*i+1,9 + 2*i+1);
@@ -86,17 +88,19 @@ int Cliente::crearSumaDeUnBit() {
 
 	Posicion posicion;
 
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	std::string nom("");
 
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,nom);
+
+	modelo.agregarEntrada(id,posicion,nom);
 
 	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,nom);
 
 	modelo.agregarCompuerta(id,T_XOR,posicion);
 
-	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,nom);
 
 	modelo.conectar(id,0,0);
 	modelo.conectar(id,1,1);
@@ -117,9 +121,11 @@ int Cliente::crearSumaTresEntradas() {
 
 	Posicion posicion;
 
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	std::string nom("");
+
+	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(id,posicion,nom);
 
 	modelo.agregarCompuerta(id,T_XOR,posicion);
 
@@ -131,9 +137,9 @@ int Cliente::crearSumaTresEntradas() {
 
 	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,nom);
 
-	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,nom);
 
 	modelo.conectar(id,0,0);
 	modelo.conectar(id,1,1);
@@ -160,9 +166,11 @@ int Cliente::crearAlarmas() {
 
 	Posicion posicion;
 
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	std::string nom("");
+
+	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(id,posicion,nom);
 
 	modelo.agregarCompuerta(id,T_AND,posicion);
 
@@ -184,9 +192,9 @@ int Cliente::crearAlarmas() {
 
 	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
 
 
 	modelo.conectar(id,0,0);
@@ -222,9 +230,11 @@ int Cliente::crearTablero() {
 
 	Posicion posicion;
 
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
-	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	std::string nom("");
+
+	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(id,posicion,nom);
 
 	modelo.agregarCompuerta(id,T_NOT,posicion);
 
@@ -270,13 +280,13 @@ int Cliente::crearTablero() {
 
 	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
-	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(id,posicion,nom);
 
 
 	modelo.conectar(id,0,0);

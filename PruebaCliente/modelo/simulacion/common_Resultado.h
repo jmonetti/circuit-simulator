@@ -5,12 +5,14 @@
 #include "common_ResultadoSimulacion.h"
 #include "common_ResultadoTiempo.h"
 #include <vector>
+#include <string>
 
 class Resultado {
 
 public:
 
-	Resultado(std::vector<ResultadoSimulacion*>* resultadoSimulacion,ResultadoTiempo* resultadoTiempo);
+	Resultado(std::vector<ResultadoSimulacion*>* resultadoSimulacion,ResultadoTiempo* resultadoTiempo,
+std::vector<std::string>* nombreEntradas, std::vector<std::string>* nombreSalidas);
 
 	virtual ~Resultado();
 
@@ -18,11 +20,19 @@ public:
 
 	ResultadoTiempo* getResultadoTiempo();
 
+	std::vector<std::string>* getNombreEntradas();
+
+	std::vector<std::string>* getNombreSalidas();
+
 private:
 
 	std::vector<ResultadoSimulacion*>* resultadoSimulacion;
 
 	ResultadoTiempo* resultadoTiempo;
+
+	std::vector<std::string>* nombreEntradas;
+
+	std::vector<std::string>* nombreSalidas;
 
 };
 

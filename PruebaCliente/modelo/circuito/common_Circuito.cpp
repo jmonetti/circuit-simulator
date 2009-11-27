@@ -180,6 +180,18 @@ int Circuito::getContadorEntradasCompuerta() const{
 
 }
 
+std::vector<Entrada*>& Circuito::getEntradas() {
+
+	return entradas;
+
+}
+
+std::vector<Salida*>& Circuito::getSalidas() {
+
+	return salidas;
+
+}
+
 void Circuito::conectar(int idSalida,int idEntrada) {
 
 	SalidaCompuerta* salida= obtenerSalidaCompuerta(idSalida);

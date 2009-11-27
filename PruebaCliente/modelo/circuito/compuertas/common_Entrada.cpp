@@ -44,6 +44,12 @@ bool Entrada::getValorEntrada() const {
 
 }
 
+std::string Entrada::getNombre() const {
+
+	return nombre;
+
+}
+
 TIPO_COMPUERTA Entrada::getTipo() const{
 
 	return T_ENTRADA;
