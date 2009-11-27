@@ -74,3 +74,28 @@ TIPO_COMPUERTA CajaNegra::getTipo() const {
 	return T_CAJANEGRA;
 
 }
+
+
+EntradaCompuerta** CajaNegra::getEntradas() {
+
+	return entradas._M_allocate(entradas.size());
+
+}
+
+SalidaCompuerta** CajaNegra::getSalidas() {
+
+	return salidas._M_allocate(salidas.size());
+
+}
+
+int CajaNegra::getCantidadEntradas() {
+
+	entradas.size();
+
+}
+
+int CajaNegra::getCantidadSalidas() {
+
+	salidas.size();
+
+}

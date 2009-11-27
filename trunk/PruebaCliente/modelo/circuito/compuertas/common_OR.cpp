@@ -49,6 +49,31 @@ TIPO_COMPUERTA OR::getTipo() const {
 
 }
 
+EntradaCompuerta** OR::getEntradas() {
+
+	return entradas;
+
+}
+
+SalidaCompuerta** OR::getSalidas() {
+
+	return &salida;
+
+}
+
+int OR::getCantidadEntradas() {
+
+	return 2;
+
+}
+
+int OR::getCantidadSalidas() {
+
+	return 1;
+
+}
+
+
 void OR::guardar(DOMDocument* doc, DOMNode* padre) {
 
 	XMLCh tempStr[100];

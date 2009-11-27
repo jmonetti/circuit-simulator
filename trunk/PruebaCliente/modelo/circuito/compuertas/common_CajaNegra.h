@@ -25,6 +25,15 @@ const std::string &nombreCircuito,Servidor servidor);
 
 	TIPO_COMPUERTA getTipo() const;
 
+	EntradaCompuerta** getEntradas();
+
+	SalidaCompuerta** getSalidas();
+
+	int getCantidadEntradas();
+
+	int getCantidadSalidas();
+
+
 	void guardar(DOMDocument* doc, DOMNode* padre){} //TODO
 
 private:

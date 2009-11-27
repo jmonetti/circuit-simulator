@@ -63,6 +63,10 @@ private:
 	void setearEntradas(bool* entradas);
 	void reset();
 
+	void realizarDesconexiones(Compuerta* compuerta);
+	void eliminarEntrada(Entrada* entrada);
+	void eliminarSalida(Salida* salida);
+
 	std::vector<Compuerta*> compuertas;
 	std::vector<EntradaCompuerta*> entradasCompuerta;
 	std::vector<SalidaCompuerta*> salidasCompuerta;

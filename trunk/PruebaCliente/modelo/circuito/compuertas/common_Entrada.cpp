@@ -56,6 +56,32 @@ TIPO_COMPUERTA Entrada::getTipo() const{
 
 }
 
+
+EntradaCompuerta** Entrada::getEntradas() {
+
+	return NULL;
+
+}
+
+SalidaCompuerta** Entrada::getSalidas() {
+
+	return &salida;
+
+}
+
+int Entrada::getCantidadEntradas() {
+
+	return 0;
+
+}
+
+int Entrada::getCantidadSalidas() {
+
+	return 1;
+
+}
+
+
 void Entrada::guardar(DOMDocument* doc, DOMNode* padre) {
 
 	XMLCh tempStr[100];

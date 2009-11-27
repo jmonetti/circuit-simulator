@@ -124,7 +124,19 @@ void Circuito::eliminarCompuerta(int idCompuerta) {
 
 	if (compuerta) {
 
-		//TODO
+		realizarDesconexiones(compuerta);
+
+		if (compuerta->getEntrada()) {
+
+			eliminarEntrada(compuerta->getEntrada());
+
+		}else if (compuerta->getSalida()){
+
+			eliminarSalida(compuerta->getSalida());
+
+		}
+
+		delete compuerta;
 
 	}else{
 
@@ -292,6 +304,79 @@ void Circuito::reset() {
 
 }
 
+void Circuito::realizarDesconexiones(Compuerta* compuerta) {
+
+	EntradaCompuerta** entradas= compuerta->getEntradas();
+	SalidaCompuerta** salidas= compuerta->getSalidas();
+
+	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
+
+		if (entradas[var]->getConexion() != -1) {
+
+			desconectar(entradas[var]->getConexion(),entradas[var]->getId());
+
+		}
+
+	}
+
+	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
+
+		if (salidas[var]->getConexion() != -1) {
+
+			desconectar(salidas[var]->getId(),salidas[var]->getConexion());
+
+		}
+
+	}
+
+}
+
+void Circuito::eliminarEntrada(Entrada* entrada) {
+
+	std::vector<Entrada*>::iterator iterador= entradas.begin();
+
+	while ( iterador != entradas.end() ) {
+
+		if ( *iterador == entrada) {
+
+			entradas.erase(iterador);
+			break;
+
+		}else {
+
+			++iterador;
+
+		}
+
+	}
+
+	throw CircuitoException("Error al eliminar entrada");
+
+
+}
+
+void Circuito::eliminarSalida(Salida* salida) {
+
+	std::vector<Salida*>::iterator iterador= salidas.begin();
+
+	while ( iterador != salidas.end() ) {
+
+		if ( *iterador == salida) {
+
+			salidas.erase(iterador);
+			break;
+
+		}else {
+
+			++iterador;
+
+		}
+
+	}
+
+	throw CircuitoException("Error al eliminar salida");
+
+}
 void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
 
 	XMLCh tempStr[100];

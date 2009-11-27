@@ -52,6 +52,31 @@ TIPO_COMPUERTA AND::getTipo() const{
 
 }
 
+EntradaCompuerta** AND::getEntradas() {
+
+	return entradas;
+
+}
+
+SalidaCompuerta** AND::getSalidas() {
+
+	return &salida;
+
+}
+
+int AND::getCantidadEntradas() {
+
+	return 2;
+
+}
+
+int AND::getCantidadSalidas() {
+
+	return 1;
+
+}
+
+
 void AND::guardar(DOMDocument* doc, DOMNode* padre) {
 
 	XMLCh tempStr[100];
