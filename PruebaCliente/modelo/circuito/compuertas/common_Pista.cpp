@@ -38,6 +38,31 @@ TIPO_COMPUERTA Pista::getTipo() const {
 
 }
 
+EntradaCompuerta** Pista::getEntradas() {
+
+	return &entrada;
+
+}
+
+SalidaCompuerta** Pista::getSalidas() {
+
+	return &salida;
+
+}
+
+int Pista::getCantidadEntradas() {
+
+	return 1;
+
+}
+
+int Pista::getCantidadSalidas() {
+
+	return 1;
+
+}
+
+
 void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
 
 	XMLCh tempStr[100];

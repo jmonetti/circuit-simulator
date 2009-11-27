@@ -28,6 +28,14 @@ public:
 
 	TIPO_COMPUERTA getTipo() const;
 
+	EntradaCompuerta** getEntradas();
+
+	SalidaCompuerta** getSalidas();
+
+	int getCantidadEntradas();
+
+	int getCantidadSalidas();
+
 	void guardar(DOMDocument* doc, DOMNode* padre);
 
 private:

@@ -5,6 +5,7 @@
 #include "common_Compuerta.h"
 
 class EntradaCompuerta;
+class Compuerta;
 
 class SalidaCompuerta {
 

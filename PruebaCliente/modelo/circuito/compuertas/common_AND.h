@@ -22,6 +22,15 @@ public:
 
 	TIPO_COMPUERTA getTipo() const;
 
+	EntradaCompuerta** getEntradas();
+
+	SalidaCompuerta** getSalidas();
+
+	int getCantidadEntradas();
+
+	int getCantidadSalidas();
+
+
 private:
 
 	EntradaCompuerta* entradas[2];

@@ -56,6 +56,30 @@ std::string Salida::getNombre() const{
 
 }
 
+EntradaCompuerta** Salida::getEntradas() {
+
+	return &entrada;
+
+}
+
+SalidaCompuerta** Salida::getSalidas() {
+
+	return NULL;
+
+}
+
+int Salida::getCantidadEntradas() {
+
+	return 1;
+
+}
+
+int Salida::getCantidadSalidas() {
+
+	return 0;
+
+}
+
 
 void Salida::guardar(DOMDocument* doc, DOMNode* padre) {
 

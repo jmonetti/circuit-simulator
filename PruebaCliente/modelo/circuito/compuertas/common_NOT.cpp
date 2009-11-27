@@ -37,6 +37,31 @@ TIPO_COMPUERTA NOT::getTipo() const{
 
 }
 
+EntradaCompuerta** NOT::getEntradas() {
+
+	return &entrada;
+
+}
+
+SalidaCompuerta** NOT::getSalidas() {
+
+	return &salida;
+
+}
+
+int NOT::getCantidadEntradas() {
+
+	return 1;
+
+}
+
+int NOT::getCantidadSalidas() {
+
+	return 1;
+
+}
+
+
 void NOT::guardar(DOMDocument* doc, DOMNode* padre) {
 
 	XMLCh tempStr[100];

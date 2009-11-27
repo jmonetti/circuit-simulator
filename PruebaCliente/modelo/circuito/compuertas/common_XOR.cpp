@@ -50,6 +50,31 @@ TIPO_COMPUERTA XOR::getTipo() const{
 
 }
 
+EntradaCompuerta** XOR::getEntradas() {
+
+	return entradas;
+
+}
+
+SalidaCompuerta** XOR::getSalidas() {
+
+	return &salida;
+
+}
+
+int XOR::getCantidadEntradas() {
+
+	return 2;
+
+}
+
+int XOR::getCantidadSalidas() {
+
+	return 1;
+
+}
+
+
 void XOR::guardar(DOMDocument* doc, DOMNode* padre) {
 
 	XMLCh tempStr[100];
