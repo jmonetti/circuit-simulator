@@ -78,10 +78,7 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,Tipo_Celda _tipo){
 	*y= (fila*12)+6; //TODO
 	*x= col*12+6;  //TODO
 
-	//TODO case con _estado
-	agregada=aux->agregar_compuerta_XOR();
-
-	//fin TODO
+	agregada=aux->agregar_compuerta(_tipo);
 
 	return agregada;
 }

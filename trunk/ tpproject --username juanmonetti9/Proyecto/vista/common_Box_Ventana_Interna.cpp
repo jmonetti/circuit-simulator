@@ -54,8 +54,16 @@ void Box_Ventana_Interna::agregar_pestania(){
 
 }
 
-void Box_Ventana_Interna::dibujar_compuerta_xor(gdouble x,gdouble y){
-	grilla.draw_XOR(x,y);
+void Box_Ventana_Interna::dibujar_compuerta(gdouble x,gdouble y,Tipo_Celda tipo){
+
+	switch(tipo){
+
+	case TXOR:	grilla.draw_XOR(x,y);
+				break;
+	case TAND:	grilla.draw_AND(x,y);
+				break;
+	}
+
 }
 /*----------------------------------------------------------------------------*/
 

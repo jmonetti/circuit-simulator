@@ -12,9 +12,27 @@ Controlador* Controlador::instancia=NULL;
 Controlador::Controlador(Fachada_vista* fachada) {
 
 	fachada_vista=fachada;
+	accion=new Accion_NULA(this);
+
 }
 
 /*----------------------------------------------------------------------------*/
+
+void Controlador::agregar_accion(Accion* nueva_accion){
+
+	if(accion){
+		//libero la memoria reservada por la accion actual
+		delete(accion);
+	}
+	accion=nueva_accion;
+}
+
+void Controlador::ejecutar_accion(gdouble x,gdouble y){
+
+	if(accion)
+		accion->ejecutar(x,y);
+
+}
 
 Controlador* Controlador::crear_instancia(Fachada_vista* fachada){
 
@@ -51,10 +69,10 @@ void Controlador::agregar_componente(int x,int y,Tipo_Celda _tipo){
 	int _x=x;
 	int _y=y;
 
-	bool agregada= matriz.agregar_compuerta(&_x,&_y,TXOR);
+	bool agregada= matriz.agregar_compuerta(&_x,&_y,_tipo);
 
 	if(agregada){
-	  fachada_vista->dibujar_componente(_x,_y,TXOR);
+	  fachada_vista->dibujar_componente(_x,_y,_tipo);
 	}
 }
 /*----------------------------------------------------------------------------*/
@@ -65,5 +83,10 @@ void Controlador::eliminar_componente(int x,int y){
 /*----------------------------------------------------------------------------*/
 
 Controlador::~Controlador() {
+
+	if(accion){
+	//libero la memoria reservada por la accion actual
+	delete(accion);
+	}
 
 }

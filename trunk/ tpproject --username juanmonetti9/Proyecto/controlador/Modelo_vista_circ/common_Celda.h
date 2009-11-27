@@ -40,7 +40,7 @@ public:
 	 * @return (true) en caso de haber agregado la celda
 	 * 		   (false) en caso de que no se pueda agregar
 	 */
-	bool agregar_compuerta_XOR();
+	bool agregar_compuerta(Tipo_Celda tipo);
 
 	void eliminar_componente();
 
