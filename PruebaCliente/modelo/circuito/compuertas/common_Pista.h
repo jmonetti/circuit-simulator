@@ -12,13 +12,15 @@ class Pista: public Compuerta {
 
 public:
 
-	Pista(int id, EntradaCompuerta* entrada,SalidaCompuerta* salida);
+	Pista(int id, EntradaCompuerta* entrada,SalidaCompuerta* salida,Posicion posicion,SENTIDO sentido);
 
 	virtual ~Pista();
 
 	void calcularTiempoTransicion();
 
 	void simular();
+
+	TIPO_COMPUERTA getTipo() const;
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
 

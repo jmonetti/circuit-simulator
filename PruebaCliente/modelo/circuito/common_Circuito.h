@@ -7,6 +7,7 @@
 #include "compuertas/common_Compuerta.h"
 #include "compuertas/common_Entrada.h"
 #include "compuertas/common_Salida.h"
+#include <string>
 #include <vector>
 
 
@@ -14,7 +15,7 @@ class Circuito {
 
 public:
 
-	Circuito(int id);
+	Circuito(int id,const std::string &nombre);
 
 	virtual ~Circuito();
 
@@ -46,6 +47,8 @@ public:
 
 	int getId() const;
 
+	std::string getNombre() const;
+
 	void guardar(DOMDocument* doc, DOMNode* padre) const;
 
 private:
@@ -60,6 +63,7 @@ private:
 	std::vector<Salida*> salidas;
 
 	int id;
+	std::string nombre;
 	int contadorCompuertas;
 	int contadorEntradasCompuertas;
 	int contadorSalidasCompuertas;

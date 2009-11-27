@@ -2,6 +2,7 @@
 #include "common_ModeloCliente.h"
 #include <iterator>
 #include "circuito/common_FactoryCompuerta.h"
+#include "../excepciones/common_CircuitoException.h"
 
 ModeloCliente::ModeloCliente() {
 
@@ -18,9 +19,9 @@ ModeloCliente::~ModeloCliente() {
 	}
 }
 
-void ModeloCliente::crearNuevo() {
+void ModeloCliente::crearNuevo(const std::string &nombre) {
 
-	Circuito* circuito= new Circuito(contadorId);
+	Circuito* circuito= new Circuito(contadorId,nombre);
 	circuitos.push_back(circuito);
 	contadorId++;
 
@@ -48,15 +49,36 @@ void ModeloCliente::eliminar(int idCircuito) {
 
 	}
 
+	throw CircuitoException("No se pudo eliminar el circuito. Circuito invalido");
+
 }
 
-void ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,int tiempoTransicion) {
+void ModeloCliente::agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	FactoryCompuerta::crearCompuerta(tipo, *circuito, tiempoTransicion);
+	FactoryCompuerta::crearCompuerta(tipo, *circuito, posicion,sentido);
 
 }
+
+void ModeloCliente::agregarEntrada(int idCircuito,Posicion posicion, const string &nombre, SENTIDO sentido) {
+
+	Circuito* circuito= obtenerCircuito(idCircuito);
+
+	FactoryCompuerta::crearEntrada(*circuito,posicion,nombre,sentido);
+
+}
+
+void ModeloCliente::agregarSalida(int idCircuito,Posicion posicion, const string &nombre, SENTIDO sentido) {
+
+	Circuito* circuito= obtenerCircuito(idCircuito);
+
+	FactoryCompuerta::crearSalida(*circuito,posicion,nombre,sentido);
+
+}
+
+
+
 
 void ModeloCliente::eliminarCompuerta(int idCircuito,int idCompuerta) {
 
@@ -67,19 +89,11 @@ void ModeloCliente::eliminarCompuerta(int idCircuito,int idCompuerta) {
 }
 
 
-std::vector<ResultadoSimulacion*>* ModeloCliente::simular(int idCircuito) {
+Resultado* ModeloCliente::simular(int idCircuito) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
 	return simulador.simular(*circuito);
-
-}
-
-ResultadoTiempo* ModeloCliente::calcularTiempoTransicion(int idCircuito) {
-
-	Circuito* circuito= obtenerCircuito(idCircuito);
-
-	return new ResultadoTiempo(circuito->calcularTiempoTransicion(),circuito->getCantidadSalidas());
 
 }
 
@@ -91,11 +105,11 @@ void ModeloCliente::conectar(int idCircuito,int idSalida,int idEntrada) {
 
 }
 
-void ModeloCliente::guardar(int idCircuito, std::string &ruta) {
+void ModeloCliente::guardar(int idCircuito) {
 
 	Circuito* circuito= obtenerCircuito(idCircuito);
 
-	persistencia.guardar(*circuito, ruta);
+	persistencia.guardar(*circuito);
 
 }
 
@@ -107,13 +121,13 @@ void ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
 }
 
-void ModeloCliente::enviar(const std::string &nombreCircuito,const Servidor &servidor) {
+void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 	publicacion.enviar(nombreCircuito,servidor);
 
 }
 
-void ModeloCliente::recibir(int idCircuito, const std::string &nombreCircuito,const Servidor &servidor) {
+void ModeloCliente::recibir(int idCircuito, const std::string &nombreCircuito,Servidor servidor) {
 
 	CajaNegra* compuerta= publicacion.recibir(nombreCircuito,servidor);
 

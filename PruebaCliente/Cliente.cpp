@@ -1,6 +1,7 @@
 
 #include "Cliente.h"
 #include "common/constantes.h"
+#include "common/common_Posicion.h"
 
 Cliente::Cliente() {
 	// TODO Auto-generated constructor stub
@@ -22,27 +23,29 @@ void Cliente::crearCircuitos() {
 
 int Cliente::crearCircuitosSeparados() {
 
-	modelo.crearNuevo();
+	modelo.crearNuevo("Circuitos Separados");
+
+	Posicion posicion;
 
 	int id= 0;
 
 	for (int i = 0; i < 3; ++i) {
 
-		modelo.agregarCompuerta(id,T_ENTRADA);
-		modelo.agregarCompuerta(id,T_ENTRADA);
+		modelo.agregarEntrada(id,posicion,"Entrada 1");
+		modelo.agregarEntrada(id,posicion,"Entrada 1");
 		switch (i) {
 
 		case 0:
-			modelo.agregarCompuerta(id,T_AND,10);
+			modelo.agregarCompuerta(id,T_AND,posicion);
 			break;
 		case 1:
-			modelo.agregarCompuerta(id,T_OR,10);
+			modelo.agregarCompuerta(id,T_OR,posicion);
 			break;
 		case 2:
-			modelo.agregarCompuerta(id,T_XOR,10);
+			modelo.agregarCompuerta(id,T_XOR,posicion);
 
 		}
-		modelo.agregarCompuerta(id,T_SALIDA);
+		modelo.agregarSalida(id,posicion,"Salida 1");
 
 		modelo.conectar(id,3*i,3*i);
 		modelo.conectar(id,3*i+1,3*i+1);
@@ -52,19 +55,19 @@ int Cliente::crearCircuitosSeparados() {
 
 	for (int i = 0; i < 2; ++i) {
 
-		modelo.agregarCompuerta(id,T_ENTRADA);
+		modelo.agregarEntrada(id,posicion,"Entrada 1");
 		switch (i) {
 
 		case 0:
-			modelo.agregarCompuerta(id,T_NOT,10);
+			modelo.agregarCompuerta(id,T_NOT,posicion);
 			break;
 
 		case 1:
 
-			modelo.agregarCompuerta(id,T_PISTA);
+			modelo.agregarCompuerta(id,T_PISTA,posicion);
 
 		}
-		modelo.agregarCompuerta(id,T_SALIDA);
+		modelo.agregarSalida(id,posicion,"Salida 1");
 
 		modelo.conectar(id,9 + 2*i,9 + 2*i);
 		modelo.conectar(id,9 + 2*i+1,9 + 2*i+1);
@@ -77,21 +80,23 @@ int Cliente::crearCircuitosSeparados() {
 
 int Cliente::crearSumaDeUnBit() {
 
-	modelo.crearNuevo();
+	modelo.crearNuevo("Suma De Un Bit");
 
 	int id= 1;
 
-	modelo.agregarCompuerta(id,T_ENTRADA);
+	Posicion posicion;
 
-	modelo.agregarCompuerta(id,T_ENTRADA);
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
 
-	modelo.agregarCompuerta(id,T_SALIDA);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarSalida(id,posicion,"Salida 1");
 
-	modelo.agregarCompuerta(id,T_SALIDA);
+	modelo.agregarCompuerta(id,T_XOR,posicion);
+
+	modelo.agregarSalida(id,posicion,"Salida 1");
 
 	modelo.conectar(id,0,0);
 	modelo.conectar(id,1,1);
@@ -106,27 +111,29 @@ int Cliente::crearSumaDeUnBit() {
 
 int Cliente::crearSumaTresEntradas() {
 
-	modelo.crearNuevo();
+	modelo.crearNuevo("Suma Tres Entradas");
 
 	int id= 2;
 
-	modelo.agregarCompuerta(id,T_ENTRADA);
-	modelo.agregarCompuerta(id,T_ENTRADA);
-	modelo.agregarCompuerta(id,T_ENTRADA);
+	Posicion posicion;
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_XOR,posicion);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_XOR,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_SALIDA);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_SALIDA);
+	modelo.agregarSalida(id,posicion,"Salida 1");
+
+	modelo.agregarSalida(id,posicion,"Salida 1");
 
 	modelo.conectar(id,0,0);
 	modelo.conectar(id,1,1);
@@ -147,37 +154,39 @@ int Cliente::crearSumaTresEntradas() {
 
 int Cliente::crearAlarmas() {
 
-	modelo.crearNuevo();
+	modelo.crearNuevo("Tablero");
 
 	int id= 3;
 
-	modelo.agregarCompuerta(id,T_ENTRADA);
-	modelo.agregarCompuerta(id,T_ENTRADA);
-	modelo.agregarCompuerta(id,T_ENTRADA);
+	Posicion posicion;
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
+	modelo.agregarCompuerta(id,T_AND,posicion);
+
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
 
 
 	modelo.conectar(id,0,0);
@@ -207,65 +216,67 @@ int Cliente::crearAlarmas() {
 
 int Cliente::crearTablero() {
 
-	modelo.crearNuevo();
+	modelo.crearNuevo("Tablero");
 
 	int id= 4;
 
-	modelo.agregarCompuerta(id,T_ENTRADA);
-	modelo.agregarCompuerta(id,T_ENTRADA);
-	modelo.agregarCompuerta(id,T_ENTRADA);
+	Posicion posicion;
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
+	modelo.agregarEntrada(id,posicion,"Entrada 1");
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_XOR,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_XOR,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_XOR,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_AND,posicion);
 
-	modelo.agregarCompuerta(id,T_OR,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_NOT,10);
+	modelo.agregarCompuerta(id,T_OR,posicion);
 
-	modelo.agregarCompuerta(id,T_AND,10);
+	modelo.agregarCompuerta(id,T_NOT,posicion);
 
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
-	modelo.agregarCompuerta(id,T_SALIDA);
+	modelo.agregarCompuerta(id,T_AND,posicion);
+
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
+	modelo.agregarSalida(id,posicion,"Salida 1");
 
 
 	modelo.conectar(id,0,0);
@@ -320,62 +331,32 @@ int Cliente::crearTablero() {
 
 }
 
-std::vector<ResultadoSimulacion*>* Cliente::simularCircuitosSeparados() {
+Resultado* Cliente::simularCircuitosSeparados() {
 
 	return modelo.simular(idCircuitos[0]);
 
 }
 
-std::vector<ResultadoSimulacion*>* Cliente::simularSumaDeUnBit() {
+Resultado* Cliente::simularSumaDeUnBit() {
 
 	return modelo.simular(idCircuitos[1]);
 
 }
 
-std::vector<ResultadoSimulacion*>* Cliente::simularSumaTresEntradas() {
+Resultado* Cliente::simularSumaTresEntradas() {
 
 	return modelo.simular(idCircuitos[2]);
 
 }
 
-std::vector<ResultadoSimulacion*>* Cliente::simularAlarmas() {
+Resultado* Cliente::simularAlarmas() {
 
 	return modelo.simular(idCircuitos[3]);
 
 }
 
-std::vector<ResultadoSimulacion*>* Cliente::simularTablero() {
+Resultado* Cliente::simularTablero() {
 
 	return modelo.simular(idCircuitos[4]);
-
-}
-
-ResultadoTiempo* Cliente::calcularTiempoCircuitosSeparados() {
-
-	return modelo.calcularTiempoTransicion(idCircuitos[0]);
-
-}
-
-ResultadoTiempo* Cliente::calcularTiempoSumaDeUnBit() {
-
-	return modelo.calcularTiempoTransicion(idCircuitos[1]);
-
-}
-
-ResultadoTiempo* Cliente::calcularTiempoSumaTresEntradas() {
-
-	return modelo.calcularTiempoTransicion(idCircuitos[2]);
-
-}
-
-ResultadoTiempo* Cliente::calcularTiempoAlarmas() {
-
-	return modelo.calcularTiempoTransicion(idCircuitos[3]);
-
-}
-
-ResultadoTiempo* Cliente::calcularTiempoTablero() {
-
-	return modelo.calcularTiempoTransicion(idCircuitos[4]);
 
 }

@@ -1,6 +1,7 @@
 #include "common_Salida.h"
 
-Salida::Salida(int id, EntradaCompuerta* entrada) : Compuerta(id) {
+Salida::Salida(int id, EntradaCompuerta* entrada,Posicion posicion,SENTIDO sentido, const std::string &nombre)
+: Compuerta(id,posicion,sentido) , nombre(nombre) {
 
 	this->entrada= entrada;
 	this->tiempoTransicion= 0;
@@ -42,6 +43,13 @@ int Salida::getTiempoTransicion() {
 	return tiempoTransicion;
 
 }
+
+TIPO_COMPUERTA Salida::getTipo() const{
+
+	return T_SALIDA;
+
+}
+
 
 void Salida::guardar(DOMDocument* doc, DOMNode* padre) {
 

@@ -4,12 +4,13 @@
 
 #include "common_Compuerta.h"
 #include "common_EntradaCompuerta.h"
+#include <string>
 
 class Salida: public Compuerta {
 
 public:
 
-	Salida(int id, EntradaCompuerta* entrada);
+	Salida(int id, EntradaCompuerta* entrada,Posicion posicion,SENTIDO sentido,const std::string &nombre);
 
 	virtual ~Salida();
 
@@ -23,6 +24,8 @@ public:
 
 	int getTiempoTransicion();
 
+	TIPO_COMPUERTA getTipo() const;
+
 	void guardar(DOMDocument* doc, DOMNode* padre);
 
 
@@ -31,6 +34,7 @@ private:
 	EntradaCompuerta* entrada;
 	bool valor;
 	int tiempoTransicion;
+	std::string nombre;
 
 };
 

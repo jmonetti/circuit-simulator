@@ -2,18 +2,24 @@
 #include "common_Publicacion.h"
 
 
-void Publicacion::enviar(const std::string &nombreCircuito,const Servidor &servidor) {
+void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 
 }
 
-bool* Publicacion::simular(const std::string &nombreCircuito,const Servidor &servidor,bool* entradas) {
+bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas) {
 
 	return NULL;
 
 }
 
-CajaNegra* Publicacion::recibir(const std::string &nombreCircuito,const Servidor &servidor) {
+int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor,int* tiempos) {
+
+	return NULL;
+
+}
+
+CajaNegra* Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
 	return NULL;
 

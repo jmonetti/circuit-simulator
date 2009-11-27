@@ -1,8 +1,8 @@
 
 #include "common_XOR.h"
 
-XOR::XOR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida)
-: Compuerta(id){
+XOR::XOR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida, Posicion posicion, SENTIDO sentido)
+: Compuerta(id,posicion,sentido){
 
 	this->entradas[0] = entrada1;
 	this->entradas[1] = entrada2;
@@ -41,6 +41,12 @@ void XOR::simular() {
 	bool valor2= entradas[1]->simular();
 
 	this->salida->setValorSalida(valor1 ^ valor2);
+
+}
+
+TIPO_COMPUERTA XOR::getTipo() const{
+
+	return T_XOR;
 
 }
 

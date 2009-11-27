@@ -9,13 +9,15 @@ class OR: public Compuerta {
 
 public:
 
-	OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida);
+	OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida,Posicion posicion,SENTIDO sentido);
 
 	virtual ~OR();
 
 	void calcularTiempoTransicion();
 
 	void simular();
+
+	TIPO_COMPUERTA getTipo() const;
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
 

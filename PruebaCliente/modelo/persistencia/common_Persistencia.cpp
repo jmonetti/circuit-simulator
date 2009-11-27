@@ -70,7 +70,7 @@ Persistencia::~Persistencia() {
 	}
 }
 
-void Persistencia::guardar(const Circuito &circuito, std::string &ruta) {
+void Persistencia::guardar(const Circuito &circuito) {
 
 
 	XMLCh tempStr[100];
@@ -95,7 +95,7 @@ void Persistencia::guardar(const Circuito &circuito, std::string &ruta) {
     // StdOutFormatTarget prints the resultant XML stream
     // to stdout once it receives any thing from the serializer.
 
-    XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(ruta.c_str());
+    XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(circuito.getNombre().c_str());
 
    // XMLFormatTarget *myFormTarget = new StdOutFormatTarget();
     DOMLSOutput* theOutput = ((DOMImplementationLS*)impl)->createLSOutput();
@@ -197,7 +197,7 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 
 Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito) {
 
-	Circuito* circuito = new Circuito(idCircuito);
+	Circuito* circuito = new Circuito(idCircuito,"");
 
 	DOMNodeList*      salidas = ElementoCte->getChildNodes();
 	const  XMLSize_t cantSalidas = salidas->getLength();

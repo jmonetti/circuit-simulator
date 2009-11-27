@@ -5,16 +5,20 @@
 #include "../circuito/common_Circuito.h"
 #include "common_ResultadoSimulacion.h"
 #include <vector>
+#include "common_ResultadoTiempo.h"
+#include "common_Resultado.h"
 
 class Simulador {
 
 public:
 
-	std::vector<ResultadoSimulacion*>* simular(Circuito &circuito);
+	Resultado* simular(Circuito &circuito);
 
 private:
 
 	bool* generarEntradas(int i, unsigned int cantidadEntradas,const bool* entradasAnt);
+	std::vector<ResultadoSimulacion*>* calcularSimulacion(Circuito &circuito);
+	ResultadoTiempo* calcularTiempo(Circuito &circuito);
 };
 
 #endif /* COMMON_SIMULADOR_H_ */

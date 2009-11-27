@@ -5,22 +5,26 @@
 #include "compuertas/common_Compuerta.h"
 #include "common_Circuito.h"
 #include "../../common/constantes.h"
+#include "../../common/common_Posicion.h"
+#include <string>
 
 class FactoryCompuerta {
 
 public:
 
-	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion = 0);
+	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion,SENTIDO sentido);
+
+	static void crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
+
+	static void crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
 
 private:
 
-	static void crearAND(Circuito &circuito,int tiempo);
-	static void crearOR(Circuito &circuito,int tiempo);
-	static void crearNOT(Circuito &circuito,int tiempo);
-	static void crearXOR(Circuito &circuito,int tiempo);
-	static void crearPISTA(Circuito &circuito);
-	static void crearENTRADA(Circuito &circuito);
-	static void crearSALIDA(Circuito &circuito);
+	static void crearAND(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static void crearOR(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static void crearNOT(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static void crearXOR(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static void crearPISTA(Circuito &circuito,Posicion posicion, SENTIDO sentido);
 
 };
 

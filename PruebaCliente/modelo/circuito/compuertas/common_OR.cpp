@@ -1,7 +1,7 @@
 #include "common_OR.h"
 
-OR::OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida)
-: Compuerta(id){
+OR::OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1,EntradaCompuerta* entrada2, SalidaCompuerta* salida, Posicion posicion, SENTIDO sentido)
+: Compuerta(id,posicion,sentido){
 
 	this->entradas[0]= entrada1;
 	this->entradas[1]= entrada2;
@@ -40,6 +40,12 @@ void OR::simular() {
 	bool valor2= entradas[1]->simular();
 
 	salida->setValorSalida(valor1 || valor2);
+
+}
+
+TIPO_COMPUERTA OR::getTipo() const {
+
+	return T_OR;
 
 }
 

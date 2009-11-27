@@ -8,13 +8,16 @@ class Servidor {
 
 public:
 
-	Servidor(const std::string &ipServidor);
+	Servidor(const std::string &host, int puerto);
 
-	std::string getIp() const;
+	std::string getHost() const;
+
+	int getPuerto() const;
 
 private:
 
-	std::string ip;
+	std::string host;
+	int puerto;
 
 };
 

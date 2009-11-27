@@ -10,7 +10,7 @@ class AND: public Compuerta {
 
 public:
 
-	AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2,SalidaCompuerta* salida);
+	AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1,EntradaCompuerta* entrada2,SalidaCompuerta* salida, Posicion posicion,SENTIDO sentido);
 
 	virtual ~AND();
 
@@ -19,6 +19,8 @@ public:
 	void simular();
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
+
+	TIPO_COMPUERTA getTipo() const;
 
 private:
 

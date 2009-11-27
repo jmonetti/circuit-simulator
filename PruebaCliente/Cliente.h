@@ -18,17 +18,11 @@ public:
 
 	void crearCircuitos();
 
-	std::vector<ResultadoSimulacion*>* simularCircuitosSeparados();
-	std::vector<ResultadoSimulacion*>* simularSumaDeUnBit();
-	std::vector<ResultadoSimulacion*>* simularSumaTresEntradas();
-	std::vector<ResultadoSimulacion*>* simularAlarmas();
-	std::vector<ResultadoSimulacion*>* simularTablero();
-
-	ResultadoTiempo* calcularTiempoCircuitosSeparados();
-	ResultadoTiempo* calcularTiempoSumaDeUnBit();
-	ResultadoTiempo* calcularTiempoSumaTresEntradas();
-	ResultadoTiempo* calcularTiempoAlarmas();
-	ResultadoTiempo* calcularTiempoTablero();
+	Resultado* simularCircuitosSeparados();
+	Resultado* simularSumaDeUnBit();
+	Resultado* simularSumaTresEntradas();
+	Resultado* simularAlarmas();
+	Resultado* simularTablero();
 
 private:
 
