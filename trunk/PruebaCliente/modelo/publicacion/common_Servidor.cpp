@@ -1,13 +1,20 @@
 
 #include "common_Servidor.h"
 
-Servidor::Servidor(const std::string &ipServidor) : ip(ipServidor) {
+Servidor::Servidor(const std::string &host, int puerto) : host(host) {
 
+	this->puerto= puerto;
 
 }
 
-std::string Servidor::getIp() const{
+std::string Servidor::getHost() const{
 
-	return this->ip;
+	return this->host;
+
+}
+
+int Servidor::getPuerto() const{
+
+	return this->puerto;
 
 }

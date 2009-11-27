@@ -8,6 +8,8 @@
 #include <xercesc/dom/DOMDocument.hpp>
 
 #include "../../persistencia/common_Persistencia.h"
+#include "../../../common/common_Posicion.h"
+#include "../../../common/constantes.h"
 
 class Entrada;
 class Salida;
@@ -16,7 +18,7 @@ class Compuerta {
 
 public:
 
-	Compuerta(int id);
+	Compuerta(int id,Posicion posicion,SENTIDO sentido);
 
 	virtual Entrada* getEntrada();
 
@@ -26,6 +28,14 @@ public:
 
 	virtual void calcularTiempoTransicion() = 0;
 
+	void mover(unsigned int x,unsigned int y);
+
+	void rotarIzquierda();
+
+	void rotarDerecha();
+
+	virtual TIPO_COMPUERTA getTipo() const = 0;
+
 	int getId();
 
 	virtual void guardar(DOMDocument* doc, DOMNode* padre) = 0;
@@ -33,6 +43,8 @@ public:
 private:
 
 	int id;
+	Posicion posicion;
+	SENTIDO sentido;
 
 };
 

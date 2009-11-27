@@ -17,7 +17,7 @@ int SalidaCompuerta::calcularTiempoTransicion() {
 
 	}
 
-	validoTiempo= true;
+
 	return tiempoTransicion;
 
 }
@@ -30,7 +30,6 @@ bool SalidaCompuerta::simular() {
 
 	}
 
-	validoValor= true;
 	return valor;
 
 }
@@ -45,12 +44,14 @@ void SalidaCompuerta::reset() {
 void SalidaCompuerta::setValorSalida(bool valor) {
 
 	this->valor = valor;
+	validoValor= true;
 
 }
 
 void SalidaCompuerta::setTiempoTransicion(int tiempo) {
 
 	this->tiempoTransicion= tiempo;
+	validoTiempo= true;
 
 }
 

@@ -10,13 +10,15 @@ class NOT: public Compuerta {
 
 public:
 
-	NOT(int id,int tiempoTransicion, EntradaCompuerta* entrada, SalidaCompuerta* salida);
+	NOT(int id,int tiempoTransicion, EntradaCompuerta* entrada, SalidaCompuerta* salida, Posicion posicion, SENTIDO sentido);
 
 	virtual ~NOT();
 
 	void calcularTiempoTransicion();
 
 	void simular();
+
+	TIPO_COMPUERTA getTipo() const;
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
 

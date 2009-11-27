@@ -4,14 +4,15 @@
 #include <vector>
 #include "modelo/simulacion/common_ResultadoSimulacion.h"
 #include "modelo/simulacion/common_ResultadoTiempo.h"
+#include "modelo/simulacion/common_Resultado.h"
 
-void imprimirSimulacion(std::vector<ResultadoSimulacion*>* resultados) {
+void imprimirSimulacion(Resultado* resultados) {
 
 	ResultadoSimulacion* resultado;
 
-	for (unsigned int var = 0; var < resultados->size(); ++var) {
+	for (unsigned int var = 0; var < resultados->getResultadoSimulacion()->size(); ++var) {
 
-		resultado= resultados->at(var);
+		resultado= resultados->getResultadoSimulacion()->at(var);
 
 		std::cout<<"Entrada: ";
 
@@ -33,7 +34,15 @@ void imprimirSimulacion(std::vector<ResultadoSimulacion*>* resultados) {
 
 		std::cout<<std::endl;
 
-		delete resultado;
+	}
+
+	std::cout<<std::endl<<std::endl;
+
+	int* tiempos= resultados->getResultadoTiempo()->getTiempos();
+
+	for (unsigned int var = 0; var < resultados->getResultadoTiempo()->getCantidad(); ++var) {
+
+		std::cout << "Tiempo: "  << tiempos[var] << std::endl;
 
 	}
 
@@ -43,15 +52,7 @@ void imprimirSimulacion(std::vector<ResultadoSimulacion*>* resultados) {
 
 void imprimirTiempo(ResultadoTiempo* resultado) {
 
-	int* tiempos= resultado->getTiempos();
 
-	for (unsigned int var = 0; var < resultado->getCantidad(); ++var) {
-
-		std::cout << "Tiempo: "  << tiempos[var] << std::endl;
-
-	}
-
-	delete resultado;
 
 }
 
@@ -73,8 +74,6 @@ int main(int argc, char **argv) {
 
 	std::cout << std::endl;
 
-	imprimirTiempo(cliente.calcularTiempoCircuitosSeparados());
-
 
 
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
@@ -89,8 +88,6 @@ int main(int argc, char **argv) {
 
 	std::cout << std::endl;
 
-	imprimirTiempo(cliente.calcularTiempoSumaDeUnBit());
-
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
 
 	std::cin.get();
@@ -102,8 +99,6 @@ int main(int argc, char **argv) {
 	imprimirSimulacion(cliente.simularSumaTresEntradas());
 
 	std::cout << std::endl;
-
-	imprimirTiempo(cliente.calcularTiempoSumaTresEntradas());
 
 
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
@@ -118,8 +113,6 @@ int main(int argc, char **argv) {
 
 	std::cout << std::endl;
 
-	imprimirTiempo(cliente.calcularTiempoAlarmas());
-
 
 
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
@@ -133,8 +126,6 @@ int main(int argc, char **argv) {
 	imprimirSimulacion(cliente.simularTablero());
 
 	std::cout << std::endl;
-
-	imprimirTiempo(cliente.calcularTiempoTablero());
 
 
 

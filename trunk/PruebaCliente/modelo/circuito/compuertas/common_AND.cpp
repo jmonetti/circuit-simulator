@@ -1,8 +1,8 @@
 
 #include "common_AND.h"
 
-AND::AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida)
-: Compuerta(id){
+AND::AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida,Posicion posicion, SENTIDO sentido)
+: Compuerta(id,posicion,sentido){
 
 	this->entradas[0]= entrada1;
 	this->entradas[1]= entrada2;
@@ -43,6 +43,12 @@ void AND::simular() {
 	bool entrada2= entradas[1]->simular();
 
 	salida->setValorSalida(entrada1 && entrada2);
+
+}
+
+TIPO_COMPUERTA AND::getTipo() const{
+
+	return T_AND;
 
 }
 

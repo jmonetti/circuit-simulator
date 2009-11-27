@@ -1,7 +1,8 @@
 
 #include "common_Entrada.h"
 
-Entrada::Entrada(int id,SalidaCompuerta* salida) : Compuerta(id){
+Entrada::Entrada(int id,SalidaCompuerta* salida, Posicion posicion, SENTIDO sentido, const std::string &nombre)
+: Compuerta(id,posicion,sentido) , nombre(nombre){
 
 	this->salida= salida;
 
@@ -40,6 +41,12 @@ void Entrada::setValorEntrada(bool valor) {
 bool Entrada::getValorEntrada() const {
 
 	return this->valor;
+
+}
+
+TIPO_COMPUERTA Entrada::getTipo() const{
+
+	return T_ENTRADA;
 
 }
 

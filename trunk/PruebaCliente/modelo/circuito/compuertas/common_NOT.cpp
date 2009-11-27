@@ -1,7 +1,7 @@
 #include "common_NOT.h"
 
-NOT::NOT(int id,int tiempoTransicion,EntradaCompuerta* entrada,SalidaCompuerta* salida)
-: Compuerta(id) {
+NOT::NOT(int id,int tiempoTransicion,EntradaCompuerta* entrada,SalidaCompuerta* salida, Posicion posicion, SENTIDO sentido)
+: Compuerta(id,posicion,sentido) {
 
 	this->entrada= entrada;
 	this->salida= salida;
@@ -28,6 +28,12 @@ void NOT::simular() {
 	bool valor= this->entrada->simular();
 
 	this->salida->setValorSalida(!valor);
+
+}
+
+TIPO_COMPUERTA NOT::getTipo() const{
+
+	return T_NOT;
 
 }
 

@@ -5,7 +5,7 @@
 #include <iterator>
 #include "../../excepciones/common_CircuitoException.h"
 
-Circuito::Circuito(int id) {
+Circuito::Circuito(int id,const std::string &nombre) : nombre(nombre) {
 
 	this->contadorCompuertas= 0;
 	this->contadorEntradasCompuertas= 0;
@@ -229,6 +229,12 @@ void Circuito::desconectar(int idSalida,int idEntrada) {
 int Circuito::getId() const{
 
 	return id;
+
+}
+
+std::string Circuito::getNombre() const{
+
+	return this->nombre;
 
 }
 

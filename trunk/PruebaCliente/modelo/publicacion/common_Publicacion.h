@@ -12,11 +12,13 @@ class Publicacion {
 
 public:
 
-	void enviar(const std::string &nombreCircuito, const Servidor &servidor);
+	void enviar(const std::string &nombreCircuito,Servidor servidor);
 
-	bool* simular(const std::string &nombreCircuito,const Servidor &servidor,bool* entradas);
+	bool* simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas);
 
-	CajaNegra* recibir(const std::string &nombreCircuito,const Servidor &servidor);
+	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos);
+
+	CajaNegra* recibir(const std::string &nombreCircuito,Servidor servidor);
 
 
 };

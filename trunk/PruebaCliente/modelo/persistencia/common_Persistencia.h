@@ -31,7 +31,7 @@ public:
 
 	virtual ~Persistencia();
 
-	void guardar(const Circuito &circuito, std::string &ruta);
+	void guardar(const Circuito &circuito);
 
 	Circuito* recuperar(int idCircuito, const std::string &nombreCircuito);
 

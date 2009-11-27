@@ -3,7 +3,8 @@
 
 #include "common_Pista.h"
 
-Pista::Pista(int id, EntradaCompuerta* entrada, SalidaCompuerta* salida) : Compuerta(id){
+Pista::Pista(int id, EntradaCompuerta* entrada, SalidaCompuerta* salida, Posicion posicion, SENTIDO sentido)
+: Compuerta(id,posicion,sentido){
 
 	this->entrada= entrada;
 	this->salida= salida;
@@ -28,6 +29,12 @@ void Pista::calcularTiempoTransicion() {
 void Pista::simular() {
 
 	salida->setValorSalida(entrada->simular());
+
+}
+
+TIPO_COMPUERTA Pista::getTipo() const {
+
+	return T_PISTA;
 
 }
 

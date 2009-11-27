@@ -13,43 +13,33 @@
 #include "../../excepciones/common_CircuitoException.h"
 
 
-void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, int tiempoTransicion) {
+void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	switch (tipo) {
 
 		case T_AND:
 
-			crearAND(circuito,tiempoTransicion);
+			crearAND(circuito,posicion,sentido);
 			break;
 
 		case T_OR:
 
-			crearOR(circuito,tiempoTransicion);
+			crearOR(circuito,posicion,sentido);
 			break;
 
 		case T_XOR:
 
-			crearXOR(circuito,tiempoTransicion);
+			crearXOR(circuito,posicion,sentido);
 			break;
 
 		case T_NOT:
 
-			crearNOT(circuito,tiempoTransicion);
+			crearNOT(circuito,posicion,sentido);
 			break;
 
 		case T_PISTA:
 
-			crearPISTA(circuito);
-			break;
-
-		case T_ENTRADA:
-
-			crearENTRADA(circuito);
-			break;
-
-		case T_SALIDA:
-
-			crearSALIDA(circuito);
+			crearPISTA(circuito,posicion,sentido);
 			break;
 
 		default:
@@ -59,110 +49,113 @@ void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, i
 			break;
 
 	}
-}
-
-void FactoryCompuerta::crearAND(Circuito &circuito,int tiempo) {
-
-	EntradaCompuerta* entrada1= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada1);
-
-	EntradaCompuerta* entrada2= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada2);
-
-	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
-	circuito.agregarSalidaCompuerta(salida);
-
-	Compuerta* compuerta= new AND(circuito.getContadorCompuertas(),tiempo,entrada1,entrada2,salida);
-	circuito.agregarCompuerta(compuerta);
-
-	salida->setCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearOR(Circuito &circuito,int tiempo) {
-
-	EntradaCompuerta* entrada1= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada1);
-
-	EntradaCompuerta* entrada2= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada2);
-
-	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
-	circuito.agregarSalidaCompuerta(salida);
-
-	Compuerta* compuerta= new OR(circuito.getContadorCompuertas(),tiempo,entrada1,entrada2,salida);
-	circuito.agregarCompuerta(compuerta);
-
-	salida->setCompuerta(compuerta);
-
-}
-
-void FactoryCompuerta::crearNOT(Circuito &circuito,int tiempo) {
-
-	EntradaCompuerta* entrada= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada);
-
-	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
-	circuito.agregarSalidaCompuerta(salida);
-
-	Compuerta* compuerta= new NOT(circuito.getContadorCompuertas(),tiempo,entrada,salida);
-	circuito.agregarCompuerta(compuerta);
-
-	salida->setCompuerta(compuerta);
-
-}
-
-void FactoryCompuerta::crearXOR(Circuito &circuito,int tiempo) {
-
-	EntradaCompuerta* entrada1= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada1);
-
-	EntradaCompuerta* entrada2= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada2);
-
-	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
-	circuito.agregarSalidaCompuerta(salida);
-
-	Compuerta* compuerta= new XOR(circuito.getContadorCompuertas(),tiempo,entrada1,entrada2,salida);
-	circuito.agregarCompuerta(compuerta);
-
-	salida->setCompuerta(compuerta);
-
-}
-
-void FactoryCompuerta::crearPISTA(Circuito &circuito) {
-
-	EntradaCompuerta* entrada= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
-	circuito.agregarEntradaCompuerta(entrada);
-
-	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
-	circuito.agregarSalidaCompuerta(salida);
-
-	Compuerta* compuerta= new Pista(circuito.getContadorCompuertas(),entrada,salida);
-	circuito.agregarCompuerta(compuerta);
-
-	salida->setCompuerta(compuerta);
-
-}
-
-void FactoryCompuerta::crearENTRADA(Circuito &circuito) {
+void FactoryCompuerta::crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido) {
 
 	SalidaCompuerta* salidaEntrada= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
 	circuito.agregarSalidaCompuerta(salidaEntrada);
 
-	Compuerta* compuerta= new Entrada(circuito.getContadorCompuertas(),salidaEntrada);
+	Compuerta* compuerta= new Entrada(circuito.getContadorCompuertas(),salidaEntrada,posicion,sentido,nombre);
 	circuito.agregarCompuerta(compuerta);
 
 	salidaEntrada->setCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearSALIDA(Circuito &circuito) {
+void FactoryCompuerta::crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido) {
 
 	EntradaCompuerta* entradaSalida= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
 	circuito.agregarEntradaCompuerta(entradaSalida);
 
-	Compuerta* compuerta= new Salida(circuito.getContadorCompuertas(),entradaSalida);
+	Compuerta* compuerta= new Salida(circuito.getContadorCompuertas(),entradaSalida,posicion,sentido,nombre);
 	circuito.agregarCompuerta(compuerta);
 
 }
+
+
+void FactoryCompuerta::crearAND(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+
+	EntradaCompuerta* entrada1= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada1);
+
+	EntradaCompuerta* entrada2= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada2);
+
+	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
+	circuito.agregarSalidaCompuerta(salida);
+
+	Compuerta* compuerta= new AND(circuito.getContadorCompuertas(),TIEMPO_TRANSICION_AND,entrada1,entrada2,salida,posicion,sentido);
+	circuito.agregarCompuerta(compuerta);
+
+	salida->setCompuerta(compuerta);
+
+}
+
+void FactoryCompuerta::crearOR(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+
+	EntradaCompuerta* entrada1= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada1);
+
+	EntradaCompuerta* entrada2= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada2);
+
+	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
+	circuito.agregarSalidaCompuerta(salida);
+
+	Compuerta* compuerta= new OR(circuito.getContadorCompuertas(),TIEMPO_TRANSICION_OR,entrada1,entrada2,salida,posicion,sentido);
+	circuito.agregarCompuerta(compuerta);
+
+	salida->setCompuerta(compuerta);
+
+}
+
+void FactoryCompuerta::crearNOT(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+
+	EntradaCompuerta* entrada= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada);
+
+	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
+	circuito.agregarSalidaCompuerta(salida);
+
+	Compuerta* compuerta= new NOT(circuito.getContadorCompuertas(),TIEMPO_TRANSICION_NOT,entrada,salida,posicion,sentido);
+	circuito.agregarCompuerta(compuerta);
+
+	salida->setCompuerta(compuerta);
+
+}
+
+void FactoryCompuerta::crearXOR(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+
+	EntradaCompuerta* entrada1= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada1);
+
+	EntradaCompuerta* entrada2= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada2);
+
+	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
+	circuito.agregarSalidaCompuerta(salida);
+
+	Compuerta* compuerta= new XOR(circuito.getContadorCompuertas(),TIEMPO_TRANSICION_XOR,entrada1,entrada2,salida,posicion,sentido);
+	circuito.agregarCompuerta(compuerta);
+
+	salida->setCompuerta(compuerta);
+
+}
+
+void FactoryCompuerta::crearPISTA(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+
+	EntradaCompuerta* entrada= new EntradaCompuerta(circuito.getContadorEntradasCompuerta());
+	circuito.agregarEntradaCompuerta(entrada);
+
+	SalidaCompuerta* salida= new SalidaCompuerta(circuito.getContadorSalidasCompuerta());
+	circuito.agregarSalidaCompuerta(salida);
+
+	Compuerta* compuerta= new Pista(circuito.getContadorCompuertas(),entrada,salida,posicion,sentido);
+	circuito.agregarCompuerta(compuerta);
+
+	salida->setCompuerta(compuerta);
+
+}
+
