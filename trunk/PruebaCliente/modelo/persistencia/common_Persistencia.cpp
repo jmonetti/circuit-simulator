@@ -77,8 +77,6 @@ void Persistencia::guardar(const Circuito &circuito) {
 	XMLString::transcode("XML", tempStr, 99);
 	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
 
-	//TODO CREAR ARBOL DE DATOS
-
 	DOMDocument*   doc = impl->createDocument(0, TAG_INITIALIZER, 0);
 
 	circuito.guardar(doc, doc->getFirstChild());
@@ -187,7 +185,6 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito, const std::string &nombreCircuito) {
 
 	Circuito* circuito = new Circuito(idCircuito, nombreCircuito);
-	//TODO CONEXIONES!
 
 	DOMNodeList*      salidas = ElementoCte->getChildNodes();
 	const  XMLSize_t cantSalidas = salidas->getLength();

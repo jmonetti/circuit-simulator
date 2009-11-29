@@ -24,6 +24,13 @@ private:
 
 	static void desconectar(SalidaCompuerta* salida);
 
+	static bool verificarConexionNorte(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida);
+
+	static bool verificarConexionEste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida);
+
+	static bool verificarConexionOeste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida);
+
+	static bool verificarConexionSur(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida);
 };
 
 #endif /* COMMON_MANAGERCONEXIONES_H_ */

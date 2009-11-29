@@ -62,6 +62,7 @@ int main(int argc, char **argv) {
 
 	cliente.crearCircuitos();
 
+
 	std::cout << "Presione Enter para comenzar las pruebas... " << std::endl;
 
 	std::cin.get();
@@ -74,10 +75,16 @@ int main(int argc, char **argv) {
 
 	cliente.guardarCircuitosSeparados(); //TODO
 
+	std::string ruta= "Circuitos Separados";
+
+	cliente.recuperarCircuito(ruta);
+
+	imprimirSimulacion(cliente.simularCircuitosSeparados());
+
 	std::cout << std::endl;
 
 
-
+/*
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
 
 	std::cin.get();
@@ -136,7 +143,7 @@ int main(int argc, char **argv) {
 	cliente.guardarTablero(); //TODO
 
 	std::cout << std::endl;
-
+*/
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
 
