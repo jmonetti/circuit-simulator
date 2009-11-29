@@ -38,6 +38,8 @@ Persistencia::Persistencia() {
 	TAG_XOR= XMLString::transcode("XOR");
 	TAG_PISTA= XMLString::transcode("Pista");
 
+
+
 }
 
 Persistencia::~Persistencia() {
@@ -68,10 +70,10 @@ Persistencia::~Persistencia() {
 		std::string message = xercesc::XMLString::transcode( e.getMessage() );
 		throw runtime_error("XML ttolkit teardown error: " + message);
 	}
+
 }
 
 void Persistencia::guardar(const Circuito &circuito) {
-
 
 	XMLCh tempStr[100];
 	XMLString::transcode("XML", tempStr, 99);
@@ -114,15 +116,15 @@ void Persistencia::guardar(const Circuito &circuito) {
         throw runtime_error("Unexpected Exception");
     }
 
+    doc->release();
     theOutput->release();
     theSerializer->release();
+    delete myFormatTarget;
 
 }
 
 
 Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircuito) {
-
-	// Test to see if the file is ok.
 
 	   struct stat estadoArchivo;
 
@@ -178,7 +180,7 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 	      throw runtime_error("Error parsing file: "+ message);
 	   }
 
-	return NULL;
+	   return NULL;
 
 }
 
