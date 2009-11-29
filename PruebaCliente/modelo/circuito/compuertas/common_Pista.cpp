@@ -80,18 +80,6 @@ void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
     aux = "id";
     Persistencia::guardarElemento(doc,elem_Pista,aux,getId());
 
-
-    /******* ATRIBUTO ID-ENTRADA*****************/
-
-    aux = "idEntrada";
-    Persistencia::guardarElemento(doc,elem_Pista,aux,entrada->getId());
-
-
-    /******* ATRIBUTO ID-SALIDA*****************/
-
-    aux = "idSalida";
-    Persistencia::guardarElemento(doc,elem_Pista,aux,salida->getId());
-
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";

@@ -268,9 +268,6 @@ void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	nombre="idEntrada";
-	int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
-
 	nombre="x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -286,7 +283,7 @@ void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearSalida(*circuito, id,idEntrada,posicion,nombre,(SENTIDO)sentido);
+	FactoryParser::crearSalida(*circuito, id,posicion,nombre,(SENTIDO)sentido);
 
 }
 
@@ -294,9 +291,6 @@ void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
 
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idSalida";
-	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
@@ -313,7 +307,7 @@ void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearEntrada(*circuito,id,idSalida,posicion,nombre,(SENTIDO)sentido);
+	FactoryParser::crearEntrada(*circuito,id,posicion,nombre,(SENTIDO)sentido);
 
 }
 
@@ -322,12 +316,6 @@ void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	nombre = "idEntrada";
-	int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idSalida";
-	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
-
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -339,7 +327,7 @@ void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_NOT,*circuito,posicion,(SENTIDO)sentido, id, idSalida,idEntrada);
+	FactoryParser::crearCompuerta(T_NOT,*circuito,posicion,(SENTIDO)sentido, id);
 
 }
 
@@ -348,15 +336,6 @@ void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	nombre = "idEntrada1";
-	int idEntrada1 = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idEntrada2";
-	int idEntrada2 = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idSalida";
-	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
-
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -368,7 +347,7 @@ void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_AND,*circuito,posicion,(SENTIDO)sentido,id,idSalida,idEntrada1,idEntrada2);
+	FactoryParser::crearCompuerta(T_AND,*circuito,posicion,(SENTIDO)sentido,id);
 
 }
 
@@ -377,15 +356,6 @@ void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	nombre = "idEntrada1";
-	int idEntrada1 = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idEntrada2";
-	int idEntrada2 = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idSalida";
-	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
-
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -397,7 +367,7 @@ void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_OR,*circuito,posicion,(SENTIDO)sentido,id, idSalida,idEntrada1,idEntrada2);
+	FactoryParser::crearCompuerta(T_OR,*circuito,posicion,(SENTIDO)sentido,id);
 
 }
 
@@ -406,15 +376,6 @@ void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	nombre = "idEntrada1";
-	int idEntrada1 = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idEntrada2";
-	int idEntrada2 = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idSalida";
-	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
-
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -426,7 +387,7 @@ void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_XOR,*circuito,posicion,(SENTIDO)sentido,id, idSalida,idEntrada1,idEntrada2);
+	FactoryParser::crearCompuerta(T_XOR,*circuito,posicion,(SENTIDO)sentido,id);
 
 }
 
@@ -435,12 +396,6 @@ void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 	std::string nombre = "id";
 	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	nombre = "idEntrada";
-	int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "idSalida";
-	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
-
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -452,7 +407,7 @@ void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_PISTA,*circuito,posicion,(SENTIDO)sentido,id, idSalida,idEntrada);
+	FactoryParser::crearCompuerta(T_PISTA,*circuito,posicion,(SENTIDO)sentido,id);
 
 }
 
@@ -473,24 +428,6 @@ void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) 
 
 	nombre = "salidas";
 	int salidas = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	//TODO for de Entradas y Salidas
-
-	for(int contE = 0; contE < entradas; ++contE){
-
-		nombre = "idEntrada";
-		int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
-		//TODO agregarEntrada();
-
-	}
-
-	for(int contS = 0; contS < salidas; ++contS){
-
-		nombre = "idSalida";
-		int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
-		//TODO agregarEntrada();
-
-	}
 
 	nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
