@@ -49,7 +49,7 @@ public:
 
 	std::string getNombre() const;
 
-	void guardar(DOMDocument* doc, DOMNode* padre) const;
+	void guardar(DOMDocument* doc) const;
 
 private:
 

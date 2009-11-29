@@ -81,7 +81,7 @@ void Persistencia::guardar(const Circuito &circuito) {
 
 	DOMDocument*   doc = impl->createDocument(0, TAG_INITIALIZER, 0);
 
-	circuito.guardar(doc, doc->getFirstChild());
+	circuito.guardar(doc);
 
     DOMLSSerializer* theSerializer = ((DOMImplementationLS*)impl)->createLSSerializer();
 
@@ -94,14 +94,12 @@ void Persistencia::guardar(const Circuito &circuito) {
 
     XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(circuito.getNombre().c_str());
 
-   // XMLFormatTarget *myFormTarget = new StdOutFormatTarget();
     DOMLSOutput* theOutput = ((DOMImplementationLS*)impl)->createLSOutput();
     theOutput->setByteStream(myFormatTarget);
 
-    DOMNode* nodo = doc->getFirstChild();
+    DOMNode* nodo = dynamic_cast < xercesc::DOMNode* >( doc );
 
     try {
-        // do the serialization through DOMLSSerializer::write();
         theSerializer->write(nodo, theOutput);
     }
     catch (const XMLException& toCatch) {
