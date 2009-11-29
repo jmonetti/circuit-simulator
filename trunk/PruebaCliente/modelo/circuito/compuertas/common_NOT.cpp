@@ -78,17 +78,6 @@ void NOT::guardar(DOMDocument* doc, DOMNode* padre) {
     aux = "id";
     Persistencia::guardarElemento(doc,elem_NOT,aux,getId());
 
-    /******* ATRIBUTO ID-ENTRADA*****************/
-
-    aux = "idEntrada";
-    Persistencia::guardarElemento(doc,elem_NOT,aux,entrada->getId());
-
-
-    /******* ATRIBUTO ID-SALIDA*****************/
-
-    aux = "idSalida";
-    Persistencia::guardarElemento(doc,elem_NOT,aux,salida->getId());
-
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";

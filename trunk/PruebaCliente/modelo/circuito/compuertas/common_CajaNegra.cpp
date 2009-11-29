@@ -126,43 +126,6 @@ void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
     aux = "salidas";
     Persistencia::guardarElemento(doc,elem_CajaNegra,aux,salidas.size());
 
-    /******* ATRIBUTO ID-ENTRADAS*****************/
-
-    std::string nombre = "idEntrada";
-
-    for(unsigned int cantE = 0; cantE < entradas.size(); ++cantE){
-
-    	std::stringstream converter1;
-    	converter1 << cantE;
-    	aux = converter1.str();
-
-    	nombre += aux;		// ej: idEntrada0, idEntrada1...
-
-    	/******* ATRIBUTO ID-ENTRADA_N*****************/
-
-        Persistencia::guardarElemento(doc,elem_CajaNegra,nombre,entradas[cantE]->getId());
-
-    }
-
-    /******* ATRIBUTO ID-SALIDAS*****************/
-
-    nombre = "idSalida";
-
-    for(unsigned int cantS = 0; cantS < entradas.size(); ++cantS){
-
-    	std::stringstream converter2;
-    	converter2 << cantS;
-    	aux = converter2.str();
-
-    	nombre += aux;		// ej: idSalida0, idSalida1...
-
-    	/******* ATRIBUTO ID-SALDA_N*****************/
-
-        Persistencia::guardarElemento(doc,elem_CajaNegra,nombre,entradas[cantS]->getId());
-
-    }
-
-
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";

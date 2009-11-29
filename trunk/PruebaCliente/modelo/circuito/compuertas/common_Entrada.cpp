@@ -97,11 +97,6 @@ void Entrada::guardar(DOMDocument* doc, DOMNode* padre) {
     aux = "id";
     Persistencia::guardarElemento(doc,elem_Entrada,aux,getId());
 
-    /******* ATRIBUTO ID-SALIDA*****************/
-
-    aux = "idSalida";
-    Persistencia::guardarElemento(doc,elem_Entrada,aux,salida->getId());
-
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";

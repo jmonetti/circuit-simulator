@@ -15,34 +15,34 @@
 
 
 void FactoryParser::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion,SENTIDO sentido
-									,int idCompuerta,int idSalida, int idEntrada1,int idEntrada2) {
+									,int idCompuerta) {
 
 
 	switch (tipo) {
 
 		case T_AND:
 
-			crearAND(circuito,idCompuerta,idEntrada1,idEntrada2,idSalida,posicion,sentido);
+			crearAND(circuito,idCompuerta,posicion,sentido);
 			break;
 
 		case T_OR:
 
-			crearOR(circuito,idCompuerta,idEntrada1,idEntrada2,idSalida,posicion,sentido);
+			crearOR(circuito,idCompuerta,posicion,sentido);
 			break;
 
 		case T_XOR:
 
-			crearXOR(circuito,idCompuerta,idEntrada1,idEntrada2,idSalida,posicion,sentido);
+			crearXOR(circuito,idCompuerta,posicion,sentido);
 			break;
 
 		case T_NOT:
 
-			crearNOT(circuito,idCompuerta,idEntrada1,idSalida,posicion,sentido);
+			crearNOT(circuito,idCompuerta,posicion,sentido);
 			break;
 
 		case T_PISTA:
 
-			crearPISTA(circuito,idCompuerta,idEntrada1,idSalida,posicion,sentido);
+			crearPISTA(circuito,idCompuerta,posicion,sentido);
 			break;
 
 		default:
@@ -54,109 +54,101 @@ void FactoryParser::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posi
 	}
 }
 
-void FactoryParser::crearEntrada(Circuito &circuito,int idCompuerta,int idSalida, Posicion posicion, const std::string &nombre,SENTIDO sentido) {
+void FactoryParser::crearEntrada(Circuito &circuito,int idCompuerta, Posicion posicion, const std::string &nombre,SENTIDO sentido) {
 
-	SalidaCompuerta* salidaEntrada= new SalidaCompuerta(idSalida);
-	circuito.agregarSalidaCompuerta(salidaEntrada);
+	SalidaCompuerta* salidaEntrada= new SalidaCompuerta();
 
 	Compuerta* compuerta= new Entrada(idCompuerta,salidaEntrada,posicion,sentido,nombre);
-	circuito.agregarCompuerta(compuerta);
 
 	salidaEntrada->setCompuerta(compuerta);
 
+	circuito.agregarCompuerta(compuerta);
+
 }
 
-void FactoryParser::crearSalida(Circuito &circuito,int idCompuerta,int idEntrada, Posicion posicion, const std::string &nombre,SENTIDO sentido) {
+void FactoryParser::crearSalida(Circuito &circuito,int idCompuerta, Posicion posicion, const std::string &nombre,SENTIDO sentido) {
 
-	EntradaCompuerta* entradaSalida= new EntradaCompuerta(idEntrada);
-	circuito.agregarEntradaCompuerta(entradaSalida);
+	EntradaCompuerta* entradaSalida= new EntradaCompuerta();
 
 	Compuerta* compuerta= new Salida(idCompuerta,entradaSalida,posicion,sentido,nombre);
+
 	circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryParser::crearAND(Circuito &circuito,int idCompuerta,int idEntrada1,int idEntrada2, int idSalida,Posicion posicion,SENTIDO sentido) {
+void FactoryParser::crearAND(Circuito &circuito,int idCompuerta,Posicion posicion,SENTIDO sentido) {
 
-	EntradaCompuerta* entrada1= new EntradaCompuerta(idEntrada1);
-	circuito.agregarEntradaCompuerta(entrada1);
+	EntradaCompuerta* entrada1= new EntradaCompuerta();
 
-	EntradaCompuerta* entrada2= new EntradaCompuerta(idEntrada2);
-	circuito.agregarEntradaCompuerta(entrada2);
+	EntradaCompuerta* entrada2= new EntradaCompuerta();
 
-	SalidaCompuerta* salida= new SalidaCompuerta(idSalida);
-	circuito.agregarSalidaCompuerta(salida);
+	SalidaCompuerta* salida= new SalidaCompuerta();
 
 	Compuerta* compuerta= new AND(idCompuerta,TIEMPO_TRANSICION_AND,entrada1,entrada2,salida,posicion,sentido);
-	circuito.agregarCompuerta(compuerta);
 
 	salida->setCompuerta(compuerta);
 
+	circuito.agregarCompuerta(compuerta);
+
 }
 
-void FactoryParser::crearOR(Circuito &circuito,int idCompuerta,int idEntrada1,int idEntrada2, int idSalida,Posicion posicion,SENTIDO sentido) {
+void FactoryParser::crearOR(Circuito &circuito,int idCompuerta,Posicion posicion,SENTIDO sentido) {
 
-	EntradaCompuerta* entrada1= new EntradaCompuerta(idEntrada1);
-	circuito.agregarEntradaCompuerta(entrada1);
+	EntradaCompuerta* entrada1= new EntradaCompuerta();
 
-	EntradaCompuerta* entrada2= new EntradaCompuerta(idEntrada2);
-	circuito.agregarEntradaCompuerta(entrada2);
+	EntradaCompuerta* entrada2= new EntradaCompuerta();
 
-	SalidaCompuerta* salida= new SalidaCompuerta(idSalida);
-	circuito.agregarSalidaCompuerta(salida);
+	SalidaCompuerta* salida= new SalidaCompuerta();
 
 	Compuerta* compuerta= new OR(idCompuerta,TIEMPO_TRANSICION_OR,entrada1,entrada2,salida,posicion,sentido);
-	circuito.agregarCompuerta(compuerta);
 
 	salida->setCompuerta(compuerta);
 
+	circuito.agregarCompuerta(compuerta);
+
 }
 
-void FactoryParser::crearNOT(Circuito &circuito,int idCompuerta,int idEntrada, int idSalida,Posicion posicion,SENTIDO sentido) {
+void FactoryParser::crearNOT(Circuito &circuito,int idCompuerta,Posicion posicion,SENTIDO sentido) {
 
-	EntradaCompuerta* entrada= new EntradaCompuerta(idEntrada);
-	circuito.agregarEntradaCompuerta(entrada);
+	EntradaCompuerta* entrada= new EntradaCompuerta();
 
-	SalidaCompuerta* salida= new SalidaCompuerta(idSalida);
-	circuito.agregarSalidaCompuerta(salida);
+	SalidaCompuerta* salida= new SalidaCompuerta();
 
 	Compuerta* compuerta= new NOT(idCompuerta,TIEMPO_TRANSICION_NOT,entrada,salida,posicion,sentido);
-	circuito.agregarCompuerta(compuerta);
 
 	salida->setCompuerta(compuerta);
 
+	circuito.agregarCompuerta(compuerta);
+
 }
 
-void FactoryParser::crearXOR(Circuito &circuito,int idCompuerta,int idEntrada1,int idEntrada2, int idSalida,Posicion posicion,SENTIDO sentido) {
+void FactoryParser::crearXOR(Circuito &circuito,int idCompuerta,Posicion posicion,SENTIDO sentido) {
 
-	EntradaCompuerta* entrada1= new EntradaCompuerta(idEntrada1);
-	circuito.agregarEntradaCompuerta(entrada1);
+	EntradaCompuerta* entrada1= new EntradaCompuerta();
 
-	EntradaCompuerta* entrada2= new EntradaCompuerta(idEntrada2);
-	circuito.agregarEntradaCompuerta(entrada2);
+	EntradaCompuerta* entrada2= new EntradaCompuerta();
 
-	SalidaCompuerta* salida= new SalidaCompuerta(idSalida);
-	circuito.agregarSalidaCompuerta(salida);
+	SalidaCompuerta* salida= new SalidaCompuerta();
 
 	Compuerta* compuerta= new XOR(idCompuerta,TIEMPO_TRANSICION_XOR,entrada1,entrada2,salida,posicion,sentido);
-	circuito.agregarCompuerta(compuerta);
 
 	salida->setCompuerta(compuerta);
+
+	circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryParser::crearPISTA(Circuito &circuito,int idCompuerta,int idEntrada, int idSalida,Posicion posicion,SENTIDO sentido) {
+void FactoryParser::crearPISTA(Circuito &circuito,int idCompuerta,Posicion posicion,SENTIDO sentido) {
 
-	EntradaCompuerta* entrada= new EntradaCompuerta(idEntrada);
-	circuito.agregarEntradaCompuerta(entrada);
+	EntradaCompuerta* entrada= new EntradaCompuerta();
 
-	SalidaCompuerta* salida= new SalidaCompuerta(idSalida);
-	circuito.agregarSalidaCompuerta(salida);
+	SalidaCompuerta* salida= new SalidaCompuerta();
 
 	Compuerta* compuerta= new Pista(idCompuerta,entrada,salida,posicion,sentido);
-	circuito.agregarCompuerta(compuerta);
 
 	salida->setCompuerta(compuerta);
+
+	circuito.agregarCompuerta(compuerta);
 
 }
 
