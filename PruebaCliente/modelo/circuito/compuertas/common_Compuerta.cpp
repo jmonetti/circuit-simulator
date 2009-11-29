@@ -87,3 +87,21 @@ void Compuerta::rotarIzquierda() {
 	}
 
 }
+
+int Compuerta::getX() const {
+
+	return posicion.getX();
+
+}
+
+int Compuerta::getY() const {
+
+	return posicion.getY();
+
+}
+
+SENTIDO Compuerta::getSentido() const {
+
+	return sentido;
+
+}

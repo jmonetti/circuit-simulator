@@ -72,54 +72,36 @@ void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
     DOMElement*   elem_Pista = doc->createElement(tempStr);
 
     /******* ATRIBUTO ID*****************/
-    XMLString::transcode("id", tempStr, 99);
-    DOMAttr* atributo0 = doc->createAttribute(tempStr);
 
-    std::stringstream converter0;
-    converter0 << this->getId();
-    aux = converter0.str();
+    aux = "id";
+    Persistencia::guardarElemento(doc,elem_Pista,aux,getId());
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo0->setNodeValue(tempStr);
-    elem_Pista->setAttributeNode(atributo0);
 
     /******* ATRIBUTO ID-ENTRADA*****************/
-    XMLString::transcode("idEntrada", tempStr, 99);
-    DOMAttr* atributo1 = doc->createAttribute(tempStr);
-    int idEntrada = this->entrada->getId();
 
-    std::stringstream converter1;
-    converter1 << idEntrada;
-    aux = converter1.str();
+    aux = "idEntrada";
+    Persistencia::guardarElemento(doc,elem_Pista,aux,entrada->getId());
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo1->setNodeValue(tempStr);
-    elem_Pista->setAttributeNode(atributo1);
 
     /******* ATRIBUTO ID-SALIDA*****************/
-    XMLString::transcode("idSalida", tempStr, 99);
-    DOMAttr* atributo2 = doc->createAttribute(tempStr);
-    int idSalida = this->salida->getId();
 
-    std::stringstream converter2;
-    converter2 << idSalida;
-    aux = converter2.str();
+    aux = "idSalida";
+    Persistencia::guardarElemento(doc,elem_Pista,aux,salida->getId());
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo2->setNodeValue(tempStr);
-    elem_Pista->setAttributeNode(atributo2);
+    /******* ATRIBUTO POSICION X *****************/
 
-    /******* ATRIBUTO CONEXION ENTRADA *****************/
-    XMLString::transcode("conexionE", tempStr, 99);
-    DOMAttr* atributo3 = doc->createAttribute(tempStr);
+    aux = "x";
+    Persistencia::guardarElemento(doc,elem_Pista,aux,getX());
 
-    std::stringstream converter3;
-    converter3 << entrada->getConexion();
-    aux = converter3.str();
+    /******* ATRIBUTO POSICION Y *****************/
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo3->setNodeValue(tempStr);
-    elem_Pista->setAttributeNode(atributo3);
+    aux = "y";
+    Persistencia::guardarElemento(doc,elem_Pista,aux,getY());
+
+    /******* ATRIBUTO SENTIDO *****************/
+
+    aux = "sentido";
+    Persistencia::guardarElemento(doc,elem_Pista,aux,getSentido());
 
     padre->appendChild(elem_Pista);
 

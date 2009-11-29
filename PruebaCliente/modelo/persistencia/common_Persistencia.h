@@ -17,6 +17,7 @@
 #include <xercesc/util/XMLString.hpp>
 
 #include <string>
+#include <sstream>
 class Circuito;
 #include <xercesc/util/PlatformUtils.hpp>
 
@@ -35,9 +36,15 @@ public:
 
 	Circuito* recuperar(int idCircuito, const std::string &nombreCircuito);
 
+	static void guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor);
+
+	static void guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,std::string &valor);
+
+	static int recuperarDato(DOMElement* ElementoCte, std::string &nombre);
+
 private:
 
-	Circuito* parserCircuito(DOMElement* ElementoCte, int idCircuito);
+	Circuito* parserCircuito(DOMElement* ElementoCte, int idCircuito, const std::string &nombreCircuito);
 
 	void parserSalida(DOMElement* ElementoCte, Circuito* circuito);
 
@@ -52,6 +59,8 @@ private:
 	void parserXOR(DOMElement* ElementoCte, Circuito* circuito);
 
 	void parserPista(DOMElement* ElementoCte, Circuito* circuito);
+
+	void parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito);
 
 
 

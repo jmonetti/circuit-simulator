@@ -91,29 +91,34 @@ void Entrada::guardar(DOMDocument* doc, DOMNode* padre) {
     DOMElement*   elem_Entrada = doc->createElement(tempStr);
 
     /******* ATRIBUTO ID*****************/
-    XMLString::transcode("id", tempStr, 99);
-    DOMAttr* atributo0 = doc->createAttribute(tempStr);
 
-    std::stringstream converter0;
-    converter0 << this->getId();
-    aux = converter0.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo0->setNodeValue(tempStr);
-    elem_Entrada->setAttributeNode(atributo0);
+    aux = "id";
+    Persistencia::guardarElemento(doc,elem_Entrada,aux,getId());
 
     /******* ATRIBUTO ID-SALIDA*****************/
-    XMLString::transcode("idSalida", tempStr, 99);
-    DOMAttr* atributo1 = doc->createAttribute(tempStr);
-    int idSalida = this->salida->getId();
 
-    std::stringstream converter1;
-    converter1 << idSalida;
-    aux = converter1.str();
+    aux = "idSalida";
+    Persistencia::guardarElemento(doc,elem_Entrada,aux,salida->getId());
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo1->setNodeValue(tempStr);
-    elem_Entrada->setAttributeNode(atributo1);
+    /******* ATRIBUTO POSICION X *****************/
+
+    aux = "x";
+    Persistencia::guardarElemento(doc,elem_Entrada,aux,getX());
+
+    /******* ATRIBUTO POSICION Y *****************/
+
+    aux = "y";
+    Persistencia::guardarElemento(doc,elem_Entrada,aux,getY());
+
+    /******* ATRIBUTO SENTIDO *****************/
+
+    aux = "sentido";
+    Persistencia::guardarElemento(doc,elem_Entrada,aux,getSentido());
+
+    /******* ATRIBUTO NOMBRE *****************/
+
+    aux = "nombre";
+    Persistencia::guardarElemento(doc,elem_Entrada,aux,nombre);
 
     padre->appendChild(elem_Entrada);
 
