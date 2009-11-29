@@ -9,6 +9,9 @@ AND::AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1, EntradaCompuert
 	this->salida= salida;
 	this->tiempoTransicion= tiempoTransicion;
 
+	actualizarEntradas();
+	actualizarSalidas();
+
 }
 
 AND::~AND() {
@@ -105,25 +108,15 @@ void AND::guardar(DOMDocument* doc, DOMNode* padre) {
     aux = "idSalida";
     Persistencia::guardarElemento(doc,elem_AND,aux,salida->getId());
 
-    /******* ATRIBUTO CONEXION ENTRADA 1*****************/
-
-    aux = "conexionE1";
-    Persistencia::guardarElemento(doc,elem_AND,aux,entradas[0]->getConexion());
-
-    /******* ATRIBUTO CONEXION ENTRADA 2*****************/
-
-    aux = "conexionE2";
-    Persistencia::guardarElemento(doc,elem_AND,aux,entradas[1]->getConexion());
-
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";
-    Persistencia::guardarElemento(doc,elem_AND,aux,getX());
+    Persistencia::guardarElemento(doc,elem_AND,aux,getPosicion().getX());
 
     /******* ATRIBUTO POSICION Y *****************/
 
     aux = "y";
-    Persistencia::guardarElemento(doc,elem_AND,aux,getY());
+    Persistencia::guardarElemento(doc,elem_AND,aux,getPosicion().getY());
 
     /******* ATRIBUTO SENTIDO *****************/
 
@@ -134,3 +127,137 @@ void AND::guardar(DOMDocument* doc, DOMNode* padre) {
     padre->appendChild(elem_AND);
 
 }
+
+void AND::actualizarEntradas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xEntrada1;
+	unsigned int yEntrada1;
+
+	unsigned int xEntrada2;
+	unsigned int yEntrada2;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xEntrada1= xCompuerta + 1;
+			yEntrada1= yCompuerta + 1;
+			xEntrada2= xCompuerta - 1;
+			yEntrada2= yCompuerta + 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xEntrada1= xCompuerta - 1;
+			yEntrada1= yCompuerta - 1;
+			xEntrada2= xCompuerta - 1;
+			yEntrada2= yCompuerta + 1;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xEntrada1= xCompuerta - 1;
+			yEntrada1= yCompuerta - 1;
+			xEntrada2= xCompuerta + 1;
+			yEntrada2= yCompuerta - 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xEntrada1= xCompuerta + 1;
+			yEntrada1= yCompuerta - 1;
+			xEntrada2= xCompuerta + 1;
+			yEntrada2= yCompuerta + 1;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionEntrada1(xEntrada1,yEntrada1);
+	entradas[0]->mover(posicionEntrada1);
+	entradas[0]->rotar(getSentido());
+	Posicion posicionEntrada2(xEntrada2,yEntrada2);
+	entradas[1]->mover(posicionEntrada2);
+	entradas[1]->rotar(getSentido());
+
+
+}
+
+void AND::actualizarSalidas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xSalida;
+	unsigned int ySalida;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta - 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xSalida= xCompuerta + 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta + 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xSalida= xCompuerta - 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionSalida(xSalida,ySalida);
+	salida->mover(posicionSalida);
+	salida->rotar(getSentido());
+
+}
+

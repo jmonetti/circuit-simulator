@@ -23,13 +23,13 @@ public:
 
 	int* calcularTiempoTransicion();
 
+	void rotar(int idCompuerta,DIRECCION direccion);
+
+	void mover(int idCompuerta,Posicion posicion);
+
 	void agregarCompuerta(Compuerta* compuerta);
 
 	void eliminarCompuerta(int idCompuerta);
-
-	void agregarEntradaCompuerta(EntradaCompuerta* entrada);
-
-	void agregarSalidaCompuerta(SalidaCompuerta* salida);
 
 	unsigned int getCantidadEntradas() const;
 
@@ -45,10 +45,6 @@ public:
 
 	std::vector<Salida*>& getSalidas();
 
-	void conectar(int idSalida,int idEntrada);
-
-	void desconectar(int idSalida,int idEntrada);
-
 	int getId() const;
 
 	std::string getNombre() const;
@@ -57,13 +53,24 @@ public:
 
 private:
 
-	EntradaCompuerta* obtenerEntradaCompuerta(int idEntrada);
-	SalidaCompuerta* obtenerSalidaCompuerta(int idSalida);
+	void agregarEntradasCompuerta(Compuerta* compuerta);
+	void agregarSalidasCompuerta(Compuerta* compuerta);
+
+
+	Compuerta* obtenerCompuerta(int idCompuerta);
 
 	void setearEntradas(bool* entradas);
 	void reset();
 
-	void realizarDesconexiones(Compuerta* compuerta);
+	void verificarConexiones(Compuerta* compuerta);
+	void establecerConexion(EntradaCompuerta* entrada);
+	void establecerConexion(SalidaCompuerta* salida);
+
+	void eliminarEntradasCompuerta(Compuerta* compuerta);
+	void eliminarSalidasCompuerta(Compuerta* compuerta);
+	void eliminarEntradaCompuerta(EntradaCompuerta* entrada);
+	void eliminarSalidaCompuerta(SalidaCompuerta* salida);
+
 	void eliminarEntrada(Entrada* entrada);
 	void eliminarSalida(Salida* salida);
 
@@ -76,8 +83,6 @@ private:
 	int id;
 	std::string nombre;
 	int contadorCompuertas;
-	int contadorEntradasCompuertas;
-	int contadorSalidasCompuertas;
 
 };
 

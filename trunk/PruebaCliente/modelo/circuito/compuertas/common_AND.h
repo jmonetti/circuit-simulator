@@ -30,6 +30,10 @@ public:
 
 	int getCantidadSalidas();
 
+protected:
+
+	void actualizarEntradas();
+	void actualizarSalidas();
 
 private:
 

@@ -1,9 +1,7 @@
 #include "common_EntradaCompuerta.h"
 #include "../../../excepciones/common_CircuitoException.h"
 
-EntradaCompuerta::EntradaCompuerta(int id) {
-
-	this->id= id;
+EntradaCompuerta::EntradaCompuerta() {
 
 }
 
@@ -33,27 +31,44 @@ bool EntradaCompuerta::simular() {
 
 }
 
-void EntradaCompuerta::setEntrada(SalidaCompuerta* entrada) {
+void EntradaCompuerta::mover(Posicion posicion) {
+
+	this->posicion= posicion;
+
+}
+
+void EntradaCompuerta::rotar(SENTIDO sentido) {
+
+	this->sentido= sentido;
+
+}
+
+void EntradaCompuerta::conectar(SalidaCompuerta* entrada) {
 
 	this->entrada= entrada;
 
 }
 
-int EntradaCompuerta::getId() {
+void EntradaCompuerta::desconectar() {
 
-	return id;
-
-}
-
-int EntradaCompuerta::getConexion() {
-
-	if (entrada) {
-
-		return entrada->getId();
-
-	}
-
-	return -1;
+	this->entrada= NULL;
 
 }
 
+SalidaCompuerta* EntradaCompuerta::getConexion() {
+
+	return entrada;
+
+}
+
+Posicion EntradaCompuerta::getPosicion() const{
+
+	return posicion;
+
+}
+
+SENTIDO EntradaCompuerta::getSentido() const{
+
+	return sentido;
+
+}

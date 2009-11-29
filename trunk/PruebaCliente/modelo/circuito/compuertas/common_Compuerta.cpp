@@ -25,10 +25,51 @@ int Compuerta::getId() {
 
 }
 
-void Compuerta::mover(unsigned int x,unsigned int y) {
+void Compuerta::mover(Posicion posicion) {
 
-	posicion.setX(x);
-	posicion.setY(y);
+	this->posicion= posicion;
+
+	actualizarEntradas();
+	actualizarSalidas();
+
+}
+
+void Compuerta::rotar(DIRECCION direccion) {
+
+	switch (direccion) {
+
+		case IZQUIERDA:
+
+			rotarIzquierda();
+			break;
+
+		case DERECHA:
+
+			rotarDerecha();
+			break;
+
+		default:
+
+			break;
+
+	}
+
+	actualizarEntradas();
+	actualizarSalidas();
+
+}
+
+
+Posicion Compuerta::getPosicion() const {
+
+	return posicion;
+
+}
+
+
+SENTIDO Compuerta::getSentido() const {
+
+	return sentido;
 
 }
 
@@ -88,20 +129,3 @@ void Compuerta::rotarIzquierda() {
 
 }
 
-int Compuerta::getX() const {
-
-	return posicion.getX();
-
-}
-
-int Compuerta::getY() const {
-
-	return posicion.getY();
-
-}
-
-SENTIDO Compuerta::getSentido() const {
-
-	return sentido;
-
-}

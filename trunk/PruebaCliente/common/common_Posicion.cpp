@@ -21,14 +21,17 @@ unsigned int Posicion::getY() const{
 
 }
 
-void Posicion::setX(unsigned int x) {
+bool Posicion::operator==(const Posicion &posicion) const{
 
-	this->x= x;
+	return ((this->x == posicion.x) && (this->y == posicion.y));
 
 }
 
-void Posicion::setY(unsigned int y) {
+Posicion& Posicion::operator =(const Posicion &posicion) {
 
-	this->y= y;
+	this->x=posicion.x;
+	this->y=posicion.y;
+
+	return *this;
 
 }

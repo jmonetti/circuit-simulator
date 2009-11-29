@@ -37,6 +37,11 @@ const std::string &nombreCircuito,Servidor servidor);
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
 
+protected:
+
+	void actualizarEntradas();
+	void actualizarSalidas();
+
 private:
 
 	std::vector<EntradaCompuerta*> entradas;

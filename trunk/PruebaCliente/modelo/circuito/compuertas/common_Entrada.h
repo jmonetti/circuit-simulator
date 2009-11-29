@@ -38,6 +38,11 @@ public:
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
 
+protected:
+
+	void actualizarEntradas();
+	void actualizarSalidas();
+
 private:
 
 	SalidaCompuerta* salida;

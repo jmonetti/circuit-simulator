@@ -30,8 +30,12 @@ public:
 
 	int getCantidadSalidas();
 
-
 	void guardar(DOMDocument* doc, DOMNode* padre);
+
+protected:
+
+	void actualizarEntradas();
+	void actualizarSalidas();
 
 private:
 

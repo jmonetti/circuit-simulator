@@ -31,11 +31,9 @@ public:
 
 	virtual void calcularTiempoTransicion() = 0;
 
-	void mover(unsigned int x,unsigned int y);
+	void mover(Posicion posicion);
 
-	void rotarIzquierda();
-
-	void rotarDerecha();
+	void rotar(DIRECCION direccion);
 
 	virtual EntradaCompuerta** getEntradas() = 0;
 
@@ -51,13 +49,20 @@ public:
 
 	virtual void guardar(DOMDocument* doc, DOMNode* padre) = 0;
 
-	int getX() const;
-
-	int getY() const;
+	Posicion getPosicion() const;
 
 	SENTIDO getSentido() const;
 
+protected:
+
+	virtual void actualizarEntradas() = 0;
+	virtual void actualizarSalidas() = 0;
+
 private:
+
+	void rotarIzquierda();
+	void rotarDerecha();
+
 
 	int id;
 	Posicion posicion;

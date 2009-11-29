@@ -7,6 +7,9 @@ NOT::NOT(int id,int tiempoTransicion,EntradaCompuerta* entrada,SalidaCompuerta* 
 	this->salida= salida;
 	this->tiempoTransicion= tiempoTransicion;
 
+	actualizarEntradas();
+	actualizarSalidas();
+
 }
 
 NOT::~NOT() {
@@ -89,13 +92,13 @@ void NOT::guardar(DOMDocument* doc, DOMNode* padre) {
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";
-    Persistencia::guardarElemento(doc,elem_NOT,aux,getX());
+    Persistencia::guardarElemento(doc,elem_NOT,aux,getPosicion().getX());
 
 
     /******* ATRIBUTO POSICION Y *****************/
 
     aux = "y";
-    Persistencia::guardarElemento(doc,elem_NOT,aux,getY());
+    Persistencia::guardarElemento(doc,elem_NOT,aux,getPosicion().getY());
 
 
     /******* ATRIBUTO SENTIDO *****************/
@@ -105,5 +108,123 @@ void NOT::guardar(DOMDocument* doc, DOMNode* padre) {
 
 
     padre->appendChild(elem_NOT);
+
+}
+
+void NOT::actualizarEntradas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xEntrada;
+	unsigned int yEntrada;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xEntrada= xCompuerta;
+			yEntrada= yCompuerta + 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xEntrada= xCompuerta - 1;
+			yEntrada= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xEntrada= xCompuerta;
+			yEntrada= yCompuerta - 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xEntrada= xCompuerta + 1;
+			yEntrada= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionEntrada(xEntrada,yEntrada);
+	entrada->mover(posicionEntrada);
+	entrada->rotar(getSentido());
+
+}
+
+void NOT::actualizarSalidas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xSalida;
+	unsigned int ySalida;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta - 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xSalida= xCompuerta + 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta + 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xSalida= xCompuerta - 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionSalida(xSalida,ySalida);
+	salida->mover(posicionSalida);
+	salida->rotar(getSentido());
 
 }

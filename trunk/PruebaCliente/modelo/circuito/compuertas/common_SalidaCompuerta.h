@@ -3,6 +3,9 @@
 #define COMMON_SALIDACOMPUERTA_H_
 
 #include "common_Compuerta.h"
+#include "../../../common/common_Posicion.h"
+#include <vector>
+#include "../../../common/constantes.h"
 
 class EntradaCompuerta;
 class Compuerta;
@@ -11,11 +14,21 @@ class SalidaCompuerta {
 
 public:
 
-	SalidaCompuerta(int id);
+	SalidaCompuerta();
 
 	int calcularTiempoTransicion();
 
 	bool simular();
+
+	void mover(Posicion posicion);
+
+	void rotar(SENTIDO sentido);
+
+	void conectar(EntradaCompuerta* salida);
+
+	void desconectar(EntradaCompuerta* entrada= NULL);
+
+	std::vector<EntradaCompuerta*>& getConexiones();
 
 	void reset();
 
@@ -25,18 +38,17 @@ public:
 
 	void setCompuerta(Compuerta* compuerta);
 
-	void setSalida(EntradaCompuerta* salida);
+	Posicion getPosicion() const;
 
-	int getId();
-
-	int getConexion();
+	SENTIDO getSentido() const;
 
 private:
 
-	int id;
+	Posicion posicion;
+	SENTIDO sentido;
 
 	Compuerta* compuerta;
-	EntradaCompuerta* salida;
+	std::vector<EntradaCompuerta*> salidas;
 
 	bool valor;
 	bool validoValor;
