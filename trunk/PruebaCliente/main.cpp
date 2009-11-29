@@ -75,6 +75,8 @@ int main(int argc, char **argv) {
 
 	cliente.guardarCircuitosSeparados(); //TODO
 
+	std::cout << std::endl;
+
 	std::string ruta= "Circuitos Separados";
 
 	cliente.recuperarCircuito(ruta);
