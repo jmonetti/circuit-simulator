@@ -236,7 +236,7 @@ std::string Circuito::getNombre() const{
 
 }
 
-void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
+void Circuito::guardar(DOMDocument* doc) const{
 
 	XMLCh tempStr[100];
 	std::string aux;
@@ -249,8 +249,8 @@ void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
 		compuertas[var]->guardar(doc, elem_circuito);
 
 	}
-
-	padre->appendChild(elem_circuito);
+    DOMNode* nodoDoc = doc->getFirstChild();
+	nodoDoc->appendChild(elem_circuito);
 
 }
 
