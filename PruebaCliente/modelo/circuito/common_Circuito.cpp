@@ -4,12 +4,11 @@
 #include "common_Circuito.h"
 #include <iterator>
 #include "../../excepciones/common_CircuitoException.h"
+#include "common_ManagerConexiones.h"
 
 Circuito::Circuito(int id,const std::string &nombre) : nombre(nombre) {
 
 	this->contadorCompuertas= 0;
-	this->contadorEntradasCompuertas= 0;
-	this->contadorSalidasCompuertas= 0;
 	this->id= id;
 
 }
@@ -74,6 +73,47 @@ int* Circuito::calcularTiempoTransicion() {
 
 }
 
+void Circuito::mover(int idCompuerta,Posicion posicion) {
+
+	Compuerta* compuerta= obtenerCompuerta(idCompuerta);
+
+	if (compuerta) {
+
+		compuerta->mover(posicion);
+
+		ManagerConexiones::desconectar(compuerta);
+
+		verificarConexiones(compuerta);
+
+	}else {
+
+		throw CircuitoException("No se pudo mover. Compuerta invalida");
+
+	}
+
+
+}
+
+void Circuito::rotar(int idCompuerta,DIRECCION direccion) {
+
+	Compuerta* compuerta= obtenerCompuerta(idCompuerta);
+
+	if (compuerta) {
+
+		compuerta->rotar(direccion);
+
+		ManagerConexiones::desconectar(compuerta);
+
+		verificarConexiones(compuerta);
+
+	}else {
+
+		throw CircuitoException("No se pudo rotar. Compuerta invalida");
+
+	}
+
+}
+
 void Circuito::agregarCompuerta(Compuerta* compuerta) {
 
 	Entrada* entrada= compuerta->getEntrada();
@@ -97,6 +137,9 @@ void Circuito::agregarCompuerta(Compuerta* compuerta) {
 	compuertas.push_back(compuerta);
 
 	contadorCompuertas++;
+
+	agregarEntradasCompuerta(compuerta);
+	agregarSalidasCompuerta(compuerta);
 
 }
 
@@ -124,7 +167,11 @@ void Circuito::eliminarCompuerta(int idCompuerta) {
 
 	if (compuerta) {
 
-		realizarDesconexiones(compuerta);
+		ManagerConexiones::desconectar(compuerta);
+
+		eliminarEntradasCompuerta(compuerta);
+
+		eliminarSalidasCompuerta(compuerta);
 
 		if (compuerta->getEntrada()) {
 
@@ -146,21 +193,6 @@ void Circuito::eliminarCompuerta(int idCompuerta) {
 
 }
 
-void Circuito::agregarEntradaCompuerta(EntradaCompuerta* entrada) {
-
-	entradasCompuerta.push_back(entrada);
-
-	contadorEntradasCompuertas++;
-
-}
-
-void Circuito::agregarSalidaCompuerta(SalidaCompuerta* salida) {
-
-	salidasCompuerta.push_back(salida);
-
-	contadorSalidasCompuertas++;
-
-}
 
 unsigned int Circuito::getCantidadEntradas() const{
 
@@ -180,18 +212,6 @@ int Circuito::getContadorCompuertas() const{
 
 }
 
-int Circuito::getContadorSalidasCompuerta() const{
-
-	return contadorSalidasCompuertas;
-
-}
-
-int Circuito::getContadorEntradasCompuerta() const{
-
-	return contadorEntradasCompuertas;
-
-}
-
 std::vector<Entrada*>& Circuito::getEntradas() {
 
 	return entradas;
@@ -201,42 +221,6 @@ std::vector<Entrada*>& Circuito::getEntradas() {
 std::vector<Salida*>& Circuito::getSalidas() {
 
 	return salidas;
-
-}
-
-void Circuito::conectar(int idSalida,int idEntrada) {
-
-	SalidaCompuerta* salida= obtenerSalidaCompuerta(idSalida);
-	EntradaCompuerta* entrada= obtenerEntradaCompuerta(idEntrada);
-
-	if (entrada && salida) {
-
-		salida->setSalida(entrada);
-		entrada->setEntrada(salida);
-
-	}else{
-
-		throw CircuitoException("No se pudo realizar la conexion entre compuertas. Entrada/Salida invalida");
-
-	}
-
-}
-
-void Circuito::desconectar(int idSalida,int idEntrada) {
-
-	SalidaCompuerta* salida= obtenerSalidaCompuerta(idSalida);
-	EntradaCompuerta* entrada= obtenerEntradaCompuerta(idEntrada);
-
-	if (entrada && salida) {
-
-		salida->setSalida(NULL);
-		entrada->setEntrada(NULL);
-
-	}else{
-
-		throw CircuitoException("No se pudo realizar la desconexion entre compuertas. Entrada/Salida invalida");
-
-	}
 
 }
 
@@ -252,131 +236,6 @@ std::string Circuito::getNombre() const{
 
 }
 
-void Circuito::setearEntradas(bool* entradas) {
-
-	for (unsigned int i = 0; i < this->entradas.size(); ++i) {
-
-		this->entradas[i]->setValorEntrada(entradas[i]);
-
-	}
-
-}
-
-EntradaCompuerta* Circuito::obtenerEntradaCompuerta(int idEntrada) {
-
-	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
-
-		if (entradasCompuerta[var] -> getId() == idEntrada) {
-
-			return entradasCompuerta[var];
-
-		}
-
-	}
-
-	return NULL;
-
-}
-
-SalidaCompuerta* Circuito::obtenerSalidaCompuerta(int idSalida) {
-
-	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
-
-		if (salidasCompuerta[var]->getId() == idSalida) {
-
-			return salidasCompuerta[var];
-
-		}
-
-	}
-
-	return NULL;
-
-}
-
-void Circuito::reset() {
-
-	for (unsigned int i = 0; i < salidasCompuerta.size(); ++i) {
-
-		salidasCompuerta[i]->reset();
-
-	}
-
-}
-
-void Circuito::realizarDesconexiones(Compuerta* compuerta) {
-
-	EntradaCompuerta** entradas= compuerta->getEntradas();
-	SalidaCompuerta** salidas= compuerta->getSalidas();
-
-	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
-
-		if (entradas[var]->getConexion() != -1) {
-
-			desconectar(entradas[var]->getConexion(),entradas[var]->getId());
-
-		}
-
-	}
-
-	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
-
-		if (salidas[var]->getConexion() != -1) {
-
-			desconectar(salidas[var]->getId(),salidas[var]->getConexion());
-
-		}
-
-	}
-
-}
-
-void Circuito::eliminarEntrada(Entrada* entrada) {
-
-	std::vector<Entrada*>::iterator iterador= entradas.begin();
-
-	while ( iterador != entradas.end() ) {
-
-		if ( *iterador == entrada) {
-
-			entradas.erase(iterador);
-			break;
-
-		}else {
-
-			++iterador;
-
-		}
-
-	}
-
-	throw CircuitoException("Error al eliminar entrada");
-
-
-}
-
-void Circuito::eliminarSalida(Salida* salida) {
-
-	std::vector<Salida*>::iterator iterador= salidas.begin();
-
-	while ( iterador != salidas.end() ) {
-
-		if ( *iterador == salida) {
-
-			salidas.erase(iterador);
-			break;
-
-		}else {
-
-			++iterador;
-
-		}
-
-	}
-
-	throw CircuitoException("Error al eliminar salida");
-
-}
 void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
 
 	XMLCh tempStr[100];
@@ -394,3 +253,245 @@ void Circuito::guardar(DOMDocument* doc, DOMNode* padre) const{
 	padre->appendChild(elem_circuito);
 
 }
+
+void Circuito::agregarEntradasCompuerta(Compuerta* compuerta) {
+
+	EntradaCompuerta** entradas= compuerta->getEntradas();
+
+	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
+
+		entradasCompuerta.push_back(entradas[var]);
+
+		establecerConexion(entradas[var]);
+
+	}
+
+}
+
+void Circuito::agregarSalidasCompuerta(Compuerta* compuerta) {
+
+	SalidaCompuerta** salidas= compuerta->getSalidas();
+
+	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
+
+		salidasCompuerta.push_back(salidas[var]);
+
+		establecerConexion(salidas[var]);
+
+	}
+
+}
+
+
+Compuerta* Circuito::obtenerCompuerta(int idCompuerta) {
+
+	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+		if (compuertas[var] -> getId() == idCompuerta) {
+
+			return entradas[var];
+
+		}
+
+	}
+
+	return NULL;
+
+}
+
+void Circuito::setearEntradas(bool* entradas) {
+
+	for (unsigned int i = 0; i < this->entradas.size(); ++i) {
+
+		this->entradas[i]->setValorEntrada(entradas[i]);
+
+	}
+
+}
+
+void Circuito::reset() {
+
+	for (unsigned int i = 0; i < salidasCompuerta.size(); ++i) {
+
+		salidasCompuerta[i]->reset();
+
+	}
+
+}
+
+void Circuito::verificarConexiones(Compuerta* compuerta) {
+
+	EntradaCompuerta** entradas= compuerta->getEntradas();
+
+	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
+
+		establecerConexion(entradas[var]);
+
+	}
+
+	SalidaCompuerta** salidas= compuerta->getSalidas();
+
+	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
+
+		establecerConexion(salidas[var]);
+
+	}
+
+}
+
+
+void Circuito::establecerConexion(EntradaCompuerta* entrada) {
+
+	SalidaCompuerta* salida;
+
+	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
+
+		salida= salidasCompuerta[var];
+
+		if (ManagerConexiones::conectar(entrada,salida)) {
+
+			return;
+
+		}
+
+	}
+
+}
+
+
+void Circuito::establecerConexion(SalidaCompuerta* salida) {
+
+	EntradaCompuerta* entrada;
+
+	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
+
+		entrada= entradasCompuerta[var];
+
+		if (ManagerConexiones::conectar(entrada,salida)) {
+
+			return;
+
+		}
+
+	}
+
+}
+
+void Circuito::eliminarEntradasCompuerta(Compuerta* compuerta) {
+
+	EntradaCompuerta** entradas= compuerta->getEntradas();
+
+	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
+
+		eliminarEntradaCompuerta(entradas[var]);
+
+	}
+
+}
+
+void Circuito::eliminarSalidasCompuerta(Compuerta* compuerta) {
+
+	SalidaCompuerta** salidas= compuerta->getSalidas();
+
+	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
+
+		eliminarSalidaCompuerta(salidas[var]);
+
+	}
+
+}
+
+void Circuito::eliminarEntradaCompuerta(EntradaCompuerta* entrada) {
+
+	std::vector<EntradaCompuerta*>::iterator iterador= entradasCompuerta.begin();
+
+	while ( iterador != entradasCompuerta.end() ) {
+
+		if ( *iterador == entrada) {
+
+			entradasCompuerta.erase(iterador);
+			return;
+
+		}else {
+
+			++iterador;
+
+		}
+
+	}
+
+	throw CircuitoException("Error al eliminar entrada compuerta");
+
+}
+
+void Circuito::eliminarSalidaCompuerta(SalidaCompuerta* salida) {
+
+	std::vector<SalidaCompuerta*>::iterator iterador= salidasCompuerta.begin();
+
+	while ( iterador != salidasCompuerta.end() ) {
+
+		if ( *iterador == salida) {
+
+			salidasCompuerta.erase(iterador);
+			return;
+
+		}else {
+
+			++iterador;
+
+		}
+
+	}
+
+	throw CircuitoException("Error al eliminar salida compuerta");
+
+
+
+}
+
+void Circuito::eliminarEntrada(Entrada* entrada) {
+
+	std::vector<Entrada*>::iterator iterador= entradas.begin();
+
+	while ( iterador != entradas.end() ) {
+
+		if ( *iterador == entrada) {
+
+			entradas.erase(iterador);
+			return;
+
+		}else {
+
+			++iterador;
+
+		}
+
+	}
+
+	throw CircuitoException("Error al eliminar entrada");
+
+}
+
+void Circuito::eliminarSalida(Salida* salida) {
+
+	std::vector<Salida*>::iterator iterador= salidas.begin();
+
+	while ( iterador != salidas.end() ) {
+
+		if ( *iterador == salida) {
+
+			salidas.erase(iterador);
+			return;
+
+		}else {
+
+			++iterador;
+
+		}
+
+	}
+
+	throw CircuitoException("Error al eliminar salida");
+
+}
+

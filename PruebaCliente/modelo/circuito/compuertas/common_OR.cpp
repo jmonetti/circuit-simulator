@@ -8,6 +8,9 @@ OR::OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1,EntradaCompuerta
 	this->salida= salida;
 	this->tiempoTransicion= tiempoTransicion;
 
+	actualizarEntradas();
+	actualizarSalidas();
+
 }
 
 OR::~OR() {
@@ -108,12 +111,12 @@ void OR::guardar(DOMDocument* doc, DOMNode* padre) {
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";
-    Persistencia::guardarElemento(doc,elem_OR,aux,getX());
+    Persistencia::guardarElemento(doc,elem_OR,aux,getPosicion().getX());
 
     /******* ATRIBUTO POSICION Y *****************/
 
     aux = "y";
-    Persistencia::guardarElemento(doc,elem_OR,aux,getY());
+    Persistencia::guardarElemento(doc,elem_OR,aux,getPosicion().getY());
 
 
     /******* ATRIBUTO SENTIDO *****************/
@@ -123,5 +126,138 @@ void OR::guardar(DOMDocument* doc, DOMNode* padre) {
 
 
     padre->appendChild(elem_OR);
+
+}
+
+void OR::actualizarEntradas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xEntrada1;
+	unsigned int yEntrada1;
+
+	unsigned int xEntrada2;
+	unsigned int yEntrada2;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xEntrada1= xCompuerta + 1;
+			yEntrada1= yCompuerta + 1;
+			xEntrada2= xCompuerta - 1;
+			yEntrada2= yCompuerta + 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xEntrada1= xCompuerta - 1;
+			yEntrada1= yCompuerta - 1;
+			xEntrada2= xCompuerta - 1;
+			yEntrada2= yCompuerta + 1;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xEntrada1= xCompuerta - 1;
+			yEntrada1= yCompuerta - 1;
+			xEntrada2= xCompuerta + 1;
+			yEntrada2= yCompuerta - 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xEntrada1= xCompuerta + 1;
+			yEntrada1= yCompuerta - 1;
+			xEntrada2= xCompuerta + 1;
+			yEntrada2= yCompuerta + 1;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionEntrada1(xEntrada1,yEntrada1);
+	entradas[0]->mover(posicionEntrada1);
+	entradas[0]->rotar(getSentido());
+	Posicion posicionEntrada2(xEntrada2,yEntrada2);
+	entradas[1]->mover(posicionEntrada2);
+	entradas[1]->rotar(getSentido());
+
+
+}
+
+void OR::actualizarSalidas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xSalida;
+	unsigned int ySalida;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta - 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xSalida= xCompuerta + 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta + 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xSalida= xCompuerta - 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionSalida(xSalida,ySalida);
+	salida->mover(posicionSalida);
+	salida->rotar(getSentido());
 
 }

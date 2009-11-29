@@ -6,6 +6,8 @@ Salida::Salida(int id, EntradaCompuerta* entrada,Posicion posicion,SENTIDO senti
 	this->entrada= entrada;
 	this->tiempoTransicion= 0;
 
+	actualizarEntradas();
+
 }
 
 Salida::~Salida() {
@@ -102,12 +104,12 @@ void Salida::guardar(DOMDocument* doc, DOMNode* padre) {
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";
-    Persistencia::guardarElemento(doc,elem_Salida,aux,getX());
+    Persistencia::guardarElemento(doc,elem_Salida,aux,getPosicion().getX());
 
     /******* ATRIBUTO POSICION Y *****************/
 
     aux = "y";
-    Persistencia::guardarElemento(doc,elem_Salida,aux,getY());
+    Persistencia::guardarElemento(doc,elem_Salida,aux,getPosicion().getY());
 
     /******* ATRIBUTO SENTIDO *****************/
 
@@ -120,5 +122,68 @@ void Salida::guardar(DOMDocument* doc, DOMNode* padre) {
     Persistencia::guardarElemento(doc,elem_Salida,aux,nombre);
 
     padre->appendChild(elem_Salida);
+
+}
+
+void Salida::actualizarEntradas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xEntrada;
+	unsigned int yEntrada;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xEntrada= xCompuerta;
+			yEntrada= yCompuerta + 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xEntrada= xCompuerta - 1;
+			yEntrada= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xEntrada= xCompuerta;
+			yEntrada= yCompuerta - 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xEntrada= xCompuerta + 1;
+			yEntrada= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionEntrada(xEntrada,yEntrada);
+	entrada->mover(posicionEntrada);
+	entrada->rotar(getSentido());
+
+}
+
+void Salida::actualizarSalidas() {
 
 }

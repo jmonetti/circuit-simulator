@@ -6,6 +6,9 @@ const std::string &nombreCircuito,Servidor servidor) : Compuerta(id,posicion,sen
 	this->entradas= entradas;
 	this->salidas= salidas;
 
+	actualizarEntradas();
+	actualizarSalidas();
+
 }
 
 CajaNegra::~CajaNegra() {
@@ -163,12 +166,12 @@ void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";
-    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getX());
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getPosicion().getX());
 
     /******* ATRIBUTO POSICION Y *****************/
 
     aux = "y";
-    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getY());
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getPosicion().getY());
 
     /******* ATRIBUTO SENTIDO *****************/
 
@@ -192,4 +195,12 @@ void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
     Persistencia::guardarElemento(doc,elem_CajaNegra,aux,host);
 
     padre->appendChild(elem_CajaNegra);
+}
+
+void CajaNegra::actualizarEntradas() {
+
+}
+
+void CajaNegra::actualizarSalidas() {
+
 }

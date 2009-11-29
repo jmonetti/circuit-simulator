@@ -6,15 +6,15 @@ class Posicion {
 
 public:
 
-	Posicion(unsigned int x= 0,unsigned int y= 0);
+	Posicion(unsigned int x= 1,unsigned int y= 1);
 
 	unsigned int getX() const;
 
 	unsigned int getY() const;
 
-	void setX(unsigned int x);
+	bool operator==(const Posicion &posicion) const;
 
-	void setY(unsigned int y);
+	Posicion& operator=(const Posicion &posicion);
 
 private:
 

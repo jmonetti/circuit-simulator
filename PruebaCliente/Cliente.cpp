@@ -33,46 +33,39 @@ int Cliente::crearCircuitosSeparados() {
 
 	for (int i = 0; i < 3; ++i) {
 
-		modelo.agregarEntrada(id,posicion,nom);
-		modelo.agregarEntrada(id,posicion,nom);
+		modelo.agregarEntrada(posicion,nom,ESTE);
+		modelo.agregarEntrada(posicion,nom,ESTE);
 		switch (i) {
 
 		case 0:
-			modelo.agregarCompuerta(id,T_AND,posicion);
+			modelo.agregarCompuerta(T_AND,posicion,ESTE);
 			break;
 		case 1:
-			modelo.agregarCompuerta(id,T_OR,posicion);
+			modelo.agregarCompuerta(T_OR,posicion,ESTE);
 			break;
 		case 2:
-			modelo.agregarCompuerta(id,T_XOR,posicion);
+			modelo.agregarCompuerta(T_XOR,posicion,ESTE);
 
 		}
-		modelo.agregarSalida(id,posicion,nom);
-
-		modelo.conectar(id,3*i,3*i);
-		modelo.conectar(id,3*i+1,3*i+1);
-		modelo.conectar(id,3*i+2,3*i+2);
+		modelo.agregarSalida(posicion,nom,ESTE);
 
 	}
 
 	for (int i = 0; i < 2; ++i) {
 
-		modelo.agregarEntrada(id,posicion,nom);
+		modelo.agregarEntrada(posicion,nom,ESTE);
 		switch (i) {
 
 		case 0:
-			modelo.agregarCompuerta(id,T_NOT,posicion);
+			modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 			break;
 
 		case 1:
 
-			modelo.agregarCompuerta(id,T_PISTA,posicion);
+			modelo.agregarCompuerta(T_PISTA,posicion,ESTE);
 
 		}
-		modelo.agregarSalida(id,posicion,nom);
-
-		modelo.conectar(id,9 + 2*i,9 + 2*i);
-		modelo.conectar(id,9 + 2*i+1,9 + 2*i+1);
+		modelo.agregarSalida(posicion,nom,ESTE);
 
 	}
 
@@ -90,24 +83,17 @@ int Cliente::crearSumaDeUnBit() {
 
 	std::string nom("");
 
-	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(posicion,nom,ESTE);
 
-	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(posicion,nom,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(posicion,nom,ESTE);
 
-	modelo.agregarCompuerta(id,T_XOR,posicion);
+	modelo.agregarCompuerta(T_XOR,posicion,ESTE);
 
-	modelo.agregarSalida(id,posicion,nom);
-
-	modelo.conectar(id,0,0);
-	modelo.conectar(id,1,1);
-	modelo.conectar(id,2,2);
-	modelo.conectar(id,0,3);
-	modelo.conectar(id,1,4);
-	modelo.conectar(id,3,5);
+	modelo.agregarSalida(posicion,nom,ESTE);
 
 	return id;
 
@@ -121,38 +107,25 @@ int Cliente::crearSumaTresEntradas() {
 
 	Posicion posicion;
 
-	std::string nom("");
+	std::string nom;
 
-	modelo.agregarEntrada(id,posicion,nom);
-	modelo.agregarEntrada(id,posicion,nom);
-	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(posicion,nom,ESTE);
+	modelo.agregarEntrada(posicion,nom,ESTE);
+	modelo.agregarEntrada(posicion,nom,ESTE);
 
-	modelo.agregarCompuerta(id,T_XOR,posicion);
+	modelo.agregarCompuerta(T_XOR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_XOR,posicion);
+	modelo.agregarCompuerta(T_XOR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(posicion,nom,ESTE);
 
-	modelo.agregarSalida(id,posicion,nom);
-
-	modelo.conectar(id,0,0);
-	modelo.conectar(id,1,1);
-	modelo.conectar(id,0,2);
-	modelo.conectar(id,1,3);
-	modelo.conectar(id,3,4);
-	modelo.conectar(id,3,7);
-	modelo.conectar(id,2,5);
-	modelo.conectar(id,2,6);
-	modelo.conectar(id,5,11);
-	modelo.conectar(id,4,9);
-	modelo.conectar(id,6,8);
-	modelo.conectar(id,7,10);
+	modelo.agregarSalida(posicion,nom,ESTE);
 
 	return id;
 
@@ -168,55 +141,34 @@ int Cliente::crearAlarmas() {
 
 	std::string nom("");
 
-	modelo.agregarEntrada(id,posicion,nom);
-	modelo.agregarEntrada(id,posicion,nom);
-	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(posicion,nom,ESTE);
+	modelo.agregarEntrada(posicion,nom,ESTE);
+	modelo.agregarEntrada(posicion,nom,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
 
-
-	modelo.conectar(id,0,0);
-	modelo.conectar(id,6,1);
-	modelo.conectar(id,2,2);
-	modelo.conectar(id,1,3);
-	modelo.conectar(id,1,4);
-	modelo.conectar(id,4,5);
-	modelo.conectar(id,5,6);
-	modelo.conectar(id,0,7);
-	modelo.conectar(id,1,8);
-	modelo.conectar(id,7,9);
-	modelo.conectar(id,8,10);
-	modelo.conectar(id,0,11);
-	modelo.conectar(id,1,12);
-	modelo.conectar(id,9,13);
-	modelo.conectar(id,10,14);
-	modelo.conectar(id,2,15);
-	modelo.conectar(id,11,16);
-	modelo.conectar(id,3,17);
-	modelo.conectar(id,1,18);
-	modelo.conectar(id,12,19);
 
 	return id;
 
@@ -232,110 +184,61 @@ int Cliente::crearTablero() {
 
 	std::string nom("");
 
-	modelo.agregarEntrada(id,posicion,nom);
-	modelo.agregarEntrada(id,posicion,nom);
-	modelo.agregarEntrada(id,posicion,nom);
+	modelo.agregarEntrada(posicion,nom,ESTE);
+	modelo.agregarEntrada(posicion,nom,ESTE);
+	modelo.agregarEntrada(posicion,nom,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_XOR,posicion);
+	modelo.agregarCompuerta(T_XOR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_XOR,posicion);
+	modelo.agregarCompuerta(T_XOR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_OR,posicion);
+	modelo.agregarCompuerta(T_OR,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_NOT,posicion);
+	modelo.agregarCompuerta(T_NOT,posicion,ESTE);
 
-	modelo.agregarCompuerta(id,T_AND,posicion);
+	modelo.agregarCompuerta(T_AND,posicion,ESTE);
 
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-	modelo.agregarSalida(id,posicion,nom);
-
-
-	modelo.conectar(id,0,0);
-	modelo.conectar(id,3,1);
-	modelo.conectar(id,2,2);
-	modelo.conectar(id,4,3);
-	modelo.conectar(id,6,4);
-	modelo.conectar(id,0,5);
-	modelo.conectar(id,1,6);
-	modelo.conectar(id,5,7);
-	modelo.conectar(id,8,8);
-	modelo.conectar(id,0,9);
-	modelo.conectar(id,1,10);
-	modelo.conectar(id,0,11);
-	modelo.conectar(id,9,12);
-	modelo.conectar(id,2,13);
-	modelo.conectar(id,10,14);
-	modelo.conectar(id,12,15);
-	modelo.conectar(id,0,16);
-	modelo.conectar(id,1,17);
-	modelo.conectar(id,11,18);
-	modelo.conectar(id,14,19);
-
-	modelo.conectar(id,0,20);
-	modelo.conectar(id,1,21);
-	modelo.conectar(id,0,22);
-	modelo.conectar(id,15,23);
-	modelo.conectar(id,1,24);
-	modelo.conectar(id,16,25);
-	modelo.conectar(id,2,26);
-	modelo.conectar(id,17,27);;
-	modelo.conectar(id,20,28);
-	modelo.conectar(id,0,29);
-	modelo.conectar(id,19,30);
-	modelo.conectar(id,1,31);
-	modelo.conectar(id,1,32);
-	modelo.conectar(id,21,33);
-	modelo.conectar(id,23,34);
-	modelo.conectar(id,2,35);
-	modelo.conectar(id,22,36);
-	modelo.conectar(id,0,37);
-	modelo.conectar(id,0,38);
-	modelo.conectar(id,7,39);
-
-	modelo.conectar(id,13,40);
-	modelo.conectar(id,18,41);
-	modelo.conectar(id,0,42);
-	modelo.conectar(id,24,43);
-	modelo.conectar(id,0,44);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
+	modelo.agregarSalida(posicion,nom,ESTE);
 
 	return id;
 
@@ -343,67 +246,78 @@ int Cliente::crearTablero() {
 
 Resultado* Cliente::simularCircuitosSeparados() {
 
-	return modelo.simular(idCircuitos[0]);
+	modelo.cambiarCircuitoActual(0);
+	return modelo.simular();
 
 }
 
 Resultado* Cliente::simularSumaDeUnBit() {
 
-	return modelo.simular(idCircuitos[1]);
+	modelo.cambiarCircuitoActual(1);
+	return modelo.simular();
 
 }
 
 Resultado* Cliente::simularSumaTresEntradas() {
 
-	return modelo.simular(idCircuitos[2]);
+	modelo.cambiarCircuitoActual(2);
+	return modelo.simular();
 
 }
 
 Resultado* Cliente::simularAlarmas() {
 
-	return modelo.simular(idCircuitos[3]);
+	modelo.cambiarCircuitoActual(3);
+	return modelo.simular();
 
 }
 
 Resultado* Cliente::simularTablero() {
 
-	return modelo.simular(idCircuitos[4]);
+	modelo.cambiarCircuitoActual(0);
+	return modelo.simular();
 
 }
 
 Resultado* Cliente::simularCircuitoNuevo() {
 
-	return modelo.simular(modelo.getUltimo());
+	modelo.cambiarCircuitoActual(modelo.getUltimo());
+	return modelo.simular();
 
 }
 
 void Cliente::guardarCircuitosSeparados() {
 
-	modelo.guardar(idCircuitos[0]);
+	modelo.cambiarCircuitoActual(0);
+	modelo.guardar();
 
 }
 
 void Cliente::guardarSumaDeUnBit() {
 
-	modelo.guardar(idCircuitos[1]);
+	modelo.cambiarCircuitoActual(1);
+	modelo.guardar();
 
 }
 
 void Cliente::guardarSumaTresEntradas() {
 
-	modelo.guardar(idCircuitos[2]);
+	modelo.cambiarCircuitoActual(2);
+	modelo.guardar();
 
 }
 
 void Cliente::guardarAlarmas() {
 
-	modelo.guardar(idCircuitos[3]);
+	modelo.cambiarCircuitoActual(3);
+	modelo.guardar();
 
 }
 
 void Cliente::guardarTablero() {
 
-	modelo.guardar(idCircuitos[4]);
+	modelo.cambiarCircuitoActual(4);
+	modelo.guardar();
 
 }
 

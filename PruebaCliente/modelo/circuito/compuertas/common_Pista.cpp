@@ -9,6 +9,10 @@ Pista::Pista(int id, EntradaCompuerta* entrada, SalidaCompuerta* salida, Posicio
 	this->entrada= entrada;
 	this->salida= salida;
 
+	actualizarEntradas();
+	actualizarSalidas();
+
+
 }
 
 Pista::~Pista() {
@@ -91,12 +95,12 @@ void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
     /******* ATRIBUTO POSICION X *****************/
 
     aux = "x";
-    Persistencia::guardarElemento(doc,elem_Pista,aux,getX());
+    Persistencia::guardarElemento(doc,elem_Pista,aux,getPosicion().getX());
 
     /******* ATRIBUTO POSICION Y *****************/
 
     aux = "y";
-    Persistencia::guardarElemento(doc,elem_Pista,aux,getY());
+    Persistencia::guardarElemento(doc,elem_Pista,aux,getPosicion().getY());
 
     /******* ATRIBUTO SENTIDO *****************/
 
@@ -106,3 +110,70 @@ void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
     padre->appendChild(elem_Pista);
 
 }
+
+void Pista::actualizarEntradas() {
+
+	entrada->mover(getPosicion());
+	entrada->rotar(getSentido());
+
+}
+
+void Pista::actualizarSalidas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xSalida;
+	unsigned int ySalida;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta - 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xSalida= xCompuerta + 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xSalida= xCompuerta;
+			ySalida= yCompuerta + 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xSalida= xCompuerta - 1;
+			ySalida= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionSalida(xSalida,ySalida);
+	salida->mover(posicionSalida);
+	salida->rotar(getSentido());
+
+}
+

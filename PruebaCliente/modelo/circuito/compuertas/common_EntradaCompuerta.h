@@ -3,6 +3,8 @@
 #define COMMON_ENTRADACOMPUERTA_H_
 
 #include "common_Compuerta.h"
+#include "../../../common/common_Posicion.h"
+#include "../../../common/constantes.h"
 
 class SalidaCompuerta;
 
@@ -10,22 +12,31 @@ class EntradaCompuerta {
 
 public:
 
-	EntradaCompuerta(int id);
+	EntradaCompuerta();
 
 	int calcularTiempoTransicion();
 
 	bool simular();
 
-	void setEntrada(SalidaCompuerta* entrada);
+	void mover(Posicion posicion);
 
-	int getId();
+	void rotar(SENTIDO sentido);
 
-	int getConexion();
+	void conectar(SalidaCompuerta* salida);
+
+	void desconectar();
+
+	SalidaCompuerta* getConexion();
+
+	Posicion getPosicion() const;
+
+	SENTIDO getSentido() const;
 
 private:
 
+	Posicion posicion;
+	SENTIDO sentido;
 	SalidaCompuerta* entrada;
-	int id;
 
 };
 

@@ -1,11 +1,10 @@
 
 #include "common_SalidaCompuerta.h"
 
-SalidaCompuerta::SalidaCompuerta(int id) {
+SalidaCompuerta::SalidaCompuerta() {
 
 	validoValor= false;
 	validoTiempo= false;
-	this->id= id;
 
 }
 
@@ -34,6 +33,61 @@ bool SalidaCompuerta::simular() {
 
 }
 
+void SalidaCompuerta::mover(Posicion posicion) {
+
+	this->posicion= posicion;
+
+}
+
+void SalidaCompuerta::rotar(SENTIDO sentido) {
+
+	this->sentido= sentido;
+
+}
+
+void SalidaCompuerta::conectar(EntradaCompuerta* salida) {
+
+	this->salidas.push_back(salida);
+
+}
+
+void SalidaCompuerta::desconectar(EntradaCompuerta* entrada) {
+
+	if (entrada) {
+
+		std::vector<EntradaCompuerta*>::iterator iterador= salidas.begin();
+
+		while (iterador != salidas.end()) {
+
+			if (entrada == *iterador) {
+
+				salidas.erase(iterador);
+
+				return;
+
+			}else{
+
+				iterador++;
+
+			}
+
+		}
+
+	}else {
+
+		this->salidas.clear();
+
+	}
+
+}
+
+std::vector<EntradaCompuerta*>& SalidaCompuerta::getConexiones() {
+
+	return salidas;
+
+}
+
+
 void SalidaCompuerta::reset() {
 
 	validoValor= false;
@@ -61,26 +115,14 @@ void SalidaCompuerta::setCompuerta(Compuerta* compuerta) {
 
 }
 
-void SalidaCompuerta::setSalida(EntradaCompuerta* salida) {
+Posicion SalidaCompuerta::getPosicion() const{
 
-	this->salida= salida;
-
-}
-
-int SalidaCompuerta::getId() {
-
-	return id;
+	return posicion;
 
 }
 
-int SalidaCompuerta::getConexion() {
+SENTIDO SalidaCompuerta::getSentido() const {
 
-	if (salida) {
-
-		return salida->getId();
-
-	}
-
-	return -1;
+	return sentido;
 
 }

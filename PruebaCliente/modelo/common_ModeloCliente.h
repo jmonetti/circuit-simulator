@@ -25,29 +25,31 @@ public:
 
 	void crearNuevo(const std::string &nombre);
 
-	void eliminar(int idCircuito);
+	void cambiarCircuitoActual(int idCircuito);
 
-	void agregarCompuerta(int idCircuito,TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido = ESTE);
+	void eliminar();
 
-	void agregarEntrada(int idCircuito,Posicion posicion,const std::string &nombre, SENTIDO sentido = ESTE);
+	void agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido);
 
-	void agregarSalida(int idCircuito,Posicion posicion,const std::string &nombre, SENTIDO sentido = ESTE);
+	void agregarEntrada(Posicion posicion,const std::string &nombre, SENTIDO sentido);
 
-	void eliminarCompuerta(int idCircuito,int idCompuerta);
+	void agregarSalida(Posicion posicion,const std::string &nombre, SENTIDO sentido);
 
-	Resultado* simular(int idCircuito);
+	void eliminarCompuerta(int idCompuerta);
 
-	void conectar(int idCircuito, int idSalida,int idEntrada);
+	Resultado* simular();
 
-	void desconectar(int idCircuito, int idSalida, int idEntrada);
+	void rotar(int idCompuerta,DIRECCION direccion);
 
-	void guardar(int idCircuito);
+	void mover(int idCompuerta,Posicion posicion);
+
+	void guardar();
 
 	void recuperar(const std::string &nombreCircuito);
 
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
 
-	void recibir(int idCircuito, const std::string &nombreCircuito,Servidor servidor);
+	void recibir(const std::string &nombreCircuito,Servidor servidor);
 
 	int getUltimo() const; //TODO
 
@@ -55,6 +57,9 @@ public:
 private:
 
 	std::vector<Circuito*> circuitos;
+
+	Circuito* circuitoActual;
+
 	Persistencia persistencia;
 	Publicacion publicacion;
 	Simulador simulador;
