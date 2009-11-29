@@ -49,6 +49,8 @@ public:
 
 	void recibir(int idCircuito, const std::string &nombreCircuito,Servidor servidor);
 
+	int getUltimo() const; //TODO
+
 
 private:
 

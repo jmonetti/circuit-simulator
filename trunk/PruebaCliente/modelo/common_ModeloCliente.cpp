@@ -159,3 +159,9 @@ Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 	return NULL;
 
 }
+
+int ModeloCliente::getUltimo() const {
+
+	return contadorId-1;
+
+}

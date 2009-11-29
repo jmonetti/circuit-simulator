@@ -10,6 +10,8 @@
 #include "../../publicacion/common_Publicacion.h"
 #include "../../publicacion/common_Servidor.h"
 
+using namespace std;
+
 class CajaNegra: public Compuerta {
 
 public:
@@ -33,8 +35,7 @@ const std::string &nombreCircuito,Servidor servidor);
 
 	int getCantidadSalidas();
 
-
-	void guardar(DOMDocument* doc, DOMNode* padre){} //TODO
+	void guardar(DOMDocument* doc, DOMNode* padre);
 
 private:
 

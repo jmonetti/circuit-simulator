@@ -160,7 +160,7 @@ int Cliente::crearSumaTresEntradas() {
 
 int Cliente::crearAlarmas() {
 
-	modelo.crearNuevo("Tablero");
+	modelo.crearNuevo("Alarmas");
 
 	int id= 3;
 
@@ -368,5 +368,47 @@ Resultado* Cliente::simularAlarmas() {
 Resultado* Cliente::simularTablero() {
 
 	return modelo.simular(idCircuitos[4]);
+
+}
+
+Resultado* Cliente::simularCircuitoNuevo() {
+
+	return modelo.simular(modelo.getUltimo());
+
+}
+
+void Cliente::guardarCircuitosSeparados() {
+
+	modelo.guardar(idCircuitos[0]);
+
+}
+
+void Cliente::guardarSumaDeUnBit() {
+
+	modelo.guardar(idCircuitos[1]);
+
+}
+
+void Cliente::guardarSumaTresEntradas() {
+
+	modelo.guardar(idCircuitos[2]);
+
+}
+
+void Cliente::guardarAlarmas() {
+
+	modelo.guardar(idCircuitos[3]);
+
+}
+
+void Cliente::guardarTablero() {
+
+	modelo.guardar(idCircuitos[4]);
+
+}
+
+void Cliente::recuperarCircuito(std::string &ruta) {
+
+	modelo.recuperar(ruta);
 
 }

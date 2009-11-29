@@ -78,24 +78,118 @@ TIPO_COMPUERTA CajaNegra::getTipo() const {
 
 EntradaCompuerta** CajaNegra::getEntradas() {
 
-	return entradas._M_allocate(entradas.size());
+	return NULL; //TODO entradas._M_allocate(entradas.size());
 
 }
 
 SalidaCompuerta** CajaNegra::getSalidas() {
 
-	return salidas._M_allocate(salidas.size());
+	return NULL; //TODO salidas._M_allocate(salidas.size());
 
 }
 
 int CajaNegra::getCantidadEntradas() {
 
-	entradas.size();
+	return entradas.size();
 
 }
 
 int CajaNegra::getCantidadSalidas() {
 
-	salidas.size();
+	return salidas.size();
 
+}
+
+void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
+
+	XMLCh tempStr[100];
+	std::string aux;
+
+    XMLString::transcode("CajaNegra", tempStr, 99);
+    DOMElement*   elem_CajaNegra = doc->createElement(tempStr);
+
+    /******* ATRIBUTO ID*****************/
+
+    aux = "id";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getId());
+
+    /******* ATRIBUTO ENTRADAS*****************/
+
+    aux = "entradas";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,entradas.size());
+
+    /******* ATRIBUTO SALIDAS*****************/
+
+    aux = "salidas";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,salidas.size());
+
+    /******* ATRIBUTO ID-ENTRADAS*****************/
+
+    std::string nombre = "idEntrada";
+
+    for(unsigned int cantE = 0; cantE < entradas.size(); ++cantE){
+
+    	std::stringstream converter1;
+    	converter1 << cantE;
+    	aux = converter1.str();
+
+    	nombre += aux;		// ej: idEntrada0, idEntrada1...
+
+    	/******* ATRIBUTO ID-ENTRADA_N*****************/
+
+        Persistencia::guardarElemento(doc,elem_CajaNegra,nombre,entradas[cantE]->getId());
+
+    }
+
+    /******* ATRIBUTO ID-SALIDAS*****************/
+
+    nombre = "idSalida";
+
+    for(unsigned int cantS = 0; cantS < entradas.size(); ++cantS){
+
+    	std::stringstream converter2;
+    	converter2 << cantS;
+    	aux = converter2.str();
+
+    	nombre += aux;		// ej: idSalida0, idSalida1...
+
+    	/******* ATRIBUTO ID-SALDA_N*****************/
+
+        Persistencia::guardarElemento(doc,elem_CajaNegra,nombre,entradas[cantS]->getId());
+
+    }
+
+
+    /******* ATRIBUTO POSICION X *****************/
+
+    aux = "x";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getX());
+
+    /******* ATRIBUTO POSICION Y *****************/
+
+    aux = "y";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getY());
+
+    /******* ATRIBUTO SENTIDO *****************/
+
+    aux = "sentido";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getSentido());
+
+    /******* ATRIBUTO NOMBRE *****************/
+
+    aux = "nombre";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,nombreCircuito);
+
+    /******* ATRIBUTO PUERTO *****************/
+
+    aux = "puerto";
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,servidor.getPuerto());
+
+    /******* ATRIBUTO HOST *****************/
+
+    aux = "host";
+    std::string host = servidor.getHost();
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,host);
+
+    padre->appendChild(elem_CajaNegra);
 }

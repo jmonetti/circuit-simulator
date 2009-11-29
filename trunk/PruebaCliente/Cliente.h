@@ -23,12 +23,21 @@ public:
 	Resultado* simularSumaTresEntradas();
 	Resultado* simularAlarmas();
 	Resultado* simularTablero();
+	Resultado* simularCircuitoNuevo();
+
+	void guardarCircuitosSeparados();
+	void guardarSumaDeUnBit();
+	void guardarSumaTresEntradas();
+	void guardarAlarmas();
+	void guardarTablero();
+
+	void recuperarCircuito(std::string &ruta);
 
 private:
 
 	ModeloCliente modelo;
 
-	int idCircuitos[5];
+	int idCircuitos[10];
 
 	int crearCircuitosSeparados();
 	int crearSumaDeUnBit();

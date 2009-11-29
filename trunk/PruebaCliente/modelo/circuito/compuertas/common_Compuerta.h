@@ -51,6 +51,12 @@ public:
 
 	virtual void guardar(DOMDocument* doc, DOMNode* padre) = 0;
 
+	int getX() const;
+
+	int getY() const;
+
+	SENTIDO getSentido() const;
+
 private:
 
 	int id;

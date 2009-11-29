@@ -84,88 +84,39 @@ void XOR::guardar(DOMDocument* doc, DOMNode* padre) {
     DOMElement*   elem_XOR = doc->createElement(tempStr);
 
     /******* ATRIBUTO ID*****************/
-    XMLString::transcode("id", tempStr, 99);
-    DOMAttr* atributo0 = doc->createAttribute(tempStr);
 
-    std::stringstream converter0;
-    converter0 << this->getId();
-    aux = converter0.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo0->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo0);
+    aux = "id";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,getId());
 
     /******* ATRIBUTO ID-ENTRADA1*****************/
-    XMLString::transcode("idEntrada1", tempStr, 99);
-    DOMAttr* atributo1 = doc->createAttribute(tempStr);
 
-    std::stringstream converter1;
-    converter1 << this->entradas[0]->getId();
-    aux = converter1.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo1->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo1);
+    aux = "idEntrada1";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,entradas[0]->getId());
 
     /******* ATRIBUTO ID-ENTRADA1*****************/
-    XMLString::transcode("idEntrada2", tempStr, 99);
-    DOMAttr* atributo2 = doc->createAttribute(tempStr);
 
-    std::stringstream converter2;
-    converter2 << this->entradas[1]->getId();
-    aux = converter2.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo2->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo2);
+    aux = "idEntrada2";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,entradas[1]->getId());
 
     /******* ATRIBUTO ID-SALIDA*****************/
-    XMLString::transcode("idSalida", tempStr, 99);
-    DOMAttr* atributo3 = doc->createAttribute(tempStr);
 
-    std::stringstream converter3;
-    converter3 << this->salida->getId();
-    aux = converter3.str();
+    aux = "idSalida";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,salida->getId());
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo3->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo3);
+    /******* ATRIBUTO POSICION X *****************/
 
-    /******* ATRIBUTO Tiempo Transicion*****************/
-    XMLString::transcode("tiempoTransicion", tempStr, 99);
-    DOMAttr* atributo4 = doc->createAttribute(tempStr);
+    aux = "x";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,getX());
 
-    std::stringstream converter4;
-    converter4 << tiempoTransicion;
-    aux = converter4.str();
+    /******* ATRIBUTO POSICION Y *****************/
 
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo4->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo4);
+    aux = "y";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,getY());
 
-    /******* ATRIBUTO CONEXION ENTRADA 1*****************/
-    XMLString::transcode("conexionE1", tempStr, 99);
-    DOMAttr* atributo5 = doc->createAttribute(tempStr);
+    /******* ATRIBUTO SENTIDO *****************/
 
-    std::stringstream converter5;
-    converter5 << entradas[0]->getConexion();
-    aux = converter5.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo5->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo5);
-
-    /******* ATRIBUTO CONEXION ENTRADA 2*****************/
-    XMLString::transcode("conexionE2", tempStr, 99);
-    DOMAttr* atributo6 = doc->createAttribute(tempStr);
-
-    std::stringstream converter6;
-    converter6 << entradas[1]->getConexion();
-    aux = converter6.str();
-
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo6->setNodeValue(tempStr);
-    elem_XOR->setAttributeNode(atributo6);
+    aux = "sentido";
+    Persistencia::guardarElemento(doc,elem_XOR,aux,getSentido());
 
     padre->appendChild(elem_XOR);
 

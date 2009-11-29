@@ -11,7 +11,7 @@
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 
 #include "../circuito/common_Circuito.h"
-//#include "../circuito/common_FactoryParser.h"
+#include "../circuito/common_FactoryParser.h"
 
 #include "common_Persistencia.h"
 
@@ -92,9 +92,6 @@ void Persistencia::guardar(const Circuito &circuito) {
     if (theSerializer->getDomConfig()->canSetParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true))
          theSerializer->getDomConfig()->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
 
-    // StdOutFormatTarget prints the resultant XML stream
-    // to stdout once it receives any thing from the serializer.
-
     XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(circuito.getNombre().c_str());
 
    // XMLFormatTarget *myFormTarget = new StdOutFormatTarget();
@@ -164,26 +161,18 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 		   DOMElement* elementRoot = xmlDoc->getDocumentElement();
 		   if( !elementRoot ) throw(std::runtime_error( "empty XML document" ));
 
-	//	   DOMNode* circuito = elementRoot->getFirstChild();
+		   DOMNodeList*      hijo = elementRoot->getChildNodes();
 
-		   /****************************/
-		   DOMNodeList*      XML = elementRoot->getChildNodes();
-
-		   XMLSize_t i = 0;
-
-		   DOMNode* circuito = XML->item(i);
-		   /****************************/
-
+		   DOMNode* circuito = hijo->item(1);
 		   if( circuito->getNodeType() &&  // true is not NULL
-				   circuito->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+			 circuito->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
 		   {
-			   // Found node which is an Element. Re-cast node as element
-			   DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
-			   if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
-			   {
-				   return parserCircuito(ElementoCte, idCircuito);
-			   }
-			}
+				DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
+				if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
+				{
+				   return parserCircuito(ElementoCte, idCircuito,nombreCircuito);
+				}
+		   }
 	   }
 	   catch( xercesc::XMLException& e )
 	   {
@@ -195,9 +184,10 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 
 }
 
-Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito) {
+Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito, const std::string &nombreCircuito) {
 
-	Circuito* circuito = new Circuito(idCircuito,"");
+	Circuito* circuito = new Circuito(idCircuito, nombreCircuito);
+	//TODO CONEXIONES!
 
 	DOMNodeList*      salidas = ElementoCte->getChildNodes();
 	const  XMLSize_t cantSalidas = salidas->getLength();
@@ -212,128 +202,347 @@ Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito) 
 	   {
 		   // Found node which is an Element. Re-cast node as element
 		   DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( SalidaActual );
-		   if( XMLString::equals(ElementoCte->getTagName(), TAG_SALIDA))
-		   {
-			  parserSalida(ElementoCte, circuito);
-
-			  break;
-
-		   }
 
 		   if(XMLString::equals(ElementoCte->getTagName(), TAG_ENTRADA))
 		   {
 		      parserEntrada(ElementoCte, circuito);
 
-		      break;
+		   }
+		   else
+		   {
+			   if(XMLString::equals(ElementoCte->getTagName(), TAG_NOT)){
 
-		    }
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_NOT)){
+				   parserNOT(ElementoCte, circuito);
 
-			   parserNOT(ElementoCte, circuito);
+				}
+			   else
+			   {
+				   if(XMLString::equals(ElementoCte->getTagName(), TAG_AND)){
 
-			   break;
+				   parserAND(ElementoCte, circuito);
 
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_AND)){
+				   }
+				   else
+				   {
+					   if(XMLString::equals(ElementoCte->getTagName(), TAG_OR)){
 
-			   parserAND(ElementoCte, circuito);
+						   parserOR(ElementoCte, circuito);
 
-			   break;
+					   }
+					   else
+					   {
+							if(XMLString::equals(ElementoCte->getTagName(), TAG_XOR)){
 
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_OR)){
+							   parserXOR(ElementoCte, circuito);
 
-			   parserOR(ElementoCte, circuito);
+							}
+							else
+							{
+								if(XMLString::equals(ElementoCte->getTagName(), TAG_PISTA)){
 
-			   break;
+									parserPista(ElementoCte, circuito);
 
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_XOR)){
+								}
+								else
+								{
+									if( XMLString::equals(ElementoCte->getTagName(), TAG_SALIDA))
+									{
+										parserSalida(ElementoCte, circuito);
 
-			   parserXOR(ElementoCte, circuito);
-
-			   break;
-
-			}
-			if(XMLString::equals(ElementoCte->getTagName(), TAG_PISTA)){
-
-			   parserPista(ElementoCte, circuito);
-
-			   break;
-			}
-
+									}
+								}
+							}
+					   }
+				   }
+			   }
+		   }
 	   }
 	}
 
 	return circuito;
 
 }
-//TODO
+
 void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
-/*	std::string aux;
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	XMLCh* ATTR_ID = XMLString::transcode("id");
-	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
-	aux = XMLString::transcode(attr_id->getValue());
+	nombre="idEntrada";
+	int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	int id = atoi(aux.c_str());
+	nombre="x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	XMLCh* ATTR_ENTRADA = XMLString::transcode("idEntrada");
-	DOMAttr* attr_id_entrada = ElementoCte->getAttributeNode(ATTR_ENTRADA);
-	aux = XMLString::transcode(attr_id_entrada->getValue());
+	nombre="y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	int idEntrada = atoi(aux.c_str());
+	nombre="sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	XMLCh* ATTR_CONEXION = XMLString::transcode("conexionE");
-	DOMAttr* attr_conexion = ElementoCte->getAttributeNode(ATTR_CONEXION);
-	aux = XMLString::transcode(attr_conexion->getValue());
+	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
+	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
+	nombre = XMLString::transcode(attr_nombre->getValue());
 
-	int conexionE = atoi(aux.c_str());
-*/
-	//FactoryParser::crearCompuerta(T_SALIDA,*circuito, id,0,0,idEntrada);
+	Posicion posicion(x,y);
 
-	//circuito->conectar(conexionE,idEntrada);
+	FactoryParser::crearSalida(*circuito, id,idEntrada,posicion,nombre,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
-/*
-	std::string aux;
 
-	XMLCh* ATTR_ID = XMLString::transcode("id");
-	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
-	aux = XMLString::transcode(attr_id->getValue());
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	int id = atoi(aux.c_str());
+	nombre = "idSalida";
+	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	XMLCh* ATTR_SALIDA = XMLString::transcode("idSalida");
-	DOMAttr* attr_id_salida = ElementoCte->getAttributeNode(ATTR_SALIDA);
-	aux = XMLString::transcode(attr_id_salida->getValue());
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
-	int idSalida = atoi(aux.c_str());
-*/
-	//FactoryParser::crearCompuerta(T_ENTRADA,*circuito, id,0, idSalida);
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
+	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
+	nombre = XMLString::transcode(attr_nombre->getValue());
+
+	Posicion posicion(x,y);
+
+	FactoryParser::crearEntrada(*circuito,id,idSalida,posicion,nombre,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
-	//TODO
+
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada";
+	int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idSalida";
+	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	Posicion posicion(x,y);
+
+	FactoryParser::crearCompuerta(T_NOT,*circuito,posicion,(SENTIDO)sentido, id, idSalida,idEntrada);
+
 }
 
 void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
-	//TODO
+
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada1";
+	int idEntrada1 = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada2";
+	int idEntrada2 = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idSalida";
+	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	Posicion posicion(x,y);
+
+	FactoryParser::crearCompuerta(T_AND,*circuito,posicion,(SENTIDO)sentido,id,idSalida,idEntrada1,idEntrada2);
+
 }
 
 void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
-	//TODO
+
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada1";
+	int idEntrada1 = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada2";
+	int idEntrada2 = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idSalida";
+	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	Posicion posicion(x,y);
+
+	FactoryParser::crearCompuerta(T_OR,*circuito,posicion,(SENTIDO)sentido,id, idSalida,idEntrada1,idEntrada2);
+
 }
 
 void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
-	//TODO
+
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada1";
+	int idEntrada1 = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada2";
+	int idEntrada2 = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idSalida";
+	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	Posicion posicion(x,y);
+
+	FactoryParser::crearCompuerta(T_XOR,*circuito,posicion,(SENTIDO)sentido,id, idSalida,idEntrada1,idEntrada2);
+
 }
 
 void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
-	//TODO
+
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idEntrada";
+	int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "idSalida";
+	int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	Posicion posicion(x,y);
+
+	FactoryParser::crearCompuerta(T_PISTA,*circuito,posicion,(SENTIDO)sentido,id, idSalida,idEntrada);
+
 }
 
+
+void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) {
+
+	std::string aux;
+
+//	XMLCh* ATTR_ID = XMLString::transcode("id");
+//	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
+//	aux = XMLString::transcode(attr_id->getValue());
+
+	std::string nombre = "id";
+	int id = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "entradas";
+	int entradas = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "salidas";
+	int salidas = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	//TODO for de Entradas y Salidas
+
+	for(int contE = 0; contE < entradas; ++contE){
+
+		nombre = "idEntrada";
+		int idEntrada = Persistencia::recuperarDato(ElementoCte,nombre);
+		//TODO agregarEntrada();
+
+	}
+
+	for(int contS = 0; contS < salidas; ++contS){
+
+		nombre = "idSalida";
+		int idSalida = Persistencia::recuperarDato(ElementoCte,nombre);
+		//TODO agregarEntrada();
+
+	}
+
+	nombre = "x";
+	int x = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "y";
+	int y = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	nombre = "sentido";
+	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
+
+	Posicion posicion(x,y);
+
+
+}
+
+
+void Persistencia::guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor) {
+
+	XMLCh tempStr[30];
+	std::string aux;
+
+    XMLString::transcode(nombre.c_str(), tempStr, 29);
+    DOMAttr* atributo = doc->createAttribute(tempStr);
+
+    std::stringstream converter;
+    converter << valor;
+    aux = converter.str();
+
+    XMLString::transcode(aux.c_str(),tempStr,29);
+    atributo->setNodeValue(tempStr);
+    elem->setAttributeNode(atributo);
+
+}
+
+void Persistencia::guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,std::string &valor) {
+
+	XMLCh tempStr[30];
+
+    XMLString::transcode(nombre.c_str(), tempStr, 29);
+    DOMAttr* atributo = doc->createAttribute(tempStr);
+
+    XMLString::transcode(valor.c_str(),tempStr,29);
+    atributo->setNodeValue(tempStr);
+    elem->setAttributeNode(atributo);
+}
+
+int Persistencia::recuperarDato(DOMElement* ElementoCte, std::string &nombre) {
+
+	XMLCh* ATTR_DATO = XMLString::transcode(nombre.c_str());
+	DOMAttr* attr_dato = ElementoCte->getAttributeNode(ATTR_DATO);
+	std::string aux = XMLString::transcode(attr_dato->getValue());
+
+	return atoi(aux.c_str());
+
+}

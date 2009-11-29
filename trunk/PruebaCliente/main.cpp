@@ -72,6 +72,8 @@ int main(int argc, char **argv) {
 
 	imprimirSimulacion(cliente.simularCircuitosSeparados());
 
+	cliente.guardarCircuitosSeparados(); //TODO
+
 	std::cout << std::endl;
 
 
@@ -86,6 +88,8 @@ int main(int argc, char **argv) {
 
 	imprimirSimulacion(cliente.simularSumaDeUnBit());
 
+	cliente.guardarSumaDeUnBit(); //TODO
+
 	std::cout << std::endl;
 
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
@@ -97,6 +101,8 @@ int main(int argc, char **argv) {
 	std::cout << "Prueba De Suma Con Tres Entradas: " << std::endl << std::endl;
 
 	imprimirSimulacion(cliente.simularSumaTresEntradas());
+
+	cliente.guardarSumaTresEntradas(); //TODO
 
 	std::cout << std::endl;
 
@@ -110,6 +116,8 @@ int main(int argc, char **argv) {
 	std::cout << "Prueba De Alarmas: " << std::endl << std::endl;
 
 	imprimirSimulacion(cliente.simularAlarmas());
+
+	cliente.guardarAlarmas(); //TODO
 
 	std::cout << std::endl;
 
@@ -125,8 +133,9 @@ int main(int argc, char **argv) {
 
 	imprimirSimulacion(cliente.simularTablero());
 
-	std::cout << std::endl;
+	cliente.guardarTablero(); //TODO
 
+	std::cout << std::endl;
 
 
 	std::cout << std::endl << "Presione Enter para finalizar... " << std::endl;
