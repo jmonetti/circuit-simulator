@@ -5,9 +5,9 @@ bool ManagerConexiones::conectar(EntradaCompuerta* entrada,SalidaCompuerta* sali
 
 	Posicion posicionEntrada= entrada->getPosicion();
 	SENTIDO sentidoEntrada= entrada->getSentido();
+
 	Posicion posicionSalida= salida->getPosicion();
 	SENTIDO sentidoSalida= salida->getSentido();
-
 
 	if (hayConexion(posicionEntrada,sentidoEntrada,posicionSalida,sentidoSalida)) {
 
@@ -45,7 +45,39 @@ void ManagerConexiones::desconectar(Compuerta* compuerta) {
 
 bool ManagerConexiones::hayConexion(Posicion posicionEntrada,SENTIDO sentidoEntrada, Posicion posicionSalida,SENTIDO sentidoSalida) {
 
-	//TODO
+	switch (sentidoEntrada) {
+
+		case NORTE:
+
+			return verificarConexionNorte(posicionEntrada,posicionSalida,sentidoSalida);
+
+			break;
+
+		case ESTE:
+
+			return verificarConexionEste(posicionEntrada,posicionSalida,sentidoSalida);
+
+			break;
+
+		case OESTE:
+
+			return verificarConexionOeste(posicionEntrada,posicionSalida,sentidoSalida);
+
+			break;
+
+		case SUR:
+
+			return verificarConexionSur(posicionEntrada,posicionSalida,sentidoSalida);
+
+			break;
+
+		default:
+
+			return false;
+
+			break;
+
+	}
 
 	return false;
 
@@ -75,5 +107,165 @@ void ManagerConexiones::desconectar(SalidaCompuerta* salida) {
 	}
 
 	salida->desconectar();
+
+}
+
+bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+
+	unsigned int xEntrada= posicionEntrada.getX();
+	unsigned int yEntrada= posicionEntrada.getY();
+
+	unsigned int xSalida= posicionSalida.getX();
+	unsigned int ySalida= posicionSalida.getY();
+
+	switch (sentidoSalida) {
+
+		case ESTE:
+
+			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida - 1));
+
+			break;
+
+		case OESTE:
+
+			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida - 1));
+
+			break;
+
+		case NORTE:
+
+			return ((xEntrada == xSalida) && (yEntrada == ySalida - 1));
+
+			break;
+
+		default:
+
+			return false;
+
+			break;
+
+	}
+
+	return false;
+
+}
+
+bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+
+	unsigned int xEntrada= posicionEntrada.getX();
+	unsigned int yEntrada= posicionEntrada.getY();
+
+	unsigned int xSalida= posicionSalida.getX();
+	unsigned int ySalida= posicionSalida.getY();
+
+	switch (sentidoSalida) {
+
+		case ESTE:
+
+			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida));
+
+			break;
+
+		case SUR:
+
+			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida + 1));
+
+			break;
+
+		case NORTE:
+
+			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida - 1));
+
+			break;
+
+		default:
+
+			return false;
+
+			break;
+
+	}
+
+	return false;
+
+}
+
+bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+
+	unsigned int xEntrada= posicionEntrada.getX();
+	unsigned int yEntrada= posicionEntrada.getY();
+
+	unsigned int xSalida= posicionSalida.getX();
+	unsigned int ySalida= posicionSalida.getY();
+
+	switch (sentidoSalida) {
+
+		case SUR:
+
+			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida + 1));
+
+			break;
+
+		case OESTE:
+
+			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida));
+
+			break;
+
+		case NORTE:
+
+			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida - 1));
+
+			break;
+
+		default:
+
+			return false;
+
+			break;
+
+	}
+
+	return false;
+
+}
+
+bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+
+	unsigned int xEntrada= posicionEntrada.getX();
+	unsigned int yEntrada= posicionEntrada.getY();
+
+	unsigned int xSalida= posicionSalida.getX();
+	unsigned int ySalida= posicionSalida.getY();
+
+	switch (sentidoSalida) {
+
+		case ESTE:
+
+			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida + 1));
+
+			break;
+
+		case OESTE:
+
+			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida + 1));
+
+			break;
+
+		case SUR:
+
+			return ((xEntrada == xSalida) && (yEntrada == ySalida + 1));
+
+			break;
+
+		default:
+
+			return false;
+
+			break;
+
+	}
+
+	return false;
 
 }

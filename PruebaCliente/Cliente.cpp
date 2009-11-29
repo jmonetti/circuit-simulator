@@ -15,57 +15,80 @@ Cliente::~Cliente() {
 void Cliente::crearCircuitos() {
 
 	idCircuitos[0]= crearCircuitosSeparados();
-	idCircuitos[1]= crearSumaDeUnBit();
-	idCircuitos[2]= crearSumaTresEntradas();
-	idCircuitos[3]= crearAlarmas();
-	idCircuitos[4]= crearTablero();
+	//idCircuitos[1]= crearSumaDeUnBit();
+	//idCircuitos[2]= crearSumaTresEntradas();
+	//idCircuitos[3]= crearAlarmas();
+	//idCircuitos[4]= crearTablero();
 }
 
 int Cliente::crearCircuitosSeparados() {
 
 	modelo.crearNuevo("Circuitos Separados");
 
-	Posicion posicion;
-
 	int id= 0;
-
-	std::string nom("");
 
 	for (int i = 0; i < 3; ++i) {
 
-		modelo.agregarEntrada(posicion,nom,ESTE);
-		modelo.agregarEntrada(posicion,nom,ESTE);
+		Posicion posicionEntrada1(1,i*4 + 1);
+		std::string nom= "Entrada 1";
+		modelo.agregarEntrada(posicionEntrada1,nom,ESTE);
+		nom= "Entrada 2";
+		Posicion posicionEntrada2(1,i*4 + 3);
+		modelo.agregarEntrada(posicionEntrada2,nom,ESTE);
+
+		Posicion posicionCompuerta(4,i*4+2);
+
 		switch (i) {
 
+
 		case 0:
-			modelo.agregarCompuerta(T_AND,posicion,ESTE);
+			modelo.agregarCompuerta(T_AND,posicionCompuerta,ESTE);
 			break;
 		case 1:
-			modelo.agregarCompuerta(T_OR,posicion,ESTE);
+			modelo.agregarCompuerta(T_OR,posicionCompuerta,ESTE);
 			break;
 		case 2:
-			modelo.agregarCompuerta(T_XOR,posicion,ESTE);
+			modelo.agregarCompuerta(T_XOR,posicionCompuerta,ESTE);
 
 		}
-		modelo.agregarSalida(posicion,nom,ESTE);
+		Posicion posicionSalida(7,i*4+2);
+		nom= "Salida";
+		modelo.agregarSalida(posicionSalida,nom,ESTE);
 
 	}
 
 	for (int i = 0; i < 2; ++i) {
 
-		modelo.agregarEntrada(posicion,nom,ESTE);
+		Posicion posicionEntrada(1,i*2+1+12);
+		std::string nom= "Entrada";
+		modelo.agregarEntrada(posicionEntrada,nom,ESTE);
 		switch (i) {
 
 		case 0:
-			modelo.agregarCompuerta(T_NOT,posicion,ESTE);
+		{
+			Posicion posicionNot(4,13);
+			modelo.agregarCompuerta(T_NOT,posicionNot,ESTE);
+
+			nom= "Salida";
+			Posicion posicionSalida(7,13);
+			modelo.agregarSalida(posicionSalida,nom,ESTE);
+
 			break;
-
+		}
 		case 1:
+		{
+			nom= "Salida";
+			Posicion posicionSalida(6,15);
+			modelo.agregarSalida(posicionSalida,nom,ESTE);
 
-			modelo.agregarCompuerta(T_PISTA,posicion,ESTE);
+			Posicion posicionPista(3,15);
+			modelo.agregarCompuerta(T_PISTA,posicionPista,ESTE);
+
+			break;
+		}
 
 		}
-		modelo.agregarSalida(posicion,nom,ESTE);
+
 
 	}
 
