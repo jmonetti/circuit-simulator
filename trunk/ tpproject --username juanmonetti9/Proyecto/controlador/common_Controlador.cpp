@@ -73,6 +73,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 	TIPO_COMPUERTA _tipo;
 
 	if(matriz.hay_componente(&_pos_x,&_pos_y,&_tipo)){
+
 		//obtengo la celda origen para obtener el sentido
 		Celda* celda_origen=matriz.get_celda_px(_pos_x,_pos_y);
 		//intento agregar la compuerta en la celda destino
@@ -81,6 +82,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 		if(agregado){
 			//obtengo la celda destino para intentar agregar la compuerta
 			Celda* celda_destino=matriz.get_celda_px(_x,_y);
+
 			celda_destino->set_sentido(celda_origen->get_sentido());
 			fachada_vista->dibujar_componente(_x, _y,_tipo,celda_destino->get_sentido());
 			matriz.eliminar_componente(_pos_x,_pos_y);
@@ -96,17 +98,27 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 	int _x=x;
 	int _y=y;
+	Celda* celda;
+	bool agregada;
 
-	bool agregada= matriz.agregar_compuerta(&_x,&_y,_tipo);
+	switch(_tipo){
 
-	Celda* celda=matriz.get_celda_px(_x,_y);
-	g_print("quiero agregar en (%d,%d)\n",x,y);
+	case T_ENTRADA:	{agregada=matriz.agregar_entrada(&_x,&_y);
+					celda=matriz.get_celda_px(_x,_y);
+					break;}
+	case T_SALIDA:	{agregada= matriz.agregar_salida(&_x,&_y);
+					 celda=matriz.get_celda_px(_x,_y);
+				     break;}
+	case T_PISTA: 	{break;}
+
+	default: 		{agregada= matriz.agregar_compuerta(&_x,&_y,_tipo);
+					celda=matriz.get_celda_px(_x,_y);
+					break;}
+	}
 
 	if(agregada && celda){
 
-		SENTIDO sent=celda->get_sentido();
-		g_print("agregue en (%d,%d)\n",_x,_y);
-		fachada_vista->dibujar_componente(_x,_y,_tipo,sent);
+		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
 	}
 }
 

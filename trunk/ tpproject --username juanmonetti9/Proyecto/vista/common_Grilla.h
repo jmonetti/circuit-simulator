@@ -41,6 +41,12 @@ public:
 
 	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
 
+	void draw_salida(gdouble x,gdouble y, SENTIDO sentido);
+
+	void draw_entrada(gdouble x,gdouble y, SENTIDO sentido);
+
+	void draw_pista(gdouble x,gdouble y, SENTIDO sentido);
+
 	void draw_NOT(gdouble x,gdouble y, SENTIDO sentido);
 
 	void draw_AND(gdouble x,gdouble y, SENTIDO sentido);
@@ -54,6 +60,39 @@ public:
 	void conectar_DnD();
 
 private:
+
+	/**
+	 * Dibuja una pista en la pantalla
+	 */
+	void draw_pista_sur(gdouble x, gdouble y);
+
+	void draw_pista_norte(gdouble x, gdouble y);
+
+	void draw_pista_este(gdouble x, gdouble y);
+
+	void draw_pista_oeste(gdouble x, gdouble y);
+
+	/**
+	 * Dibuja la entrada en la pantalla
+	 */
+	void draw_entrada_sur(gdouble x, gdouble y);
+
+	void draw_entrada_norte(gdouble x, gdouble y);
+
+	void draw_entrada_este(gdouble x, gdouble y);
+
+	void draw_entrada_oeste(gdouble x, gdouble y);
+
+	/**
+	 * Dibuja la salida en la pantalla
+	 */
+	void draw_salida_sur(gdouble x, gdouble y);
+
+	void draw_salida_norte(gdouble x, gdouble y);
+
+	void draw_salida_este(gdouble x, gdouble y);
+
+	void draw_salida_oeste(gdouble x, gdouble y);
 
 	/**
 	 * Dibuja la compuerta NOT en la pantalla

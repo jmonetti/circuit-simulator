@@ -1,9 +1,5 @@
-/*
- * common_Boton_guardar.h
- *
- *  Created on: 19/11/2009
- *      Author: juanm
- */
+/**************************   Clase BOTON Guardar  ******************/
+/**************************   	Grupo 8             ******************/
 
 #ifndef COMMON_BOTON_GUARDAR_H_
 #define COMMON_BOTON_GUARDAR_H_

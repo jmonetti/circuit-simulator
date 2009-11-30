@@ -78,6 +78,8 @@ bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
 		*x= de_col_a_pixel(aux->get_colum_padre());
 		g_print("Hay componente en (%d,%d)\n",*x,*y);
 	}
+
+
 	*tipo=aux->get_tipo_celda();
 
 	return aux->esta_ocupada();
@@ -95,7 +97,9 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 
 bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo){
 
-	bool agregada;
+	bool agregada=true;
+
+
 	//ubico la fila y col que corresponda y centro los valorees de *x e *y
 	int fila= de_pixel_a_fila(*y);
 	int col= de_pixel_a_col(*x);
@@ -114,6 +118,43 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo
 	return agregada;
 }
 
+bool Modelo_vista_circuito::agregar_entrada(int* x,int* y){
+
+	bool agregada;
+	//ubico la fila y col que corresponda y centro los valorees de *x e *y
+	int fila= de_pixel_a_fila(*y);
+	int col= de_pixel_a_col(*x);
+	*y=de_fila_a_pixel(fila);
+	*x=de_col_a_pixel(col);
+
+	//obtengo la celda
+	Celda* aux= get_celda(fila,col);
+	//intento agregarle una compuerta
+
+	agregada=aux->agregar_entrada();
+
+	return agregada;
+
+}
+
+bool Modelo_vista_circuito::agregar_salida(int* x,int* y){
+
+	bool agregada;
+	//ubico la fila y col que corresponda y centro los valorees de *x e *y
+	int fila= de_pixel_a_fila(*y);
+	int col= de_pixel_a_col(*x);
+	*y=de_fila_a_pixel(fila);
+	*x=de_col_a_pixel(col);
+
+	//obtengo la celda
+	Celda* aux= get_celda(fila,col);
+	//intento agregarle una compuerta
+
+	agregada=aux->agregar_salida();
+
+	return agregada;
+
+}
 Modelo_vista_circuito::~Modelo_vista_circuito() {
 
 	for (int i = 0; i < FILAS_MODELO; i++){

@@ -31,6 +31,10 @@ private:
 
 	bool agregar_entorno_compuerta(TIPO_COMPUERTA _tipo);
 
+	bool agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido);
+
+	bool agregar_entorno_pista(SENTIDO sentido);
+
 
 public:
 
@@ -44,6 +48,12 @@ public:
 	 * 		   (false) en caso de que no se pueda agregar
 	 */
 	bool agregar_compuerta(TIPO_COMPUERTA tipo);
+
+	bool agregar_pista();
+
+	bool agregar_entrada();
+
+	bool agregar_salida();
 
 	void set_sentido(SENTIDO _sentido);
 
@@ -63,28 +73,25 @@ public:
 	 */
 	void desocupar_celda();
 
-	/**
-	 * @return (true) si la celda esta ocupada
-	 */
-	bool esta_ocupada();
-
 	int get_fila()const;
-
-	int get_fila_padre()const;
 
 	int get_colum()const;
 
-	int get_id()const;
-
-	SENTIDO get_sentido()const;
+	int get_fila_padre()const;
 
 	int get_colum_padre()const;
 
-	void vaciar_entorno();
+	SENTIDO get_sentido()const;
+
+	TIPO_COMPUERTA get_tipo_celda()const;
+
+	int get_id()const;
 
 	void set_info_padre(int fila, int columna);
 
-	TIPO_COMPUERTA get_tipo_celda()const;
+	bool esta_ocupada()const;
+
+	void vaciar_entorno();
 
 	virtual ~Celda();
 };

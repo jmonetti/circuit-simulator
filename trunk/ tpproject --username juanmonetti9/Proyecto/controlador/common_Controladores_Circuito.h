@@ -27,6 +27,10 @@ public:
 
 	static void callback_Pista( GtkWidget *widget,gpointer callback_data );
 
+	static void callback_Entrada(GtkWidget *widget,gpointer callback_data );
+
+	static void callback_Salida(GtkWidget *widget,gpointer callback_data );
+
 	static void callback_Selector( GtkWidget *widget,gpointer callback_data );
 
 	static void callback_Delete( GtkWidget *widget,gpointer callback_data );

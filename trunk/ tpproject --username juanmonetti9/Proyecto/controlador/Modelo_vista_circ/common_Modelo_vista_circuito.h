@@ -35,6 +35,10 @@ public:
 
 	bool agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo);
 
+	bool agregar_entrada(int* x,int* y);
+
+	bool agregar_salida(int* x,int* y);
+
 	bool hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo);
 
 	bool eliminar_componente(int x,int y);

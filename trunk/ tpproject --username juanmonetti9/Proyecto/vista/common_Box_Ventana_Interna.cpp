@@ -64,42 +64,48 @@ void Box_Ventana_Interna::disconnect_dnd(){
 	grilla.desconectar_DnD();
 }
 
-void Box_Ventana_Interna::dibujar_compuerta(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido){
+void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido){
 
 	switch(tipo){
 
 	case T_XOR:	{
 				grilla.draw_XOR(x,y,sentido);
-
 				break;
 	}
 	case T_AND:	{
 				grilla.draw_AND(x,y,sentido);
-				g_print("Dibujo una AND\n");
 				break;
 	}
 	case T_NOT:	{
 				grilla.draw_NOT(x,y,sentido);
-				g_print("Dibujo una not\n");
 				break;
 	}
 	case T_OR: {
 				grilla.draw_OR(x,y,sentido);
-				g_print("Dibujo una OR\n");
 				break;
 	}
 	case T_VACIA:{
 				grilla.draw_Borrar_compuerta(x,y,sentido);
-				g_print("Dibujo una vacia\n");
+				break;
+	}
+	case T_ENTRADA:{
+				grilla.draw_entrada(x,y,sentido);
+				break;
+	}
+	case T_PISTA:{
+				grilla.draw_pista(x,y,sentido);
+				break;
+	}
+	case T_SALIDA:{
+				grilla.draw_salida(x,y,sentido);
 				break;
 	}
 
-	case T_ENTRADA:break;//todo
-	case T_PISTA:break;//todo
-	case T_SALIDA:break;//todo
 	}
 
 }
+
+
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Box_Ventana_Interna::getWidget(){
