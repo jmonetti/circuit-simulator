@@ -8,6 +8,8 @@ enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SAL
 
 enum SENTIDO { NORTE , SUR , ESTE , OESTE };
 
+enum DIRECCION { IZQUIERDA , DERECHA };
+
 //constantes de tamanio del drawing area
 const int DRW_AREA_WIDTH= 1170;
 const int DRW_AREA_HEIGHT= 780;
