@@ -5,6 +5,7 @@
 #include "modelo/simulacion/common_ResultadoSimulacion.h"
 #include "modelo/simulacion/common_ResultadoTiempo.h"
 #include "modelo/simulacion/common_Resultado.h"
+#include "excepciones/common_CircuitoException.h"
 
 void imprimirSimulacion(Resultado* resultados) {
 
@@ -75,18 +76,16 @@ int main(int argc, char **argv) {
 
 	cliente.guardarCircuitosSeparados(); //TODO
 
-	std::cout << std::endl;
-
 	std::string ruta= "Circuitos Separados";
 
 	cliente.recuperarCircuito(ruta);
 
-	imprimirSimulacion(cliente.simularCircuitosSeparados());
+	std::cout << std::endl;
+
+	imprimirSimulacion(cliente.simularActual());
 
 	std::cout << std::endl;
 
-
-/*
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
 
 	std::cin.get();
@@ -95,12 +94,36 @@ int main(int argc, char **argv) {
 
 	std::cout << "Prueba De Suma De Un Bit: " << std::endl << std::endl;
 
-	imprimirSimulacion(cliente.simularSumaDeUnBit());
+	try {
 
-	cliente.guardarSumaDeUnBit(); //TODO
+		imprimirSimulacion(cliente.simularSumaDeUnBit());
+
+	} catch (CircuitoException e) {
+
+		std::cout<<e.getMensaje()<<std::endl;
+
+	}
+
+//	cliente.guardarSumaDeUnBit(); //TODO
+
+	ruta= "Suma De Un Bit";
+
+	cliente.recuperarCircuito(ruta);
 
 	std::cout << std::endl;
 
+	try {
+
+		imprimirSimulacion(cliente.simularActual());
+
+	} catch (CircuitoException e) {
+
+		std::cout<< e.getMensaje() <<std::endl;
+	}
+
+
+	std::cout << std::endl;
+/*
 	std::cout << std::endl << "Presione Enter para continuar con la proxima prueba... " << std::endl;
 
 	std::cin.get();

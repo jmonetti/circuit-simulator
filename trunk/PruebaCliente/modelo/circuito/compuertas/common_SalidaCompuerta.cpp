@@ -5,6 +5,7 @@ SalidaCompuerta::SalidaCompuerta() {
 
 	validoValor= false;
 	validoTiempo= false;
+	compuerta= NULL;
 
 }
 

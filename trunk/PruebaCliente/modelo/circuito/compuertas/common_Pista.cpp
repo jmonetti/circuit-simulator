@@ -101,7 +101,59 @@ void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
 
 void Pista::actualizarEntradas() {
 
-	entrada->mover(getPosicion());
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+	unsigned int xEntrada;
+	unsigned int yEntrada;
+
+
+	switch (getSentido()) {
+
+		case NORTE:
+		{
+
+			xEntrada= xCompuerta;
+			yEntrada= yCompuerta + 1;
+
+			break;
+
+		}
+		case ESTE:
+		{
+
+			xEntrada= xCompuerta - 1;
+			yEntrada= yCompuerta;
+
+			break;
+
+		}
+		case SUR:
+		{
+
+			xEntrada= xCompuerta;
+			yEntrada= yCompuerta - 1;
+
+			break;
+
+		}
+		case OESTE:
+		{
+
+			xEntrada= xCompuerta + 1;
+			yEntrada= yCompuerta;
+
+			break;
+
+		}
+		default:
+
+			break;
+
+	}
+
+	Posicion posicionEntrada(xEntrada,yEntrada);
+	entrada->mover(posicionEntrada);
 	entrada->rotar(getSentido());
 
 }

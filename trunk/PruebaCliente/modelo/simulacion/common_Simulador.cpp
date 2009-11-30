@@ -1,5 +1,6 @@
 
 #include "common_Simulador.h"
+#include "../../excepciones/common_CircuitoException.h"
 #include <math.h>
 
 Resultado* Simulador::simular(Circuito &circuito) {
@@ -51,7 +52,20 @@ std::vector<ResultadoSimulacion*>* Simulador::calcularSimulacion(Circuito &circu
 
 	for (int i= 0; i < potencia; ++i) {
 
-		salidas= circuito.simular(entradas);
+		try {
+
+			salidas= circuito.simular(entradas);
+
+		} catch (CircuitoException e) {
+
+			delete[] entradas;
+
+			vaciarResultadoSimulacion(resultadoSimulacion);
+
+			throw e;
+
+		}
+
 
 		ResultadoSimulacion* resultado = new ResultadoSimulacion(entradas,salidas,cantidadEntradas,cantidadSalidas);
 		resultadoSimulacion->push_back(resultado);
@@ -99,5 +113,17 @@ bool* Simulador::generarEntradas(int i,unsigned int cantidadEntradas,const bool*
 	}
 
 	return entradas;
+
+}
+
+void Simulador::vaciarResultadoSimulacion(std::vector<ResultadoSimulacion*>* resultado) {
+
+	for (unsigned int var = 0; var < resultado->size(); ++var) {
+
+		delete (*resultado)[var];
+
+	}
+
+	delete resultado;
 
 }

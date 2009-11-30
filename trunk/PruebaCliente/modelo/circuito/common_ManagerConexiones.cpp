@@ -1,5 +1,6 @@
 #include "common_ManagerConexiones.h"
 #include <vector>
+#include "../../excepciones/common_ConexionException.h"
 
 bool ManagerConexiones::conectar(EntradaCompuerta* entrada,SalidaCompuerta* salida) {
 
@@ -122,13 +123,15 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 
 		case ESTE:
 
-			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida - 1));
+			return (((xEntrada == xSalida) && (yEntrada == ySalida - 1)) ||
+					((xEntrada == xSalida + 1) && (yEntrada == ySalida)));
 
 			break;
 
 		case OESTE:
 
-			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida - 1));
+			return (((xEntrada == xSalida) && (yEntrada == ySalida - 1)) ||
+					((xEntrada == xSalida - 1) && (yEntrada == ySalida)));
 
 			break;
 
@@ -168,13 +171,15 @@ bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion 
 
 		case SUR:
 
-			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida + 1));
+			return (((xEntrada == xSalida + 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida + 1)));
 
 			break;
 
 		case NORTE:
 
-			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida - 1));
+			return (((xEntrada == xSalida + 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida - 1))) ;
 
 			break;
 
@@ -202,7 +207,8 @@ bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion
 
 		case SUR:
 
-			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida + 1));
+			return (((xEntrada == xSalida - 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida + 1)));
 
 			break;
 
@@ -214,7 +220,8 @@ bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion
 
 		case NORTE:
 
-			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida - 1));
+			return (((xEntrada == xSalida - 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida - 1)));
 
 			break;
 
@@ -242,13 +249,15 @@ bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion p
 
 		case ESTE:
 
-			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida + 1));
+			return (((xEntrada == xSalida) && (yEntrada == ySalida + 1)) ||
+					((xEntrada == xSalida + 1) && (yEntrada == ySalida)));
 
 			break;
 
 		case OESTE:
 
-			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida + 1));
+			return (((xEntrada == xSalida) && (yEntrada == ySalida + 1)) ||
+					((xEntrada == xSalida - 1) && (yEntrada == ySalida)));
 
 			break;
 
