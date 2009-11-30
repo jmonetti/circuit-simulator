@@ -73,14 +73,20 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 	TIPO_COMPUERTA _tipo;
 
 	if(matriz.hay_componente(&_pos_x,&_pos_y,&_tipo)){
-
+		//obtengo la celda origen para obtener el sentido
+		Celda* celda_origen=matriz.get_celda_px(_pos_x,_pos_y);
+		//intento agregar la compuerta en la celda destino
 		bool agregado= matriz.agregar_compuerta(&_x,&_y,_tipo);
-		if(agregado){
-			fachada_vista->dibujar_componente(_x, _y,_tipo);
-			matriz.eliminar_componente(_pos_x,_pos_y);
-			fachada_vista->dibujar_componente(_pos_x,_pos_y,T_VACIA);
 
+		if(agregado){
+			//obtengo la celda destino para intentar agregar la compuerta
+			Celda* celda_destino=matriz.get_celda_px(_x,_y);
+			celda_destino->set_sentido(celda_origen->get_sentido());
+			fachada_vista->dibujar_componente(_x, _y,_tipo,celda_destino->get_sentido());
+			matriz.eliminar_componente(_pos_x,_pos_y);
+			fachada_vista->dibujar_componente(_pos_x,_pos_y,T_VACIA,celda_origen->get_sentido());
 		}
+
 	}
 
 }
@@ -93,9 +99,60 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 	bool agregada= matriz.agregar_compuerta(&_x,&_y,_tipo);
 
-	if(agregada){
-	  fachada_vista->dibujar_componente(_x,_y,_tipo);
+	Celda* celda=matriz.get_celda_px(_x,_y);
+	g_print("quiero agregar en (%d,%d)\n",x,y);
+
+	if(agregada && celda){
+
+		SENTIDO sent=celda->get_sentido();
+		g_print("agregue en (%d,%d)\n",_x,_y);
+		fachada_vista->dibujar_componente(_x,_y,_tipo,sent);
 	}
+}
+
+void Controlador::rotar_left(int x,int y){
+
+
+	g_print("Para rotar en (%d,%d)\n",x,y);
+	int _x=x;
+	int _y=y;
+	TIPO_COMPUERTA _tipo;
+
+	if(matriz.hay_componente(&_x,&_y,&_tipo)){
+		g_print("Hay componente en (%d,%d)\n",_x,_y);
+		//Obtengo la celda padre la que representa la compuerta
+		Celda* celda=matriz.get_celda_px(_x,_y);
+		g_print("Por tapar el componente\n");
+		fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
+		g_print("Por rotar la celda\n");
+		celda->rotar_lef();
+		g_print("Por dibujar la celda invertida\n");
+		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+
+	}
+
+}
+
+void Controlador::rotar_right(int x,int y){
+
+	g_print("Para rotar en (%d,%d)\n",x,y);
+	int _x=x;
+	int _y=y;
+	TIPO_COMPUERTA _tipo;
+
+	if(matriz.hay_componente(&_x,&_y,&_tipo)){
+		g_print("Hay componente en (%d,%d)\n",_x,_y);
+		//Obtengo la celda padre la que representa la compuerta
+		Celda* celda=matriz.get_celda_px(_x,_y);
+		g_print("Por tapar el componente\n");
+		fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
+		g_print("Por rotar la celda\n");
+		celda->rotar_right();
+		g_print("Por dibujar la celda invertida\n");
+		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+
+	}
+
 }
 /*----------------------------------------------------------------------------*/
 
@@ -105,10 +162,11 @@ void Controlador::eliminar_componente(int x,int y){
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
 
-	if(matriz.hay_componente(&_x,&_y,&_tipo)){
-
+	Celda* celda=matriz.get_celda_px(x,y);
+	if(matriz.hay_componente(&_x,&_y,&_tipo) && celda){
+		SENTIDO sent=celda->get_sentido();
 		matriz.eliminar_componente(_x,_y);
-		fachada_vista->dibujar_componente(_x,_y,T_VACIA);
+		fachada_vista->dibujar_componente(_x,_y,T_VACIA,sent);
 
 	}
 

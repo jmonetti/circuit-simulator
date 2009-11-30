@@ -18,15 +18,28 @@ Modelo_vista_circuito::Modelo_vista_circuito() {
 
 int Modelo_vista_circuito::de_pixel_a_fila(int y){
 
-	int fila=(y*FILAS_MODELO)/PIXELES_HEIGHT;
+	int fila=((y*FILAS_MODELO)/PIXELES_HEIGHT)+1;
 	return fila;
 }
 
 int Modelo_vista_circuito::de_pixel_a_col(int x){
 
-	int columna = (x*COLUMNAS_MODELO)/PIXELES_WIDTH;
+	int columna = ((x*COLUMNAS_MODELO)/PIXELES_WIDTH)+1;
 	return columna;
 }
+
+int Modelo_vista_circuito::de_col_a_pixel(int col){
+
+	int x = ((col)*CELDA_WIDTH)-(CELDA_WIDTH/2);
+	return x;
+}
+int Modelo_vista_circuito::de_fila_a_pixel(int fila){
+
+	int y = ((fila)*CELDA_WIDTH)-(CELDA_WIDTH/2);
+	return y;
+}
+
+
 
 Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
@@ -39,6 +52,16 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 		return NULL;
 
 }
+Celda* Modelo_vista_circuito::get_celda_px(int x,int y){
+
+
+	int fila= de_pixel_a_fila(y);
+	int col= de_pixel_a_col(x);
+
+	return modelo_grilla[fila-1][col-1];
+
+}
+
 
 bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
 
@@ -46,14 +69,14 @@ bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
 
 	int fila= de_pixel_a_fila(*y);
 	int col= de_pixel_a_col(*x);
-	Celda* aux= modelo_grilla[fila][col];
+	Celda* aux= modelo_grilla[fila-1][col-1];
 	bool retorno=aux->esta_ocupada();
 
 	if(retorno){
 
-		*y= (aux->get_fila_padre()*12)+6; //TODO
-		*x= aux->get_colum_padre()*12+6;  //TODO
-
+		*y= de_fila_a_pixel(aux->get_fila_padre());
+		*x= de_col_a_pixel(aux->get_colum_padre());
+		g_print("Hay componente en (%d,%d)\n",*x,*y);
 	}
 	*tipo=aux->get_tipo_celda();
 
@@ -63,7 +86,7 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 
 	int fila= de_pixel_a_fila(y);
 	int col= de_pixel_a_col(x);
-	Celda* aux= modelo_grilla[fila][col];
+	Celda* aux= modelo_grilla[fila-1][col-1];
 	aux->eliminar_componente();
 
 	return true;//TODO
@@ -71,15 +94,22 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 }
 
 bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo){
+
 	bool agregada;
+	//ubico la fila y col que corresponda y centro los valorees de *x e *y
 	int fila= de_pixel_a_fila(*y);
 	int col= de_pixel_a_col(*x);
-	Celda* aux= modelo_grilla[fila][col];
+	*y=de_fila_a_pixel(fila);
+	*x=de_col_a_pixel(col);
 
-	*y= (fila*12)+6; //TODO
-	*x= col*12+6;  //TODO
+	//obtengo la celda
+	Celda* aux= get_celda(fila,col);
+	//intento agregarle una compuerta
 
 	agregada=aux->agregar_compuerta(_tipo);
+	if(agregada)
+		g_print("Agregada en (%d,%d)\n",*x,*y);
+
 
 	return agregada;
 }

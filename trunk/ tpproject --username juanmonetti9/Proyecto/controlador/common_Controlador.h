@@ -43,6 +43,10 @@ public:
 
 	void eliminar_componente(int x,int y);
 
+	void rotar_right(int x,int y);
+
+	void rotar_left(int x,int y);
+
 	void conectar_drag_drop();
 
 	void desconectar_drag_drop();

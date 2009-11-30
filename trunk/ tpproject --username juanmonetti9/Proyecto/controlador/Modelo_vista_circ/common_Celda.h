@@ -19,10 +19,13 @@ private:
 	Modelo_vista_circuito* grilla;//Grilla en la cual se encuentra la celda
 	std::list<Celda*> entorno;	  //Entorno de la celda
 	TIPO_COMPUERTA estado; //estado de la celda
+	SENTIDO sentido;       //sentido del componente al que representa una celda
+	unsigned int ID;
 	unsigned int fila; 	//Fila de la celda
 	unsigned int colum;	//columna de la celda
 	unsigned int fila_padre;  	//Fila del padre de la celda
 	unsigned int colum_padre;	//columna del padre de la celda
+
 
 
 
@@ -41,6 +44,12 @@ public:
 	 * 		   (false) en caso de que no se pueda agregar
 	 */
 	bool agregar_compuerta(TIPO_COMPUERTA tipo);
+
+	void set_sentido(SENTIDO _sentido);
+
+	void rotar_lef();
+
+	void rotar_right();
 
 	void eliminar_componente();
 
@@ -64,6 +73,10 @@ public:
 	int get_fila_padre()const;
 
 	int get_colum()const;
+
+	int get_id()const;
+
+	SENTIDO get_sentido()const;
 
 	int get_colum_padre()const;
 

@@ -20,7 +20,7 @@ public:
 
 	Fachada_vista(Box_Ventana_Interna* ventata_int);
 
-	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo);
+	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido);
 
 	void activar_dnd();
 

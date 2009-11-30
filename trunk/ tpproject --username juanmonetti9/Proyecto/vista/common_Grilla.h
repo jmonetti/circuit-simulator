@@ -7,23 +7,9 @@
 #include "common_Componente_Visual.h"
 #include "common_TablaLogica.h"
 #include <gtkmm.h>
+#include "../common/constantes.h"
 
-//constantes de tamanio del drawing area
-const int DRW_AREA_WIDTH= 1170;
-const int DRW_AREA_HEIGHT= 780;
 
-//constante de tamanio del area de dibujo de una compuerta
-const int COMPUERTA_WIDTH= 36;
-const int COMPUERTA_HEIGHT= 36;
-
-//constantes de tamanio de una celda
-const int CELDA_WIDTH= 12;
-const int CELDA_HEIGHT= 12;
-
-// defino tamanios de envio
-#define _BYTE   8
-#define _WORD   16
-#define _DWORD  32
 
 
 class Grilla: public Componente_Visual {
@@ -53,34 +39,62 @@ public:
 
 	GtkWidget* getWidget();
 
+	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
 
+	void draw_NOT(gdouble x,gdouble y, SENTIDO sentido);
 
+	void draw_AND(gdouble x,gdouble y, SENTIDO sentido);
+
+	void draw_OR(gdouble x,gdouble y, SENTIDO sentido);
+
+	void draw_XOR(gdouble x,gdouble y, SENTIDO sentido);
 
 	void desconectar_DnD();
 
 	void conectar_DnD();
 
+private:
+
 	/**
 	 * Dibuja la compuerta NOT en la pantalla
 	 */
-	void draw_NOT(gdouble x, gdouble y);
+	void draw_NOT_sur(gdouble x, gdouble y);
+
+	void draw_NOT_norte(gdouble x, gdouble y);
+
+	void draw_NOT_este(gdouble x, gdouble y);
+
+	void draw_NOT_oeste(gdouble x, gdouble y);
 	/**
 	 * Dibuja la compuerta AND en la pantalla
 	 */
-	void draw_AND(gdouble x, gdouble y);
+	void draw_AND_este(gdouble x, gdouble y);
+
+	void draw_AND_oeste(gdouble x, gdouble y);
+
+	void draw_AND_norte(gdouble x, gdouble y);
+
+	void draw_AND_sur(gdouble x, gdouble y);
 	/**
 	 * Dibuja la compuerta OR en la pantalla
 	 */
-	void draw_OR(gdouble x, gdouble y);
+	void draw_OR_este(gdouble x, gdouble y);
+
+	void draw_OR_oeste(gdouble x, gdouble y);
+
+	void draw_OR_norte(gdouble x, gdouble y);
+
+	void draw_OR_sur(gdouble x, gdouble y);
 	/**
 	 * Dibuja la compuerta XOR en la pantalla
 	 */
-	void draw_XOR(gdouble x, gdouble y);
+	void draw_XOR_este(gdouble x, gdouble y);
 
-	/**
-	 * Borra una compuerta del drawing area
-	 */
-	void draw_sin_commpuerta(gdouble x, gdouble y);
+	void draw_XOR_oeste(gdouble x, gdouble y);
+
+	void draw_XOR_norte(gdouble x, gdouble y);
+
+	void draw_XOR_sur(gdouble x, gdouble y);
 
 
 	/**
