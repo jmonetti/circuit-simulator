@@ -7,7 +7,6 @@
 #include <gtkmm.h>
 #include "common_Componente_Visual.h"
 #include <vector>
-#include "../modelo/common_ResultadoSimulacion.h"
 
 class TablaLogica : public Componente_Visual{
 

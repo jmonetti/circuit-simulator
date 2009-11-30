@@ -9,11 +9,12 @@ Controlador* Controlador::instancia=NULL;
 
 /*----------------------------------------------------------------------------*/
 
-Controlador::Controlador(Fachada_vista* fachada) {
+Controlador::Controlador(Fachada_vista* fachada, ModeloCliente *modeloCliente) {
 
 	fachada_vista=fachada;
 	accion=new Accion_NULA(this);
 	arrstre_activo=false;
+	this->modeloCliente= modeloCliente;
 
 }
 
@@ -35,11 +36,11 @@ void Controlador::ejecutar_accion(gdouble x,gdouble y){
 
 }
 
-Controlador* Controlador::crear_instancia(Fachada_vista* fachada){
+Controlador* Controlador::crear_instancia(Fachada_vista* fachada, ModeloCliente* modeloCliente){
 
 	if(instancia == NULL){
 
-		instancia= new Controlador(fachada);
+		instancia= new Controlador(fachada,modeloCliente);
 	}
 
 	return instancia;

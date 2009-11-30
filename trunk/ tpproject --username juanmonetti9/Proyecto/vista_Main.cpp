@@ -7,6 +7,10 @@
 #include "controlador/common_Controlador.h"
 #include "gtkmm.h"
 #include <iostream>
+#include "modelo/common_ModeloCliente.h"
+
+class ModeloCliente;
+
 int main(int argc,char* argv[]){
 
 	//inicializo y arranco la libreria
@@ -21,7 +25,8 @@ int main(int argc,char* argv[]){
 	//fin TODO
 
 	Fachada_vista fachada(&ventana_interna);
-	Controlador* controlador=Controlador::crear_instancia(&fachada);
+	ModeloCliente* modeloCliente= new ModeloCliente();
+	Controlador* controlador=Controlador::crear_instancia(&fachada,modeloCliente);
 	ventana.show();
 
 
@@ -29,6 +34,7 @@ int main(int argc,char* argv[]){
 
 	//libero la memoria reservada para el controlador
 	delete controlador;
+	delete modeloCliente;
 
 	return 0;
 }
