@@ -224,6 +224,55 @@ void Grilla::draw_XOR(gdouble x,gdouble y, SENTIDO sentido){
 		}
 }
 
+
+void Grilla::draw_entrada(gdouble x,gdouble y, SENTIDO sentido){
+
+	switch(sentido){
+
+		case ESTE: draw_entrada_este(x,y);
+				   break;
+		case OESTE:draw_entrada_oeste(x,y);
+				   break;
+		case NORTE:draw_entrada_norte(x,y);
+				   break;
+		case SUR:draw_entrada_sur(x,y);
+				   break;
+
+		}
+}
+
+void Grilla::draw_salida(gdouble x,gdouble y, SENTIDO sentido){
+
+	switch(sentido){
+
+		case ESTE: draw_salida_este(x,y);
+				   break;
+		case OESTE:draw_salida_oeste(x,y);
+				   break;
+		case NORTE:draw_salida_norte(x,y);
+				   break;
+		case SUR:  draw_salida_sur(x,y);
+				   break;
+
+		}
+}
+void Grilla::draw_pista(gdouble x,gdouble y, SENTIDO sentido){
+
+	switch(sentido){
+
+		case ESTE: draw_pista_este(x,y);
+				   break;
+		case OESTE:draw_pista_oeste(x,y);
+				   break;
+		case NORTE:draw_pista_norte(x,y);
+				   break;
+		case SUR:  draw_pista_sur(x,y);
+				   break;
+
+		}
+}
+
+
 /*----------------------------------------------------------------------------*/
 
 void Grilla::draw_Borrar_compuerta(gdouble x, gdouble y,SENTIDO sentido){
@@ -246,6 +295,128 @@ void Grilla::draw_Borrar_compuerta(gdouble x, gdouble y,SENTIDO sentido){
 	gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
 
 	gtk_widget_draw (drawing_area, &update_rect);
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_pista_sur(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_pista_norte(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_pista_este(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_pista_oeste(gdouble x, gdouble y){
+
+}
+
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_entrada_sur(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_entrada_norte(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_entrada_este(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+	update_rect.width = 2*CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
+
+
+    //dibnujo el rectangulo
+	gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x,update_rect.y,update_rect.width-(CELDA_WIDTH/2),update_rect.height-1);
+	//dibujo la linea de salida
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(2*CELDA_WIDTH)-(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2),
+							  update_rect.x+(2*CELDA_WIDTH),update_rect.y+(CELDA_HEIGHT/2));
+
+	//linea vertical de la E
+	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+6,update_rect.y+2,update_rect.x+6,update_rect.y+10);
+	//lineas horizontales
+	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+6,update_rect.y+2,update_rect.x+12,update_rect.y+2);
+	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+6,update_rect.y+6,update_rect.x+12,update_rect.y+6);
+	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+6,update_rect.y+10,update_rect.x+12,update_rect.y+10);
+
+	//informa que la zona dada por update_rect debe actualizarse, el widget
+	//generara un evento de exposicion
+	gtk_widget_draw (drawing_area, &update_rect);
+
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_entrada_oeste(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;
+
+		update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+		update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+		update_rect.width = 2*CELDA_WIDTH; //ancho del rectangulo a redibujar
+		update_rect.height = CELDA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
+
+
+	    //dibnujo el rectangulo
+		gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x+6,update_rect.y,update_rect.width -(CELDA_WIDTH/2),update_rect.height-1);
+		//dibujo la linea de salida
+		gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
+								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+
+		//informa que la zona dada por update_rect debe actualizarse, el widget
+		//generara un evento de exposicion
+		gtk_widget_draw (drawing_area, &update_rect);
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_salida_sur(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_salida_norte(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_salida_este(gdouble x, gdouble y){
+
+}
+/*----------------------------------------------------------------------------*/
+
+void Grilla::draw_salida_oeste(gdouble x, gdouble y){
+	GdkRectangle update_rect;
+
+			update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+			update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+			update_rect.width = 2*CELDA_WIDTH+1; //ancho del rectangulo a redibujar
+			update_rect.height = CELDA_HEIGHT;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
+
+
+		    //dibnujo el rectangulo
+			gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x+6,update_rect.y,update_rect.width -(CELDA_WIDTH/2)-1,update_rect.height-1);
+			//dibujo la linea de salida
+			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
+									  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+
+			//informa que la zona dada por update_rect debe actualizarse, el widget
+			//generara un evento de exposicion
+			gtk_widget_draw (drawing_area, &update_rect);
 
 }
 /*----------------------------------------------------------------------------*/

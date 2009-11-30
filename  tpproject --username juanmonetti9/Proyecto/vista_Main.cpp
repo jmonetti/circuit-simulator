@@ -17,7 +17,7 @@ int main(int argc,char* argv[]){
 	Decorador_Menu menu(&scroll);
 	Decorador_Ventana ventana(&menu);
 	//TODO gronchada para darle el tamanio a la ventana
-	gtk_widget_set_usize(ventana.getWidget(),890,600);
+	gtk_widget_set_usize(ventana.getWidget(),890,650);
 	//fin TODO
 
 	Fachada_vista fachada(&ventana_interna);

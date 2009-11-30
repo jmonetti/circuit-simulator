@@ -12,6 +12,9 @@
 #include "Acciones/common_Accion_Drag_Drop.h"
 #include "Acciones/common_Accion_invertir_left.h"
 #include "Acciones/common_Accion_invertir_right.h"
+#include "Acciones/common_Accion_Draw_pista.h"
+#include "Acciones/common_Accion_new_entrada.h"
+#include "Acciones/common_Accion_new_salida.h"
 
 
 
@@ -187,12 +190,12 @@ void Controlador_Circuito::callback_Selector( GtkWidget *widget,gpointer callbac
 
 void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_data ){
 
-	//TODO
+
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_NULA(controlador));
+		controlador->agregar_accion(new Accion_Draw_pista(controlador));
 	}
 
 }
@@ -219,6 +222,29 @@ void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_
 	}
 
 }
+
+void Controlador_Circuito::callback_Entrada(GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->agregar_accion(new Accion_new_entrada(controlador));
+	}
+
+}
+
+void Controlador_Circuito::callback_Salida(GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->agregar_accion(new Accion_new_salida(controlador));
+	}
+
+}
+
 
 void Controlador_Circuito::callback_InvertirL( GtkWidget *widget,gpointer callback_data ){
 

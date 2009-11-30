@@ -11,7 +11,7 @@ Fachada_vista::Fachada_vista(Box_Ventana_Interna* ventana_int) {
 
 void Fachada_vista::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido){
 
-	ventana_interna->dibujar_compuerta(x,y,tipo,sentido);
+	ventana_interna->dibujar_componente(x,y,tipo,sentido);
 };
 
 

@@ -20,6 +20,8 @@
 #include "botones/common_Boton_InvertirL.h"
 #include "botones/common_Boton_Download.h"
 #include "botones/common_Boton_Upload.h"
+#include "botones/common_Boton_Salida.h"
+#include "botones/common_Boton_entrada.h"
 
 
 const int WIDTH_BOTONERA= 68;
@@ -44,6 +46,8 @@ private:
 	Boton_Simular simular;
 	Boton_Download download;
 	Boton_Upload upload;
+	Boton_entrada entrada;
+	Boton_Salida salida;
 
 
 public:
