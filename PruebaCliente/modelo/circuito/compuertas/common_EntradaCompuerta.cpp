@@ -1,7 +1,10 @@
 #include "common_EntradaCompuerta.h"
 #include "../../../excepciones/common_CircuitoException.h"
+#include "../../../excepciones/common_ConexionException.h"
 
 EntradaCompuerta::EntradaCompuerta() {
+
+	entrada= NULL;
 
 }
 
@@ -44,6 +47,12 @@ void EntradaCompuerta::rotar(SENTIDO sentido) {
 }
 
 void EntradaCompuerta::conectar(SalidaCompuerta* entrada) {
+
+	if (this->entrada) {
+
+		throw ConexionException("Entrada compuerta ya conectada");
+
+	}
 
 	this->entrada= entrada;
 

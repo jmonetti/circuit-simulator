@@ -19,6 +19,8 @@ private:
 	bool* generarEntradas(int i, unsigned int cantidadEntradas,const bool* entradasAnt);
 	std::vector<ResultadoSimulacion*>* calcularSimulacion(Circuito &circuito);
 	ResultadoTiempo* calcularTiempo(Circuito &circuito);
+
+	void vaciarResultadoSimulacion(std::vector<ResultadoSimulacion*>* resultado);
 };
 
 #endif /* COMMON_SIMULADOR_H_ */

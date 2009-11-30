@@ -32,6 +32,7 @@ public:
 	void guardarTablero();
 
 	void recuperarCircuito(std::string &ruta);
+	Resultado* simularActual();
 
 private:
 

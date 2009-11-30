@@ -4,6 +4,7 @@
 #include "common_Circuito.h"
 #include <iterator>
 #include "../../excepciones/common_CircuitoException.h"
+#include "../../excepciones/common_ConexionException.h"
 #include "common_ManagerConexiones.h"
 
 Circuito::Circuito(int id,const std::string &nombre) : nombre(nombre) {
@@ -45,7 +46,16 @@ bool* Circuito::simular(bool* entradas) {
 
 	for (unsigned int var = 0; var < salidas.size(); ++var) {
 
-		salidas[var]->simular();
+		try {
+
+			salidas[var]->simular();
+
+		} catch (CircuitoException e) {
+
+			delete[] retorno;
+
+			throw e;
+		}
 
 		retorno[var]= salidas[var]->getValor();
 
@@ -63,7 +73,18 @@ int* Circuito::calcularTiempoTransicion() {
 
 	for (unsigned int var = 0; var < salidas.size(); ++var) {
 
-		salidas[var]->calcularTiempoTransicion();
+		try {
+
+			salidas[var]->calcularTiempoTransicion();
+
+		} catch (CircuitoException e) {
+
+			delete[] retorno;
+
+			throw e;
+
+		}
+
 
 		retorno[var]= salidas[var]->getTiempoTransicion();
 
@@ -79,11 +100,25 @@ void Circuito::mover(int idCompuerta,Posicion posicion) {
 
 	if (compuerta) {
 
+		Posicion posicionAnterior= compuerta->getPosicion();
+
 		compuerta->mover(posicion);
 
 		ManagerConexiones::desconectar(compuerta);
 
-		verificarConexiones(compuerta);
+		try {
+
+			verificarConexiones(compuerta);
+
+		} catch (ConexionException e) {
+
+			compuerta->mover(posicion);
+			ManagerConexiones::desconectar(compuerta);
+			verificarConexiones(compuerta);
+
+			throw e;
+
+		}
 
 	}else {
 
@@ -100,11 +135,32 @@ void Circuito::rotar(int idCompuerta,DIRECCION direccion) {
 
 	if (compuerta) {
 
+		DIRECCION direccionContraria= DERECHA;
+
+		if (direccion == DERECHA) {
+
+			direccionContraria= IZQUIERDA;
+
+		}
+
 		compuerta->rotar(direccion);
 
 		ManagerConexiones::desconectar(compuerta);
 
-		verificarConexiones(compuerta);
+		try {
+
+			verificarConexiones(compuerta);
+
+		} catch (ConexionException e) {
+
+			compuerta->rotar(direccionContraria);
+			ManagerConexiones::desconectar(compuerta);
+			verificarConexiones(compuerta);
+
+			throw e;
+
+		}
+
 
 	}else {
 
@@ -115,6 +171,21 @@ void Circuito::rotar(int idCompuerta,DIRECCION direccion) {
 }
 
 void Circuito::agregarCompuerta(Compuerta* compuerta) {
+
+	try {
+
+		agregarEntradasCompuerta(compuerta);
+		agregarSalidasCompuerta(compuerta);
+
+	} catch (ConexionException e) {
+
+		eliminarEntradasCompuerta(compuerta);
+		eliminarSalidasCompuerta(compuerta);
+		delete compuerta;
+
+		throw e;
+
+	}
 
 	Entrada* entrada= compuerta->getEntrada();
 
@@ -137,9 +208,6 @@ void Circuito::agregarCompuerta(Compuerta* compuerta) {
 	compuertas.push_back(compuerta);
 
 	contadorCompuertas++;
-
-	agregarEntradasCompuerta(compuerta);
-	agregarSalidasCompuerta(compuerta);
 
 }
 
@@ -260,9 +328,10 @@ void Circuito::agregarEntradasCompuerta(Compuerta* compuerta) {
 
 	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
 
+		establecerConexion(entradas[var]);
+
 		entradasCompuerta.push_back(entradas[var]);
 
-		establecerConexion(entradas[var]);
 
 	}
 
@@ -274,9 +343,10 @@ void Circuito::agregarSalidasCompuerta(Compuerta* compuerta) {
 
 	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
 
+		establecerConexion(salidas[var]);
+
 		salidasCompuerta.push_back(salidas[var]);
 
-		establecerConexion(salidas[var]);
 
 	}
 
@@ -367,11 +437,7 @@ void Circuito::establecerConexion(SalidaCompuerta* salida) {
 
 		entrada= entradasCompuerta[var];
 
-		if (ManagerConexiones::conectar(entrada,salida)) {
-
-			return;
-
-		}
+		ManagerConexiones::conectar(entrada,salida);
 
 	}
 
@@ -420,8 +486,6 @@ void Circuito::eliminarEntradaCompuerta(EntradaCompuerta* entrada) {
 
 	}
 
-	throw CircuitoException("Error al eliminar entrada compuerta");
-
 }
 
 void Circuito::eliminarSalidaCompuerta(SalidaCompuerta* salida) {
@@ -442,10 +506,6 @@ void Circuito::eliminarSalidaCompuerta(SalidaCompuerta* salida) {
 		}
 
 	}
-
-	throw CircuitoException("Error al eliminar salida compuerta");
-
-
 
 }
 
@@ -468,8 +528,6 @@ void Circuito::eliminarEntrada(Entrada* entrada) {
 
 	}
 
-	throw CircuitoException("Error al eliminar entrada");
-
 }
 
 void Circuito::eliminarSalida(Salida* salida) {
@@ -490,8 +548,6 @@ void Circuito::eliminarSalida(Salida* salida) {
 		}
 
 	}
-
-	throw CircuitoException("Error al eliminar salida");
 
 }
 
