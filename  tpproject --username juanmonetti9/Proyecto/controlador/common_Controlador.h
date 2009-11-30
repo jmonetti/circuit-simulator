@@ -9,6 +9,7 @@
 #include "../common/constantes.h"
 #include "Acciones/common_Accion_NULA.h"
 #include "Acciones/common_Accion.h"
+#include "../modelo/common_ModeloCliente.h"
 
 class Controlador {
 
@@ -16,6 +17,7 @@ private:
 
 	//Atributos
 	Modelo_vista_circuito matriz; //matriz que representa el modelo
+	ModeloCliente* modeloCliente; //modelo que representa el cliente
 	Fachada_vista* fachada_vista;
 	Accion* accion;
 	bool arrstre_activo;
@@ -27,7 +29,7 @@ private:
 
 
 	//Constructor privado
-	Controlador(Fachada_vista* fachada);
+	Controlador(Fachada_vista* fachada,ModeloCliente *modeloCliente);
 
 public:
 
@@ -53,7 +55,7 @@ public:
 
 	bool get_arrastre_activo()const;
 
-	static Controlador* crear_instancia(Fachada_vista* fachada);
+	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
 
 	static Controlador* get_instancia();
 
