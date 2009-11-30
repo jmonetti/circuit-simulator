@@ -9,10 +9,11 @@ typedef std::list<Celda*>::const_iterator LI;//iterador de la lista
 
 Celda::Celda(Modelo_vista_circuito* _grilla,unsigned int _fila,unsigned int _col){
 
-	grilla=_grilla;
-	fila= _fila;
-	colum=_col;
-	estado=T_VACIA;
+	estado= T_VACIA;
+	sentido= ESTE;
+	grilla= _grilla;
+	fila=  _fila;
+	colum= _col;
 }
 
 void Celda::eliminar_componente(){
@@ -25,8 +26,54 @@ void Celda::eliminar_componente(){
 	}
 
 }
+void Celda::set_sentido(SENTIDO _sentido){
+
+	sentido= _sentido;
+}
 
 
+void Celda::rotar_lef(){
+
+	Celda* celda=grilla->get_celda(fila_padre,colum_padre);
+
+	if(esta_ocupada() && celda){
+
+		switch(celda->get_sentido()){
+
+		case NORTE: celda->set_sentido(OESTE);
+					break;
+		case OESTE: celda->set_sentido(SUR);
+					break;
+		case SUR: celda->set_sentido(ESTE);
+					break;
+		case ESTE: celda->set_sentido(NORTE);
+					break;
+
+		}
+	}
+}
+
+void Celda::rotar_right(){
+
+	Celda* celda=grilla->get_celda(fila_padre,colum_padre);
+
+	if(esta_ocupada() && celda){
+
+		switch(celda->get_sentido()){
+
+		case NORTE: celda->set_sentido(ESTE);
+					break;
+		case ESTE: celda->set_sentido(SUR);
+					break;
+		case SUR: celda->set_sentido(OESTE);
+					break;
+		case OESTE: celda->set_sentido(NORTE);
+					break;
+
+		}
+	}
+
+}
 bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo){
 
 	bool agregada=true;
@@ -37,6 +84,7 @@ bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo){
 
 		if(agregada){
 			set_info_padre(fila,colum);
+			set_sentido(ESTE);
 			ocupar_celda(tipo);
 		}
 
@@ -109,6 +157,16 @@ int Celda::get_colum()const{
 	return colum;
 }
 
+int Celda::get_id()const{
+
+	return ID;
+}
+
+SENTIDO Celda::get_sentido()const{
+
+	return sentido;
+}
+
 void Celda::vaciar_entorno(){
 
 	bool vacia = entorno.empty();
@@ -117,6 +175,8 @@ void Celda::vaciar_entorno(){
 		Celda* aux;
 		do{
 			aux = entorno.back();
+			aux->set_info_padre(0,0);
+			aux->desocupar_celda();
 			entorno.pop_back();
 			vacia=entorno.empty();
 		}while(!vacia);
@@ -135,15 +195,16 @@ void Celda::desocupar_celda(){
 		vaciar_entorno();
 
 	}
-	g_print("Desocupo celda (%d,%d)\n",this->fila,this->colum);
-	estado=T_VACIA;
-	fila_padre=0;
-	colum_padre=0;
+	estado= T_VACIA;
+	ID=0;
+	sentido= ESTE;
+	fila_padre= 0;
+	colum_padre= 0;
 }
 
 void Celda::set_info_padre(int fila, int columna){
 
-	if(fila>=1 && columna>=1){
+	if(fila>=0 && columna>=0){
 		colum_padre=columna;
 		fila_padre=fila;
 	}
@@ -152,12 +213,11 @@ void Celda::set_info_padre(int fila, int columna){
 TIPO_COMPUERTA Celda::get_tipo_celda()const{
 
 	return estado;
-
 }
 
 bool Celda::esta_ocupada(){
 
-	if(estado==T_VACIA){
+	if(estado == T_VACIA){
 		return false;
 	}
 	else

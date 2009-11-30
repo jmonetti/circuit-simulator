@@ -41,9 +41,15 @@ public:
 
 	Celda* get_celda(int fila,int colum);
 
+	Celda* get_celda_px(int x,int y);
+
 	int de_pixel_a_fila(int x);
 
 	int de_pixel_a_col(int y);
+
+	int de_fila_a_pixel(int fila);
+
+	int de_col_a_pixel(int col);
 
 	virtual ~Modelo_vista_circuito();
 };

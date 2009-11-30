@@ -10,6 +10,8 @@
 #include "Acciones/common_Accion_Draw_OR.h"
 #include "Acciones/common_Accion_Borrar.h"
 #include "Acciones/common_Accion_Drag_Drop.h"
+#include "Acciones/common_Accion_invertir_left.h"
+#include "Acciones/common_Accion_invertir_right.h"
 
 
 
@@ -219,23 +221,23 @@ void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_
 }
 
 void Controlador_Circuito::callback_InvertirL( GtkWidget *widget,gpointer callback_data ){
-	//TODO
+
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_NULA(controlador));
+		controlador->agregar_accion(new Accion_invertir_left(controlador));
 	}
 }
 
 void Controlador_Circuito::callback_InvertirR( GtkWidget *widget,gpointer callback_data ){
 
-	//TODO
+
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_NULA(controlador));
+		controlador->agregar_accion(new Accion_invertir_right(controlador));
 	}
 }
 
@@ -247,9 +249,10 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
   if (event->button == 1 ){
 	  // si es el boton izq del raton
 	  Controlador* controlador=Controlador::get_instancia();
-
-	  if(controlador)
-		  controlador->ejecutar_accion(event->x,event->y);
+	  int x=event->x;
+	  int y=event->y;
+	   if(controlador)
+		  controlador->ejecutar_accion(x,y);
 
   }
  /* if (event->button == 3 ){
