@@ -12,19 +12,19 @@ class FactoryCompuerta {
 
 public:
 
-	static void crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion,SENTIDO sentido);
+	static int crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion,SENTIDO sentido);
 
-	static void crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
+	static int crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
 
-	static void crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
+	static int crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
 
 private:
 
-	static void crearAND(Circuito &circuito,Posicion posicion, SENTIDO sentido);
-	static void crearOR(Circuito &circuito,Posicion posicion, SENTIDO sentido);
-	static void crearNOT(Circuito &circuito,Posicion posicion, SENTIDO sentido);
-	static void crearXOR(Circuito &circuito,Posicion posicion, SENTIDO sentido);
-	static void crearPISTA(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static int crearAND(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static int crearOR(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static int crearNOT(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static int crearXOR(Circuito &circuito,Posicion posicion, SENTIDO sentido);
+	static int crearPISTA(Circuito &circuito,Posicion posicion, SENTIDO sentido);
 
 };
 

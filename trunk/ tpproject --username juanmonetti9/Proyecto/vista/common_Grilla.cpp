@@ -45,8 +45,6 @@ Grilla::Grilla() {
 	gtk_box_pack_start (GTK_BOX (box_size_pestania_uno), drawing_area, false,false,false);
 	gtk_box_pack_start (GTK_BOX (box_pestania_uno),box_size_pestania_uno, false,false,false);
 
-	//Completo la tabla logica
-	tablaLogica.completar();
 	//incluyo las las pestanias a la notebook
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook),box_pestania_uno,tab_pestania_uno);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), tablaLogica.getWidget(),tab_pestania_dos);
@@ -109,6 +107,10 @@ void Grilla::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event){
 
 }
 
+void Grilla::completar_tabla(Resultado* resultado){
+
+	tablaLogica.completar(resultado);
+}
 /*----------------------------------------------------------------------------*/
 
 void Grilla::exponer_pixmap (GtkWidget *widget, GdkEventExpose *event){
@@ -396,6 +398,24 @@ void Grilla::draw_salida_norte(gdouble x, gdouble y){
 
 void Grilla::draw_salida_este(gdouble x, gdouble y){
 
+	GdkRectangle update_rect;
+
+	update_rect.x = x -CELDA_WIDTH-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+	update_rect.width = 2*CELDA_WIDTH+1; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_HEIGHT;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
+
+
+	//dibnujo el rectangulo
+	gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x+6,update_rect.y,18,11);
+	//dibujo la linea de salida
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+6,
+							  update_rect.x+6,update_rect.y+6);
+
+	//informa que la zona dada por update_rect debe actualizarse, el widget
+	//generara un evento de exposicion
+	gtk_widget_draw (drawing_area, &update_rect);
+
 }
 /*----------------------------------------------------------------------------*/
 
@@ -444,27 +464,7 @@ void Grilla::draw_NOT_sur(gdouble x, gdouble y){
 }
 
 
-/**
- 1.	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
- 2.	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
- 3.	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
- 4.	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
- 5.	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
 
- 6.	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),
-	 						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
- 7.	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-	 	  						  update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
- 8.	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-	  						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
- 9.	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
-	 						  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
- 10. gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
-	 						   update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
- 11. gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-	 					  update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
- 12. gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-*/
 void Grilla::draw_NOT_oeste(gdouble x, gdouble y){
 
 	 GdkRectangle update_rect;

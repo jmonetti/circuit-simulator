@@ -25,6 +25,12 @@ void Box_Ventana_Interna::agregar_AreaDisenio(){
 	scroll_grilla.show();
 
 }
+
+void Box_Ventana_Interna::completar_tabla_actual(Resultado* resultado){
+
+	grilla.completar_tabla(resultado);
+
+}
 /*----------------------------------------------------------------------------*/
 
 void Box_Ventana_Interna::show(){

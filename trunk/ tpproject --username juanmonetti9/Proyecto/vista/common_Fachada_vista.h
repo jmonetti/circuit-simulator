@@ -8,6 +8,7 @@
 #include "common_Box_Ventana_Interna.h"
 #include <gtkmm.h>
 #include "../common/constantes.h"
+#include "../modelo/simulacion/common_Resultado.h"
 
 class Fachada_vista {
 
@@ -21,6 +22,8 @@ public:
 	Fachada_vista(Box_Ventana_Interna* ventata_int);
 
 	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido);
+
+	void completar_grilla(Resultado* resultado);
 
 	void activar_dnd();
 

@@ -36,7 +36,7 @@ public:
 
 	void agregar_AreaDisenio();
 
-
+	void completar_tabla_actual(Resultado* resultado);
 
 	/**
 	 * Muestra el componente Visual

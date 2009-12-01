@@ -27,7 +27,7 @@ public:
 
 	void mover(int idCompuerta,Posicion posicion);
 
-	void agregarCompuerta(Compuerta* compuerta);
+	int agregarCompuerta(Compuerta* compuerta);
 
 	void eliminarCompuerta(int idCompuerta);
 

@@ -170,7 +170,7 @@ void Circuito::rotar(int idCompuerta,DIRECCION direccion) {
 
 }
 
-void Circuito::agregarCompuerta(Compuerta* compuerta) {
+int Circuito::agregarCompuerta(Compuerta* compuerta) {
 
 	try {
 
@@ -209,6 +209,7 @@ void Circuito::agregarCompuerta(Compuerta* compuerta) {
 
 	contadorCompuertas++;
 
+	return contadorCompuertas - 1;
 }
 
 void Circuito::eliminarCompuerta(int idCompuerta) {
@@ -359,7 +360,7 @@ Compuerta* Circuito::obtenerCompuerta(int idCompuerta) {
 
 		if (compuertas[var] -> getId() == idCompuerta) {
 
-			return entradas[var];
+			return compuertas[var];
 
 		}
 
@@ -418,11 +419,7 @@ void Circuito::establecerConexion(EntradaCompuerta* entrada) {
 
 		salida= salidasCompuerta[var];
 
-		if (ManagerConexiones::conectar(entrada,salida)) {
-
-			return;
-
-		}
+		ManagerConexiones::conectar(entrada,salida);
 
 	}
 

@@ -20,6 +20,13 @@ void Fachada_vista::activar_dnd(){
 	ventana_interna->connect_dnd();
 }
 
+void Fachada_vista::completar_grilla(Resultado* resultado){
+
+	ventana_interna->completar_tabla_actual(resultado);
+
+
+}
+
 void Fachada_vista::desactivar_dnd(){
 
 	ventana_interna->disconnect_dnd();
