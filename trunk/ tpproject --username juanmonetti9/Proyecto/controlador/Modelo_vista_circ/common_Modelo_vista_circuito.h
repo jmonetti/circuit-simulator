@@ -32,11 +32,11 @@ public:
 
 	Modelo_vista_circuito();
 
-	bool agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo,int id);
+	bool agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido);
 
-	bool agregar_entrada(int* x,int* y,int id);
+	bool agregar_entrada(int* x,int* y,int id,SENTIDO sentido);
 
-	bool agregar_salida(int* x,int* y,int id);
+	bool agregar_salida(int* x,int* y,int id,SENTIDO sentido);
 
 	bool hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo);
 

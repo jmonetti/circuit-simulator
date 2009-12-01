@@ -96,7 +96,7 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 
 }
 
-bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo,int id){
+bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido){
 
 	bool agregada=true;
 
@@ -111,13 +111,13 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
 
-	agregada=aux->agregar_compuerta(_tipo,id);
+	agregada=aux->agregar_compuerta(_tipo,id,sentido);
 
 
 	return agregada;
 }
 
-bool Modelo_vista_circuito::agregar_entrada(int* x,int* y,int id){
+bool Modelo_vista_circuito::agregar_entrada(int* x,int* y,int id,SENTIDO sentido){
 
 	bool agregada;
 	//ubico la fila y col que corresponda y centro los valorees de *x e *y
@@ -129,13 +129,13 @@ bool Modelo_vista_circuito::agregar_entrada(int* x,int* y,int id){
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
-	agregada=aux->agregar_entrada(id);
+	agregada=aux->agregar_entrada(id,sentido);
 
 	return agregada;
 
 }
 
-bool Modelo_vista_circuito::agregar_salida(int* x,int* y,int id){
+bool Modelo_vista_circuito::agregar_salida(int* x,int* y,int id,SENTIDO sentido){
 
 	bool agregada;
 	//ubico la fila y col que corresponda y centro los valorees de *x e *y
@@ -150,7 +150,7 @@ bool Modelo_vista_circuito::agregar_salida(int* x,int* y,int id){
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
 
-	agregada=aux->agregar_salida(id);
+	agregada=aux->agregar_salida(id,sentido);
 
 	return agregada;
 

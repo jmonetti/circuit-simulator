@@ -293,6 +293,12 @@ std::vector<Salida*>& Circuito::getSalidas() {
 
 }
 
+std::vector<Compuerta*>& Circuito::getCompuertas() {
+
+	return compuertas;
+
+}
+
 int Circuito::getId() const{
 
 	return id;

@@ -45,6 +45,8 @@ public:
 
 	std::vector<Salida*>& getSalidas();
 
+	std::vector<Compuerta*>& getCompuertas();
+
 	int getId() const;
 
 	std::string getNombre() const;

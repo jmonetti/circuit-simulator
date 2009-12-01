@@ -21,9 +21,11 @@ void Controlador_Archivo::callback_nuevo(GtkWidget *widget, gpointer callback_da
 
 void Controlador_Archivo::callback_abrir(GtkWidget *widget, gpointer callback_data ){
 
-	//TODO
-	g_print("Abrir\n");
-	//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->abrir_circuito();
+	}
+
 }
 
 void Controlador_Archivo::callback_guardar(GtkWidget *widget, gpointer callback_data ){

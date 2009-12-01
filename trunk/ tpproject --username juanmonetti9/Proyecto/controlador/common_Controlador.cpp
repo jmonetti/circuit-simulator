@@ -90,7 +90,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 		try {
 			Posicion posicion(matrizActual->de_pixel_a_col(_x),matrizActual->de_pixel_a_fila(_y));
 			modeloCliente->mover(celda_origen->get_id(),posicion);
-			agregadoVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,celda_origen->get_id());
+			agregadoVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,celda_origen->get_id(),celda_origen->get_sentido());
 
 		} catch (ConexionException e) {
 
@@ -118,7 +118,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 }
 /*----------------------------------------------------------------------------*/
 
-void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
+void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido){
 
 	int _x=x;
 	int _y=y;
@@ -134,8 +134,8 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						std::string nom="";
-						id= modeloCliente->agregarEntrada(posicion,nom,ESTE);
-						agregadaVista=matrizActual->agregar_entrada(&_x,&_y,id);
+						id= modeloCliente->agregarEntrada(posicion,nom,sentido);
+						agregadaVista=matrizActual->agregar_entrada(&_x,&_y,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
@@ -154,10 +154,8 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						std::string nom="";
-						id= modeloCliente->agregarSalida(posicion,nom,ESTE);
-						g_print("(%d,%d)\n",_x,_y);
-						agregadaVista= matrizActual->agregar_salida(&_x,&_y,id);
-						g_print("(%d,%d)\n",_x,_y);
+						id= modeloCliente->agregarSalida(posicion,nom,sentido);
+						agregadaVista= matrizActual->agregar_salida(&_x,&_y,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
@@ -178,9 +176,9 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 					try {
 
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
-						id= modeloCliente->agregarCompuerta(_tipo,posicion,ESTE);
+						id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
 
-						agregadaVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,id);
+						agregadaVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
@@ -296,7 +294,15 @@ void Controlador::desconectar_drag_drop(){
 
 void Controlador::guardar(){
 
-	modeloCliente->guardar();
+	try {
+
+		modeloCliente->guardar();
+
+	} catch (CircuitoException e) {
+
+		g_print("No hay circuito para guardar\n");
+
+	}
 
 }
 
@@ -341,6 +347,22 @@ void Controlador::eliminar_circuito(){
 
 }
 
+void Controlador::abrir_circuito() {
+
+	std::string nombre= "Circuito";
+	Circuito* circuito= modeloCliente->recuperar(nombre);
+
+	fachada_vista->agregar_grilla(circuito->getId());
+
+	matrizActual= new Modelo_vista_circuito();
+	matrices.insert(make_pair(circuito->getId(),matrizActual));
+
+	generarCircuito(circuito);
+
+
+}
+
+
 void Controlador::simular(){
 
 	try {
@@ -350,7 +372,7 @@ void Controlador::simular(){
 
 	} catch (CircuitoException e) {
 
-		g_print("No se pudo simular");
+		g_print("No se pudo simular\n");
 
 	}
 
@@ -372,4 +394,44 @@ Controlador::~Controlador() {
 	delete(accion);
 	}
 
+}
+
+void Controlador::generarCircuito(Circuito* circuito) {
+
+	std::vector<Compuerta*> compuertas= circuito->getCompuertas();
+
+	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+		Compuerta* compuerta= compuertas[var];
+		Posicion posicion= compuerta->getPosicion();
+
+		int x= matrizActual->de_col_a_pixel(posicion.getX());
+		int y= matrizActual->de_fila_a_pixel(posicion.getY());
+
+		if (compuerta -> getEntrada()) {
+
+			matrizActual->agregar_entrada(&x,&y,compuerta->getId(),compuerta->getSentido());
+
+
+		}else if (compuerta -> getSalida()) {
+
+			matrizActual->agregar_salida(&x,&y,compuerta->getId(),compuerta->getSentido());
+
+		}else {
+
+			if (compuerta->getTipo() == T_PISTA) {
+
+
+			}else {
+
+				matrizActual->agregar_compuerta(&x,&y,compuerta->getTipo(),compuerta->getId(),compuerta->getSentido());
+
+
+			}
+
+		}
+
+		fachada_vista->dibujar_componente(x,y,compuerta->getTipo(),compuerta->getSentido());
+
+	}
 }
