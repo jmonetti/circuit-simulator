@@ -9,7 +9,7 @@
 #include <iostream>
 #include "modelo/common_ModeloCliente.h"
 
-class ModeloCliente;
+
 
 int main(int argc,char* argv[]){
 
@@ -20,13 +20,13 @@ int main(int argc,char* argv[]){
 	Decorador_Scroll scroll(&box_Ventana);
 	Decorador_Menu menu(&scroll);
 	Decorador_Ventana ventana(&menu);
-	//TODO gronchada para darle el tamanio a la ventana
+
 	gtk_widget_set_usize(ventana.getWidget(),890,650);
-	//fin TODO
+
 
 	Fachada_vista fachada(&ventana_interna);
-	ModeloCliente* modeloCliente= new ModeloCliente();
-	Controlador* controlador=Controlador::crear_instancia(&fachada,modeloCliente);
+	ModeloCliente modeloCliente;
+	Controlador* controlador=Controlador::crear_instancia(&fachada,&modeloCliente);
 	ventana.show();
 
 
@@ -34,7 +34,6 @@ int main(int argc,char* argv[]){
 
 	//libero la memoria reservada para el controlador
 	delete controlador;
-	delete modeloCliente;
 
 	return 0;
 }

@@ -1,6 +1,7 @@
 /**************************   Clase Controlador         *************/
 /**************************   	Grupo 8                 *************/
 #include "common_Controlador.h"
+#include <string>
 
 
 /*----------------------------------------------------------------------------*/
@@ -15,6 +16,8 @@ Controlador::Controlador(Fachada_vista* fachada, ModeloCliente *modeloCliente) {
 	accion=new Accion_NULA(this);
 	arrstre_activo=false;
 	this->modeloCliente= modeloCliente;
+	std::string nombre="Circuito";
+	modeloCliente->crearNuevo(nombre);//TODO
 
 }
 
@@ -104,7 +107,9 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 	switch(_tipo){
 
-	case T_ENTRADA:	{agregada=matriz.agregar_entrada(&_x,&_y);
+	case T_ENTRADA:	{
+
+					agregada=matriz.agregar_entrada(&_x,&_y);
 					celda=matriz.get_celda_px(_x,_y);
 					break;}
 	case T_SALIDA:	{agregada= matriz.agregar_salida(&_x,&_y);
