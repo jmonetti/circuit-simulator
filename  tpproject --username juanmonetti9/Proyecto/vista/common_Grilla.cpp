@@ -5,7 +5,7 @@
 
 
 
-Grilla::Grilla(int id){
+Grilla::Grilla(int id) : scrollDisenio(&areaDisenio),scrollTabla(&tablaLogica){
 
 	//Creo la caja que contendra la notebook
 	box_notebook= gtk_hbox_new(false,0);
@@ -18,21 +18,20 @@ Grilla::Grilla(int id){
 	tab_pestania_dos= gtk_label_new ("Tabla logica");
 
 	//incluyo las las pestanias a la notebook
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook),areaDisenio.getWidget(),tab_pestania_uno);
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), tablaLogica.getWidget(),tab_pestania_dos);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook),scrollDisenio.getWidget(),tab_pestania_uno);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), scrollTabla.getWidget(),tab_pestania_dos);
 
 	this->id= id;
 }
 
 void Grilla::show() {
 
+	scrollDisenio.show();
+	scrollTabla.show();
 	gtk_widget_show(box_notebook);
 	gtk_widget_show(notebook);
 	gtk_widget_show(tab_pestania_uno);
 	gtk_widget_show(tab_pestania_dos);
-	areaDisenio.show();
-	tablaLogica.show();
-
 
 
 
