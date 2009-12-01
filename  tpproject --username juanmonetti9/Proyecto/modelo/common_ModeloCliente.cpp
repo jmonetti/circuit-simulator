@@ -4,8 +4,6 @@
 #include "circuito/common_FactoryCompuerta.h"
 #include "../excepciones/common_CircuitoException.h"
 
-#include <iostream>
-
 ModeloCliente::ModeloCliente() {
 
 	contadorId= 0;
@@ -79,14 +77,14 @@ int ModeloCliente::agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTID
 
 int ModeloCliente::agregarEntrada(Posicion posicion, const string &nombre, SENTIDO sentido) {
 
-	std::cout<<"agregarentrada"<<std::endl;
+
 	return FactoryCompuerta::crearEntrada(*circuitoActual,posicion,nombre,sentido);
 
 }
 
 int ModeloCliente::agregarSalida(Posicion posicion, const string &nombre, SENTIDO sentido) {
 
-	std::cout<<"agregarsalida"<<std::endl;
+
 	return FactoryCompuerta::crearSalida(*circuitoActual,posicion,nombre,sentido);
 
 }
@@ -103,7 +101,13 @@ void ModeloCliente::eliminarCompuerta(int idCompuerta) {
 
 Resultado* ModeloCliente::simular() {
 
-	return simulador.simular(*circuitoActual);
+	if (circuitoActual) {
+
+		return simulador.simular(*circuitoActual);
+
+	}
+
+	throw CircuitoException("No existe circuito para simular");
 
 }
 
@@ -120,8 +124,6 @@ void ModeloCliente::mover(int idCompuerta,Posicion posicion) {
 }
 
 void ModeloCliente::guardar() {
-
-	std::cout<<"guardar"<<std::endl;
 
 	persistencia.guardar(*circuitoActual);
 

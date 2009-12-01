@@ -27,8 +27,32 @@ void Fachada_vista::completar_grilla(Resultado* resultado){
 
 }
 
+void Fachada_vista::agregar_grilla(int id){
+
+	ventana_interna->agregar_grilla(id);
+
+}
+
+int Fachada_vista::cambiar_grilla(int index){
+
+	return ventana_interna->cambiar_grilla_actual(index);
+
+}
+
+void Fachada_vista::eliminar_grilla(){
+
+	ventana_interna->eliminar_grilla_actual();
+
+}
+
 void Fachada_vista::desactivar_dnd(){
 
 	ventana_interna->disconnect_dnd();
+
+}
+
+int Fachada_vista::getIdActual() const{
+
+	return ventana_interna->getGrillaActual();
 
 }

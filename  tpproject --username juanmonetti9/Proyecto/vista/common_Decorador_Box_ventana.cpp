@@ -17,6 +17,7 @@ Decorador_Box_ventana::Decorador_Box_ventana(Componente_Visual* componente):Deco
 	//Creo y agrego el boton de cierre de ventanas
 	gtk_box_pack_start(GTK_BOX (_box_ventana),boton_close_pestania.get_Box_Widget(),false,true,false);
 
+	boton_close_pestania.conectar();
 
 }
 

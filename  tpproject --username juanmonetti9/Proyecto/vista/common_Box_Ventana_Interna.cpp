@@ -2,8 +2,9 @@
 /**************************   Grupo 8                     *********************/
 
 #include "common_Box_Ventana_Interna.h"
+#include "../controlador/common_Controladores_Archivo.h"
 
-Box_Ventana_Interna::Box_Ventana_Interna():scroll_grilla(&grilla){
+Box_Ventana_Interna::Box_Ventana_Interna(){
 
 	//Creo el box de la ventana
 	_box_ventana= gtk_hbox_new(false,0);
@@ -11,26 +12,74 @@ Box_Ventana_Interna::Box_Ventana_Interna():scroll_grilla(&grilla){
 	//Creo la notebook y la incluyo en la caja
 	noteb= gtk_notebook_new();
 	gtk_notebook_set_tab_pos((GtkNotebook*)noteb,GTK_POS_RIGHT);
+
+	//conecto la senial de cambio de pestania
+	gtk_signal_connect (GTK_OBJECT (noteb), "switch-page",
+							  (GtkSignalFunc)Controlador_Archivo::callback_cambiar_pestania, NULL);
 	gtk_container_add (GTK_CONTAINER (_box_ventana),noteb);
-	//agrego un area de disenio
-	agregar_AreaDisenio();
+	actual= NULL;
+
 }
 /*----------------------------------------------------------------------------*/
 
-void Box_Ventana_Interna::agregar_AreaDisenio(){
+int Box_Ventana_Interna::getGrillaActual() const {
 
-
-	GtkWidget* label_grilla= gtk_label_new ("Circuito");
-	gtk_notebook_append_page (GTK_NOTEBOOK (noteb),scroll_grilla.getWidget(),label_grilla);
-	scroll_grilla.show();
+	return actual->getId();
 
 }
+
+void Box_Ventana_Interna::agregar_grilla(int id){
+
+
+	Grilla* nueva_grilla=new Grilla(id);
+	_grillas.push_back(nueva_grilla);
+	nueva_grilla->show();
+	GtkWidget* label_grilla= gtk_label_new ("Circuito");
+	gtk_notebook_append_page(GTK_NOTEBOOK (noteb),nueva_grilla->getWidget(),label_grilla);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK (noteb),_grillas.size()-1);
+	actual=nueva_grilla;
+
+}
+
+void Box_Ventana_Interna::eliminar_grilla_actual(){
+
+	gint page_num =gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));
+	gtk_notebook_remove_page(GTK_NOTEBOOK(noteb), page_num);
+	eliminarGrilla(page_num);
+
+	page_num =gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));
+
+	if (page_num >= 0) {
+
+		actual= _grillas[page_num];
+
+	}else {
+
+		actual= NULL;
+	}
+
+
+}
+
+int Box_Ventana_Interna::cambiar_grilla_actual(int index){
+
+	actual = _grillas[index];
+
+	return actual->getId();
+
+}
+
 
 void Box_Ventana_Interna::completar_tabla_actual(Resultado* resultado){
 
-	grilla.completar_tabla(resultado);
+	if (actual) {
+
+		actual->completar_tabla(resultado);
+
+	}
 
 }
+
 /*----------------------------------------------------------------------------*/
 
 void Box_Ventana_Interna::show(){
@@ -45,29 +94,14 @@ void Box_Ventana_Interna::escalar(int _fa){
 
 }
 
-void Box_Ventana_Interna::eliminar_pestania_actual(){
-
-	gint page_num =gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));
-	gtk_notebook_remove_page(GTK_NOTEBOOK(noteb), page_num);
-
-}
-
-void Box_Ventana_Interna::agregar_pestania(){
-	//TODO agregar a una lista de paginas o something
-	void gtk_notebook_prepend_page( GtkNotebook *notebook,
-	                                GtkWidget   *child,
-	                                GtkWidget   *tab_label );
-
-}
-
 void Box_Ventana_Interna::connect_dnd(){
 
-	grilla.conectar_DnD();
+	actual->connect_DnD();
 }
 
 void Box_Ventana_Interna::disconnect_dnd(){
 
-	grilla.desconectar_DnD();
+	actual->disconnect_DnD();
 }
 
 void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido){
@@ -75,37 +109,42 @@ void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA 
 	switch(tipo){
 
 	case T_XOR:	{
-				grilla.draw_XOR(x,y,sentido);
+				actual->draw_XOR(x,y,sentido);
 				break;
 	}
 	case T_AND:	{
-				grilla.draw_AND(x,y,sentido);
+				actual->draw_AND(x,y,sentido);
 				break;
 	}
 	case T_NOT:	{
-				grilla.draw_NOT(x,y,sentido);
+				actual->draw_NOT(x,y,sentido);
 				break;
 	}
 	case T_OR: {
-				grilla.draw_OR(x,y,sentido);
+				actual->draw_OR(x,y,sentido);
 				break;
 	}
 	case T_VACIA:{
-				grilla.draw_Borrar_compuerta(x,y,sentido);
+				actual->draw_borrar(x,y,sentido);
 				break;
 	}
 	case T_ENTRADA:{
-				grilla.draw_entrada(x,y,sentido);
+				actual->draw_entrada(x,y,sentido);
 				break;
 	}
 	case T_PISTA:{
-				grilla.draw_pista(x,y,sentido);
+				actual->draw_pista(x,y,sentido);
 				break;
 	}
 	case T_SALIDA:{
-				grilla.draw_salida(x,y,sentido);
+				actual->draw_salida(x,y,sentido);
 				break;
 	}
+	case T_CAJANEGRA:{
+				/*actual->draw_salida(x,y,sentido);TODO*/
+				break;
+	}
+
 
 	}
 
@@ -118,3 +157,41 @@ GtkWidget* Box_Ventana_Interna::getWidget(){
 	return _box_ventana;
 }
 /*----------------------------------------------------------------------------*/
+
+Box_Ventana_Interna::~Box_Ventana_Interna(){
+
+	std::vector<Grilla*>::iterator iterador= _grillas.begin();
+
+	while( iterador != _grillas.end()) {
+
+		delete *iterador;
+
+		++iterador;
+
+	}
+
+}
+
+void Box_Ventana_Interna::eliminarGrilla(int index) {
+
+	std::vector<Grilla*>::iterator iterador= _grillas.begin();
+	int i= 0;
+
+	while ( iterador != _grillas.end() ) {
+
+		if (i == index) {
+
+			delete *iterador;
+			_grillas.erase(iterador);
+			break;
+
+		}else {
+			++i;
+			++iterador;
+
+		}
+	}
+
+}
+
+

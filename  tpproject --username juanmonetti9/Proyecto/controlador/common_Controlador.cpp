@@ -19,8 +19,7 @@ Controlador::Controlador(Fachada_vista* fachada, ModeloCliente *modeloCliente) {
 	accion=new Accion_NULA(this);
 	arrstre_activo=false;
 	this->modeloCliente= modeloCliente;
-	std::string nombre="Circuito";
-	modeloCliente->crearNuevo(nombre);//TODO
+	matrizActual= NULL;
 
 }
 
@@ -37,7 +36,6 @@ void Controlador::agregar_accion(Accion* nueva_accion){
 
 void Controlador::ejecutar_accion(gdouble x,gdouble y){
 
-		g_print("AGREGARENTRADAqqqqq\n");
 	if(accion) {
 		accion->ejecutar(x,y);
 	}
@@ -80,19 +78,19 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 	int _pos_y=pos_y;
 	TIPO_COMPUERTA _tipo;
 
-	if(matriz.hay_componente(&_pos_x,&_pos_y,&_tipo)){
+	if(matrizActual->hay_componente(&_pos_x,&_pos_y,&_tipo)){
 
 		//obtengo la celda origen para obtener el sentido
-		Celda* celda_origen=matriz.get_celda_px(_pos_x,_pos_y);
+		Celda* celda_origen=matrizActual->get_celda_px(_pos_x,_pos_y);
 		//intento agregar la compuerta en la celda destino
 
 		bool agregadoModelo= true;
 		bool agregadoVista= true;
 
 		try {
-			Posicion posicion(matriz.de_pixel_a_col(_x),matriz.de_pixel_a_fila(_y));
+			Posicion posicion(matrizActual->de_pixel_a_col(_x),matrizActual->de_pixel_a_fila(_y));
 			modeloCliente->mover(celda_origen->get_id(),posicion);
-			agregadoVista= matriz.agregar_compuerta(&_x,&_y,_tipo,celda_origen->get_id());
+			agregadoVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,celda_origen->get_id());
 
 		} catch (ConexionException e) {
 
@@ -102,15 +100,15 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 
 		if(agregadoVista && agregadoModelo){
 			//obtengo la celda destino para intentar agregar la compuerta
-			Celda* celda_destino=matriz.get_celda_px(_x,_y);
+			Celda* celda_destino=matrizActual->get_celda_px(_x,_y);
 
 			celda_destino->set_sentido(celda_origen->get_sentido());
 			fachada_vista->dibujar_componente(_x, _y,_tipo,celda_destino->get_sentido());
-			matriz.eliminar_componente(_pos_x,_pos_y);
+			matrizActual->eliminar_componente(_pos_x,_pos_y);
 			fachada_vista->dibujar_componente(_pos_x,_pos_y,T_VACIA,celda_origen->get_sentido());
 		}else if (!agregadoVista) {
 
-			Posicion posicion(matriz.de_pixel_a_col(_pos_x),matriz.de_pixel_a_fila(_pos_y));
+			Posicion posicion(matrizActual->de_pixel_a_col(_pos_x),matrizActual->de_pixel_a_fila(_pos_y));
 			modeloCliente->mover(celda_origen->get_id(),posicion);
 
 		}
@@ -134,11 +132,11 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 	case T_ENTRADA:	{
 					try {
 
-						Posicion posicion(matriz.de_pixel_a_col(x),matriz.de_pixel_a_fila(y));
+						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						std::string nom="";
 						id= modeloCliente->agregarEntrada(posicion,nom,ESTE);
-						agregadaVista=matriz.agregar_entrada(&_x,&_y,id);
-						celda=matriz.get_celda_px(_x,_y);
+						agregadaVista=matrizActual->agregar_entrada(&_x,&_y,id);
+						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
 
@@ -154,13 +152,13 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 					try {
 
-						Posicion posicion(matriz.de_pixel_a_col(x),matriz.de_pixel_a_fila(y));
+						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						std::string nom="";
 						id= modeloCliente->agregarSalida(posicion,nom,ESTE);
 						g_print("(%d,%d)\n",_x,_y);
-						agregadaVista= matriz.agregar_salida(&_x,&_y,id);
+						agregadaVista= matrizActual->agregar_salida(&_x,&_y,id);
 						g_print("(%d,%d)\n",_x,_y);
-						celda=matriz.get_celda_px(_x,_y);
+						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
 
@@ -179,11 +177,11 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo){
 
 					try {
 
-						Posicion posicion(matriz.de_pixel_a_col(x),matriz.de_pixel_a_fila(y));
+						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						id= modeloCliente->agregarCompuerta(_tipo,posicion,ESTE);
 
-						agregadaVista= matriz.agregar_compuerta(&_x,&_y,_tipo,id);
-						celda=matriz.get_celda_px(_x,_y);
+						agregadaVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,id);
+						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
 
@@ -214,10 +212,10 @@ void Controlador::rotar_left(int x,int y){
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
 
-	if(matriz.hay_componente(&_x,&_y,&_tipo)){
+	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
 		//Obtengo la celda padre la que representa la compuerta
-		Celda* celda=matriz.get_celda_px(_x,_y);
+		Celda* celda=matrizActual->get_celda_px(_x,_y);
 
 		try {
 			g_print("POR PINCHAR");
@@ -242,9 +240,9 @@ void Controlador::rotar_right(int x,int y){
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
 
-	if(matriz.hay_componente(&_x,&_y,&_tipo)){
+	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 		//Obtengo la celda padre la que representa la compuerta
-		Celda* celda=matriz.get_celda_px(_x,_y);
+		Celda* celda=matrizActual->get_celda_px(_x,_y);
 		try {
 			modeloCliente->rotar(celda->get_id(),DERECHA);
 			fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
@@ -267,12 +265,12 @@ void Controlador::eliminar_componente(int x,int y){
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
 
-	Celda* celda=matriz.get_celda_px(x,y);
-	if(matriz.hay_componente(&_x,&_y,&_tipo) && celda){
+	Celda* celda=matrizActual->get_celda_px(x,y);
+	if(matrizActual->hay_componente(&_x,&_y,&_tipo) && celda){
 
 		SENTIDO sent=celda->get_sentido();
 		modeloCliente-> eliminarCompuerta(celda->get_id());
-		matriz.eliminar_componente(_x,_y);
+		matrizActual->eliminar_componente(_x,_y);
 		fachada_vista->dibujar_componente(_x,_y,T_VACIA,sent);
 
 	}
@@ -302,6 +300,47 @@ void Controlador::guardar(){
 
 }
 
+void Controlador::crear_circuito(){
+
+	std::string nombre= "Circuito";
+	int id= modeloCliente->crearNuevo(nombre);
+	matrizActual= new Modelo_vista_circuito();
+	matrices.insert(make_pair(id,matrizActual));
+	fachada_vista->agregar_grilla(id);
+
+}
+
+void Controlador::cambiar_circuito(int index){
+
+	if (index >= 0) {
+
+		int id= fachada_vista->cambiar_grilla(index);
+		modeloCliente->cambiarCircuitoActual(id);
+		matrizActual= matrices[id];
+
+	}
+
+
+}
+
+void Controlador::eliminar_circuito(){
+
+	if (!matrices.empty()) {
+
+		modeloCliente->eliminar();
+
+		matrices.erase(fachada_vista->getIdActual());
+
+		matrizActual = NULL;
+
+		fachada_vista->eliminar_grilla();
+
+	}
+
+
+
+}
+
 void Controlador::simular(){
 
 	try {
@@ -322,6 +361,8 @@ bool Controlador::get_arrastre_activo()const{
 	return arrstre_activo;
 
 }
+
+
 /*----------------------------------------------------------------------------*/
 
 Controlador::~Controlador() {

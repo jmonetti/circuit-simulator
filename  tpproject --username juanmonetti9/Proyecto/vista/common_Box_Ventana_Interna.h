@@ -10,31 +10,32 @@
 #include <gtkmm.h>
 #include "common_Grilla.h"
 #include "../common/constantes.h"
-#include <list>
+#include <vector>
 
 class Box_Ventana_Interna: public Componente_Visual{
 
 private:
 
 	//atributo
-	std::list<Grilla*> _grillas;
+	std::vector<Grilla*> _grillas;
 	GtkWidget* _box_ventana;
 	GtkWidget* noteb;
-	Grilla grilla;
-	Decorador_Scroll scroll_grilla;
+	Grilla* actual;
 
-	//todo
-	Grilla grilla1;
-
-
-
+	void eliminarGrilla(int index);
 
 
 public:
 
 	Box_Ventana_Interna();
 
-	void agregar_AreaDisenio();
+	void agregar_grilla(int id);
+
+	int getGrillaActual() const;
+
+	int cambiar_grilla_actual(int index);
+
+	void eliminar_grilla_actual();
 
 	void completar_tabla_actual(Resultado* resultado);
 
@@ -59,14 +60,14 @@ public:
 
 	void disconnect_dnd();
 
-	void eliminar_pestania_actual();
-
-	void agregar_pestania();
-
 	/**
 	 * Retorna el widget
 	 */
 	virtual GtkWidget* getWidget();
+
+	virtual ~Box_Ventana_Interna();
+
+
 
 
 };
