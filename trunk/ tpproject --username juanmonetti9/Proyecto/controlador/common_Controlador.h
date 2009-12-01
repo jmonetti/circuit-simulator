@@ -10,13 +10,15 @@
 #include "Acciones/common_Accion_NULA.h"
 #include "Acciones/common_Accion.h"
 #include "../modelo/common_ModeloCliente.h"
+#include <map>
 
 class Controlador {
 
 private:
 
 	//Atributos
-	Modelo_vista_circuito matriz; //matriz que representa el modelo
+	std::map<int,Modelo_vista_circuito*> matrices; //matriz que representa el modelo
+	Modelo_vista_circuito* matrizActual;
 	ModeloCliente* modeloCliente; //modelo que representa el cliente
 	Fachada_vista* fachada_vista;
 	Accion* accion;
@@ -36,6 +38,12 @@ public:
 	void guardar();
 
 	void simular();
+
+	void crear_circuito();
+
+	void cambiar_circuito(int index);
+
+	void eliminar_circuito();
 
 	void set_pos_x_click(int x);
 
@@ -58,6 +66,8 @@ public:
 	void desconectar_drag_drop();
 
 	bool get_arrastre_activo()const;
+
+
 
 	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
 

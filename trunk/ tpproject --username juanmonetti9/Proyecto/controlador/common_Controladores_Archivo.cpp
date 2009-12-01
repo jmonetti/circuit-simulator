@@ -13,9 +13,10 @@ void Controlador_Archivo::callback_Imprimir( GtkWidget *widget,gpointer callback
 
 void Controlador_Archivo::callback_nuevo(GtkWidget *widget, gpointer callback_data ){
 
-	//TODO
-	g_print("Nuevo\n");
-	//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->crear_circuito();
+	}
 }
 
 void Controlador_Archivo::callback_abrir(GtkWidget *widget, gpointer callback_data ){
@@ -36,10 +37,19 @@ void Controlador_Archivo::callback_guardar(GtkWidget *widget, gpointer callback_
 
 void Controlador_Archivo::callback_cerrar_ventana_circuit(GtkWidget *widget, gpointer callback_data ){
 
-	//TODO
-	g_print("Cerrar ventana circuito\n");
-	//fin TODO
-	//TODO((Box_Ventana_Interna*)callback_data)->eliminar_pestania_actual();
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->eliminar_circuito();
+	}
+}
+
+void Controlador_Archivo::callback_cambiar_pestania(GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data){
+
+	Controlador* controlador=Controlador::get_instancia();
+		if(controlador){
+			controlador->cambiar_circuito(page_num);
+		}
+
 }
 
 

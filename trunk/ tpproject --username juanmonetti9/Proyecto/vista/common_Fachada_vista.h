@@ -25,9 +25,17 @@ public:
 
 	void completar_grilla(Resultado* resultado);
 
+	void agregar_grilla(int id);
+
+	int cambiar_grilla(int index);
+
+	void eliminar_grilla();
+
 	void activar_dnd();
 
 	void desactivar_dnd();
+
+	int getIdActual() const;
 
 };
 

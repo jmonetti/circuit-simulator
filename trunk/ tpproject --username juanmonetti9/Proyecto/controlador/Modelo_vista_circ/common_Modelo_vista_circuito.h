@@ -28,7 +28,6 @@ private:
 
 	Dato_circuito  modelo_grilla[COLUMNAS_MODELO][FILAS_MODELO];
 
-
 public:
 
 	Modelo_vista_circuito();

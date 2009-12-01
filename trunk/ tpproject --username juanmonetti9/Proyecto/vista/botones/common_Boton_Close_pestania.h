@@ -18,7 +18,7 @@ private:
 public:
 	Boton_Close_pestania();
 
-	void conectar(void* param);
+	void conectar();
 
 	virtual GtkWidget* get_Box_Widget();
 
