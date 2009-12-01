@@ -47,13 +47,13 @@ public:
 	 * @return (true) en caso de haber agregado la celda
 	 * 		   (false) en caso de que no se pueda agregar
 	 */
-	bool agregar_compuerta(TIPO_COMPUERTA tipo,int id);
+	bool agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO sentido);
 
-	bool agregar_pista(int id);
+	bool agregar_pista(int id,SENTIDO sentido);
 
-	bool agregar_entrada(int id);
+	bool agregar_entrada(int id,SENTIDO sentido);
 
-	bool agregar_salida(int id);
+	bool agregar_salida(int id,SENTIDO sentido);
 
 	void set_sentido(SENTIDO _sentido);
 

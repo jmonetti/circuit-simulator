@@ -45,7 +45,7 @@ public:
 
 	void guardar();
 
-	int recuperar(const std::string &nombreCircuito);
+	Circuito* recuperar(const std::string &nombreCircuito);
 
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
 

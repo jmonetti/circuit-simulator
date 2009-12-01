@@ -30,13 +30,13 @@ void Celda::eliminar_componente(){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_pista(int id){
+bool Celda::agregar_pista(int id,SENTIDO sentido){
 	return true;//todo
 
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entrada(int id){
+bool Celda::agregar_entrada(int id,SENTIDO sentido){
 
 	bool agregada=true;
 
@@ -46,7 +46,7 @@ bool Celda::agregar_entrada(int id){
 
 			if(agregada){
 				set_info_padre(fila,colum);
-				set_sentido(ESTE);
+				set_sentido(sentido);
 				ocupar_celda(T_ENTRADA);
 				ID= id;
 			}
@@ -59,7 +59,7 @@ bool Celda::agregar_entrada(int id){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_salida(int id){
+bool Celda::agregar_salida(int id,SENTIDO sentido){
 	bool agregada=true;
 
 			if(!esta_ocupada()){
@@ -68,7 +68,7 @@ bool Celda::agregar_salida(int id){
 
 				if(agregada){
 					set_info_padre(fila,colum);
-					set_sentido(ESTE);
+					set_sentido(sentido);
 					ocupar_celda(T_SALIDA);
 					ID= id;
 				}
@@ -81,7 +81,7 @@ bool Celda::agregar_salida(int id){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id){
+bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO sentido){
 
 	bool agregada=true;
 
@@ -91,7 +91,7 @@ bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id){
 
 		if(agregada){
 			set_info_padre(fila,colum);
-			set_sentido(ESTE);
+			set_sentido(sentido);
 			ocupar_celda(tipo);
 			ID= id;
 		}

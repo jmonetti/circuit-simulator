@@ -125,11 +125,18 @@ void ModeloCliente::mover(int idCompuerta,Posicion posicion) {
 
 void ModeloCliente::guardar() {
 
-	persistencia.guardar(*circuitoActual);
+	if (circuitoActual) {
+
+		persistencia.guardar(*circuitoActual);
+
+	}else {
+
+		throw CircuitoException("No hay circuito para guardar");
+	}
 
 }
 
-int ModeloCliente::recuperar(const std::string &nombreCircuito) {
+Circuito* ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
 	Circuito* circuito= persistencia.recuperar(contadorId, nombreCircuito);
 
@@ -139,7 +146,7 @@ int ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
 	contadorId++;
 
-	return contadorId - 1;
+	return circuito;
 
 }
 

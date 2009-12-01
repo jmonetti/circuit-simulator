@@ -11,6 +11,7 @@
 #include "Acciones/common_Accion.h"
 #include "../modelo/common_ModeloCliente.h"
 #include <map>
+#include "../modelo/circuito/common_Circuito.h"
 
 class Controlador {
 
@@ -33,6 +34,8 @@ private:
 	//Constructor privado
 	Controlador(Fachada_vista* fachada,ModeloCliente *modeloCliente);
 
+	void generarCircuito(Circuito* circuito);
+
 public:
 
 	void guardar();
@@ -45,6 +48,8 @@ public:
 
 	void eliminar_circuito();
 
+	void abrir_circuito();
+
 	void set_pos_x_click(int x);
 
 	void set_pos_y_click(int y);
@@ -53,7 +58,7 @@ public:
 
 	void ejecutar_accion(gdouble x,gdouble y);
 
-	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo);
+	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
 
 	void eliminar_componente(int x,int y);
 
