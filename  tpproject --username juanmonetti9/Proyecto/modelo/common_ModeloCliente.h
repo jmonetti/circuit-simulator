@@ -23,17 +23,17 @@ public:
 
 	virtual ~ModeloCliente();
 
-	void crearNuevo(const std::string &nombre);
+	int crearNuevo(const std::string &nombre);
 
 	void cambiarCircuitoActual(int idCircuito);
 
 	void eliminar();
 
-	void agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido);
+	int agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido);
 
-	void agregarEntrada(Posicion posicion,const std::string &nombre, SENTIDO sentido);
+	int agregarEntrada(Posicion posicion,const std::string &nombre, SENTIDO sentido);
 
-	void agregarSalida(Posicion posicion,const std::string &nombre, SENTIDO sentido);
+	int agregarSalida(Posicion posicion,const std::string &nombre, SENTIDO sentido);
 
 	void eliminarCompuerta(int idCompuerta);
 
@@ -45,13 +45,11 @@ public:
 
 	void guardar();
 
-	void recuperar(const std::string &nombreCircuito);
+	int recuperar(const std::string &nombreCircuito);
 
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
 
-	void recibir(const std::string &nombreCircuito,Servidor servidor);
-
-	int getUltimo() const; //TODO
+	int recibir(const std::string &nombreCircuito,Servidor servidor);
 
 
 private:

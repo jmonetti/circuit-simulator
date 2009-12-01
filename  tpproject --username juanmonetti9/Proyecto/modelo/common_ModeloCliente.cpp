@@ -4,6 +4,8 @@
 #include "circuito/common_FactoryCompuerta.h"
 #include "../excepciones/common_CircuitoException.h"
 
+#include <iostream>
+
 ModeloCliente::ModeloCliente() {
 
 	contadorId= 0;
@@ -20,13 +22,14 @@ ModeloCliente::~ModeloCliente() {
 	}
 }
 
-void ModeloCliente::crearNuevo(const std::string &nombre) {
+int ModeloCliente::crearNuevo(const std::string &nombre) {
 
 	Circuito* circuito= new Circuito(contadorId,nombre);
 	circuitos.push_back(circuito);
 	circuitoActual= circuito;
 	contadorId++;
 
+	return contadorId - 1;
 }
 
 void ModeloCliente::cambiarCircuitoActual(int idCircuito) {
@@ -68,21 +71,23 @@ void ModeloCliente::eliminar() {
 
 }
 
-void ModeloCliente::agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido) {
+int ModeloCliente::agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido) {
 
-	FactoryCompuerta::crearCompuerta(tipo, *circuitoActual, posicion,sentido);
-
-}
-
-void ModeloCliente::agregarEntrada(Posicion posicion, const string &nombre, SENTIDO sentido) {
-
-	FactoryCompuerta::crearEntrada(*circuitoActual,posicion,nombre,sentido);
+	return FactoryCompuerta::crearCompuerta(tipo, *circuitoActual, posicion,sentido);
 
 }
 
-void ModeloCliente::agregarSalida(Posicion posicion, const string &nombre, SENTIDO sentido) {
+int ModeloCliente::agregarEntrada(Posicion posicion, const string &nombre, SENTIDO sentido) {
 
-	FactoryCompuerta::crearSalida(*circuitoActual,posicion,nombre,sentido);
+	std::cout<<"agregarentrada"<<std::endl;
+	return FactoryCompuerta::crearEntrada(*circuitoActual,posicion,nombre,sentido);
+
+}
+
+int ModeloCliente::agregarSalida(Posicion posicion, const string &nombre, SENTIDO sentido) {
+
+	std::cout<<"agregarsalida"<<std::endl;
+	return FactoryCompuerta::crearSalida(*circuitoActual,posicion,nombre,sentido);
 
 }
 
@@ -116,11 +121,13 @@ void ModeloCliente::mover(int idCompuerta,Posicion posicion) {
 
 void ModeloCliente::guardar() {
 
+	std::cout<<"guardar"<<std::endl;
+
 	persistencia.guardar(*circuitoActual);
 
 }
 
-void ModeloCliente::recuperar(const std::string &nombreCircuito) {
+int ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
 	Circuito* circuito= persistencia.recuperar(contadorId, nombreCircuito);
 
@@ -130,6 +137,8 @@ void ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
 	contadorId++;
 
+	return contadorId - 1;
+
 }
 
 void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) {
@@ -138,11 +147,11 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) 
 
 }
 
-void ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
+int ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
 	CajaNegra* compuerta= publicacion.recibir(nombreCircuito,servidor);
 
-	circuitoActual->agregarCompuerta(compuerta);
+	return circuitoActual->agregarCompuerta(compuerta);
 
 }
 
@@ -159,11 +168,5 @@ Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 	}
 
 	return NULL;
-
-}
-
-int ModeloCliente::getUltimo() const {
-
-	return contadorId-1;
 
 }

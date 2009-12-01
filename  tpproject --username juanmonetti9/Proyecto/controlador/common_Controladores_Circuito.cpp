@@ -18,6 +18,7 @@
 
 
 
+
 void Controlador_Circuito::crearVentanaDialogoServidor() {
 
 	GtkWidget* cuadro= gtk_dialog_new();
@@ -123,9 +124,6 @@ void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callbac
 		controlador->desconectar_drag_drop();
 		controlador->agregar_accion(new Accion_NULA(controlador));
 	}
-	//TODO
-	g_print("Apretado el download\n");
-	//fin TODO
 
 	crearVentanaDialogoServidor();
 
@@ -207,7 +205,7 @@ void Controlador_Circuito::callback_Simulacion( GtkWidget *widget,gpointer callb
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_NULA(controlador));
+		controlador->simular();
 	}
 
 }
@@ -275,18 +273,14 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
   if (event->button == 1 ){
 	  // si es el boton izq del raton
 	  Controlador* controlador=Controlador::get_instancia();
-	  int x=event->x;
-	  int y=event->y;
+	  int x1=event->x;
+	  int y1=event->y;
+	  g_print("(%d,%d)\n",x1,y1);
 	   if(controlador)
-		  controlador->ejecutar_accion(x,y);
+		  controlador->ejecutar_accion(x1,y1);
 
   }
- /* if (event->button == 3 ){
-	  pos_x=event->x;
-	  pos_y=event->y;
 
-	  g_print ("Presiono el boton en (%d,%d)\n",pos_x,pos_y);
-  }*/
   return true;
 }
 

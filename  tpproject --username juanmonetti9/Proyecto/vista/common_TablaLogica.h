@@ -6,6 +6,7 @@
 
 #include <gtkmm.h>
 #include "common_Componente_Visual.h"
+#include "../modelo/simulacion/common_Resultado.h"
 #include <vector>
 
 class TablaLogica : public Componente_Visual{
@@ -22,7 +23,7 @@ public:
 
 	virtual GtkWidget* getWidget();
 
-	void completar();
+	void completar(Resultado* resultados);
 
 
 private:

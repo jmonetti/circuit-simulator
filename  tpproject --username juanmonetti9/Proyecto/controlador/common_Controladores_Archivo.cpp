@@ -3,6 +3,7 @@
 
 #include "common_Controladores_Archivo.h"
 #include "../vista/common_Box_Ventana_Interna.h"
+#include "common_Controlador.h"
 
 void Controlador_Archivo::callback_Imprimir( GtkWidget *widget,gpointer callback_data ){
 	//TODO
@@ -26,9 +27,11 @@ void Controlador_Archivo::callback_abrir(GtkWidget *widget, gpointer callback_da
 
 void Controlador_Archivo::callback_guardar(GtkWidget *widget, gpointer callback_data ){
 
-	//TODO
-	g_print("Guardar\n");
-	//fin TODO
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->guardar();
+	}
+
 }
 
 void Controlador_Archivo::callback_cerrar_ventana_circuit(GtkWidget *widget, gpointer callback_data ){

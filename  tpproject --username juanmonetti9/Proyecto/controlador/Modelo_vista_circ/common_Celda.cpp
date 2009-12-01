@@ -30,13 +30,13 @@ void Celda::eliminar_componente(){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_pista(){
+bool Celda::agregar_pista(int id){
 	return true;//todo
 
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entrada(){
+bool Celda::agregar_entrada(int id){
 
 	bool agregada=true;
 
@@ -48,6 +48,7 @@ bool Celda::agregar_entrada(){
 				set_info_padre(fila,colum);
 				set_sentido(ESTE);
 				ocupar_celda(T_ENTRADA);
+				ID= id;
 			}
 
 		}
@@ -58,17 +59,18 @@ bool Celda::agregar_entrada(){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_salida(){
+bool Celda::agregar_salida(int id){
 	bool agregada=true;
 
 			if(!esta_ocupada()){
 
-				agregada=agregar_entorno_entrada_salida(T_SALIDA,OESTE);
+				agregada=agregar_entorno_entrada_salida(T_SALIDA,ESTE);
 
 				if(agregada){
 					set_info_padre(fila,colum);
-					set_sentido(OESTE);
+					set_sentido(ESTE);
 					ocupar_celda(T_SALIDA);
+					ID= id;
 				}
 
 			}
@@ -79,7 +81,7 @@ bool Celda::agregar_salida(){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo){
+bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id){
 
 	bool agregada=true;
 
@@ -91,6 +93,7 @@ bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo){
 			set_info_padre(fila,colum);
 			set_sentido(ESTE);
 			ocupar_celda(tipo);
+			ID= id;
 		}
 
 	}
@@ -114,15 +117,15 @@ bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido)
 		switch(sentido){
 
 			case ESTE:{	fila_entorno=fila;
-						col_entorno=colum+1;
+						col_entorno=colum-1;
 						break;}
 			case OESTE:{fila_entorno=fila;
-						col_entorno=colum-11;
+						col_entorno=colum+1;
 						break;}
-			case NORTE:{fila_entorno=fila-1;
+			case NORTE:{fila_entorno=fila+1;
 						col_entorno=colum;
 						break;}
-			case SUR:  {fila_entorno=fila+11;
+			case SUR:  {fila_entorno=fila-1;
 						col_entorno=colum;
 					    break;}
 		}

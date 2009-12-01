@@ -13,33 +13,33 @@
 #include "../../excepciones/common_CircuitoException.h"
 
 
-void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+int FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	switch (tipo) {
 
 		case T_AND:
 
-			crearAND(circuito,posicion,sentido);
+			return crearAND(circuito,posicion,sentido);
 			break;
 
 		case T_OR:
 
-			crearOR(circuito,posicion,sentido);
+			return crearOR(circuito,posicion,sentido);
 			break;
 
 		case T_XOR:
 
-			crearXOR(circuito,posicion,sentido);
+			return crearXOR(circuito,posicion,sentido);
 			break;
 
 		case T_NOT:
 
-			crearNOT(circuito,posicion,sentido);
+			return crearNOT(circuito,posicion,sentido);
 			break;
 
 		case T_PISTA:
 
-			crearPISTA(circuito,posicion,sentido);
+			return crearPISTA(circuito,posicion,sentido);
 			break;
 
 		default:
@@ -52,7 +52,7 @@ void FactoryCompuerta::crearCompuerta(TIPO_COMPUERTA tipo, Circuito &circuito, P
 
 }
 
-void FactoryCompuerta::crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido) {
+int FactoryCompuerta::crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido) {
 
 	SalidaCompuerta* salidaEntrada= new SalidaCompuerta();
 
@@ -60,22 +60,22 @@ void FactoryCompuerta::crearEntrada(Circuito &circuito, Posicion posicion, const
 
 	salidaEntrada->setCompuerta(compuerta);
 
-	circuito.agregarCompuerta(compuerta);
+	return circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido) {
+int FactoryCompuerta::crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido) {
 
 	EntradaCompuerta* entradaSalida= new EntradaCompuerta();
 
 	Compuerta* compuerta= new Salida(circuito.getContadorCompuertas(),entradaSalida,posicion,sentido,nombre);
 
-	circuito.agregarCompuerta(compuerta);
+	return circuito.agregarCompuerta(compuerta);
 
 }
 
 
-void FactoryCompuerta::crearAND(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+int FactoryCompuerta::crearAND(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	EntradaCompuerta* entrada1= new EntradaCompuerta();
 
@@ -87,11 +87,11 @@ void FactoryCompuerta::crearAND(Circuito &circuito, Posicion posicion, SENTIDO s
 
 	salida->setCompuerta(compuerta);
 
-	circuito.agregarCompuerta(compuerta);
+	return circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearOR(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+int FactoryCompuerta::crearOR(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	EntradaCompuerta* entrada1= new EntradaCompuerta();
 
@@ -103,11 +103,11 @@ void FactoryCompuerta::crearOR(Circuito &circuito, Posicion posicion, SENTIDO se
 
 	salida->setCompuerta(compuerta);
 
-	circuito.agregarCompuerta(compuerta);
+	return circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearNOT(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+int FactoryCompuerta::crearNOT(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	EntradaCompuerta* entrada= new EntradaCompuerta();
 
@@ -117,11 +117,11 @@ void FactoryCompuerta::crearNOT(Circuito &circuito, Posicion posicion, SENTIDO s
 
 	salida->setCompuerta(compuerta);
 
-	circuito.agregarCompuerta(compuerta);
+	return 	circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearXOR(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+int FactoryCompuerta::crearXOR(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	EntradaCompuerta* entrada1= new EntradaCompuerta();
 
@@ -133,11 +133,11 @@ void FactoryCompuerta::crearXOR(Circuito &circuito, Posicion posicion, SENTIDO s
 
 	salida->setCompuerta(compuerta);
 
-	circuito.agregarCompuerta(compuerta);
+	return 	circuito.agregarCompuerta(compuerta);
 
 }
 
-void FactoryCompuerta::crearPISTA(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
+int FactoryCompuerta::crearPISTA(Circuito &circuito, Posicion posicion, SENTIDO sentido) {
 
 	EntradaCompuerta* entrada= new EntradaCompuerta();
 
@@ -147,7 +147,7 @@ void FactoryCompuerta::crearPISTA(Circuito &circuito, Posicion posicion, SENTIDO
 
 	salida->setCompuerta(compuerta);
 
-	circuito.agregarCompuerta(compuerta);
+	return circuito.agregarCompuerta(compuerta);
 
 }
 

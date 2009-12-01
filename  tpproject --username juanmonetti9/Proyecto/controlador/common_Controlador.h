@@ -33,6 +33,10 @@ private:
 
 public:
 
+	void guardar();
+
+	void simular();
+
 	void set_pos_x_click(int x);
 
 	void set_pos_y_click(int y);

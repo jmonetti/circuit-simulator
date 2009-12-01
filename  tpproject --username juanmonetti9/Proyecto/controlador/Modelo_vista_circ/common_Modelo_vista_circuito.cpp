@@ -43,6 +43,7 @@ int Modelo_vista_circuito::de_fila_a_pixel(int fila){
 
 Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
+	g_print("matriz(%d,%d)\n",fila,colum);
 
 	if(fila>=1 && colum>=1){
 
@@ -95,7 +96,7 @@ bool Modelo_vista_circuito::eliminar_componente(int x,int y){
 
 }
 
-bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo){
+bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo,int id){
 
 	bool agregada=true;
 
@@ -105,20 +106,18 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo
 	int col= de_pixel_a_col(*x);
 	*y=de_fila_a_pixel(fila);
 	*x=de_col_a_pixel(col);
-
+	g_print("matriz(%d,%d)\n",fila,col);
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
 
-	agregada=aux->agregar_compuerta(_tipo);
-	if(agregada)
-		g_print("Agregada en (%d,%d)\n",*x,*y);
+	agregada=aux->agregar_compuerta(_tipo,id);
 
 
 	return agregada;
 }
 
-bool Modelo_vista_circuito::agregar_entrada(int* x,int* y){
+bool Modelo_vista_circuito::agregar_entrada(int* x,int* y,int id){
 
 	bool agregada;
 	//ubico la fila y col que corresponda y centro los valorees de *x e *y
@@ -126,30 +125,32 @@ bool Modelo_vista_circuito::agregar_entrada(int* x,int* y){
 	int col= de_pixel_a_col(*x);
 	*y=de_fila_a_pixel(fila);
 	*x=de_col_a_pixel(col);
-
+	g_print("matriz(%d,%d)\n",fila,col);
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
-	agregada=aux->agregar_entrada();
+	agregada=aux->agregar_entrada(id);
 
 	return agregada;
 
 }
 
-bool Modelo_vista_circuito::agregar_salida(int* x,int* y){
+bool Modelo_vista_circuito::agregar_salida(int* x,int* y,int id){
 
 	bool agregada;
 	//ubico la fila y col que corresponda y centro los valorees de *x e *y
+	g_print("(%d,%d)\n",*x,*y);
 	int fila= de_pixel_a_fila(*y);
 	int col= de_pixel_a_col(*x);
 	*y=de_fila_a_pixel(fila);
 	*x=de_col_a_pixel(col);
+	g_print("matriz(%d,%d)\n",fila,col);
 
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
 
-	agregada=aux->agregar_salida();
+	agregada=aux->agregar_salida(id);
 
 	return agregada;
 

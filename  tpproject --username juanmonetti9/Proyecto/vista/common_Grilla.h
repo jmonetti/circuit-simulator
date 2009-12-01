@@ -39,6 +39,8 @@ public:
 
 	GtkWidget* getWidget();
 
+	void completar_tabla(Resultado* resultado);
+
 	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
 
 	void draw_salida(gdouble x,gdouble y, SENTIDO sentido);
