@@ -4,7 +4,7 @@
 
 
 //Definicion para el tipo de compuertas
-enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA, T_VACIA};
+enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA,T_CAJANEGRA, T_VACIA};
 
 enum SENTIDO { NORTE , SUR , ESTE , OESTE };
 

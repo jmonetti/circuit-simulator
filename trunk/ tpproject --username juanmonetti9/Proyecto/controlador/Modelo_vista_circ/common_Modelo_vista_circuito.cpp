@@ -130,7 +130,6 @@ bool Modelo_vista_circuito::agregar_entrada(int* x,int* y){
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
-
 	agregada=aux->agregar_entrada();
 
 	return agregada;
