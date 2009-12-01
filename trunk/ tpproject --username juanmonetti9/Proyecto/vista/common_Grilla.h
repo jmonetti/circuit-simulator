@@ -25,6 +25,8 @@ private:
 	GtkWidget* tab_pestania_dos;
 	Area_disenio areaDisenio;
 	TablaLogica tablaLogica;
+	Decorador_Scroll scrollDisenio;
+	Decorador_Scroll scrollTabla;
 	int id;
 
 
