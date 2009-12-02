@@ -38,13 +38,17 @@ public:
 
 	bool agregar_salida(int* x,int* y,int id,SENTIDO sentido);
 
+	bool agregar_componente(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido);
+
 	bool hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo);
 
-	bool eliminar_componente(int x,int y);
+	void eliminar_componente(int x,int y);
 
 	Celda* get_celda(int fila,int colum);
 
 	Celda* get_celda_px(int x,int y);
+
+	Celda* get_celda_px(int* x,int* y);
 
 	int de_pixel_a_fila(int x);
 

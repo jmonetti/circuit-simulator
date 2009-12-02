@@ -54,7 +54,9 @@ public:
 	 * TODO este va a dibujar cualquier compuerta
 	 * y sobre la pestania actual CAMBIAR
 	 */
-	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido);
+	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista);
+
+	void borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
 
 	void connect_dnd();
 

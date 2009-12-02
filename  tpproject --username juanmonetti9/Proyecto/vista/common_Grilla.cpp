@@ -189,7 +189,7 @@ void Grilla::draw_salida(gdouble x,gdouble y, SENTIDO sentido){
 
 		}
 }
-void Grilla::draw_pista(gdouble x,gdouble y, SENTIDO sentido){
+void Grilla::draw_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas){
 
 	switch(sentido){
 
@@ -208,9 +208,30 @@ void Grilla::draw_pista(gdouble x,gdouble y, SENTIDO sentido){
 
 /*----------------------------------------------------------------------------*/
 
-void Grilla::draw_borrar(gdouble x, gdouble y,SENTIDO sentido){
+void Grilla::draw_borrar(gdouble x, gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int cant_celdas){
 
-	areaDisenio.draw_Borrar_compuerta(x,y,sentido);
+	switch(tipo){
+
+	case T_ENTRADA:{
+				areaDisenio.draw_Borrar_entrada(x,y,sentido);
+				break;
+				}
+	case T_SALIDA:{
+				areaDisenio.draw_Borrar_salida(x,y,sentido);
+				break;
+				}
+	case T_PISTA:{
+				areaDisenio.draw_Borrar_pista(x,y,sentido,cant_celdas);
+				break;
+				}
+	default:{
+			g_print("yeah");
+			areaDisenio.draw_Borrar_compuerta(x,y,sentido);
+			}
+
+
+	}
+
 }
 
 
