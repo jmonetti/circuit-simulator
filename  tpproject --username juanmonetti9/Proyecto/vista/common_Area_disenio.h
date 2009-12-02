@@ -11,7 +11,7 @@ class Area_disenio: public Componente_Visual {
 private:
 
 	//GdkPixmap (pixmap intermedio)
-	static GdkPixmap *pixmap;
+	GdkPixmap *pixmap;
 	GtkWidget* drawing_area;
 	GtkWidget* box_pestania_uno;
 	GtkWidget* box_size_pestania_uno;
@@ -26,6 +26,10 @@ public:
 	void show();
 
 	GtkWidget* getWidget();
+
+	GdkPixmap* get_pixmap();
+
+	void set_pixmap(GdkPixmap *n_pixmap);
 
 	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
 
@@ -111,12 +115,12 @@ public:
 	/**
 	 * Crea el pixmap
 	 */
-	static void crear_pixmap (GtkWidget *widget, GdkEventConfigure *event);
+	static void crear_pixmap (GtkWidget *widget, GdkEventConfigure *event,gpointer data);
 
 	/**
 	 * Redibuja un sector del pixmap area del pixmap
 	 */
-	static void exponer_pixmap (GtkWidget *widget, GdkEventExpose *event);
+	static void exponer_pixmap (GtkWidget *widget, GdkEventExpose *event,gpointer data);
 
 };
 

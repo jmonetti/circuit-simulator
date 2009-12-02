@@ -3,7 +3,7 @@
 #include "common_Area_disenio.h"
 #include "../controlador/common_Controladores_Circuito.h"
 
-GdkPixmap *Area_disenio::pixmap = NULL;
+
 
 
 //Defino un listado de la informacion que el widget destino aceptara.
@@ -17,6 +17,9 @@ static guint n_targets = G_N_ELEMENTS (target_list);
 
 
 Area_disenio::Area_disenio() {
+
+	//inicializo el pixmap
+	pixmap = NULL;
 
 	//creo las cajas de la pestania uno
 	box_pestania_uno= gtk_hbox_new(false,0);
@@ -39,10 +42,10 @@ Area_disenio::Area_disenio() {
 
 	//conecto con la señal ("expose_event") actualizacion de zona
 	gtk_signal_connect (GTK_OBJECT (drawing_area), "expose_event",
-						  (GtkSignalFunc)exponer_pixmap, NULL);
+						  (GtkSignalFunc)exponer_pixmap, this);
 	//conecto con la señal ("configure_event") producido al modificar el tamanio del drawing area
 	gtk_signal_connect (GTK_OBJECT(drawing_area),"configure_event",
-						  (GtkSignalFunc)crear_pixmap, NULL);
+						  (GtkSignalFunc)crear_pixmap, this);
 
 
 	//conecto con la señal ("button_press_event") de precionar el boton del mouse
@@ -57,6 +60,8 @@ Area_disenio::Area_disenio() {
 Area_disenio::~Area_disenio() {
 
 }
+
+
 
 
 
@@ -76,35 +81,53 @@ GtkWidget* Area_disenio::getWidget() {
 	return box_pestania_uno;
 }
 
+GdkPixmap* Area_disenio::get_pixmap(){
+
+	return pixmap;
+
+}
+
+void Area_disenio::set_pixmap(GdkPixmap *n_pixmap){
+
+	pixmap = n_pixmap;
+}
+
 
 /*----------------------------------------------------------------------------*/
 
-void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event){
+void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event,gpointer data){
 
+	Area_disenio* area_disenio = (Area_disenio*)data;
+	GdkPixmap* p_pixmap =area_disenio->get_pixmap();
 
-	if (pixmap){
+	if (p_pixmap){
 
 		//desreferencio el pixmap
-		gdk_pixmap_unref(pixmap);
+		gdk_pixmap_unref(p_pixmap);
 
 	}
 	//Creo un nuevo pixmap, tomando las propiedades del widget, con
 	//parametro -1 misma profundidad de color que la ventana
-	pixmap = gdk_pixmap_new(widget->window,widget->allocation.width,
+	p_pixmap = gdk_pixmap_new(widget->window,widget->allocation.width,
 						widget->allocation.height,-1);
+
+	area_disenio->set_pixmap(p_pixmap);
 	//Rellena t0do el pixmap de blanco
-	gdk_draw_rectangle (pixmap,widget->style->white_gc,true,0,0,widget->allocation.width,widget->allocation.height);
+	gdk_draw_rectangle (p_pixmap,widget->style->white_gc,true,0,0,widget->allocation.width,widget->allocation.height);
 
 }
 
 
 /*----------------------------------------------------------------------------*/
 
-void Area_disenio::exponer_pixmap (GtkWidget *widget, GdkEventExpose *event){
+void Area_disenio::exponer_pixmap (GtkWidget *widget, GdkEventExpose *event,gpointer data){
 
-	g_print("HOLA\n");
+
+	Area_disenio* area_disenio = (Area_disenio*)data;
+	GdkPixmap* p_pixmap =area_disenio->get_pixmap();
+
 	gdk_draw_pixmap(widget->window,widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
-                  pixmap,event->area.x, event->area.y,event->area.x, event->area.y,
+                  p_pixmap,event->area.x, event->area.y,event->area.x, event->area.y,
                   event->area.width, event->area.height);
 }
 
