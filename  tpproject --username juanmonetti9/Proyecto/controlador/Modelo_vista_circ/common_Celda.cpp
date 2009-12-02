@@ -104,34 +104,61 @@ bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO sentido){
 }
 
 /*----------------------------------------------------------------------------*/
+void Celda::fila_col_entorno(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo){
 
+	if( tipo == T_SALIDA){
+		g_print("ENTRO3\n");
+
+		switch(sentido){
+
+			case ESTE:{	*fila_entorno=fila;
+						*col_entorno=colum-1;
+						break;}
+			case OESTE:{*fila_entorno=fila;
+						*col_entorno=colum+1;
+						break;}
+			case NORTE:{*fila_entorno=fila+1;
+						*col_entorno=colum;
+						break;}
+			case SUR:  {*fila_entorno=fila-1;
+						*col_entorno=colum;
+						break;}
+		}
+
+	}else if( tipo == T_ENTRADA ){
+
+		g_print("ENTRO4\n");
+		switch(sentido){
+
+			case ESTE:{	*fila_entorno=fila;
+						*col_entorno=colum+1;
+						break;}
+			case OESTE:{*fila_entorno=fila;
+						*col_entorno=colum-1;
+						break;}
+			case NORTE:{*fila_entorno=fila-1;
+						*col_entorno=colum;
+						break;}
+			case SUR:  {*fila_entorno=fila+1;
+						*col_entorno=colum;
+					    break;}
+		}
+	}
+}
 bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido){
 
 	bool retorno=true;
 
-	if(_tipo == T_ENTRADA || _tipo == T_SALIDA){
+	int fila_entorno;
+	int col_entorno;
+	this->fila_col_entorno(&fila_entorno,&col_entorno,sentido,_tipo);
 
-		int fila_entorno;
-		int col_entorno;
-
-		switch(sentido){
-
-			case ESTE:{	fila_entorno=fila;
-						col_entorno=colum-1;
-						break;}
-			case OESTE:{fila_entorno=fila;
-						col_entorno=colum+1;
-						break;}
-			case NORTE:{fila_entorno=fila+1;
-						col_entorno=colum;
-						break;}
-			case SUR:  {fila_entorno=fila-1;
-						col_entorno=colum;
-					    break;}
-		}
-
-		 Celda* aux=grilla->get_celda(fila_entorno,col_entorno);
-		 if(!aux->esta_ocupada() ){
+	if( _tipo== T_SALIDA || _tipo== T_ENTRADA){
+		g_print("ENTRO\n");
+		Celda* aux=grilla->get_celda(fila_entorno,col_entorno);
+		g_print("ENTRO\n");
+		if(!aux->esta_ocupada() ){
+			 g_print("ENTRO1\n");
 			 aux->set_info_padre(fila,colum);
 			 aux->ocupar_celda(_tipo);
 			 entorno.push_front(aux);

@@ -33,6 +33,8 @@ private:
 
 	bool agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido);
 
+	void fila_col_entorno(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo);
+
 	bool agregar_entorno_pista(SENTIDO sentido);
 
 
