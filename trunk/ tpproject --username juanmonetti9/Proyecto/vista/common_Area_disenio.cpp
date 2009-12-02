@@ -81,17 +81,19 @@ GtkWidget* Area_disenio::getWidget() {
 
 void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event){
 
+
 	if (pixmap){
+
 		//desreferencio el pixmap
 		gdk_pixmap_unref(pixmap);
+
 	}
 	//Creo un nuevo pixmap, tomando las propiedades del widget, con
-		//parametro -1 misma profundidad de color que la ventana
-		pixmap = gdk_pixmap_new(widget->window,widget->allocation.width,
-							widget->allocation.height,-1);
-
-		//Rellena t0do el pixmap de blanco
-		gdk_draw_rectangle (pixmap,widget->style->white_gc,true,0,0,widget->allocation.width,widget->allocation.height);
+	//parametro -1 misma profundidad de color que la ventana
+	pixmap = gdk_pixmap_new(widget->window,widget->allocation.width,
+						widget->allocation.height,-1);
+	//Rellena t0do el pixmap de blanco
+	gdk_draw_rectangle (pixmap,widget->style->white_gc,true,0,0,widget->allocation.width,widget->allocation.height);
 
 }
 
@@ -100,7 +102,7 @@ void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event){
 
 void Area_disenio::exponer_pixmap (GtkWidget *widget, GdkEventExpose *event){
 
-
+	g_print("HOLA\n");
 	gdk_draw_pixmap(widget->window,widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
                   pixmap,event->area.x, event->area.y,event->area.x, event->area.y,
                   event->area.width, event->area.height);

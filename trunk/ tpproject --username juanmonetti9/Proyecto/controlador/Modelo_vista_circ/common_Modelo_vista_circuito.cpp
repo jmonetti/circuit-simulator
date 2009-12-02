@@ -43,7 +43,7 @@ int Modelo_vista_circuito::de_fila_a_pixel(int fila){
 
 Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
-	g_print("matriz(%d,%d)\n",fila,colum);
+
 
 	if(fila>=1 && colum>=1){
 
@@ -77,7 +77,7 @@ bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
 
 		*y= de_fila_a_pixel(aux->get_fila_padre());
 		*x= de_col_a_pixel(aux->get_colum_padre());
-		g_print("Hay componente en (%d,%d)\n",*x,*y);
+
 	}
 
 
@@ -106,7 +106,7 @@ bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo
 	int col= de_pixel_a_col(*x);
 	*y=de_fila_a_pixel(fila);
 	*x=de_col_a_pixel(col);
-	g_print("matriz(%d,%d)\n",fila,col);
+
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
@@ -125,7 +125,7 @@ bool Modelo_vista_circuito::agregar_entrada(int* x,int* y,int id,SENTIDO sentido
 	int col= de_pixel_a_col(*x);
 	*y=de_fila_a_pixel(fila);
 	*x=de_col_a_pixel(col);
-	g_print("matriz(%d,%d)\n",fila,col);
+
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);
 	//intento agregarle una compuerta
@@ -144,7 +144,6 @@ bool Modelo_vista_circuito::agregar_salida(int* x,int* y,int id,SENTIDO sentido)
 	int col= de_pixel_a_col(*x);
 	*y=de_fila_a_pixel(fila);
 	*x=de_col_a_pixel(col);
-	g_print("matriz(%d,%d)\n",fila,col);
 
 	//obtengo la celda
 	Celda* aux= get_celda(fila,col);

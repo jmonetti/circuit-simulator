@@ -212,20 +212,20 @@ void Controlador::rotar_left(int x,int y){
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
-		//Obtengo la celda padre la que representa la compuerta
-		Celda* celda=matrizActual->get_celda_px(_x,_y);
+		if(_tipo != T_ENTRADA || _tipo != T_SALIDA){
+			//Obtengo la celda padre la que representa la compuerta
+			Celda* celda=matrizActual->get_celda_px(_x,_y);
 
-		try {
-			g_print("POR PINCHAR");
-			g_print("%d\n",celda->get_id());
-			modeloCliente->rotar(celda->get_id(),IZQUIERDA);
-			fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
-			celda->rotar_lef();
-			fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
-		} catch (ConexionException e) {
-			g_print("NO ROTO");//TODO
+			try {
+
+				modeloCliente->rotar(celda->get_id(),IZQUIERDA);
+				fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
+				celda->rotar_lef();
+				fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+			} catch (ConexionException e) {
+				g_print("NO ROTO");//TODO
+			}
 		}
-
 
 	}
 
@@ -239,18 +239,21 @@ void Controlador::rotar_right(int x,int y){
 	TIPO_COMPUERTA _tipo;
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
-		//Obtengo la celda padre la que representa la compuerta
-		Celda* celda=matrizActual->get_celda_px(_x,_y);
-		try {
-			modeloCliente->rotar(celda->get_id(),DERECHA);
-			fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
-			celda->rotar_right();
-			fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
 
-		} catch (ConexionException e) {
-			g_print("NO ROTO");//TODO
+		if(_tipo != T_ENTRADA || _tipo != T_SALIDA){
+
+			//Obtengo la celda padre la que representa la compuerta
+			Celda* celda=matrizActual->get_celda_px(_x,_y);
+			try {
+				modeloCliente->rotar(celda->get_id(),DERECHA);
+				fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
+				celda->rotar_right();
+				fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+
+			} catch (ConexionException e) {
+				g_print("NO ROTO");//TODO
+			}
 		}
-
 
 	}
 
