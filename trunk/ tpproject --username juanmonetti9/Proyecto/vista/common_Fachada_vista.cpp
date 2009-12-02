@@ -9,11 +9,16 @@ Fachada_vista::Fachada_vista(Box_Ventana_Interna* ventana_int) {
 }
 
 
-void Fachada_vista::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido){
+void Fachada_vista::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
 
-	ventana_interna->dibujar_componente(x,y,tipo,sentido);
+	ventana_interna->dibujar_componente(x,y,tipo,sentido,tam_pista);
 };
 
+
+void Fachada_vista::borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
+
+	ventana_interna->borrar_componente(x,y,tipo,sentido,tam_pista);
+}
 
 void Fachada_vista::activar_dnd(){
 

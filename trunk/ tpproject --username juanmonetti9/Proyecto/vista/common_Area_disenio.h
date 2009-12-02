@@ -33,6 +33,12 @@ public:
 
 	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
 
+	void draw_Borrar_entrada(gdouble x,gdouble y, SENTIDO sentido);
+
+	void draw_Borrar_salida(gdouble x,gdouble y, SENTIDO sentido);
+
+	void draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas);
+
 	void desconectar_DnD();
 
 	void conectar_DnD();

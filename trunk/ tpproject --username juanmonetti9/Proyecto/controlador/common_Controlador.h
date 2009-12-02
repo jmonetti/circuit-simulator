@@ -60,6 +60,8 @@ public:
 
 	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
 
+	bool agregar_componente(int *x,int *y,TIPO_COMPUERTA n_tipo,int n_id,SENTIDO n_sentido);
+
 	void eliminar_componente(int x,int y);
 
 	void rotar_right(int x,int y);
@@ -72,13 +74,11 @@ public:
 
 	bool get_arrastre_activo()const;
 
-
+	void arrastrar(gdouble x, gdouble y);
 
 	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
 
 	static Controlador* get_instancia();
-
-	void arrastrar(gdouble x, gdouble y);
 
 	virtual ~Controlador();
 };

@@ -21,7 +21,9 @@ public:
 
 	Fachada_vista(Box_Ventana_Interna* ventata_int);
 
-	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido);
+	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
+
+	void borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
 
 	void completar_grilla(Resultado* resultado);
 

@@ -46,13 +46,13 @@ public:
 
 	void completar_tabla(Resultado* resultado);
 
-	void draw_borrar(gdouble x, gdouble y,SENTIDO sentido);
+	void draw_borrar(gdouble x, gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int cant_celdas=0);
 
 	void draw_salida(gdouble x,gdouble y, SENTIDO sentido);
 
 	void draw_entrada(gdouble x,gdouble y, SENTIDO sentido);
 
-	void draw_pista(gdouble x,gdouble y, SENTIDO sentido);
+	void draw_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas);
 
 	void draw_NOT(gdouble x,gdouble y, SENTIDO sentido);
 

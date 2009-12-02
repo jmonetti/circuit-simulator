@@ -69,6 +69,39 @@ void  Controlador::set_pos_y_click(int y){
 
 	pos_y=y;
 }
+bool Controlador::agregar_componente(int *x,int *y,TIPO_COMPUERTA n_tipo,int n_id,SENTIDO n_sentido){
+
+	bool retorno;
+	switch(n_tipo){
+
+	case T_ENTRADA:{
+		retorno = matrizActual->agregar_entrada(x,y,n_id,n_sentido);
+		break;
+	}
+	case T_SALIDA:{
+		retorno = matrizActual->agregar_salida(x,y,n_id,n_sentido);
+			break;
+		}
+	case T_PISTA:{
+		retorno = false;
+			break;
+	}
+	case T_CAJANEGRA:{
+		retorno = false;
+			break;
+	}
+	default:{
+		retorno = matrizActual->agregar_compuerta(x,y,n_tipo,n_id,n_sentido);
+		}
+
+	}
+
+	return retorno;
+}
+
+
+
+
 
 void Controlador::arrastrar(gdouble x, gdouble y){
 
@@ -90,12 +123,11 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 		try {
 			Posicion posicion(matrizActual->de_pixel_a_col(_x),matrizActual->de_pixel_a_fila(_y));
 			modeloCliente->mover(celda_origen->get_id(),posicion);
-			agregadoVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,celda_origen->get_id(),celda_origen->get_sentido());
+			matrizActual->agregar_componente(&_x,&_y,_tipo,celda_origen->get_id(),celda_origen->get_sentido());
 
 		} catch (ConexionException e) {
 
 			agregadoModelo= false;
-
 		}
 
 		if(agregadoVista && agregadoModelo){
@@ -105,7 +137,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			celda_destino->set_sentido(celda_origen->get_sentido());
 			fachada_vista->dibujar_componente(_x, _y,_tipo,celda_destino->get_sentido());
 			matrizActual->eliminar_componente(_pos_x,_pos_y);
-			fachada_vista->dibujar_componente(_pos_x,_pos_y,T_VACIA,celda_origen->get_sentido());
+			fachada_vista->borrar_componente(_pos_x,_pos_y,_tipo,celda_origen->get_sentido());
 		}else if (!agregadoVista) {
 
 			Posicion posicion(matrizActual->de_pixel_a_col(_pos_x),matrizActual->de_pixel_a_fila(_pos_y));
@@ -212,7 +244,7 @@ void Controlador::rotar_left(int x,int y){
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
-		if(_tipo != T_ENTRADA || _tipo != T_SALIDA){
+		if(_tipo != T_ENTRADA && _tipo != T_SALIDA){
 			//Obtengo la celda padre la que representa la compuerta
 			Celda* celda=matrizActual->get_celda_px(_x,_y);
 
@@ -240,7 +272,7 @@ void Controlador::rotar_right(int x,int y){
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
-		if(_tipo != T_ENTRADA || _tipo != T_SALIDA){
+		if(_tipo != T_ENTRADA && _tipo != T_SALIDA){
 
 			//Obtengo la celda padre la que representa la compuerta
 			Celda* celda=matrizActual->get_celda_px(_x,_y);
@@ -272,7 +304,7 @@ void Controlador::eliminar_componente(int x,int y){
 		SENTIDO sent=celda->get_sentido();
 		modeloCliente-> eliminarCompuerta(celda->get_id());
 		matrizActual->eliminar_componente(_x,_y);
-		fachada_vista->dibujar_componente(_x,_y,T_VACIA,sent);
+		fachada_vista->borrar_componente(_x,_y,_tipo,sent);
 
 	}
 

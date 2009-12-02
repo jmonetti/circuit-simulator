@@ -176,6 +176,49 @@ void Area_disenio::draw_Borrar_compuerta(gdouble x, gdouble y,SENTIDO sentido){
 	gtk_widget_draw (drawing_area, &update_rect);
 
 }
+
+
+void Area_disenio::draw_Borrar_entrada(gdouble x,gdouble y, SENTIDO sentido){
+	g_print("HOLA\n");
+	GdkRectangle update_rect;
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+
+	if(sentido==ESTE){
+		update_rect.width = 2 * CELDA_WIDTH; //ancho del rectangulo a redibujar
+		update_rect.height = CELDA_HEIGHT+1;//alto del rectangulo a redibujar
+	}
+
+	gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
+
+	gtk_widget_draw (drawing_area, &update_rect);
+
+}
+void Area_disenio::draw_Borrar_salida(gdouble x,gdouble y, SENTIDO sentido){
+	g_print("HOLA\n");
+	GdkRectangle update_rect;
+
+	update_rect.x = x -CELDA_WIDTH-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+
+
+	if(sentido==ESTE){
+		update_rect.width = (2 * CELDA_WIDTH)+1; //ancho del rectangulo a redibujar
+		update_rect.height = 	CELDA_HEIGHT;//alto del rectangulo a redibujar
+	}
+
+	gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
+
+	gtk_widget_draw (drawing_area, &update_rect);
+
+}
+
+
+
+void Area_disenio::draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas){
+
+}
 /*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_pista_sur(gdouble x, gdouble y){
@@ -215,7 +258,7 @@ void Area_disenio::draw_entrada_este(gdouble x, gdouble y){
 
 	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
-	update_rect.width = 2*CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.width = 2 * CELDA_WIDTH; //ancho del rectangulo a redibujar
 	update_rect.height = CELDA_HEIGHT+1;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
 
 
