@@ -13,7 +13,6 @@ public:
 
 	static DOMElement* GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, int* entradas);
 
-	static DOMElement* PublicarCircuito(DOMDocument* doc, Circuito* circuito);
 
 };
 
