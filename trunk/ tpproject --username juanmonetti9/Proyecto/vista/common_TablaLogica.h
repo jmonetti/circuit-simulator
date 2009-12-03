@@ -29,10 +29,28 @@ public:
 private:
 
 	GtkWidget* box_Tabla;
-	GtkWidget* tabla;
+	GtkWidget* tablaEntradas;
+	GtkWidget* tablaSalidas;
+	GtkWidget* tablaTiempos;
 
-	void crear();
+	void crear(Resultado* resultados);
 
+	void crearTablaEntradas(std::vector<std::string>* entradas);
+	void crearTablaSalidas(std::vector<std::string>* salidas);
+	void crearTablaTiempos();
+
+	void completarSimulacion(std::vector<ResultadoSimulacion*>* resultado);
+	void completarTiempo(ResultadoTiempo* resultado,std::vector<std::string>* salidas);
+
+	char** generarSalida(bool* valores,int cantidad);
+
+	static const char* titlesTiempos[];
+
+	static const int CANTIDADTITLESTIEMPOS= 3;
+
+	static char* UNO;
+
+	static char* CERO;
 
 };
 

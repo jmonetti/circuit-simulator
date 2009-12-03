@@ -132,7 +132,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 					try {
 
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
-						std::string nom="";
+						std::string nom="ENTRADA";
 						id= modeloCliente->agregarEntrada(posicion,nom,sentido);
 						agregadaVista=matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
@@ -152,7 +152,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 					try {
 
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
-						std::string nom="";
+						std::string nom="SALIDA";
 						id= modeloCliente->agregarSalida(posicion,nom,sentido);
 						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
