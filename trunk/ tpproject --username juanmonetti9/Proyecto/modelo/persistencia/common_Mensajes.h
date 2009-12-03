@@ -8,8 +8,6 @@ class Circuito;
 
 class Mensajes {
 public:
-	Mensajes();
-	virtual ~Mensajes();
 
 	static DOMElement* GetSimular(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, bool* entradas);
 
