@@ -16,6 +16,69 @@ Modelo_vista_circuito::Modelo_vista_circuito() {
 
 }
 
+bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
+
+
+	Celda* aux=get_celda_px(x,y);
+	*tipo=aux->get_tipo_celda();
+	bool retorno=aux->esta_ocupada();
+
+	if(retorno){
+		//Si hay componente
+		*y= de_fila_a_pixel(aux->get_fila_padre());
+		*x= de_col_a_pixel(aux->get_colum_padre());
+	}
+
+	return retorno;
+}
+
+void Modelo_vista_circuito::eliminar_componente(int x,int y){
+
+	Celda* aux= get_celda_px(x,y);
+
+	if(aux)
+		aux->eliminar_componente();
+}
+
+bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido){
+
+	int agregado=false;
+
+	//obtengo la celda
+	Celda* celda= get_celda_px(x,y);
+
+	if (celda){
+
+		switch(_tipo){
+
+			case T_ENTRADA: {
+							agregado = celda->agregar_entrada(id,sentido);
+							break;
+							}
+
+			case T_SALIDA:  {
+						    agregado = celda->agregar_salida(id,sentido);
+						    break;
+						    }
+
+			case T_PISTA:   {
+						    agregado = celda->agregar_pista(id,sentido);
+						    break;
+						    }
+
+			case T_CAJANEGRA:{
+							 agregado = celda->agregar_caja_negra(id,sentido);
+							 break;
+							 }
+
+			default:
+					agregado = celda->agregar_compuerta(_tipo,id,sentido);
+		}
+	}
+
+	return agregado;
+}
+
 int Modelo_vista_circuito::de_pixel_a_fila(int y){
 
 	int fila=((y*FILAS_MODELO)/PIXELES_HEIGHT)+1;
@@ -33,6 +96,7 @@ int Modelo_vista_circuito::de_col_a_pixel(int col){
 	int x = ((col)*CELDA_WIDTH)-(CELDA_WIDTH/2);
 	return x;
 }
+
 int Modelo_vista_circuito::de_fila_a_pixel(int fila){
 
 	int y = ((fila)*CELDA_WIDTH)-(CELDA_WIDTH/2);
@@ -43,8 +107,6 @@ int Modelo_vista_circuito::de_fila_a_pixel(int fila){
 
 Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
-
-
 	if(fila>=1 && colum>=1){
 
 		return modelo_grilla[fila-1][colum-1];
@@ -54,7 +116,6 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
 }
 Celda* Modelo_vista_circuito::get_celda_px(int x,int y){
-
 
 	int fila= de_pixel_a_fila(y);
 	int col= de_pixel_a_col(x);
@@ -70,102 +131,6 @@ Celda* Modelo_vista_circuito::get_celda_px(int* x,int* y){
 	*x=de_col_a_pixel(col);
 
 	return modelo_grilla[fila-1][col-1];
-
-}
-
-
-
-bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
-
-
-	Celda* aux=get_celda_px(x,y);
-	*tipo=aux->get_tipo_celda();
-	bool retorno=aux->esta_ocupada();
-
-	if(retorno){
-		//Si hay componente
-		*y= de_fila_a_pixel(aux->get_fila_padre());
-		*x= de_col_a_pixel(aux->get_colum_padre());
-	}
-
-	return retorno;
-}
-void Modelo_vista_circuito::eliminar_componente(int x,int y){
-
-	Celda* aux= get_celda_px(x,y);
-
-	if(aux)
-		aux->eliminar_componente();
-}
-bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido){
-
-	int agregado=false;
-
-	switch(_tipo){
-
-	case T_ENTRADA:{
-		agregado = agregar_entrada(x,y,id,sentido);
-		break;
-	}
-	case T_SALIDA: {
-		agregado = agregar_salida(x,y,id,sentido);
-		break;
-	}
-	case T_PISTA: {
-		//TODO
-	}
-	case T_CAJANEGRA:{
-			//TODO
-	}
-
-	default:
-		agregado = agregar_compuerta(x,y,_tipo,id,sentido);
-	}
-
-	return agregado;
-}
-
-bool Modelo_vista_circuito::agregar_compuerta(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido){
-
-	bool agregada= false;;
-
-	//obtengo la celda
-	Celda* aux= get_celda_px(x,y);
-
-	//intento agregarle una compuerta
-	if(aux)
-		agregada=aux->agregar_compuerta(_tipo,id,sentido);
-
-
-	return agregada;
-}
-
-bool Modelo_vista_circuito::agregar_entrada(int* x,int* y,int id,SENTIDO sentido){
-
-	bool agregada=false;
-
-	//obtengo la celda
-	Celda* aux= get_celda_px(x,y);
-
-	//intento agregarle una compuerta
-	if (aux)
-		agregada=aux->agregar_entrada(id,sentido);
-
-	return agregada;
-
-}
-
-bool Modelo_vista_circuito::agregar_salida(int* x,int* y,int id,SENTIDO sentido){
-
-	bool agregada=false;
-
-	//obtengo la celda
-	Celda* aux= get_celda_px(x,y);
-
-	//intento agregarle una compuerta
-	agregada=aux->agregar_salida(id,sentido);
-
-	return agregada;
 
 }
 

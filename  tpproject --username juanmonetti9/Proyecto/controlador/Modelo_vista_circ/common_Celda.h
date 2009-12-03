@@ -33,9 +33,12 @@ private:
 
 	bool agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido);
 
-	void fila_col_entorno(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo);
+	void get_pos_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo);
 
 	bool agregar_entorno_pista(SENTIDO sentido);
+
+	bool agregar_entorno_caja_negra(SENTIDO sentido);
+
 
 
 public:
@@ -53,26 +56,24 @@ public:
 
 	bool agregar_pista(int id,SENTIDO sentido);
 
+	bool agregar_caja_negra(int id,SENTIDO sentido);
+
 	bool agregar_entrada(int id,SENTIDO sentido);
 
 	bool agregar_salida(int id,SENTIDO sentido);
 
 	void set_sentido(SENTIDO _sentido);
 
-	void rotar_lef();
+	void rotar_izq();
 
-	void rotar_right();
+	void rotar_derecha();
 
 	void eliminar_componente();
 
-	/**
-	 * Setea el valor del atributo estado con el parametro _estado
-	 */
-	void ocupar_celda(TIPO_COMPUERTA _estado);
+	void ocupar_celda_padre(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int id,int filaPadre, int colPadre);
 
-	/**
-	 * Setea el valor del atributo estado en VACIA
-	 */
+	void ocupar_celda(TIPO_COMPUERTA _tipo,int filaPadre, int colPadre);
+
 	void desocupar_celda();
 
 	int get_fila()const;

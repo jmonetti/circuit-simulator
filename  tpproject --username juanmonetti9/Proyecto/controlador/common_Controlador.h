@@ -21,7 +21,7 @@ private:
 	std::map<int,Modelo_vista_circuito*> matrices; //matriz que representa el modelo
 	Modelo_vista_circuito* matrizActual;
 	ModeloCliente* modeloCliente; //modelo que representa el cliente
-	Fachada_vista* fachada_vista;
+	Fachada_vista* fachada_vista; //fachada para la comunicacion con la vista
 	Accion* accion;
 	bool arrstre_activo;
 	int pos_x; //pos de clickeo
@@ -42,31 +42,29 @@ public:
 
 	void simular();
 
-	void crear_circuito();
+	void abrir_circuito();
 
-	void cambiar_circuito(int index);
+	void crear_circuito();
 
 	void eliminar_circuito();
 
-	void abrir_circuito();
+	void cambiar_circuito(int index);
 
-	void set_pos_x_click(int x);
+	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
 
-	void set_pos_y_click(int y);
+	void eliminar_componente(int x,int y);
 
 	void agregar_accion(Accion* nueva_accion);
 
 	void ejecutar_accion(gdouble x,gdouble y);
 
-	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
-
-	bool agregar_componente(int *x,int *y,TIPO_COMPUERTA n_tipo,int n_id,SENTIDO n_sentido);
-
-	void eliminar_componente(int x,int y);
-
 	void rotar_right(int x,int y);
 
 	void rotar_left(int x,int y);
+
+	void set_pos_x_click(int x);
+
+	void set_pos_y_click(int y);
 
 	void conectar_drag_drop();
 

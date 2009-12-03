@@ -69,39 +69,6 @@ void  Controlador::set_pos_y_click(int y){
 
 	pos_y=y;
 }
-bool Controlador::agregar_componente(int *x,int *y,TIPO_COMPUERTA n_tipo,int n_id,SENTIDO n_sentido){
-
-	bool retorno;
-	switch(n_tipo){
-
-	case T_ENTRADA:{
-		retorno = matrizActual->agregar_entrada(x,y,n_id,n_sentido);
-		break;
-	}
-	case T_SALIDA:{
-		retorno = matrizActual->agregar_salida(x,y,n_id,n_sentido);
-			break;
-		}
-	case T_PISTA:{
-		retorno = false;
-			break;
-	}
-	case T_CAJANEGRA:{
-		retorno = false;
-			break;
-	}
-	default:{
-		retorno = matrizActual->agregar_compuerta(x,y,n_tipo,n_id,n_sentido);
-		}
-
-	}
-
-	return retorno;
-}
-
-
-
-
 
 void Controlador::arrastrar(gdouble x, gdouble y){
 
@@ -167,7 +134,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						std::string nom="";
 						id= modeloCliente->agregarEntrada(posicion,nom,sentido);
-						agregadaVista=matrizActual->agregar_entrada(&_x,&_y,id,sentido);
+						agregadaVista=matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
@@ -187,7 +154,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						std::string nom="";
 						id= modeloCliente->agregarSalida(posicion,nom,sentido);
-						agregadaVista= matrizActual->agregar_salida(&_x,&_y,id,sentido);
+						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
@@ -210,7 +177,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
 						id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
 
-						agregadaVista= matrizActual->agregar_compuerta(&_x,&_y,_tipo,id,sentido);
+						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
@@ -252,7 +219,7 @@ void Controlador::rotar_left(int x,int y){
 
 				modeloCliente->rotar(celda->get_id(),IZQUIERDA);
 				fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
-				celda->rotar_lef();
+				celda->rotar_izq();
 				fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
 			} catch (ConexionException e) {
 				g_print("NO ROTO");//TODO
@@ -279,7 +246,7 @@ void Controlador::rotar_right(int x,int y){
 			try {
 				modeloCliente->rotar(celda->get_id(),DERECHA);
 				fachada_vista->dibujar_componente(_x,_y,T_VACIA,celda->get_sentido());
-				celda->rotar_right();
+				celda->rotar_derecha();
 				fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
 
 			} catch (ConexionException e) {
@@ -443,28 +410,8 @@ void Controlador::generarCircuito(Circuito* circuito) {
 		int x= matrizActual->de_col_a_pixel(posicion.getX());
 		int y= matrizActual->de_fila_a_pixel(posicion.getY());
 
-		if (compuerta -> getEntrada()) {
+		matrizActual->agregar_componente(&x,&y,compuerta->getTipo(),compuerta->getId(),compuerta->getSentido());
 
-			matrizActual->agregar_entrada(&x,&y,compuerta->getId(),compuerta->getSentido());
-
-
-		}else if (compuerta -> getSalida()) {
-
-			matrizActual->agregar_salida(&x,&y,compuerta->getId(),compuerta->getSentido());
-
-		}else {
-
-			if (compuerta->getTipo() == T_PISTA) {
-
-
-			}else {
-
-				matrizActual->agregar_compuerta(&x,&y,compuerta->getTipo(),compuerta->getId(),compuerta->getSentido());
-
-
-			}
-
-		}
 
 		fachada_vista->dibujar_componente(x,y,compuerta->getTipo(),compuerta->getSentido());
 

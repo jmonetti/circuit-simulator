@@ -18,93 +18,147 @@ Celda::Celda(Modelo_vista_circuito* _grilla,unsigned int _fila,unsigned int _col
 }
 /*----------------------------------------------------------------------------*/
 
-void Celda::eliminar_componente(){
+bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido){
 
-	if(esta_ocupada()){
+	bool retorno=true;
 
-		Celda* padre= grilla->get_celda(fila_padre,colum_padre);
-		padre->desocupar_celda();
+	int fila_entorno;
+	int col_entorno;
+	this->get_pos_entorno_ES(&fila_entorno,&col_entorno,sentido,_tipo);
+
+	if( _tipo== T_SALIDA || _tipo== T_ENTRADA){
+
+		Celda* aux=grilla->get_celda(fila_entorno,col_entorno);
+
+		if(!aux->esta_ocupada() ){
+ 			 aux->ocupar_celda(_tipo,fila,colum);
+			 entorno.push_front(aux);
+		 }
+		 else
+			 retorno=false;
+	}
+	else
+		retorno=false;
+
+	return retorno;
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_entorno_pista(SENTIDO sentido){
+
+	bool retorno=true;
+	Celda* aux_1;
+	Celda* aux_2;
+
+	if( sentido == ESTE || sentido == OESTE ){
+
+		aux_1 = grilla->get_celda(fila,colum-1);
+		aux_2 = grilla->get_celda(fila,colum+1);
+
+	}else{
+
+		aux_1 = grilla->get_celda(fila+1,colum);
+		aux_2 = grilla->get_celda(fila-1,colum);
 
 	}
 
+	if( !aux_1->esta_ocupada() &&  !aux_2->esta_ocupada()){
+
+		 aux_1->ocupar_celda(T_PISTA,fila,colum);
+		 aux_2->ocupar_celda(T_PISTA,fila,colum);
+
+		 entorno.push_front(aux_1);
+		 entorno.push_front(aux_2);
+	 }
+	 else
+		 retorno=false;
+
+	return retorno;
+
+
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_entorno_caja_negra(SENTIDO sentido){
+
+	return true;//todo
 }
 /*----------------------------------------------------------------------------*/
 
 bool Celda::agregar_pista(int id,SENTIDO sentido){
-	return true;//todo
 
-}
-/*----------------------------------------------------------------------------*/
-
-bool Celda::agregar_entrada(int id,SENTIDO sentido){
-
-	bool agregada=true;
-
-		if(!esta_ocupada()){
-
-			agregada=agregar_entorno_entrada_salida(T_ENTRADA,ESTE);
-
-			if(agregada){
-				set_info_padre(fila,colum);
-				set_sentido(sentido);
-				ocupar_celda(T_ENTRADA);
-				ID= id;
-			}
-
-		}
-		else
-			agregada=false;
-
-		return agregada;
-}
-/*----------------------------------------------------------------------------*/
-
-bool Celda::agregar_salida(int id,SENTIDO sentido){
-	bool agregada=true;
-
-			if(!esta_ocupada()){
-
-				agregada=agregar_entorno_entrada_salida(T_SALIDA,ESTE);
-
-				if(agregada){
-					set_info_padre(fila,colum);
-					set_sentido(sentido);
-					ocupar_celda(T_SALIDA);
-					ID= id;
-				}
-
-			}
-			else
-				agregada=false;
-
-			return agregada;
-}
-/*----------------------------------------------------------------------------*/
-
-bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO sentido){
-
-	bool agregada=true;
+	bool agregada;
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_compuerta(tipo);
-
-		if(agregada){
-			set_info_padre(fila,colum);
-			set_sentido(sentido);
-			ocupar_celda(tipo);
-			ID= id;
-		}
-
+		agregada=agregar_entorno_pista(sentido);
+		if(agregada)
+			ocupar_celda_padre(T_PISTA,sentido,id,fila,colum);
 	}
 	else
 		agregada=false;
 
 	return agregada;
+
+
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_caja_negra(int id,SENTIDO sentido){
+
+	bool agregada;
+
+	if(!esta_ocupada()){
+
+		agregada=agregar_entorno_caja_negra(sentido);
+		if(agregada)
+			ocupar_celda_padre(T_CAJANEGRA,sentido,id,fila,colum);
+	}
+	else
+		agregada=false;
+
+	return agregada;
+
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo){
+
+	bool retorno= true;
+	int f=fila;
+	int c=colum;
+
+	for (int i = f-1; i < f+2; ++i) {
+		for (int j = c-1; j < c +2; ++j) {
+
+			if(!(i==f && j==c)){
+				Celda* aux=grilla->get_celda(i,j);
+
+				if(retorno && aux){
+					if(!aux->esta_ocupada() ){
+						aux->ocupar_celda(_tipo,fila,colum);
+						entorno.push_front(aux);
+					}
+					else
+						retorno=false;
+				}
+				else
+					retorno =false;
+			}
+		}
+	}
+
+	if(!retorno)
+		vaciar_entorno();
+
+
+	return retorno;
+
 }
 
+
 /*----------------------------------------------------------------------------*/
-void Celda::fila_col_entorno(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo){
+void Celda::get_pos_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo){
 
 	if( tipo == T_SALIDA){
 
@@ -144,73 +198,73 @@ void Celda::fila_col_entorno(int* fila_entorno,int* col_entorno,SENTIDO sentido,
 		}
 	}
 }
-bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido){
+/*----------------------------------------------------------------------------*/
 
-	bool retorno=true;
+void Celda::eliminar_componente(){
 
-	int fila_entorno;
-	int col_entorno;
-	this->fila_col_entorno(&fila_entorno,&col_entorno,sentido,_tipo);
+	if(esta_ocupada()){
 
-	if( _tipo== T_SALIDA || _tipo== T_ENTRADA){
+		Celda* padre= grilla->get_celda(fila_padre,colum_padre);
+		padre->desocupar_celda();
 
-		Celda* aux=grilla->get_celda(fila_entorno,col_entorno);
+	}
 
-		if(!aux->esta_ocupada() ){
+}
 
-			 aux->set_info_padre(fila,colum);
-			 aux->ocupar_celda(_tipo);
-			 entorno.push_front(aux);
-		 }
-		 else
-			 retorno=false;
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_entrada(int id,SENTIDO sentido){
+
+	bool agregada=true;
+
+		if(!esta_ocupada()){
+
+			agregada=agregar_entorno_entrada_salida(T_ENTRADA,ESTE);
+
+			if(agregada)
+				ocupar_celda_padre(T_ENTRADA,sentido,id,fila,colum);
+
+		}else
+			agregada=false;
+
+		return agregada;
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_salida(int id,SENTIDO sentido){
+	bool agregada=true;
+
+	if(!esta_ocupada()){
+
+		agregada=agregar_entorno_entrada_salida(T_SALIDA,ESTE);
+
+		if(agregada)
+			ocupar_celda_padre(T_SALIDA,sentido,id,fila,colum);
+
+	}else
+		agregada=false;
+
+	return agregada;
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO sentido){
+
+	bool agregada=true;
+
+	if(!esta_ocupada()){
+
+		agregada=agregar_entorno_compuerta(tipo);
+
+		if(agregada)
+			ocupar_celda_padre(tipo,sentido,id,fila,colum);
 	}
 	else
-		retorno=false;
+		agregada=false;
 
-	return retorno;
+	return agregada;
 }
-/*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entorno_pista(SENTIDO sentido){
-	return true;//todo
-}
-/*----------------------------------------------------------------------------*/
-
-bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo){
-
-	bool retorno= true;
-	int f=fila;
-	int c=colum;
-
-	for (int i = f-1; i < f+2; ++i) {
-		for (int j = c-1; j < c +2; ++j) {
-
-			if(!(i==f && j==c)){
-				Celda* aux=grilla->get_celda(i,j);
-
-				if(retorno && aux){
-					if(!aux->esta_ocupada() ){
-						aux->set_info_padre(f,c);
-						aux->ocupar_celda(_tipo);
-						entorno.push_front(aux);
-					}
-					else
-						retorno=false;
-				}
-				else
-					retorno =false;
-			}
-		}
-	}
-
-	if(!retorno)
-		vaciar_entorno();
-
-
-	return retorno;
-
-}
 /*----------------------------------------------------------------------------*/
 
 void Celda::set_sentido(SENTIDO _sentido){
@@ -220,7 +274,7 @@ void Celda::set_sentido(SENTIDO _sentido){
 
 /*----------------------------------------------------------------------------*/
 
-void Celda::rotar_lef(){
+void Celda::rotar_izq(){
 
 	Celda* celda=grilla->get_celda(fila_padre,colum_padre);
 
@@ -242,7 +296,7 @@ void Celda::rotar_lef(){
 }
 /*----------------------------------------------------------------------------*/
 
-void Celda::rotar_right(){
+void Celda::rotar_derecha(){
 
 	Celda* celda=grilla->get_celda(fila_padre,colum_padre);
 
@@ -266,9 +320,18 @@ void Celda::rotar_right(){
 
 /*----------------------------------------------------------------------------*/
 
-void Celda::ocupar_celda(TIPO_COMPUERTA _tipo){
+void Celda::ocupar_celda_padre(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int id,int filaPadre, int colPadre){
 
 	estado= _tipo;
+	set_info_padre(fila,colum);
+	set_sentido(_sentido);
+	ID= id;
+}
+
+void Celda::ocupar_celda(TIPO_COMPUERTA _tipo,int filaPadre, int colPadre){
+
+	estado = _tipo;
+	set_info_padre(filaPadre,colPadre);
 }
 /*----------------------------------------------------------------------------*/
 
@@ -341,9 +404,8 @@ void Celda::desocupar_celda(){
 	}
 	estado= T_VACIA;
 	ID=0;
-	sentido= ESTE;
-	fila_padre= 0;
-	colum_padre= 0;
+	set_sentido(ESTE);
+	set_info_padre(0,0);
 }
 /*----------------------------------------------------------------------------*/
 
