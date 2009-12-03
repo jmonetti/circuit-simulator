@@ -8,15 +8,6 @@
 
 #include "common_Mensajes.h"
 
-Mensajes::Mensajes() {
-	// TODO Auto-generated constructor stub
-
-}
-
-Mensajes::~Mensajes() {
-	// TODO Auto-generated destructor stub
-}
-
 DOMElement* Mensajes::GetSimular(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, bool* entradas) {
 
 	XMLCh tempStr [99];
