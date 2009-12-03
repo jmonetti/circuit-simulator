@@ -127,9 +127,9 @@ void XOR::actualizarEntradas() {
 		case NORTE:
 		{
 
-			xEntrada1= xCompuerta + 1;
+			xEntrada1= xCompuerta - 1;
 			yEntrada1= yCompuerta + 1;
-			xEntrada2= xCompuerta - 1;
+			xEntrada2= xCompuerta + 1;
 			yEntrada2= yCompuerta + 1;
 
 			break;
@@ -149,9 +149,9 @@ void XOR::actualizarEntradas() {
 		case SUR:
 		{
 
-			xEntrada1= xCompuerta - 1;
+			xEntrada1= xCompuerta + 1;
 			yEntrada1= yCompuerta - 1;
-			xEntrada2= xCompuerta + 1;
+			xEntrada2= xCompuerta - 1;
 			yEntrada2= yCompuerta - 1;
 
 			break;
@@ -161,9 +161,9 @@ void XOR::actualizarEntradas() {
 		{
 
 			xEntrada1= xCompuerta + 1;
-			yEntrada1= yCompuerta - 1;
+			yEntrada1= yCompuerta + 1;
 			xEntrada2= xCompuerta + 1;
-			yEntrada2= yCompuerta + 1;
+			yEntrada2= yCompuerta - 1;
 
 			break;
 

@@ -162,8 +162,118 @@ void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
 
 void CajaNegra::actualizarEntradas() {
 
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+
+	for (unsigned int var = 0; var < entradas.size(); ++var) {
+
+		unsigned int xEntrada;
+		unsigned int yEntrada;
+
+		switch (getSentido()) {
+
+			case ESTE:
+			{
+
+				xEntrada= xCompuerta - 1;
+				yEntrada= yCompuerta - 1 + var;
+				break;
+
+			}
+			case SUR:
+			{
+
+				xEntrada= xCompuerta + 1 - var;
+				yEntrada= yCompuerta - 1;
+
+			}
+
+			case NORTE:
+			{
+
+				xEntrada= xCompuerta - 1 + var;
+				yEntrada= yCompuerta + 1;
+
+			}
+
+			case OESTE:
+			{
+
+				xEntrada= xCompuerta + 1;
+				yEntrada= yCompuerta + 1 - var;
+			}
+
+			default:
+
+				break;
+
+		}
+
+		Posicion posicion(xEntrada,yEntrada);
+		entradas[var]->mover(posicion);
+		entradas[var]->rotar(getSentido());
+
+	}
+
 }
 
 void CajaNegra::actualizarSalidas() {
+
+	unsigned int xCompuerta= getPosicion().getX();
+	unsigned int yCompuerta= getPosicion().getY();
+
+
+	for (unsigned int var = 0; var < salidas.size(); ++var) {
+
+		unsigned int xSalida;
+		unsigned int ySalida;
+
+		switch (getSentido()) {
+
+			case ESTE:
+			{
+
+				xSalida= xCompuerta + 1;
+				ySalida= yCompuerta - 1 + var;
+				break;
+
+			}
+
+			case SUR:
+			{
+
+				xSalida= xCompuerta + 1 - var;
+				ySalida= yCompuerta + 1;
+
+			}
+
+			case NORTE:
+			{
+
+				xSalida= xCompuerta - 1 + var;
+				ySalida= yCompuerta - 1;
+
+			}
+
+			case OESTE:
+			{
+
+				xSalida= xCompuerta - 1;
+				ySalida= yCompuerta + 1 - var;
+
+			}
+
+			default:
+
+				break;
+
+		}
+
+		Posicion posicion(xSalida,ySalida);
+		entradas[var]->mover(posicion);
+		entradas[var]->rotar(getSentido());
+
+	}
 
 }
