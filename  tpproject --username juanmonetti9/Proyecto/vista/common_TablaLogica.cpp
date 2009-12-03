@@ -59,6 +59,47 @@ void TablaLogica::completar(Resultado* resultados) {
 	completarSimulacion(resultados->getResultadoSimulacion());
 	completarTiempo(resultados->getResultadoTiempo(),resultados->getNombreSalidas());
 
+	ResultadoSimulacion* resultado;
+
+		for (unsigned int var = 0; var < resultados->getResultadoSimulacion()->size(); ++var) {
+
+			resultado= resultados->getResultadoSimulacion()->at(var);
+
+			std::cout<<"Entrada: ";
+
+			for (unsigned int j = 0; j < resultado->getCantidadEntradas(); ++j) {
+
+				std::cout<<resultado->getEntradas()[j];
+
+			}
+
+			std::cout<<std::endl;
+
+			std::cout<<"Salida: ";
+
+			for (unsigned int j = 0; j < resultado->getCantidadSalidas(); ++j) {
+
+				std::cout<<resultado->getSalidas()[j];
+
+			}
+
+			std::cout<<std::endl;
+
+		}
+
+		std::cout<<std::endl<<std::endl;
+
+		int* tiempos= resultados->getResultadoTiempo()->getTiempos();
+
+		for (unsigned int var = 0; var < resultados->getResultadoTiempo()->getCantidad(); ++var) {
+
+			std::cout << "Tiempo: "  << tiempos[var] << std::endl;
+
+		}
+
+
+
+
 	delete resultados;
 
 }
@@ -196,7 +237,7 @@ void TablaLogica::completarSimulacion(std::vector<ResultadoSimulacion*>* resulta
 		salidas= generarSalida(resultadoAux->getSalidas(),resultadoAux->getCantidadSalidas());
 
 		gtk_clist_append( GTK_CLIST(tablaEntradas), entradas);
-		gtk_clist_append( GTK_CLIST(tablaSalidas), entradas);
+		gtk_clist_append( GTK_CLIST(tablaSalidas), salidas);
 
 		delete[] entradas;
 		delete[] salidas;
@@ -217,7 +258,7 @@ void TablaLogica::completarTiempo(ResultadoTiempo* resultado,std::vector<std::st
 		(*salidas)[var].copy(fila[0],(*salidas)[var].size());
 		fila[0][(*salidas)[var].size()]= '\0';
 
-		fila[1]= new char[3];
+		fila[1]= new char[4];
 		sprintf(fila[1],"%d",tiempos[var]);
 
 		fila[2]= (char*)"";
