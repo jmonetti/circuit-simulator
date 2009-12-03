@@ -298,9 +298,9 @@ void Controlador::eliminar_componente(int x,int y){
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
 
-	Celda* celda=matrizActual->get_celda_px(x,y);
-	if(matrizActual->hay_componente(&_x,&_y,&_tipo) && celda){
+	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
+		Celda* celda=matrizActual->get_celda_px(_x,_y);
 		SENTIDO sent=celda->get_sentido();
 		modeloCliente-> eliminarCompuerta(celda->get_id());
 		matrizActual->eliminar_componente(_x,_y);
