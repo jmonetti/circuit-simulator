@@ -30,10 +30,9 @@ DOMElement* Mensajes::GetSimular(DOMDocument* doc,std::string &nombreCircuito,in
 
     XMLString::transcode(nombreCircuito.c_str(),tempStr,99);
     nombre->setTextContent(tempStr);
-
     funcion->appendChild(nombre);
 
-    for(int i=0;i<cantEntradas;i++){
+    for(int i=0;i<cantEntradas;++i){
     	aux = "Entrada";
     	Persistencia::guardarElementoTexto(doc,funcion,aux,entradas[i]);
     }
@@ -57,7 +56,7 @@ DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCi
     nombre->setTextContent(tempStr);
     funcion->appendChild(nombre);
 
-    for(int i=0;i<cantEntradas;i++){
+    for(int i=0;i<cantEntradas;++i){
     	aux = "TiempoEntrada";
     	Persistencia::guardarElementoTexto(doc,funcion,aux,entradas[i]);
     }
