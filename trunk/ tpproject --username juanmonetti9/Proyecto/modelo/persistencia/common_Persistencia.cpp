@@ -131,7 +131,6 @@ void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::str
 	XMLString::transcode("soap:Envelope",nombre,99);
 	DOMElement* envelope = doc->createElement(nombre);
 
-//TODO funciones de envelope
 	/** xmlns:soap **/
     XMLString::transcode("xmlns:soap", nombre, 99);
 
@@ -141,29 +140,10 @@ void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::str
 
     envelope->setAttribute(nombre,valor);
 
-	/** soap:encodingStyle **/
-    XMLString::transcode("soap:encodingStyle", nombre, 99);
-
-    aux = "http://www.w3.org/2001/12/soap-encoding";
-
-    XMLString::transcode(aux.c_str(),valor,99);
-
-    envelope->setAttribute(nombre,valor);
-
-//TODO funciones de header
-
-	//XMLString::transcode("soap:Header",tempStr,99);
-	//DOMElement* header = doc->createElement(tempStr);
-
-//TODO funciones del body
-
 	XMLString::transcode("soap:Body",nombre,99);
 	DOMElement* body = doc->createElement(nombre);
 
     body->appendChild(datos);
-
-//TODO
-	//envelope->appendChild(header);
 
 	envelope->appendChild(body);
 
@@ -250,7 +230,7 @@ std::string Persistencia::publicarCircuito(Circuito *circuito) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "publicarCircuito.xml";
+	std::string ruta = "PublicarCircuito.xml";
 
 	generarSOAP(impl,doc,ruta, Mensajes::PublicarCircuito(doc, circuito));
 
