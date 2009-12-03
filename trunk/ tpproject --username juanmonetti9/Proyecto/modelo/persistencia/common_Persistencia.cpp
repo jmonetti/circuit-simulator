@@ -12,6 +12,7 @@
 
 #include "../circuito/common_Circuito.h"
 #include "../circuito/common_FactoryCompuerta.h"
+#include "../publicacion/common_Servidor.h"
 
 #include "common_Persistencia.h"
 
@@ -390,12 +391,6 @@ void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 
 void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string aux;
-
-//	XMLCh* ATTR_ID = XMLString::transcode("id");
-//	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
-//	aux = XMLString::transcode(attr_id->getValue());
-
 	std::string nombre = "entradas";
 	int entradas = Persistencia::recuperarDato(ElementoCte,nombre);
 
@@ -411,8 +406,24 @@ void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) 
 	nombre = "sentido";
 	int sentido = Persistencia::recuperarDato(ElementoCte,nombre);
 
+	std::string nombreCircuito;
+	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
+	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
+	nombreCircuito = XMLString::transcode(attr_nombre->getValue());
+
+	std::string host;
+	XMLCh* ATTR_HOST = XMLString::transcode("host");
+	DOMAttr* attr_host = ElementoCte->getAttributeNode(ATTR_HOST);
+	host = XMLString::transcode(attr_host->getValue());
+
+	nombre= "puerto";
+	int puerto= Persistencia::recuperarDato(ElementoCte,nombre);
+
 	Posicion posicion(x,y);
 
+	Servidor servidor(host,puerto);
+
+	FactoryCompuerta::crearCajaNegra(*circuito,posicion,nombreCircuito,(SENTIDO)sentido,servidor,entradas,salidas);
 
 }
 
