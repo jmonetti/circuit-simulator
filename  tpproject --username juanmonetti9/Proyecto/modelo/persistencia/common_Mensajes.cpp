@@ -56,10 +56,3 @@ DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCi
 
 }
 
-DOMElement* Mensajes::PublicarCircuito(DOMDocument* doc, Circuito* circuito) {
-
-	DOMElement* elem_circuito = circuito->obtenerCircuito(doc);
-
-	return elem_circuito;
-
-}

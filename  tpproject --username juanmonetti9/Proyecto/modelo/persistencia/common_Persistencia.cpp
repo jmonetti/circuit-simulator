@@ -232,7 +232,7 @@ std::string Persistencia::publicarCircuito(Circuito *circuito) {
 
 	std::string ruta = "PublicarCircuito.xml";
 
-	generarSOAP(impl,doc,ruta, Mensajes::PublicarCircuito(doc, circuito));
+	generarSOAP(impl,doc,ruta, circuito->obtenerCircuito(doc));
 
 	return ruta;
 
