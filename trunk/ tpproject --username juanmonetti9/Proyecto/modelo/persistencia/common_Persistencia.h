@@ -40,9 +40,19 @@ public:
 
 	static void guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,std::string &valor);
 
+	static void guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor);
+
 	static int recuperarDato(DOMElement* ElementoCte, std::string &nombre);
 
+	static std::string generarPedido (std::string &nombreCircuito,int cantEntradas, bool* entradas);
+
+	static std::string generarPedido (std::string &nombreCircuito,int cantEntradas, int* entradas);
+
+	static std::string publicarCircuito(Circuito* circuito);
+
 private:
+
+	static void generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::string &ruta, DOMElement* datos);
 
 	Circuito* parserCircuito(DOMElement* ElementoCte, int idCircuito, const std::string &nombreCircuito);
 

@@ -13,6 +13,7 @@
 #include "../circuito/common_Circuito.h"
 #include "../circuito/common_FactoryCompuerta.h"
 #include "../publicacion/common_Servidor.h"
+#include "common_Mensajes.h"
 
 #include "common_Persistencia.h"
 
@@ -119,6 +120,141 @@ void Persistencia::guardar(const Circuito &circuito) {
     theOutput->release();
     theSerializer->release();
     delete myFormatTarget;
+
+}
+
+void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::string &ruta, DOMElement* datos) {
+
+	XMLCh nombre[100];
+	XMLCh valor[100];
+
+	XMLString::transcode("soap:Envelope",nombre,99);
+	DOMElement* envelope = doc->createElement(nombre);
+
+//TODO funciones de envelope
+	/** xmlns:soap **/
+    XMLString::transcode("xmlns:soap", nombre, 99);
+
+    std::string aux = "http://www.w3.org/2001/12/soap-envelope";
+
+    XMLString::transcode(aux.c_str(),valor,99);
+
+    envelope->setAttribute(nombre,valor);
+
+	/** soap:encodingStyle **/
+    XMLString::transcode("soap:encodingStyle", nombre, 99);
+
+    aux = "http://www.w3.org/2001/12/soap-encoding";
+
+    XMLString::transcode(aux.c_str(),valor,99);
+
+    envelope->setAttribute(nombre,valor);
+
+//TODO funciones de header
+
+	//XMLString::transcode("soap:Header",tempStr,99);
+	//DOMElement* header = doc->createElement(tempStr);
+
+//TODO funciones del body
+
+	XMLString::transcode("soap:Body",nombre,99);
+	DOMElement* body = doc->createElement(nombre);
+
+    body->appendChild(datos);
+
+//TODO
+	//envelope->appendChild(header);
+
+	envelope->appendChild(body);
+
+	doc->appendChild(envelope);
+
+    DOMLSSerializer* theSerializer = ((DOMImplementationLS*)impl)->createLSSerializer();
+
+    // optionally you can set some features on this serializer
+    if (theSerializer->getDomConfig()->canSetParameter(XMLUni::fgDOMWRTDiscardDefaultContent, true))
+        theSerializer->getDomConfig()->setParameter(XMLUni::fgDOMWRTDiscardDefaultContent, true);
+
+    if (theSerializer->getDomConfig()->canSetParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true))
+         theSerializer->getDomConfig()->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
+
+    XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(ruta.c_str());
+
+    DOMLSOutput* theOutput = ((DOMImplementationLS*)impl)->createLSOutput();
+    theOutput->setByteStream(myFormatTarget);
+
+    DOMNode* nodo = dynamic_cast < xercesc::DOMNode* >( doc );
+
+    try {
+        theSerializer->write(nodo, theOutput);
+    }
+    catch (const XMLException& toCatch) {
+        std::string message = XMLString::transcode(toCatch.getMessage());
+        throw runtime_error("Exception message is: \n" + message);
+    }
+    catch (const DOMException& toCatch) {
+        std::string message = XMLString::transcode(toCatch.msg);
+        throw runtime_error("Exception message is: \n" + message);
+    }
+    catch (...) {
+        throw runtime_error("Unexpected Exception");
+    }
+
+    doc->release();
+    theOutput->release();
+    theSerializer->release();
+    delete myFormatTarget;
+
+}
+
+
+std::string Persistencia::generarPedido (std::string &nombreCircuito,int cantEntradas, bool* entradas) {
+
+	XMLCh tempStr[100];
+
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "GetSimulacion.xml";
+
+	generarSOAP(impl,doc,ruta,Mensajes::GetSimular(doc,nombreCircuito,cantEntradas, entradas));
+
+	return ruta;
+
+}
+
+std::string Persistencia::generarPedido (std::string &nombreCircuito,int cantEntradas, int* entradas) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "GetTiempoSimulacion.xml";
+
+	generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacion(doc,nombreCircuito,cantEntradas, entradas));
+
+	return ruta;
+
+
+}
+
+std::string Persistencia::publicarCircuito(Circuito *circuito) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "publicarCircuito.xml";
+
+	generarSOAP(impl,doc,ruta, Mensajes::PublicarCircuito(doc, circuito));
+
+	return ruta;
 
 }
 
@@ -456,6 +592,24 @@ void Persistencia::guardarElemento(DOMDocument* doc, DOMElement* elem,std::strin
     XMLString::transcode(valor.c_str(),tempStr,29);
     atributo->setNodeValue(tempStr);
     elem->setAttributeNode(atributo);
+}
+
+void Persistencia::guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor) {
+
+	XMLCh tempStr[30];
+	std::string aux;
+
+    XMLString::transcode(nombre.c_str(), tempStr, 29);
+    DOMElement* atributo = doc->createElement(tempStr);
+
+    std::stringstream converter;
+    converter << valor;
+    aux = converter.str();
+
+    XMLString::transcode(aux.c_str(),tempStr,99);
+    atributo->setTextContent(tempStr);
+    elem->appendChild(atributo);
+
 }
 
 int Persistencia::recuperarDato(DOMElement* ElementoCte, std::string &nombre) {
