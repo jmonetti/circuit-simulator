@@ -59,6 +59,41 @@ void Compuerta::rotar(DIRECCION direccion) {
 
 }
 
+void Compuerta::simular() {
+
+	EntradaCompuerta** entradas= getEntradas();
+
+	bool* valores= new bool[getCantidadEntradas()];
+
+	for (int var = 0; var < getCantidadEntradas(); ++var) {
+
+		valores[var]= entradas[var]->simular();
+
+	}
+
+	actuarSimular(valores);
+
+	delete[] valores;
+
+}
+
+void Compuerta::calcularTiempoTransicion() {
+
+	EntradaCompuerta** entradas= getEntradas();
+
+	int* tiempos= new int[getCantidadEntradas()];
+
+	for (int var = 0; var < getCantidadEntradas(); ++var) {
+
+		tiempos[var]= entradas[var]->calcularTiempoTransicion();
+
+	}
+
+	actuarTiempo(tiempos);
+
+	delete[] tiempos;
+
+}
 
 Posicion Compuerta::getPosicion() const {
 

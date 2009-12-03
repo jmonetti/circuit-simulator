@@ -10,6 +10,7 @@
 #include "compuertas/common_XOR.h"
 #include "compuertas/common_Compuerta.h"
 #include "compuertas/common_Pista.h"
+#include "compuertas/common_CajaNegra.h"
 #include "../../excepciones/common_CircuitoException.h"
 
 
@@ -69,6 +70,32 @@ int FactoryCompuerta::crearSalida(Circuito &circuito, Posicion posicion, const s
 	EntradaCompuerta* entradaSalida= new EntradaCompuerta();
 
 	Compuerta* compuerta= new Salida(circuito.getContadorCompuertas(),entradaSalida,posicion,sentido,nombre);
+
+	return circuito.agregarCompuerta(compuerta);
+
+}
+
+int FactoryCompuerta::crearCajaNegra(Circuito &circuito,Posicion posicion,const std::string &nombre,SENTIDO sentido,Servidor servidor,
+int cantEntradas,int cantSalidas) {
+
+	EntradaCompuerta** entradas= new EntradaCompuerta*[cantEntradas];
+
+	for (int var = 0; var < cantEntradas; ++var) {
+
+		entradas[var]= new EntradaCompuerta();
+
+	}
+
+	SalidaCompuerta** salidas= new SalidaCompuerta*[cantSalidas];
+
+	for (int var = 0; var < cantSalidas; ++var) {
+
+		salidas[var]= new SalidaCompuerta();
+
+	}
+
+
+	Compuerta* compuerta= new CajaNegra(circuito.getContadorCompuertas(),entradas,salidas,cantEntradas,cantSalidas,posicion,sentido,nombre,servidor);
 
 	return circuito.agregarCompuerta(compuerta);
 

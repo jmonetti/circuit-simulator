@@ -21,31 +21,23 @@ AND::~AND() {
 
 }
 
-void AND::calcularTiempoTransicion() {
+void AND::actuarTiempo(int* tiempos) {
 
+	if (tiempos[0] > tiempos[1]) {
 
-	int tiempoEntrada1= entradas[0]->calcularTiempoTransicion();
-	int tiempoEntrada2= entradas[1]->calcularTiempoTransicion();
-
-	if (tiempoEntrada1 > tiempoEntrada2) {
-
-		salida->setTiempoTransicion(tiempoEntrada1 + this->tiempoTransicion);
+		salida->setTiempoTransicion(tiempos[0] + this->tiempoTransicion);
 
 	}else{
 
-		salida->setTiempoTransicion(tiempoEntrada2 + this->tiempoTransicion);
+		salida->setTiempoTransicion(tiempos[1] + this->tiempoTransicion);
 
 	}
 
-
 }
 
-void AND::simular() {
+void AND::actuarSimular(bool* valores) {
 
-	bool entrada1= entradas[0]->simular();
-	bool entrada2= entradas[1]->simular();
-
-	salida->setValorSalida(entrada1 && entrada2);
+	salida->setValorSalida(valores[0] && valores[1]);
 
 }
 
@@ -87,11 +79,6 @@ void AND::guardar(DOMDocument* doc, DOMNode* padre) {
 
     XMLString::transcode("AND", tempStr, 99);
     DOMElement*   elem_AND = doc->createElement(tempStr);
-
-    /******* ATRIBUTO ID*****************/
-
-    aux = "id";
-    Persistencia::guardarElemento(doc,elem_AND,aux,getId());
 
     /******* ATRIBUTO POSICION X *****************/
 

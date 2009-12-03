@@ -11,7 +11,7 @@
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 
 #include "../circuito/common_Circuito.h"
-#include "../circuito/common_FactoryParser.h"
+#include "../circuito/common_FactoryCompuerta.h"
 
 #include "common_Persistencia.h"
 
@@ -262,10 +262,7 @@ Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito, 
 
 void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre="x";
+	std::string nombre="x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre="y";
@@ -280,16 +277,13 @@ void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearSalida(*circuito, id,posicion,nombre,(SENTIDO)sentido);
+	FactoryCompuerta::crearSalida(*circuito, posicion,nombre,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "x";
+	std::string nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "y";
@@ -304,16 +298,13 @@ void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearEntrada(*circuito,id,posicion,nombre,(SENTIDO)sentido);
+	FactoryCompuerta::crearEntrada(*circuito,posicion,nombre,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "x";
+	std::string nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "y";
@@ -324,16 +315,13 @@ void Persistencia::parserNOT(DOMElement* ElementoCte, Circuito* circuito){
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_NOT,*circuito,posicion,(SENTIDO)sentido, id);
+	FactoryCompuerta::crearCompuerta(T_NOT,*circuito,posicion,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "x";
+	std::string nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "y";
@@ -344,16 +332,13 @@ void Persistencia::parserAND(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_AND,*circuito,posicion,(SENTIDO)sentido,id);
+	FactoryCompuerta::crearCompuerta(T_AND,*circuito,posicion,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "x";
+	std::string nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "y";
@@ -364,16 +349,13 @@ void Persistencia::parserOR(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_OR,*circuito,posicion,(SENTIDO)sentido,id);
+	FactoryCompuerta::crearCompuerta(T_OR,*circuito,posicion,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "x";
+	std::string nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "y";
@@ -384,16 +366,13 @@ void Persistencia::parserXOR(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_XOR,*circuito,posicion,(SENTIDO)sentido,id);
+	FactoryCompuerta::crearCompuerta(T_XOR,*circuito,posicion,(SENTIDO)sentido);
 
 }
 
 void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "x";
+	std::string nombre = "x";
 	int x = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "y";
@@ -404,7 +383,7 @@ void Persistencia::parserPista(DOMElement* ElementoCte, Circuito* circuito) {
 
 	Posicion posicion(x,y);
 
-	FactoryParser::crearCompuerta(T_PISTA,*circuito,posicion,(SENTIDO)sentido,id);
+	FactoryCompuerta::crearCompuerta(T_PISTA,*circuito,posicion,(SENTIDO)sentido);
 
 }
 
@@ -417,10 +396,7 @@ void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) 
 //	DOMAttr* attr_id = ElementoCte->getAttributeNode(ATTR_ID);
 //	aux = XMLString::transcode(attr_id->getValue());
 
-	std::string nombre = "id";
-	int id = Persistencia::recuperarDato(ElementoCte,nombre);
-
-	nombre = "entradas";
+	std::string nombre = "entradas";
 	int entradas = Persistencia::recuperarDato(ElementoCte,nombre);
 
 	nombre = "salidas";

@@ -7,20 +7,20 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 }
 
-bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas) {
+bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad) {
 
 	return NULL;
 
 }
 
-int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor,int* tiempos) {
+int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor,int* tiempos,int cantidad) {
 
 	return NULL;
 
 }
 
-CajaNegra* Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor) {
+int Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito) {
 
-	return NULL;
+	return 0;
 
 }

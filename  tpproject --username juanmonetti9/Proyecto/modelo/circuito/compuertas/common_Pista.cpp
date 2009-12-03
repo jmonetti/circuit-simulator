@@ -22,17 +22,15 @@ Pista::~Pista() {
 
 }
 
-void Pista::calcularTiempoTransicion() {
+void Pista::actuarTiempo(int* tiempos) {
 
-	int tiempo= entrada->calcularTiempoTransicion();
-
-	salida->setTiempoTransicion(tiempo);
+	salida->setTiempoTransicion(tiempos[0]);
 
 }
 
-void Pista::simular() {
+void Pista::actuarSimular(bool* valores) {
 
-	salida->setValorSalida(entrada->simular());
+	salida->setValorSalida(valores[0]);
 
 }
 
@@ -74,11 +72,6 @@ void Pista::guardar(DOMDocument* doc, DOMNode* padre) {
 
     XMLString::transcode("Pista", tempStr, 99);
     DOMElement*   elem_Pista = doc->createElement(tempStr);
-
-    /******* ATRIBUTO ID*****************/
-
-    aux = "id";
-    Persistencia::guardarElemento(doc,elem_Pista,aux,getId());
 
     /******* ATRIBUTO POSICION X *****************/
 

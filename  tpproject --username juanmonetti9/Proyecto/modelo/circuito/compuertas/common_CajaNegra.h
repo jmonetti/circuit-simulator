@@ -16,14 +16,10 @@ class CajaNegra: public Compuerta {
 
 public:
 
-	CajaNegra(int id,std::vector<EntradaCompuerta*> &entradas, std::vector<SalidaCompuerta*> &salidas,Posicion posicion,SENTIDO sentido,
-const std::string &nombreCircuito,Servidor servidor);
+	CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,int cantidadEntradas,
+int cantidadSalidas, Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor);
 
 	virtual ~CajaNegra();
-
-	void calcularTiempoTransicion();
-
-	void simular();
 
 	TIPO_COMPUERTA getTipo() const;
 
@@ -42,10 +38,15 @@ protected:
 	void actualizarEntradas();
 	void actualizarSalidas();
 
+	void actuarSimular(bool* valores);
+	void actuarTiempo(int* tiempos);
+
 private:
 
-	std::vector<EntradaCompuerta*> entradas;
-	std::vector<SalidaCompuerta*> salidas;
+	EntradaCompuerta** entradas;
+	SalidaCompuerta** salidas;
+	int cantidadEntradas;
+	int cantidadSalidas;
 	Publicacion publicacion;
 	std::string nombreCircuito;
 	Servidor servidor;

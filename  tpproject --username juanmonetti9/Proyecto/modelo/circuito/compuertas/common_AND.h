@@ -14,10 +14,6 @@ public:
 
 	virtual ~AND();
 
-	void calcularTiempoTransicion();
-
-	void simular();
-
 	void guardar(DOMDocument* doc, DOMNode* padre);
 
 	TIPO_COMPUERTA getTipo() const;
@@ -34,6 +30,9 @@ protected:
 
 	void actualizarEntradas();
 	void actualizarSalidas();
+
+	void actuarSimular(bool* valores);
+	void actuarTiempo(int* tiempos);
 
 private:
 

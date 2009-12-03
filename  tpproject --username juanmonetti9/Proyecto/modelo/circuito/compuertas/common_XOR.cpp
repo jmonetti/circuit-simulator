@@ -21,29 +21,23 @@ XOR::~XOR() {
 
 }
 
-void XOR::calcularTiempoTransicion() {
+void XOR::actuarTiempo(int* tiempos) {
 
-	int tiempo1= entradas[0]->calcularTiempoTransicion();
-	int tiempo2= entradas[1]->calcularTiempoTransicion();
+	if (tiempos[0] > tiempos[1]) {
 
-	if (tiempo1 > tiempo2) {
-
-		this->salida->setTiempoTransicion(tiempo1 + this->tiempoTransicion);
+		this->salida->setTiempoTransicion(tiempos[0] + this->tiempoTransicion);
 
 	}else{
 
-		this->salida->setTiempoTransicion(tiempo2 + this->tiempoTransicion);
+		this->salida->setTiempoTransicion(tiempos[1] + this->tiempoTransicion);
 
 	}
 
 }
 
-void XOR::simular() {
+void XOR::actuarSimular(bool* valores) {
 
-	bool valor1= entradas[0]->simular();
-	bool valor2= entradas[1]->simular();
-
-	this->salida->setValorSalida(valor1 ^ valor2);
+	this->salida->setValorSalida(valores[0] ^ valores[1]);
 
 }
 
@@ -85,11 +79,6 @@ void XOR::guardar(DOMDocument* doc, DOMNode* padre) {
 
     XMLString::transcode("XOR", tempStr, 99);
     DOMElement*   elem_XOR = doc->createElement(tempStr);
-
-    /******* ATRIBUTO ID*****************/
-
-    aux = "id";
-    Persistencia::guardarElemento(doc,elem_XOR,aux,getId());
 
     /******* ATRIBUTO POSICION X *****************/
 
