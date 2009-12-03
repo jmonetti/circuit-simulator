@@ -158,9 +158,7 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) 
 
 int ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
-	CajaNegra* compuerta= publicacion.recibir(nombreCircuito,servidor);
-
-	return circuitoActual->agregarCompuerta(compuerta);
+	return publicacion.recibir(nombreCircuito,servidor,circuitoActual);
 
 }
 

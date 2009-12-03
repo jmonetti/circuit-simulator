@@ -16,7 +16,7 @@ Entrada::~Entrada() {
 
 }
 
-void Entrada::calcularTiempoTransicion() {
+void Entrada::actuarTiempo(int* tiempos) {
 
 	this->salida->setTiempoTransicion(0);
 
@@ -28,7 +28,7 @@ Entrada* Entrada::getEntrada(){
 
 }
 
-void Entrada::simular() {
+void Entrada::actuarSimular(bool* valores) {
 
 	this->salida->setValorSalida(valor);
 
@@ -91,11 +91,6 @@ void Entrada::guardar(DOMDocument* doc, DOMNode* padre) {
 
     XMLString::transcode("Entrada", tempStr, 99);
     DOMElement*   elem_Entrada = doc->createElement(tempStr);
-
-    /******* ATRIBUTO ID*****************/
-
-    aux = "id";
-    Persistencia::guardarElemento(doc,elem_Entrada,aux,getId());
 
     /******* ATRIBUTO POSICION X *****************/
 

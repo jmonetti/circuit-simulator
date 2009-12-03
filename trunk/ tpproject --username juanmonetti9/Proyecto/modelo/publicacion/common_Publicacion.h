@@ -4,6 +4,7 @@
 
 #include "common_Servidor.h"
 #include <vector>
+#include "../circuito/common_Circuito.h"
 #include "../simulacion/common_ResultadoSimulacion.h"
 
 class CajaNegra;
@@ -14,11 +15,11 @@ public:
 
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
 
-	bool* simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas);
+	bool* simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad);
 
-	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos);
+	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad);
 
-	CajaNegra* recibir(const std::string &nombreCircuito,Servidor servidor);
+	int recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito);
 
 
 };

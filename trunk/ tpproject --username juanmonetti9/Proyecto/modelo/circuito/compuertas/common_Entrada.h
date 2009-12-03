@@ -14,11 +14,7 @@ public:
 
 	virtual ~Entrada();
 
-	void calcularTiempoTransicion();
-
 	Entrada* getEntrada();
-
-	void simular();
 
 	void setValorEntrada(bool valor);
 
@@ -42,6 +38,9 @@ protected:
 
 	void actualizarEntradas();
 	void actualizarSalidas();
+
+	void actuarSimular(bool* valores);
+	void actuarTiempo(int* tiempos);
 
 private:
 

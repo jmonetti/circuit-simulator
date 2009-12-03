@@ -20,29 +20,23 @@ OR::~OR() {
 
 }
 
-void OR::calcularTiempoTransicion() {
+void OR::actuarTiempo(int* tiempos) {
 
-	int tiempo1= entradas[0]->calcularTiempoTransicion();
-	int tiempo2= entradas[1]->calcularTiempoTransicion();
+	if (tiempos[0] > tiempos[1]) {
 
-	if (tiempo1 > tiempo2) {
-
-		this->salida->setTiempoTransicion(tiempo1 + this->tiempoTransicion);
+		this->salida->setTiempoTransicion(tiempos[0] + this->tiempoTransicion);
 
 	}else{
 
-		this->salida->setTiempoTransicion(tiempo2 + this->tiempoTransicion);
+		this->salida->setTiempoTransicion(tiempos[1] + this->tiempoTransicion);
 
 	}
 
 }
 
-void OR::simular() {
+void OR::actuarSimular(bool* valores) {
 
-	bool valor1= entradas[0]->simular();
-	bool valor2= entradas[1]->simular();
-
-	salida->setValorSalida(valor1 || valor2);
+	salida->setValorSalida(valores[0] || valores[1]);
 
 }
 
@@ -84,11 +78,6 @@ void OR::guardar(DOMDocument* doc, DOMNode* padre) {
 
     XMLString::transcode("OR", tempStr, 99);
     DOMElement*   elem_OR = doc->createElement(tempStr);
-
-    /******* ATRIBUTO ID*****************/
-
-    aux = "id";
-    Persistencia::guardarElemento(doc,elem_OR,aux,getId());
 
     /******* ATRIBUTO POSICION X *****************/
 

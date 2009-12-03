@@ -19,18 +19,15 @@ NOT::~NOT() {
 
 }
 
-void NOT::calcularTiempoTransicion() {
+void NOT::actuarTiempo(int* tiempos) {
 
-	int tiempo= this->entrada->calcularTiempoTransicion() + this->tiempoTransicion;
-	this->salida->setTiempoTransicion(tiempo);
+	this->salida->setTiempoTransicion(tiempos[0] + tiempoTransicion);
 
 }
 
-void NOT::simular() {
+void NOT::actuarSimular(bool* valores) {
 
-	bool valor= this->entrada->simular();
-
-	this->salida->setValorSalida(!valor);
+	this->salida->setValorSalida(!valores[0]);
 
 }
 
@@ -72,11 +69,6 @@ void NOT::guardar(DOMDocument* doc, DOMNode* padre) {
 
     XMLString::transcode("NOT", tempStr, 99);
     DOMElement*   elem_NOT = doc->createElement(tempStr);
-
-    /******* ATRIBUTO ID*****************/
-
-    aux = "id";
-    Persistencia::guardarElemento(doc,elem_NOT,aux,getId());
 
     /******* ATRIBUTO POSICION X *****************/
 

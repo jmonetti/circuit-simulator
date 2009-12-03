@@ -27,9 +27,9 @@ public:
 
 	virtual Salida* getSalida();
 
-	virtual void simular() = 0;
+	virtual void simular();
 
-	virtual void calcularTiempoTransicion() = 0;
+	virtual void calcularTiempoTransicion();
 
 	void mover(Posicion posicion);
 
@@ -57,6 +57,8 @@ protected:
 
 	virtual void actualizarEntradas() = 0;
 	virtual void actualizarSalidas() = 0;
+	virtual void actuarSimular(bool* valores) = 0;
+	virtual void actuarTiempo(int* tiempos) = 0;
 
 private:
 

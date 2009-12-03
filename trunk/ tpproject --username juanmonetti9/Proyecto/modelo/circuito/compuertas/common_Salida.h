@@ -14,11 +14,7 @@ public:
 
 	virtual ~Salida();
 
-	void calcularTiempoTransicion();
-
 	Salida* getSalida();
-
-	void simular();
 
 	bool getValor() const;
 
@@ -42,6 +38,10 @@ protected:
 
 	void actualizarEntradas();
 	void actualizarSalidas();
+
+	void actuarSimular(bool* valores);
+	void actuarTiempo(int* tiempos);
+
 
 private:
 

@@ -14,10 +14,6 @@ public:
 
 	virtual ~XOR();
 
-	void calcularTiempoTransicion();
-
-	void simular();
-
 	TIPO_COMPUERTA getTipo() const;
 
 	EntradaCompuerta** getEntradas();
@@ -34,6 +30,9 @@ protected:
 
 	void actualizarEntradas();
 	void actualizarSalidas();
+
+	void actuarSimular(bool* valores);
+	void actuarTiempo(int* tiempos);
 
 private:
 

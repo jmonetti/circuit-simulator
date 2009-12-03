@@ -7,6 +7,7 @@
 #include "../../common/constantes.h"
 #include "../../common/common_Posicion.h"
 #include <string>
+#include "../publicacion/common_Servidor.h"
 
 class FactoryCompuerta {
 
@@ -17,6 +18,8 @@ public:
 	static int crearEntrada(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
 
 	static int crearSalida(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido);
+
+	static int crearCajaNegra(Circuito &circuito, Posicion posicion, const std::string &nombre, SENTIDO sentido, Servidor servidor,int cantEntradas,int cantSalidas);
 
 private:
 
