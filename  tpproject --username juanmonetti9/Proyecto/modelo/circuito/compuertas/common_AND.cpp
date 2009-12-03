@@ -130,9 +130,9 @@ void AND::actualizarEntradas() {
 		case NORTE:
 		{
 
-			xEntrada1= xCompuerta + 1;
+			xEntrada1= xCompuerta - 1;
 			yEntrada1= yCompuerta + 1;
-			xEntrada2= xCompuerta - 1;
+			xEntrada2= xCompuerta + 1;
 			yEntrada2= yCompuerta + 1;
 
 			break;
@@ -152,9 +152,9 @@ void AND::actualizarEntradas() {
 		case SUR:
 		{
 
-			xEntrada1= xCompuerta - 1;
+			xEntrada1= xCompuerta + 1;
 			yEntrada1= yCompuerta - 1;
-			xEntrada2= xCompuerta + 1;
+			xEntrada2= xCompuerta - 1;
 			yEntrada2= yCompuerta - 1;
 
 			break;
@@ -164,9 +164,9 @@ void AND::actualizarEntradas() {
 		{
 
 			xEntrada1= xCompuerta + 1;
-			yEntrada1= yCompuerta - 1;
+			yEntrada1= yCompuerta + 1;
 			xEntrada2= xCompuerta + 1;
-			yEntrada2= yCompuerta + 1;
+			yEntrada2= yCompuerta - 1;
 
 			break;
 
