@@ -53,6 +53,8 @@ public:
 
 	void guardar(DOMDocument* doc) const;
 
+	DOMElement* obtenerCircuito(DOMDocument* doc) const;
+
 private:
 
 	void agregarEntradasCompuerta(Compuerta* compuerta);
