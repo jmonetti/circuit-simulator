@@ -62,6 +62,10 @@ public:
 
 	void draw_XOR(gdouble x,gdouble y, SENTIDO sentido);
 
+	void draw_multiple(int _x,int _y);
+
+
+
 	void disconnect_DnD();
 
 	void connect_DnD();

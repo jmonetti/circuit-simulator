@@ -193,6 +193,7 @@ void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_d
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
+		g_print("Call_back pista\n");//TODO
 		controlador->agregar_accion(new Accion_Draw_pista(controlador));
 	}
 
@@ -275,8 +276,7 @@ gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton
 	  Controlador* controlador=Controlador::get_instancia();
 	  int x1=event->x;
 	  int y1=event->y;
-	  g_print("(%d,%d)\n",x1,y1);
-	   if(controlador)
+	  if(controlador)
 		  controlador->ejecutar_accion(x1,y1);
 
   }
