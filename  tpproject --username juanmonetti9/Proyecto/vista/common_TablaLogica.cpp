@@ -208,12 +208,11 @@ void TablaLogica::completarSimulacion(std::vector<ResultadoSimulacion*>* resulta
 void TablaLogica::completarTiempo(ResultadoTiempo* resultado,std::vector<std::string>* salidas) {
 
 	char* fila[3];
-
 	int* tiempos= resultado->getTiempos();
 
 	for (unsigned int var = 0; var < resultado->getCantidad(); ++var) {
 
-		fila[0]= new char[salidas->size() + 1];
+		fila[0]= new char[(*salidas)[var].size() + 1];
 		(*salidas)[var].copy(fila[0],(*salidas)[var].size());
 		fila[0][(*salidas)[var].size()]= '\0';
 
