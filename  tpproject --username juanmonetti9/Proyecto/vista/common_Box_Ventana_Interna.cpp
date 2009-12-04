@@ -119,46 +119,50 @@ void Box_Ventana_Interna::borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA t
 
 }
 
+void Box_Ventana_Interna::dibujar_multiple(int _x,int _y){
+
+	actual->draw_multiple(_x,_y);
+}
 void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
 
 	switch(tipo){
 
-	case T_XOR:	{
-				actual->draw_XOR(x,y,sentido);
-				break;
-	}
-	case T_AND:	{
-				actual->draw_AND(x,y,sentido);
-				break;
-	}
-	case T_NOT:	{
-				actual->draw_NOT(x,y,sentido);
-				break;
-	}
-	case T_OR: {
-				actual->draw_OR(x,y,sentido);
-				break;
-	}
-	case T_VACIA:{
-				actual->draw_borrar(x,y,tipo,sentido,tam_pista);
-				break;
-	}
-	case T_ENTRADA:{
-				actual->draw_entrada(x,y,sentido);
-				break;
-	}
-	case T_PISTA:{
-				actual->draw_pista(x,y,sentido,tam_pista);
-				break;
-	}
-	case T_SALIDA:{
-				actual->draw_salida(x,y,sentido);
-				break;
-	}
-	case T_CAJANEGRA:{
-				/*actual->draw_salida(x,y,sentido);TODO*/
-				break;
-	}
+		case T_XOR:	{
+					actual->draw_XOR(x,y,sentido);
+					break;
+		}
+		case T_AND:	{
+					actual->draw_AND(x,y,sentido);
+					break;
+		}
+		case T_NOT:	{
+					actual->draw_NOT(x,y,sentido);
+					break;
+		}
+		case T_OR: {
+					actual->draw_OR(x,y,sentido);
+					break;
+		}
+		case T_VACIA:{
+					actual->draw_borrar(x,y,tipo,sentido,tam_pista);
+					break;
+		}
+		case T_ENTRADA:{
+					actual->draw_entrada(x,y,sentido);
+					break;
+		}
+		case T_PISTA:{
+					actual->draw_pista(x,y,sentido,tam_pista);
+					break;
+		}
+		case T_SALIDA:{
+					actual->draw_salida(x,y,sentido);
+					break;
+		}
+		case T_CAJANEGRA:{
+					/*actual->draw_salida(x,y,sentido);TODO*/
+					break;
+		}
 
 
 	}

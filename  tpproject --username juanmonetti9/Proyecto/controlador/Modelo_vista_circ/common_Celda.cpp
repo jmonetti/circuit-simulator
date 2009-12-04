@@ -18,20 +18,20 @@ Celda::Celda(Modelo_vista_circuito* _grilla,unsigned int _fila,unsigned int _col
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido){
+bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int _id){
 
 	bool retorno=true;
 
 	int fila_entorno;
 	int col_entorno;
-	this->get_pos_entorno_ES(&fila_entorno,&col_entorno,sentido,_tipo);
+	this->get_pos_entorno_ES(&fila_entorno,&col_entorno,_sentido,_tipo);
 
 	if( _tipo== T_SALIDA || _tipo== T_ENTRADA){
 
 		Celda* aux=grilla->get_celda(fila_entorno,col_entorno);
 
 		if(!aux->esta_ocupada() ){
- 			 aux->ocupar_celda(_tipo,fila,colum);
+ 			 aux->ocupar_celda(_tipo,fila,colum,_id);
 			 entorno.push_front(aux);
 		 }
 		 else
@@ -44,13 +44,13 @@ bool Celda::agregar_entorno_entrada_salida(TIPO_COMPUERTA _tipo,SENTIDO sentido)
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entorno_pista(SENTIDO sentido){
+bool Celda::agregar_entorno_pista(SENTIDO _sentido,int _id){
 
 	bool retorno=true;
 	Celda* aux_1;
 	Celda* aux_2;
 
-	if( sentido == ESTE || sentido == OESTE ){
+	if( _sentido == ESTE || _sentido == OESTE ){
 
 		aux_1 = grilla->get_celda(fila,colum-1);
 		aux_2 = grilla->get_celda(fila,colum+1);
@@ -62,13 +62,25 @@ bool Celda::agregar_entorno_pista(SENTIDO sentido){
 
 	}
 
-	if( !aux_1->esta_ocupada() &&  !aux_2->esta_ocupada()){
+	//Si es que la celda que sera parte del entorno estan vacias o aceptan
+	//una pista secundaria
+	if (!aux_1->esta_ocupada() && !aux_2->esta_ocupada() ){
 
-		 aux_1->ocupar_celda(T_PISTA,fila,colum);
-		 aux_2->ocupar_celda(T_PISTA,fila,colum);
+		 aux_1->ocupar_celda(T_PISTA,fila,colum,_id);
+		 aux_2->ocupar_celda(T_PISTA,fila,colum,_id);
 
 		 entorno.push_front(aux_1);
 		 entorno.push_front(aux_2);
+	 }
+	 else if(!aux_1->esta_ocupada() && aux_2->acepta_pista_secundaria(_sentido)){
+
+		 aux_1->ocupar_celda(T_PISTA,fila,colum,_id);
+		 aux_2->ocupar_celda_secundaria(T_PISTA,_sentido,fila,colum,_id);
+	 }
+	 else if(!aux_2->esta_ocupada() && aux_1->acepta_pista_secundaria(_sentido)){
+
+		 aux_1->ocupar_celda_secundaria(T_PISTA,_sentido,fila,colum,_id);
+		 aux_2->ocupar_celda(T_PISTA,fila,colum,_id);
 	 }
 	 else
 		 retorno=false;
@@ -79,50 +91,56 @@ bool Celda::agregar_entorno_pista(SENTIDO sentido){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entorno_caja_negra(SENTIDO sentido){
+bool Celda::agregar_entorno_caja_negra(SENTIDO _sentido,int _id){
 
 	return true;//todo
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_pista(int id,SENTIDO sentido){
+bool Celda::agregar_pista(int id,SENTIDO _sentido){
+
+	bool agregada;
+
+	if(!esta_ocupada()){
+		g_print("NO ESTA AGREGADA\n");//TODO
+		agregada=agregar_entorno_pista(_sentido,id);
+		if(agregada){
+			ocupar_celda_padre(T_PISTA,_sentido,id,fila,colum);
+			g_print("casi AGREGADA\n");//TODO
+		}
+	}
+	else if(acepta_pista_secundaria(_sentido)){
+
+		agregada=agregar_entorno_pista(_sentido,id);
+		if(agregada)
+			ocupar_celda_secundaria(T_PISTA,_sentido,fila,colum,id);
+	}
+	else
+		agregada = false;
+
+	return agregada;
+}
+/*----------------------------------------------------------------------------*/
+
+bool Celda::agregar_caja_negra(int id,SENTIDO _sentido){
 
 	bool agregada;
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_pista(sentido);
+		agregada=agregar_entorno_caja_negra(_sentido,id);
 		if(agregada)
-			ocupar_celda_padre(T_PISTA,sentido,id,fila,colum);
+			ocupar_celda_padre(T_CAJANEGRA,_sentido,id,fila,colum);
 	}
 	else
 		agregada=false;
 
 	return agregada;
 
-
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_caja_negra(int id,SENTIDO sentido){
-
-	bool agregada;
-
-	if(!esta_ocupada()){
-
-		agregada=agregar_entorno_caja_negra(sentido);
-		if(agregada)
-			ocupar_celda_padre(T_CAJANEGRA,sentido,id,fila,colum);
-	}
-	else
-		agregada=false;
-
-	return agregada;
-
-}
-/*----------------------------------------------------------------------------*/
-
-bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo){
+bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo,int _id){
 
 	bool retorno= true;
 	int f=fila;
@@ -136,7 +154,7 @@ bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo){
 
 				if(retorno && aux){
 					if(!aux->esta_ocupada() ){
-						aux->ocupar_celda(_tipo,fila,colum);
+						aux->ocupar_celda(_tipo,fila,colum,_id);
 						entorno.push_front(aux);
 					}
 					else
@@ -158,11 +176,11 @@ bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo){
 
 
 /*----------------------------------------------------------------------------*/
-void Celda::get_pos_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO sentido,TIPO_COMPUERTA tipo){
+void Celda::get_pos_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO _sentido,TIPO_COMPUERTA tipo){
 
 	if( tipo == T_SALIDA){
 
-		switch(sentido){
+		switch(_sentido){
 
 			case ESTE:{	*fila_entorno=fila;
 						*col_entorno=colum-1;
@@ -181,7 +199,7 @@ void Celda::get_pos_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO sentid
 	}else if( tipo == T_ENTRADA ){
 
 		g_print("ENTRO4\n");
-		switch(sentido){
+		switch(_sentido){
 
 			case ESTE:{	*fila_entorno=fila;
 						*col_entorno=colum+1;
@@ -213,16 +231,16 @@ void Celda::eliminar_componente(){
 
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_entrada(int id,SENTIDO sentido){
+bool Celda::agregar_entrada(int id,SENTIDO _sentido){
 
 	bool agregada=true;
 
 		if(!esta_ocupada()){
 
-			agregada=agregar_entorno_entrada_salida(T_ENTRADA,ESTE);
+			agregada=agregar_entorno_entrada_salida(T_ENTRADA,ESTE,id);
 
 			if(agregada)
-				ocupar_celda_padre(T_ENTRADA,sentido,id,fila,colum);
+				ocupar_celda_padre(T_ENTRADA,_sentido,id,fila,colum);
 
 		}else
 			agregada=false;
@@ -231,15 +249,15 @@ bool Celda::agregar_entrada(int id,SENTIDO sentido){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_salida(int id,SENTIDO sentido){
+bool Celda::agregar_salida(int id,SENTIDO _sentido){
 	bool agregada=true;
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_entrada_salida(T_SALIDA,ESTE);
+		agregada=agregar_entorno_entrada_salida(T_SALIDA,ESTE,id);
 
 		if(agregada)
-			ocupar_celda_padre(T_SALIDA,sentido,id,fila,colum);
+			ocupar_celda_padre(T_SALIDA,_sentido,id,fila,colum);
 
 	}else
 		agregada=false;
@@ -248,16 +266,16 @@ bool Celda::agregar_salida(int id,SENTIDO sentido){
 }
 /*----------------------------------------------------------------------------*/
 
-bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO sentido){
+bool Celda::agregar_compuerta(TIPO_COMPUERTA tipo,int id,SENTIDO _sentido){
 
 	bool agregada=true;
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_compuerta(tipo);
+		agregada=agregar_entorno_compuerta(tipo,id);
 
 		if(agregada)
-			ocupar_celda_padre(tipo,sentido,id,fila,colum);
+			ocupar_celda_padre(tipo,_sentido,id,fila,colum);
 	}
 	else
 		agregada=false;
@@ -328,10 +346,24 @@ void Celda::ocupar_celda_padre(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int id,int 
 	ID= id;
 }
 
-void Celda::ocupar_celda(TIPO_COMPUERTA _tipo,int filaPadre, int colPadre){
+void Celda::ocupar_celda(TIPO_COMPUERTA _tipo,int filaPadre, int colPadre,int _id){
 
+	ID= _id;
 	estado = _tipo;
 	set_info_padre(filaPadre,colPadre);
+}
+
+void Celda::ocupar_celda_secundaria(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int filaPadre, int colPadre,int _id){
+
+	if(_tipo == T_PISTA){
+
+		ID_sec = _id;
+		estado_sec = _tipo;
+		colum_padre_sec = colPadre;
+		fila_padre_sec = filaPadre;
+		sentido_sec = _sentido;
+	}
+
 }
 /*----------------------------------------------------------------------------*/
 
@@ -427,10 +459,40 @@ TIPO_COMPUERTA Celda::get_tipo_celda()const{
 bool Celda::esta_ocupada()const{
 
 	if(estado == T_VACIA){
+
 		return false;
 	}
 	else
 		return true;
+}
+
+
+bool Celda::hay_pista_secundaria()const{
+
+	if(estado_sec == T_VACIA){
+
+		return false;
+	}
+	else
+		return true;
+}
+
+bool Celda::acepta_pista_secundaria(SENTIDO _sentido)const{
+
+	bool acepta=false ;
+
+	if(estado_sec == T_VACIA){
+
+		if((sentido==NORTE || sentido==SUR) && (_sentido==OESTE || _sentido== ESTE)){
+
+			acepta=true;
+		}
+		else if((sentido==ESTE || sentido==OESTE) && (_sentido==NORTE || _sentido== SUR)){
+			acepta=true;
+		}
+	}
+
+	return acepta;
 }
 /*----------------------------------------------------------------------------*/
 

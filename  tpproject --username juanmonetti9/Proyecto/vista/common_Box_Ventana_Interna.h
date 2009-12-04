@@ -56,6 +56,8 @@ public:
 	 */
 	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista);
 
+	void dibujar_multiple(int _x,int _y);
+
 	void borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
 
 	void connect_dnd();

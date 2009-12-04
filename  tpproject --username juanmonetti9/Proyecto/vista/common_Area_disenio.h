@@ -43,6 +43,7 @@ public:
 
 	void conectar_DnD();
 
+
 	/**
 	 * Dibuja una pista en la pantalla
 	 */
@@ -117,6 +118,8 @@ public:
 
 	void draw_XOR_sur(gdouble x, gdouble y);
 
+
+	void draw_multiple(int _x,int _y);
 
 	/**
 	 * Crea el pixmap

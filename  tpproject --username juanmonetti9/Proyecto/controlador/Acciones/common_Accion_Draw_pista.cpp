@@ -11,6 +11,8 @@ Accion_Draw_pista::Accion_Draw_pista(Controlador* controlador):Accion(controlado
 
 void Accion_Draw_pista::ejecutar(gdouble x,gdouble y){
 
+	get_controlador()->agregar_componente(x,y,T_PISTA);
+
 }
 
 Accion_Draw_pista::~Accion_Draw_pista() {

@@ -167,38 +167,66 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 					}
 
-	case T_PISTA: 	{break;}
+	case T_PISTA: 	{
 
-	default:
-					{
+			try {
 
-					try {
+				g_print("Por agregar componente\n");//TODO
+				Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
+				id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
+				g_print("Agrege en modelo\n");//TODO
+				agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
+				if(agregadaVista)
+					g_print("Agrege en vista\n");//TODO
+				else
+					g_print("NOOOO Agrege en vista\n");//TODO
+				celda=matrizActual->get_celda_px(_x,_y);
 
-						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
-						id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
+			} catch (ConexionException e) {
+				g_print("EXCEPTION\n");//TODO
+				agregadaModelo= false;
 
-						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
-						celda=matrizActual->get_celda_px(_x,_y);
+			}
 
-					} catch (ConexionException e) {
+			 break;
 
-						agregadaModelo= false;
-
-					}
-
-					break;
-
-					}
 	}
 
-	if(agregadaModelo && celda && agregadaVista){
+	default:
+			{
+
+			try {
+
+				Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
+				id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
+
+				agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
+				celda=matrizActual->get_celda_px(_x,_y);
+
+			} catch (ConexionException e) {
+
+				agregadaModelo= false;
+
+			}
+
+			break;
+
+			}
+	}
+
+	if(agregadaModelo && celda && agregadaVista && _tipo == T_PISTA){
+
+		//fachada_vista->dibujar_pista_multiple(_x,_y);
+		g_print("POR DIBUJAR\n");//TODO
+		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+	}
+	else if(agregadaModelo && celda && agregadaVista){
 
 		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
 
 	}else if (!agregadaVista) {
 
 		modeloCliente->eliminarCompuerta(id);
-
 	}
 
 }

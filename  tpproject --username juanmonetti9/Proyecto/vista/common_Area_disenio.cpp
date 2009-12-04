@@ -152,6 +152,10 @@ void Area_disenio::conectar_DnD(){
 
 
 }
+
+void Area_disenio::draw_multiple(int _x,int _y){
+
+}
 /*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_Borrar_compuerta(gdouble x, gdouble y,SENTIDO sentido){
@@ -179,7 +183,7 @@ void Area_disenio::draw_Borrar_compuerta(gdouble x, gdouble y,SENTIDO sentido){
 
 
 void Area_disenio::draw_Borrar_entrada(gdouble x,gdouble y, SENTIDO sentido){
-	g_print("HOLA\n");
+
 	GdkRectangle update_rect;
 
 	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
@@ -196,7 +200,7 @@ void Area_disenio::draw_Borrar_entrada(gdouble x,gdouble y, SENTIDO sentido){
 
 }
 void Area_disenio::draw_Borrar_salida(gdouble x,gdouble y, SENTIDO sentido){
-	g_print("HOLA\n");
+
 	GdkRectangle update_rect;
 
 	update_rect.x = x -CELDA_WIDTH-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
@@ -223,20 +227,75 @@ void Area_disenio::draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int ca
 
 void Area_disenio::draw_pista_sur(gdouble x, gdouble y){
 
+	GdkRectangle update_rect;
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
+								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
+
+
+	gtk_widget_draw (drawing_area, &update_rect);
 }
 /*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_pista_norte(gdouble x, gdouble y){
 
+	GdkRectangle update_rect;
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
+								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
+
+
+	gtk_widget_draw (drawing_area, &update_rect);
 }
 /*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_pista_este(gdouble x, gdouble y){
 
+	g_print("DRAW PISTA ESTE\n");//TODO
+
+	GdkRectangle update_rect;
+
+	update_rect.x = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_WIDTH;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
+								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
+
+
+	gtk_widget_draw (drawing_area, &update_rect);
 }
 /*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_pista_oeste(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;
+
+	update_rect.x = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_WIDTH;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
+								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
+
+
+	gtk_widget_draw (drawing_area, &update_rect);
 
 }
 

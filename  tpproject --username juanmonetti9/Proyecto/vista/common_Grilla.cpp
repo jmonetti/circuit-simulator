@@ -78,7 +78,11 @@ void Grilla::connect_DnD(){
 
 }
 /*----------------------------------------------------------------------------*/
+void Grilla::draw_multiple(int _x,int _y){
 
+	areaDisenio.draw_multiple(_x,_y);
+
+}
 void Grilla::draw_NOT(gdouble x,gdouble y, SENTIDO sentido){
 
 	switch(sentido){
@@ -158,6 +162,7 @@ void Grilla::draw_XOR(gdouble x,gdouble y, SENTIDO sentido){
 }
 
 
+
 void Grilla::draw_entrada(gdouble x,gdouble y, SENTIDO sentido){
 
 	switch(sentido){
@@ -225,7 +230,7 @@ void Grilla::draw_borrar(gdouble x, gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentid
 				break;
 				}
 	default:{
-			g_print("yeah");
+
 			areaDisenio.draw_Borrar_compuerta(x,y,sentido);
 			}
 
