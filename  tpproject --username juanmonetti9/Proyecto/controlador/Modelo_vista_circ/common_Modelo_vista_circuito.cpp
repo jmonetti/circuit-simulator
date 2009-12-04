@@ -115,6 +115,8 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 		return NULL;
 
 }
+
+
 Celda* Modelo_vista_circuito::get_celda_px(int x,int y){
 
 	int fila= de_pixel_a_fila(y);

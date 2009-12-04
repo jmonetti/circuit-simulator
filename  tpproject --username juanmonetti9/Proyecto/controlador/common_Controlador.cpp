@@ -169,26 +169,26 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 	case T_PISTA: 	{
 
-			try {
+					try {
 
-				g_print("Por agregar componente\n");//TODO
-				Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
-				id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
-				g_print("Agrege en modelo\n");//TODO
-				agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
-				if(agregadaVista)
-					g_print("Agrege en vista\n");//TODO
-				else
-					g_print("NOOOO Agrege en vista\n");//TODO
-				celda=matrizActual->get_celda_px(_x,_y);
+						g_print("Por agregar componente\n");//TODO
+						Posicion posicion(matrizActual->de_pixel_a_col(x),matrizActual->de_pixel_a_fila(y));
+						id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
+						g_print("Agrege en modelo\n");//TODO
+						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
+						if(agregadaVista)
+							g_print("Agrege en vista\n");//TODO
+						else
+							g_print("NOOOO Agrege en vista\n");//TODO
+						celda=matrizActual->get_celda_px(_x,_y);
 
-			} catch (ConexionException e) {
-				g_print("EXCEPTION\n");//TODO
-				agregadaModelo= false;
+					} catch (ConexionException e) {
+						g_print("EXCEPTION\n");//TODO
+						agregadaModelo= false;
 
-			}
+					}
 
-			 break;
+					 break;
 
 	}
 
@@ -216,9 +216,18 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 	if(agregadaModelo && celda && agregadaVista && _tipo == T_PISTA){
 
-		//fachada_vista->dibujar_pista_multiple(_x,_y);
-		g_print("POR DIBUJAR\n");//TODO
-		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+		int fila_sec;
+		int col_sec;
+		int Id;
+
+		if(celda->get_celda_sec(&fila_sec,&col_sec,&Id)){
+
+			Celda* aux_celda= matrizActual->get_celda(fila_sec,col_sec);
+			fachada_vista->dibujar_componente(matrizActual->de_col_a_pixel(col_sec),matrizActual->de_fila_a_pixel(fila_sec),_tipo,aux_celda->get_sentido_multiple(Id));
+
+		}else
+			fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_sentido());
+
 	}
 	else if(agregadaModelo && celda && agregadaVista){
 
