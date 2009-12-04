@@ -255,7 +255,10 @@ void Area_disenio::draw_pista_norte(gdouble x, gdouble y){
 
 	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
 								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
-
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+6,update_rect.y,
+								  update_rect.x+4,update_rect.y+3);
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+6,update_rect.y,
+									  update_rect.x+8,update_rect.y+3);
 
 	gtk_widget_draw (drawing_area, &update_rect);
 }
@@ -275,7 +278,10 @@ void Area_disenio::draw_pista_este(gdouble x, gdouble y){
 
 	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
 								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
-
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+33,update_rect.y+4,
+								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+6);
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+33,update_rect.y+8,
+									  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+6);
 
 	gtk_widget_draw (drawing_area, &update_rect);
 }
@@ -294,6 +300,10 @@ void Area_disenio::draw_pista_oeste(gdouble x, gdouble y){
 	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
 								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
 
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+6,
+									  update_rect.x+3,update_rect.y+8);
+	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+6,
+										  update_rect.x+3,update_rect.y+4);
 
 	gtk_widget_draw (drawing_area, &update_rect);
 

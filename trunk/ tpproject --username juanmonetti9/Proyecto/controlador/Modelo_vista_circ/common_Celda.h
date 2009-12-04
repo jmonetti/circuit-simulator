@@ -84,7 +84,15 @@ public:
 
 	void ocupar_celda(TIPO_COMPUERTA _tipo,int filaPadre, int colPadre,int _id);
 
+	void ocupar_celda_pista(SENTIDO _sentido,TIPO_COMPUERTA _tipo,int filaPadre, int colPadre,int _id);
+
 	void ocupar_celda_secundaria(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int filaPadre, int colPadre,int _id);
+
+	bool get_celda_sec(int* fila_padr_sec,int* col_padr_sec,int* _id );
+
+	SENTIDO get_sentido_multiple(unsigned int _id);
+
+	bool es_padre();
 
 	void desocupar_celda();
 
