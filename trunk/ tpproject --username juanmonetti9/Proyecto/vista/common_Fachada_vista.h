@@ -9,13 +9,16 @@
 #include <gtkmm.h>
 #include "../common/constantes.h"
 #include "../modelo/simulacion/common_Resultado.h"
+#include "common_Ventana_Error.h"
+#include "common_Ventana_Abrir.h"
 
 class Fachada_vista {
 
 private:
 
 	Box_Ventana_Interna* ventana_interna;
-
+	Ventana_Error ventana_error;
+	Ventana_Abrir ventana_abrir;
 
 public:
 
@@ -40,6 +43,21 @@ public:
 	void desactivar_dnd();
 
 	int getIdActual() const;
+
+	void mostrar_error(const std::string &texto);
+
+	void aceptar_error();
+
+	void mostrar_ventana_abrir();
+
+	void aceptar_abrir();
+
+	void cancelar_abrir();
+
+	bool abriendo();
+
+	char* getCircuitoAbrir();
+
 
 };
 

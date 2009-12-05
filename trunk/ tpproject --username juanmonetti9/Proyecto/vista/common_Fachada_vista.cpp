@@ -66,3 +66,49 @@ int Fachada_vista::getIdActual() const{
 	return ventana_interna->getGrillaActual();
 
 }
+
+void Fachada_vista::mostrar_error(const std::string &texto) {
+
+	ventana_error.mostrarError(texto);
+
+	ventana_error.show();
+
+}
+
+void Fachada_vista::aceptar_error() {
+
+	ventana_error.hide();
+
+}
+
+void Fachada_vista::mostrar_ventana_abrir() {
+
+	ventana_abrir.mostrarCircuitos();
+
+	ventana_abrir.show();
+
+}
+
+void Fachada_vista::aceptar_abrir() {
+
+	ventana_abrir.hide();
+
+}
+
+void Fachada_vista::cancelar_abrir() {
+
+	ventana_abrir.hide();
+
+}
+
+bool Fachada_vista::abriendo() {
+
+	return ventana_abrir.estaActiva();
+
+}
+
+char* Fachada_vista::getCircuitoAbrir() {
+
+	return ventana_abrir.getCircuitoAbrir();
+
+}

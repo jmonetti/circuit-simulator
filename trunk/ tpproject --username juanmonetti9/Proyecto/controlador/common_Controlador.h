@@ -75,6 +75,12 @@ public:
 
 	void arrastrar(gdouble x, gdouble y);
 
+	void aceptar_error();
+
+	void aceptar_abrir();
+
+	void cancelar_abrir();
+
 	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
 
 	static Controlador* get_instancia();
