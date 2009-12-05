@@ -15,4 +15,6 @@ const static int TIEMPO_TRANSICION_OR= 20;
 const static int TIEMPO_TRANSICION_XOR= 30;
 const static int TIEMPO_TRANSICION_NOT= 5;
 
+const static char* PATH_SAVES= "saves/";
+
 #endif /* CONSTANTES_H_ */

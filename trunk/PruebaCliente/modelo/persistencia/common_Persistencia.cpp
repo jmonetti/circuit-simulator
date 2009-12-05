@@ -92,7 +92,9 @@ void Persistencia::guardar(const Circuito &circuito) {
     if (theSerializer->getDomConfig()->canSetParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true))
          theSerializer->getDomConfig()->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
 
-    XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(circuito.getNombre().c_str());
+    std::string ruta = PATH_SAVES + circuito.getNombre() + ".xml";
+
+    XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(ruta.c_str());
 
     DOMLSOutput* theOutput = ((DOMImplementationLS*)impl)->createLSOutput();
     theOutput->setByteStream(myFormatTarget);
@@ -126,7 +128,9 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 
 	   struct stat estadoArchivo;
 
-	   int iretStat = stat(nombreCircuito.c_str(), &estadoArchivo);
+	   std::string ruta = PATH_SAVES + nombreCircuito + ".xml";
+
+	   int iretStat = stat(ruta.c_str(), &estadoArchivo);
 
 	   if( iretStat == ENOENT )
 	      throw ( std::runtime_error("Path file_name does not exist, or path is an empty string.") );
@@ -149,7 +153,7 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 
 	   try
 	   {
-		   m_ConfigFileParser->parse( nombreCircuito.c_str() );
+		   m_ConfigFileParser->parse( ruta.c_str() );
 
 		   // no need to free this pointer - owned by the parent parser object
 		   DOMDocument* xmlDoc = m_ConfigFileParser->getDocument();
