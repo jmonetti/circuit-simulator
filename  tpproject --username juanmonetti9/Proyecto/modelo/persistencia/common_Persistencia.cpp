@@ -289,7 +289,8 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 				DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
 				if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
 				{
-				   return parserCircuito(ElementoCte, idCircuito,nombreCircuito);
+					unsigned int pos= nombreCircuito.find(".xml");
+					return parserCircuito(ElementoCte, idCircuito,nombreCircuito.substr(0,pos));
 				}
 		   }
 	   }
