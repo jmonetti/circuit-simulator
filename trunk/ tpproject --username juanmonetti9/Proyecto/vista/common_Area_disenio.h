@@ -37,7 +37,7 @@ public:
 
 	void draw_Borrar_salida(gdouble x,gdouble y, SENTIDO sentido);
 
-	void draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas);
+	void draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas=1);
 
 	void desconectar_DnD();
 

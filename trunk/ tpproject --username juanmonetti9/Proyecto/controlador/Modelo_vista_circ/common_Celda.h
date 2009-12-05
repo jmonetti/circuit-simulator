@@ -80,6 +80,10 @@ public:
 
 	void eliminar_componente();
 
+	void eliminar_entorno_pista(int _id);
+
+	void eliminar_pista_principal(int _id);
+
 	void ocupar_celda_padre(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int id,int filaPadre, int colPadre);
 
 	void ocupar_celda(TIPO_COMPUERTA _tipo,int filaPadre, int colPadre,int _id);
@@ -104,7 +108,7 @@ public:
 
 	int get_colum_padre()const;
 
-	SENTIDO get_sentido()const;
+	SENTIDO get_sentido();
 
 	TIPO_COMPUERTA get_tipo_celda()const;
 
@@ -112,13 +116,20 @@ public:
 
 	void set_info_padre(int fila, int columna);
 
+	void set_info_padre_sec(int fila_sec_p, int columna_sec_p);
+
 	bool esta_ocupada()const;
 
 	bool hay_pista_secundaria()const;
 
+	bool puede_rotar_pista();
+
 	bool acepta_pista_secundaria(SENTIDO _sent)const;
 
 	void vaciar_entorno();
+
+	SENTIDO rotar_izq(SENTIDO _sent);
+	SENTIDO rotar_der(SENTIDO _sent);
 
 	virtual ~Celda();
 };

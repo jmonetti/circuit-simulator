@@ -78,9 +78,9 @@ void Grilla::connect_DnD(){
 
 }
 /*----------------------------------------------------------------------------*/
-void Grilla::draw_multiple(int _x,int _y){
+void Grilla::draw_borrar_pista(int _x,int _y,SENTIDO _sentido){
 
-	areaDisenio.draw_multiple(_x,_y);
+	areaDisenio.draw_Borrar_pista(_x,_y,_sentido);
 
 }
 void Grilla::draw_NOT(gdouble x,gdouble y, SENTIDO sentido){

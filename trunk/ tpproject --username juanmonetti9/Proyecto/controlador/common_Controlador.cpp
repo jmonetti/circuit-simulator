@@ -247,10 +247,10 @@ void Controlador::rotar_left(int x,int y){
 	TIPO_COMPUERTA _tipo;
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
+		//Obtengo la celda padre la que representa la compuerta
+		Celda* celda=matrizActual->get_celda_px(_x,_y);
 
-		if(_tipo != T_ENTRADA && _tipo != T_SALIDA){
-			//Obtengo la celda padre la que representa la compuerta
-			Celda* celda=matrizActual->get_celda_px(_x,_y);
+		if(_tipo != T_ENTRADA && _tipo != T_SALIDA && _tipo != T_PISTA){
 
 			try {
 
@@ -261,6 +261,36 @@ void Controlador::rotar_left(int x,int y){
 			} catch (ConexionException e) {
 				g_print("NO ROTO");//TODO
 			}
+
+		}else if(_tipo == T_PISTA) {
+
+			//Obtengo la celda padre la que representa la compuerta
+			Celda* celda=matrizActual->get_celda_px(_x,_y);
+
+
+			if(! celda->hay_pista_secundaria() && celda->puede_rotar_pista()){
+
+				SENTIDO sent_=celda->get_sentido();
+				int id_ = celda->get_id();
+
+				try {
+
+					modeloCliente->rotar(celda->get_id(),IZQUIERDA);
+
+					fachada_vista->borrar_pista(_x,_y,celda->get_sentido());
+
+					celda->eliminar_pista_principal(celda->get_id());
+					matrizActual->agregar_componente(&_x,&_y,T_PISTA,id_,celda->rotar_izq(sent_));
+					fachada_vista->dibujar_componente(_x,_y,_tipo,celda->rotar_izq(sent_));
+
+
+				} catch (ConexionException e) {
+					g_print("NO ROTO");//TODO
+				}
+
+
+			}
+
 		}
 
 	}
@@ -276,7 +306,7 @@ void Controlador::rotar_right(int x,int y){
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
-		if(_tipo != T_ENTRADA && _tipo != T_SALIDA){
+		if(_tipo != T_ENTRADA && _tipo != T_SALIDA && _tipo != T_PISTA){
 
 			//Obtengo la celda padre la que representa la compuerta
 			Celda* celda=matrizActual->get_celda_px(_x,_y);
@@ -288,6 +318,35 @@ void Controlador::rotar_right(int x,int y){
 
 			} catch (ConexionException e) {
 				g_print("NO ROTO");//TODO
+			}
+		}
+		else if(_tipo == T_PISTA){
+
+			//Obtengo la celda padre la que representa la compuerta
+			Celda* celda=matrizActual->get_celda_px(_x,_y);
+
+
+			if(! celda->hay_pista_secundaria() && celda->puede_rotar_pista()){
+
+				SENTIDO sent_=celda->get_sentido();
+				int id_ = celda->get_id();
+
+				try {
+
+					modeloCliente->rotar(celda->get_id(),DERECHA);
+
+					fachada_vista->borrar_pista(_x,_y,celda->get_sentido());
+
+					celda->eliminar_pista_principal(celda->get_id());
+					matrizActual->agregar_componente(&_x,&_y,T_PISTA,id_,celda->rotar_der(sent_));
+					fachada_vista->dibujar_componente(_x,_y,_tipo,celda->rotar_der(sent_));
+
+
+				} catch (ConexionException e) {
+					g_print("NO ROTO");//TODO
+				}
+
+
 			}
 		}
 
