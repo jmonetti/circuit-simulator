@@ -44,15 +44,21 @@ public:
 
 	Celda* get_celda_px(int* x,int* y);
 
-	int de_pixel_a_fila(int x);
-
-	int de_pixel_a_col(int y);
-
-	int de_fila_a_pixel(int fila);
-
-	int de_col_a_pixel(int col);
-
 	virtual ~Modelo_vista_circuito();
+
+	/**
+	 * Metodos estaticos para el traspaso de filas y columas a pixeles
+	 **/
+
+	static int de_pixel_a_fila(int x);
+
+	static int de_pixel_a_col(int y);
+
+    static int de_fila_a_pixel(int fila);
+
+	static int de_col_a_pixel(int col);
+
+
 };
 
 #endif /* COMMON_MODELO_VISTA_CIRCUITO_H_ */
