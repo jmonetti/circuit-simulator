@@ -162,6 +162,12 @@ int ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) 
 
 }
 
+int ModeloCliente::getId() {
+
+	return contadorId;
+
+}
+
 Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 
 	for (unsigned int var = 0; var < circuitos.size(); ++var) {
@@ -177,3 +183,4 @@ Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 	return NULL;
 
 }
+

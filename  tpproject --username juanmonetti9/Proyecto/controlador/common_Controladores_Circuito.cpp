@@ -266,7 +266,17 @@ void Controlador_Circuito::callback_InvertirR( GtkWidget *widget,gpointer callba
 	}
 }
 
+void Controlador_Circuito::callback_aceptar_error( GtkWidget *widget,gpointer callback_data ) {
 
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+
+		controlador->aceptar_error();
+
+	}
+
+}
 /*----------------------------------------------------------------------------*/
 
 gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton *event){

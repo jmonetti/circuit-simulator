@@ -398,7 +398,7 @@ void Controlador::guardar(){
 
 	} catch (CircuitoException e) {
 
-		g_print("No hay circuito para guardar\n");
+		fachada_vista->mostrar_error(e.getMensaje());
 
 	}
 
@@ -419,8 +419,14 @@ void Controlador::cambiar_circuito(int index){
 	if (index >= 0) {
 
 		int id= fachada_vista->cambiar_grilla(index);
-		modeloCliente->cambiarCircuitoActual(id);
-		matrizActual= matrices[id];
+		try {
+
+			modeloCliente->cambiarCircuitoActual(id);
+			matrizActual= matrices[id];
+
+		} catch (CircuitoException e) {
+
+		}
 
 	}
 
@@ -447,16 +453,12 @@ void Controlador::eliminar_circuito(){
 
 void Controlador::abrir_circuito() {
 
-	std::string nombre= "Circuito";
-	Circuito* circuito= modeloCliente->recuperar(nombre);
+	if (!fachada_vista->abriendo()) {
 
-	fachada_vista->agregar_grilla(circuito->getId());
+		fachada_vista->mostrar_ventana_abrir();
+		fachada_vista->agregar_grilla(modeloCliente->getId());
 
-	matrizActual= new Modelo_vista_circuito();
-	matrices.insert(make_pair(circuito->getId(),matrizActual));
-
-	generarCircuito(circuito);
-
+	}
 
 }
 
@@ -470,7 +472,7 @@ void Controlador::simular(){
 
 	} catch (CircuitoException e) {
 
-		g_print("No se pudo simular\n");
+		fachada_vista->mostrar_error(e.getMensaje());
 
 	}
 
@@ -482,6 +484,37 @@ bool Controlador::get_arrastre_activo()const{
 
 }
 
+void Controlador::aceptar_error() {
+
+	fachada_vista->aceptar_error();
+
+}
+
+void Controlador::aceptar_abrir() {
+
+	if (fachada_vista->getCircuitoAbrir()) {
+
+		std::string nombreCircuito(fachada_vista->getCircuitoAbrir());
+
+		Circuito* circuito= modeloCliente->recuperar(nombreCircuito);
+
+		matrizActual= new Modelo_vista_circuito();
+		matrices.insert(make_pair(circuito->getId(),matrizActual));
+
+		generarCircuito(circuito);
+
+		fachada_vista->aceptar_abrir();
+
+	}
+
+}
+
+void Controlador::cancelar_abrir() {
+
+	fachada_vista->cancelar_abrir();
+
+	fachada_vista->eliminar_grilla();
+}
 
 /*----------------------------------------------------------------------------*/
 

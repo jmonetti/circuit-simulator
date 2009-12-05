@@ -63,3 +63,23 @@ void Controlador_Archivo::callback_cerrar(GtkWidget *widget, gpointer data){
 Controlador_Archivo::~Controlador_Archivo() {
 
 }
+
+void Controlador_Archivo::callback_aceptar_abrir(GtkWidget *widget, gpointer data) {
+
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+
+		controlador->aceptar_abrir();
+	}
+
+}
+
+void Controlador_Archivo::callback_cancelar_abrir(GtkWidget *widget, gpointer data) {
+
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->cancelar_abrir();
+	}
+
+}
+

@@ -51,6 +51,8 @@ public:
 
 	int recibir(const std::string &nombreCircuito,Servidor servidor);
 
+	int getId();
+
 
 private:
 

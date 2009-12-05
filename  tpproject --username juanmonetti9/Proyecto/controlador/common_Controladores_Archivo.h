@@ -26,6 +26,10 @@ public:
 	static void callback_cerrar_ventana_circuit(GtkWidget *widget, gpointer data);
 
 	static void callback_cambiar_pestania(GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data);
+
+	static void callback_aceptar_abrir(GtkWidget *widget, gpointer data);
+
+	static void callback_cancelar_abrir(GtkWidget *widget, gpointer data);
 };
 
 #endif /* COMMON_CONTROLADOR_ARCHIVO_H_ */

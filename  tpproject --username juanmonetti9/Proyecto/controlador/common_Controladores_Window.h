@@ -15,11 +15,12 @@ public:
 
 	static void destroy (GtkWidget *widget, gpointer data);
 
-
-
 	virtual ~Controlador_Ventana();
 
+	static void do_nothing(GtkWidget *widget, gpointer data);
 
+
+	static gint delete_event_true(GtkWidget *widget, GdkEvent *event, gpointer data);
 };
 
 #endif /* COMMON_CONTROLADOR_VENTANA_H_ */

@@ -38,6 +38,12 @@ Circuito::~Circuito() {
 
 bool* Circuito::simular(bool* entradas) {
 
+	if (salidas.empty()) {
+
+		throw CircuitoException("No se pudo simular.Circuito incompleto");
+
+	}
+
 	this->setearEntradas(entradas);
 
 	this->reset();
