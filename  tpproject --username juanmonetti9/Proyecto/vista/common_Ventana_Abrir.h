@@ -39,6 +39,9 @@ private:
 	static void select_row_callback(GtkWidget *widget, gint row, gint colum,
 			GdkEventButton *event, gpointer data);
 
+	static void unselect_row_callback(GtkWidget *widget, gint row, gint colum,
+				GdkEventButton *event, gpointer data);
+
 
 };
 

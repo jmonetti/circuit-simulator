@@ -245,7 +245,7 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 
 	   struct stat estadoArchivo;
 
-	   std::string ruta = PATH_SAVES + nombreCircuito + ".xml";
+	   std::string ruta = PATH_SAVES + nombreCircuito;
 
 	   int iretStat = stat(ruta.c_str(), &estadoArchivo);
 
