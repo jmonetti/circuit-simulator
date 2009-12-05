@@ -74,6 +74,10 @@ public:
 
 	void set_sentido(SENTIDO _sentido);
 
+	SENTIDO rotar_der(SENTIDO _sent);
+
+	SENTIDO rotar_izq(SENTIDO _sent);
+
 	void rotar_izq();
 
 	void rotar_derecha();
@@ -128,8 +132,7 @@ public:
 
 	void vaciar_entorno();
 
-	SENTIDO rotar_izq(SENTIDO _sent);
-	SENTIDO rotar_der(SENTIDO _sent);
+
 
 	virtual ~Celda();
 };
