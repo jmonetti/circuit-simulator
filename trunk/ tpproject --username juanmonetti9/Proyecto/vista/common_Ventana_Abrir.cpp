@@ -111,13 +111,18 @@ void Ventana_Abrir::mostrarCircuitos() {
 	for (unsigned int var = 0; var < archivos.size(); ++var) {
 
 		gtk_clist_append( GTK_CLIST(lista), &archivos[var]);
+		delete[] archivos[var];
 
 	}
 
 	gtk_signal_connect(GTK_OBJECT( lista), "select_row",
 						GTK_SIGNAL_FUNC(select_row_callback), lista);
 
+	gtk_signal_connect(GTK_OBJECT( lista), "unselect_row",
+						GTK_SIGNAL_FUNC(unselect_row_callback), lista);
+
 	activa= true;
+
 
 }
 
@@ -127,3 +132,11 @@ void Ventana_Abrir::select_row_callback(GtkWidget *widget, gint row, gint colum,
 	gtk_clist_get_text(GTK_CLIST(data), row, colum, &circuitoAbrir);
 
 }
+
+void Ventana_Abrir::unselect_row_callback(GtkWidget *widget, gint row, gint colum,
+			GdkEventButton *event, gpointer data) {
+
+	circuitoAbrir= NULL;
+
+}
+
