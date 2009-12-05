@@ -5,6 +5,7 @@
 #define COMMON_CONTROLADOR_H_
 
 #include "Modelo_vista_circ/common_Modelo_vista_circuito.h"
+#include "../common/common_Posicion.h"
 #include "../vista/common_Fachada_vista.h"
 #include "../common/constantes.h"
 #include "Acciones/common_Accion_NULA.h"

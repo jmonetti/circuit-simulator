@@ -119,9 +119,9 @@ void Box_Ventana_Interna::borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA t
 
 }
 
-void Box_Ventana_Interna::dibujar_multiple(int _x,int _y){
+void Box_Ventana_Interna::borrar_pista(int _x,int _y,SENTIDO _sentido){
 
-	actual->draw_multiple(_x,_y);
+	actual->draw_borrar_pista(_x,_y,_sentido);
 }
 void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
 

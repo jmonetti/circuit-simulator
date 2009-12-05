@@ -62,7 +62,7 @@ public:
 
 	void draw_XOR(gdouble x,gdouble y, SENTIDO sentido);
 
-	void draw_multiple(int _x,int _y);
+	void draw_borrar_pista(int _x,int _y,SENTIDO _sentido);
 
 
 

@@ -14,9 +14,9 @@ void Fachada_vista::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,S
 	ventana_interna->dibujar_componente(x,y,tipo,sentido,tam_pista);
 };
 
-void Fachada_vista::dibujar_pista_multiple(int _x,int _y){
+void Fachada_vista::borrar_pista(int _x,int _y,SENTIDO _sentido){
 
-	ventana_interna->dibujar_multiple(_x,_y);
+	ventana_interna->borrar_pista(_x,_y,_sentido);
 }
 
 
