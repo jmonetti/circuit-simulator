@@ -206,17 +206,22 @@ bool Celda::agregar_pista(int nuevo_id,SENTIDO nuevo_sentido){
 	return agregada;
 }
 
-bool Celda::agregar_caja_negra(int nuevo_id,SENTIDO nuevo_sentido){
+bool Celda::agregar_caja_negra(int nuevo_id,int cant_entradas,int cant_salidas){
 
 	bool agregada;
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_caja_negra(nuevo_sentido,nuevo_id);
+		agregada=agregar_entorno_caja_negra(cant_entradas,cant_salidas,nuevo_id);
 		if(agregada){
-			set_componente(T_CAJANEGRA,nuevo_sentido,nuevo_id,fila,colum);
+			set_componente(T_CAJANEGRA,ESTE,nuevo_id,fila,colum);
 			componente.set_ppal(true);
+			componente.set_cant_entradas(cant_entradas);
+			componente.set_cant_salidas(cant_salidas);
 		}
+		else
+			componente.desocupar();
+
 	}
 	else
 		agregada=false;
@@ -424,10 +429,52 @@ void Celda::get_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO _sentido,T
 
 
 
-bool Celda::agregar_entorno_caja_negra(SENTIDO _sentido,int _id){
+bool Celda::agregar_entorno_caja_negra(int cant_entradas,int cant_salidas,int _id){
 
-	return true;//todo
+	//variable de retorno de la funcion
+	bool retorno= true;
+
+	//variable para la cantidad maxima de filas del entorno
+	int cant_max = (cant_entradas > cant_salidas)? cant_entradas:cant_salidas;
+	cant_max = (cant_max > 3)?(cant_max):3;
+
+	//variables para recorrer el entorno
+	unsigned int i = fila-1;
+	unsigned int j = colum -1;
+
+	//Recorro el entorno
+	while( retorno && (i < fila+cant_max-1)){
+
+		while( retorno && (j <= colum+1)){
+
+			if( i!=fila && j!=colum){
+
+				Celda* aux=grilla->get_celda(i,j);
+				Datos_celda* datos_aux = aux->get_datos();
+
+				if(!datos_aux->esta_ocupada()){
+					aux->set_componente(T_CAJANEGRA,ESTE,_id,fila,colum);
+					datos_aux->set_cant_entradas(cant_entradas);
+					datos_aux->set_cant_salidas(cant_salidas);
+					componente.get_entorno().push_front(aux);
+				}
+				else
+					retorno=false;
+			}
+			j++;
+		}
+
+		i++;
+		j= colum - 1;
+	}
+
+	if(!retorno){
+		vaciar_entorno(_id);
+	}
+
+	return retorno;
 }
+
 
 bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo,int _id,SENTIDO nuevo_sentido){
 

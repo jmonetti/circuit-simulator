@@ -18,6 +18,8 @@ private:
 	int colum_ppal;		//columna del padre del componente
 	SENTIDO sentido;    //sentido del componente al que representa una celda
 	TIPO_COMPUERTA tipo;//estado de la celda
+	int cant_entradas;  //cantidad de entradas del componente
+	int cant_salidas;	//cantidad de salidas del componente
 
 	//Entorno de la celda
 	std::list<Celda*> entorno;
@@ -57,6 +59,14 @@ public:
 	bool es_principal()const;
 
 	void set_ppal(bool nueva_ppal);
+
+	int get_cant_entradas()const;
+
+	void set_cant_entradas(int nueva_cant);
+
+	int get_cant_salidas()const;
+
+	void set_cant_salidas(int nueva_cant);
 
 	void agregar_a_entorno(Celda* nueva_celda);
 

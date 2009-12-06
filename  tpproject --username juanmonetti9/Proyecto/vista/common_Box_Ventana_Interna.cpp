@@ -123,6 +123,17 @@ void Box_Ventana_Interna::borrar_pista(int _x,int _y,SENTIDO _sentido){
 
 	actual->draw_borrar_pista(_x,_y,_sentido);
 }
+
+void Box_Ventana_Interna::dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	actual->draw_CAJANEGRA(x,y,cant_entradas,cant_salidas);
+}
+
+void Box_Ventana_Interna::borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	actual->draw_borrar_CAJANEGRA(x,y,cant_entradas,cant_salidas);
+}
+
 void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
 
 	switch(tipo){
@@ -160,7 +171,6 @@ void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA 
 					break;
 		}
 		case T_CAJANEGRA:{
-					/*actual->draw_salida(x,y,sentido);TODO*/
 					break;
 		}
 

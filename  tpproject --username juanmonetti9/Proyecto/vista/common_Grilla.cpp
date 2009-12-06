@@ -210,7 +210,15 @@ void Grilla::draw_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas){
 		}
 }
 
+void Grilla::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
 
+	areaDisenio.draw_CAJANEGRA(x,y,cant_entradas,cant_salidas);
+}
+
+void Grilla::draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	areaDisenio.draw_borrar_CAJANEGRA(x,y,cant_entradas,cant_salidas);
+}
 /*----------------------------------------------------------------------------*/
 
 void Grilla::draw_borrar(gdouble x, gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int cant_celdas){

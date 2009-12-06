@@ -8,7 +8,7 @@ Accion_Draw_Caja_Negra::Accion_Draw_Caja_Negra(Controlador* controlador):Accion(
 
 void Accion_Draw_Caja_Negra::ejecutar(gdouble x,gdouble y){
 
-	get_controlador()->agregar_componente(x,y,T_CAJANEGRA);
+	get_controlador()->agregar_caja_negra(x,y,3,5);
 
 }
 

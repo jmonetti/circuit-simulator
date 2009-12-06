@@ -44,6 +44,10 @@ public:
 	void conectar_DnD();
 
 
+
+	void draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
+
+	void draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 	/**
 	 * Dibuja una pista en la pantalla
 	 */
