@@ -105,7 +105,6 @@ void TablaLogica::crearTablaEntradas(std::vector<std::string>* entradas) {
 	for (unsigned int var = 0; var < entradas->size(); ++var) {
 
 		gtk_clist_set_column_justification( GTK_CLIST(tablaEntradas) , var, GTK_JUSTIFY_CENTER);
-		gtk_clist_set_column_width( GTK_CLIST(tablaEntradas) , var, (*entradas)[var].size() * 10);
 
 	}
 
@@ -145,7 +144,6 @@ void TablaLogica::crearTablaSalidas(std::vector<std::string>* salidas) {
 	for (unsigned int var = 0; var < salidas->size(); ++var) {
 
 		gtk_clist_set_column_justification( GTK_CLIST(tablaSalidas) , var, GTK_JUSTIFY_CENTER);
-		gtk_clist_set_column_width( GTK_CLIST(tablaSalidas) , var, (*salidas)[var].size() * 10);
 
 	}
 
@@ -170,7 +168,6 @@ void TablaLogica::crearTablaTiempos() {
 	for (int var = 0; var < CANTIDADTITLESTIEMPOS; ++var) {
 
 		gtk_clist_set_column_justification( GTK_CLIST(tablaTiempos) , var, GTK_JUSTIFY_CENTER);
-		gtk_clist_set_column_width( GTK_CLIST(tablaTiempos) , var, 7 * 10);
 
 	}
 

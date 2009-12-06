@@ -51,6 +51,20 @@ public:
 
 	void cambiar_circuito(int index);
 
+	void mostrar_upload();
+
+	void ejecutar_upload();
+
+	void mostrar_download();
+
+	void ejecutar_download();
+
+	void conectar();
+
+	void agregar_entrada(int x,int y,SENTIDO sentido= ESTE);
+
+	void agregar_salida(int x,int y,SENTIDO sentido= ESTE);
+
 	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
 
 	void eliminar_componente(int x,int y);
@@ -73,11 +87,16 @@ public:
 
 	void arrastrar(gdouble x, gdouble y);
 
-	void aceptar_error();
+	void crear_entrada();
+
+	void crear_salida();
 
 	void aceptar_abrir();
 
 	void cancelar_abrir();
+
+	void aceptar_nuevo();
+
 
 	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
 

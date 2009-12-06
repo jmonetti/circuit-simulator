@@ -45,6 +45,10 @@ public:
 
 	void guardar();
 
+	std::vector<char*>* obtenerCircuitosGuardados();
+
+	std::vector<char*>* obtenerCircuitosServidor(Servidor servidor);
+
 	Circuito* recuperar(const std::string &nombreCircuito);
 
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
@@ -52,6 +56,8 @@ public:
 	int recibir(const std::string &nombreCircuito,Servidor servidor);
 
 	int getId();
+
+	bool hayCircuito();
 
 
 private:

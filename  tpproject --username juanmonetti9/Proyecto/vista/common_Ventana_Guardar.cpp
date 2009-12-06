@@ -1,10 +1,10 @@
-#include "common_Ventana_Error.h"
+#include "common_Ventana_Guardar.h"
 #include "../controlador/common_Controladores_Window.h"
 
-Ventana_Error::Ventana_Error() {
+Ventana_Guardar::Ventana_Guardar() {
 
 	cuadro= gtk_dialog_new();
-	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Error");
+	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Guardar");
 
 	gtk_signal_connect (GTK_OBJECT (&GTK_DIALOG(cuadro)->window), "destroy",
 			                        GTK_SIGNAL_FUNC (Controlador_Ventana::do_nothing), NULL);
@@ -21,49 +21,36 @@ Ventana_Error::Ventana_Error() {
 	gtk_signal_connect (GTK_OBJECT (boton), "clicked",
 			GTK_SIGNAL_FUNC (callback_aceptar), cuadro);
 
-	label = gtk_label_new ("");
+	label = gtk_label_new ("Circuito guardado exitosamente");
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
     gtk_widget_show (label);
 
 
 }
 
-Ventana_Error::~Ventana_Error() {
+Ventana_Guardar::~Ventana_Guardar() {
 	// TODO Auto-generated destructor stub
 }
 
-void Ventana_Error::show() {
+void Ventana_Guardar::show() {
 
 	gtk_widget_show(cuadro);
 
 }
 
-void Ventana_Error::hide() {
+void Ventana_Guardar::hide() {
 
 	gtk_widget_hide(cuadro);
 
 }
 
-GtkWidget* Ventana_Error::getWidget() {
+GtkWidget* Ventana_Guardar::getWidget() {
 
 	return cuadro;
 
 }
 
-void Ventana_Error::mostrarError(const std::string &texto) {
-
-	char* text= new char[texto.size() + 1];
-	texto.copy(text,texto.size());
-	text[texto.size()] = '\0';
-
-	gtk_label_set (GTK_LABEL(label),text);
-	gtk_widget_show (label);
-
-    delete[] text;
-
-}
-
-void Ventana_Error::callback_aceptar( GtkWidget *widget,gpointer callback_data ) {
+void Ventana_Guardar::callback_aceptar( GtkWidget *widget,gpointer callback_data ) {
 
 	gtk_widget_hide(GTK_WIDGET(callback_data));
 

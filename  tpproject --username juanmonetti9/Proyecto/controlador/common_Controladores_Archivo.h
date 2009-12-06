@@ -30,6 +30,9 @@ public:
 	static void callback_aceptar_abrir(GtkWidget *widget, gpointer data);
 
 	static void callback_cancelar_abrir(GtkWidget *widget, gpointer data);
+
+	static void callback_aceptar_nuevo(GtkWidget *widget, gpointer data);
+
 };
 
 #endif /* COMMON_CONTROLADOR_ARCHIVO_H_ */

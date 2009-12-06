@@ -12,7 +12,7 @@ Boton_Salida::Boton_Salida() {
 
 	agregarImagen((gchar*)"imagenes/salida.png");
 	agregarToolTip((gchar*)"agregar salida");
-	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_Salida), NULL);
+	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_crear_salida), NULL);
 
 
 }
