@@ -4,6 +4,7 @@
 #include "../excepciones/common_ConexionException.h"
 #include "../excepciones/common_CircuitoException.h"
 #include "../modelo/simulacion/common_Resultado.h"
+#include "Acciones/common_Accion_Draw_Caja_Negra.h"
 #include <string>
 #include <stdlib.h>
 
@@ -118,8 +119,7 @@ void Controlador::ejecutar_download() {
 
 	if (fachada_vista->get_circuito_download()) {
 
-		//TODO
-		accion= new Accion_NULA(this);
+		accion= new Accion_Draw_Caja_Negra(this);
 		fachada_vista->ocultar_download();
 
 	}
@@ -154,7 +154,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 	switch(_tipo){
 
-	case T_ENTRADA:	{accion= NULL;
+	case T_ENTRADA:	{
 						try {
 							Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
 							std::string nom= fachada_vista->get_nombre_entrada();
@@ -191,6 +191,34 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 				    break;
 
 					}
+
+	case T_CAJANEGRA:	{
+
+					try {
+
+						Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
+						std::string nombre= fachada_vista->get_circuito_download();
+						std::string host= fachada_vista->get_host_download();
+						int puerto= atoi(fachada_vista->get_puerto_download());
+						Servidor servidor(host,puerto);
+						int id= modeloCliente->recibir(nombre,servidor); //TODO
+						//TODO integrar con modelo... hardcodear para poder dibujar, vas a tener q hacer un agregar caja negra
+								//porque le tenes que pasar la cantidad de entradas y salidas
+						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
+						celda=matrizActual->get_celda_px(_x,_y);
+
+					} catch (ConexionException e) {
+
+						agregadaModelo= false;
+
+					}
+
+					accion= new Accion_NULA(this);
+
+				    break;
+
+					}
+
 
 	case T_PISTA: 	{
 
