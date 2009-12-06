@@ -59,9 +59,7 @@ public:
 
 	void ejecutar_accion(gdouble x,gdouble y);
 
-	void rotar_right(int x,int y);
-
-	void rotar_left(int x,int y);
+	void rotar(int x,int y,DIRECCION n_direccion);
 
 	void set_pos_x_click(int x);
 

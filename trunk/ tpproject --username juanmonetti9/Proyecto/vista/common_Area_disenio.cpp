@@ -244,8 +244,6 @@ void Area_disenio::draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int ca
 
 	}else{
 
-		GdkRectangle update_rect;
-
 		update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 		update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
 
