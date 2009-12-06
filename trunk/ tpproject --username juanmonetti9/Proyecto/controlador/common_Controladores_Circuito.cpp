@@ -35,7 +35,6 @@ void Controlador_Circuito::crearVentanaDialogoServidor() {
     GtkWidget* label = gtk_label_new ("Host:");
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
     gtk_widget_show (label);
-    gtk_widget_show(label);
 
 
     GtkWidget* entry= gtk_entry_new();
@@ -45,7 +44,7 @@ void Controlador_Circuito::crearVentanaDialogoServidor() {
     label = gtk_label_new ("Puerto:");
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
     gtk_widget_show (label);
-    gtk_widget_show(label);
+
 
 
     entry= gtk_entry_new();
@@ -102,19 +101,57 @@ void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
 
 }
 
-void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_data ){
+void Controlador_Circuito::callback_crear_Upload( GtkWidget *widget,gpointer callback_data ) {
 
-	//TODO
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_NULA(controlador));
+		controlador->mostrar_upload();
 	}
 
-	crearVentanaDialogoServidor();
 
 }
+
+void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->ejecutar_upload();
+	}
+
+
+
+}
+
+void Controlador_Circuito::callback_crear_Download( GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->mostrar_download();
+	}
+
+
+
+}
+
+void Controlador_Circuito::callback_conectar( GtkWidget *widget,gpointer callback_data ){
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->conectar();
+	}
+
+
+
+}
+
 
 void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callback_data ){
 
@@ -122,10 +159,8 @@ void Controlador_Circuito::callback_Download( GtkWidget *widget,gpointer callbac
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_NULA(controlador));
+		controlador->ejecutar_download();
 	}
-
-	crearVentanaDialogoServidor();
 
 }
 
@@ -222,6 +257,20 @@ void Controlador_Circuito::callback_Delete( GtkWidget *widget,gpointer callback_
 
 }
 
+void Controlador_Circuito::callback_crear_entrada(GtkWidget *widget,gpointer callback_data ) {
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+
+		controlador->desconectar_drag_drop();
+		controlador->crear_entrada();
+
+	}
+
+
+}
+
 void Controlador_Circuito::callback_Entrada(GtkWidget *widget,gpointer callback_data ){
 
 	Controlador* controlador=Controlador::get_instancia();
@@ -232,6 +281,21 @@ void Controlador_Circuito::callback_Entrada(GtkWidget *widget,gpointer callback_
 	}
 
 }
+
+void Controlador_Circuito::callback_crear_salida(GtkWidget *widget,gpointer callback_data ) {
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+
+		controlador->desconectar_drag_drop();
+		controlador->crear_salida();
+
+	}
+
+
+}
+
 
 void Controlador_Circuito::callback_Salida(GtkWidget *widget,gpointer callback_data ){
 
@@ -266,17 +330,6 @@ void Controlador_Circuito::callback_InvertirR( GtkWidget *widget,gpointer callba
 	}
 }
 
-void Controlador_Circuito::callback_aceptar_error( GtkWidget *widget,gpointer callback_data ) {
-
-	Controlador* controlador=Controlador::get_instancia();
-
-	if(controlador){
-
-		controlador->aceptar_error();
-
-	}
-
-}
 /*----------------------------------------------------------------------------*/
 
 gint Controlador_Circuito::button_press_event (GtkWidget *widget, GdkEventButton *event){

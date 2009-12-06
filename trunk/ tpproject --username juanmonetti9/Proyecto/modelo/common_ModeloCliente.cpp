@@ -3,6 +3,7 @@
 #include <iterator>
 #include "circuito/common_FactoryCompuerta.h"
 #include "../excepciones/common_CircuitoException.h"
+#include "../common/common_Utils.h"
 
 ModeloCliente::ModeloCliente() {
 
@@ -136,6 +137,22 @@ void ModeloCliente::guardar() {
 
 }
 
+std::vector<char*>* ModeloCliente::obtenerCircuitosGuardados() {
+
+	std::vector<char*>* circuitos= new std::vector<char*>();
+
+	Utils::obtenerArchivos(PATH_SAVES,circuitos);
+
+	return circuitos;
+
+}
+
+std::vector<char*>* ModeloCliente::obtenerCircuitosServidor(Servidor servidor) {
+
+	return publicacion.obtenerCircuitos(servidor);
+
+}
+
 Circuito* ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
 	Circuito* circuito= persistencia.recuperar(contadorId, nombreCircuito);
@@ -165,6 +182,12 @@ int ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) 
 int ModeloCliente::getId() {
 
 	return contadorId;
+
+}
+
+bool ModeloCliente::hayCircuito() {
+
+	return circuitoActual;
 
 }
 

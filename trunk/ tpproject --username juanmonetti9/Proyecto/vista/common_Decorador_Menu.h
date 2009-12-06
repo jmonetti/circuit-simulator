@@ -17,8 +17,8 @@ private:
 	GtkWidget* menu[4];
 	GtkWidget* root_menu[4];
 	GtkWidget* items_archivo[5];
-	GtkWidget* items_ventana[5];
-	GtkWidget* items_circuito[6];
+	GtkWidget* items_ventana[1];
+	GtkWidget* items_circuito[13];
 
 
 	void cargar_Opcion_Archivo();

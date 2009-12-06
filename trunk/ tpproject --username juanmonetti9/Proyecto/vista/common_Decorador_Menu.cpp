@@ -132,26 +132,70 @@ void Decorador_Menu::cargar_Opcion_Circuito(){
 	gtk_signal_connect_object(GTK_OBJECT(items_circuito[3]), "activate",
 			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_XOR), NULL);
 
-	//Creo e inicializo el item Subir circuito
-	items_circuito[4] = gtk_menu_item_new_with_label("Subir Circuito");
+	//Creo e inicializo el item compuerta Pista
+	items_circuito[4] = gtk_menu_item_new_with_label("Pista");
 	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[4]);
 	gtk_widget_show(items_circuito[4]);
 	gtk_signal_connect_object(GTK_OBJECT(items_circuito[4]), "activate",
-			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Upload), NULL);
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Pista), NULL);
 
-	//Creo e inicializo el item descargar circuito
-	items_circuito[5] = gtk_menu_item_new_with_label("Descargar Circuito");
+
+	//Creo e inicializo el item Entrada
+	items_circuito[5] = gtk_menu_item_new_with_label("Entrada");
 	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[5]);
 	gtk_widget_show(items_circuito[5]);
 	gtk_signal_connect_object(GTK_OBJECT(items_circuito[5]), "activate",
-			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Download), NULL);
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_crear_entrada), NULL);
 
-	//Creo e inicializo el item Simular
-	items_circuito[6] = gtk_menu_item_new_with_label("Simular");
+	//Creo e inicializo el item Salida
+	items_circuito[6] = gtk_menu_item_new_with_label("Salida");
 	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[6]);
 	gtk_widget_show(items_circuito[6]);
 	gtk_signal_connect_object(GTK_OBJECT(items_circuito[6]), "activate",
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_crear_salida), NULL);
+
+	//Creo e inicializo el item Subir circuito
+	items_circuito[7] = gtk_menu_item_new_with_label("Subir Circuito");
+	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[7]);
+	gtk_widget_show(items_circuito[7]);
+	gtk_signal_connect_object(GTK_OBJECT(items_circuito[7]), "activate",
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_crear_Upload), NULL);
+
+	//Creo e inicializo el item descargar circuito
+	items_circuito[8] = gtk_menu_item_new_with_label("Descargar Circuito");
+	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[8]);
+	gtk_widget_show(items_circuito[8]);
+	gtk_signal_connect_object(GTK_OBJECT(items_circuito[8]), "activate",
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_crear_Download), NULL);
+
+	//Creo e inicializo el item Simular
+	items_circuito[9] = gtk_menu_item_new_with_label("Simular");
+	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[9]);
+	gtk_widget_show(items_circuito[9]);
+	gtk_signal_connect_object(GTK_OBJECT(items_circuito[9]), "activate",
 			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Simulacion), NULL);
+
+	//Creo e inicializo el item Rotar Izquierda
+	items_circuito[10] = gtk_menu_item_new_with_label("Rotar Izquierda");
+	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[10]);
+	gtk_widget_show(items_circuito[10]);
+	gtk_signal_connect_object(GTK_OBJECT(items_circuito[10]), "activate",
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_InvertirL), NULL);
+
+	//Creo e inicializo el item Rotar Derecha
+	items_circuito[11] = gtk_menu_item_new_with_label("Rotar Derecha");
+	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[11]);
+	gtk_widget_show(items_circuito[11]);
+	gtk_signal_connect_object(GTK_OBJECT(items_circuito[11]), "activate",
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_InvertirR), NULL);
+
+	//Creo e inicializo el item Eliminar
+	items_circuito[12] = gtk_menu_item_new_with_label("Eliminar");
+	gtk_menu_append(GTK_MENU (menu[2]), items_circuito[12]);
+	gtk_widget_show(items_circuito[12]);
+	gtk_signal_connect_object(GTK_OBJECT(items_circuito[12]), "activate",
+			GTK_SIGNAL_FUNC(Controlador_Circuito::callback_Delete), NULL);
+
 
 	//lo cargo
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (root_menu[2]), menu[2]);

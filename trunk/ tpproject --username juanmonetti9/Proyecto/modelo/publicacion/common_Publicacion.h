@@ -21,6 +21,8 @@ public:
 
 	int recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito);
 
+	std::vector<char*>* obtenerCircuitos(Servidor servidor);
+
 
 };
 

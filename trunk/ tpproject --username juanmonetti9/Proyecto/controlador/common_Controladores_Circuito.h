@@ -13,7 +13,13 @@ class Controlador_Circuito {
 public:
 
 
+	static void callback_crear_Upload( GtkWidget *widget,gpointer callback_data );
+
 	static void callback_Upload( GtkWidget *widget,gpointer callback_data );
+
+	static void callback_crear_Download( GtkWidget *widget,gpointer callback_data );
+
+	static void callback_conectar( GtkWidget *widget,gpointer callback_data );
 
 	static void callback_Download( GtkWidget *widget,gpointer callback_data );
 
@@ -27,7 +33,11 @@ public:
 
 	static void callback_Pista( GtkWidget *widget,gpointer callback_data );
 
+	static void callback_crear_entrada(GtkWidget *widget,gpointer callback_data );
+
 	static void callback_Entrada(GtkWidget *widget,gpointer callback_data );
+
+	static void callback_crear_salida(GtkWidget *widget,gpointer callback_data );
 
 	static void callback_Salida(GtkWidget *widget,gpointer callback_data );
 
@@ -40,8 +50,6 @@ public:
 	static void callback_InvertirL( GtkWidget *widget,gpointer callback_data );
 
 	static void callback_Simulacion( GtkWidget *widget,gpointer callback_data );
-
-	static void callback_aceptar_error( GtkWidget *widget,gpointer callback_data );
 
 	/**
 	 * Controlador del evento de presionar el primer boton del raton

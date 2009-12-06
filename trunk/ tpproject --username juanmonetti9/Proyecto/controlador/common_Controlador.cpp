@@ -5,7 +5,7 @@
 #include "../excepciones/common_CircuitoException.h"
 #include "../modelo/simulacion/common_Resultado.h"
 #include <string>
-
+#include <stdlib.h>
 
 /*----------------------------------------------------------------------------*/
 //instancia del singleton
@@ -70,6 +70,75 @@ void  Controlador::set_pos_y_click(int y){
 
 	pos_y=y;
 }
+
+void Controlador::mostrar_upload() {
+
+	if (!fachada_vista->upload_activo()) {
+
+		fachada_vista->mostrar_ventana_upload(modeloCliente->obtenerCircuitosGuardados());
+
+	}
+
+
+}
+
+void Controlador::ejecutar_upload() {
+
+	if (fachada_vista->get_circuito_upload()) {
+
+		std::string host= fachada_vista->get_host_upload();
+		int puerto= atoi(fachada_vista->get_puerto_upload());
+
+		Servidor servidor(host,puerto);
+
+		modeloCliente->enviar(fachada_vista->get_circuito_upload(),servidor);
+
+		fachada_vista->ocultar_upload();
+
+	}
+
+
+}
+
+void Controlador::mostrar_download() {
+
+	if (modeloCliente->hayCircuito()) {
+
+		if (!fachada_vista->download_activo()) {
+
+			fachada_vista->mostrar_ventana_download();
+
+		}
+
+	}
+
+}
+
+void Controlador::ejecutar_download() {
+
+	if (fachada_vista->get_circuito_download()) {
+
+		//TODO
+		accion= new Accion_NULA(this);
+		fachada_vista->ocultar_download();
+
+	}
+
+
+}
+
+void Controlador::conectar() {
+
+	std::string host= fachada_vista->get_host_download();
+	int puerto= atoi(fachada_vista->get_puerto_download());
+	Servidor servidor(host,puerto);
+
+	std::vector<char*>* circuitos= modeloCliente->obtenerCircuitosServidor(servidor);
+
+	fachada_vista->mostrar_circuitos_servidor(circuitos);
+
+}
+
 /*----------------------------------------------------------------------------*/
 
 void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido){
@@ -85,17 +154,19 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 	switch(_tipo){
 
-	case T_ENTRADA:	{
+	case T_ENTRADA:	{accion= NULL;
 						try {
 							Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
-							std::string nom="ENTRADA";
+							std::string nom= fachada_vista->get_nombre_entrada();
 							id= modeloCliente->agregarEntrada(posicion,nom,sentido);
 							agregadaVista=matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 							celda=matrizActual->get_celda_px(_x,_y);
+
 						} catch (ConexionException e) {
 
 							agregadaModelo= false;
 						}
+						accion= new Accion_NULA(this);
 						break;
 					}
 
@@ -104,7 +175,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 					try {
 
 						Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
-						std::string nom="SALIDA";
+						std::string nom= fachada_vista->get_nombre_salida();
 						id= modeloCliente->agregarSalida(posicion,nom,sentido);
 						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
@@ -115,7 +186,9 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 					}
 
-				     break;
+					accion= new Accion_NULA(this);
+
+				    break;
 
 					}
 
@@ -342,6 +415,7 @@ void Controlador::guardar(){
 	try {
 
 		modeloCliente->guardar();
+		fachada_vista->mostrar_confirmacion_guardar();
 
 	} catch (CircuitoException e) {
 
@@ -353,11 +427,7 @@ void Controlador::guardar(){
 
 void Controlador::crear_circuito(){
 
-	std::string nombre= "Circuito";
-	int id= modeloCliente->crearNuevo(nombre);
-	matrizActual= new Modelo_vista_circuito();
-	matrices.insert(make_pair(id,matrizActual));
-	fachada_vista->agregar_grilla(id);
+	fachada_vista->mostrar_ventana_nuevo();
 
 }
 
@@ -402,7 +472,7 @@ void Controlador::abrir_circuito() {
 
 	if (!fachada_vista->abriendo()) {
 
-		fachada_vista->mostrar_ventana_abrir();
+		fachada_vista->mostrar_ventana_abrir(modeloCliente->obtenerCircuitosGuardados());
 		fachada_vista->agregar_grilla(modeloCliente->getId());
 
 	}
@@ -431,11 +501,26 @@ bool Controlador::get_arrastre_activo()const{
 
 }
 
-void Controlador::aceptar_error() {
+void Controlador::crear_entrada() {
 
-	fachada_vista->aceptar_error();
+	if (modeloCliente->hayCircuito()) {
+
+		fachada_vista->mostrar_ventana_entrada();
+
+	}
 
 }
+
+void Controlador::crear_salida() {
+
+	if (modeloCliente->hayCircuito()) {
+
+		fachada_vista->mostrar_ventana_salida();
+
+	}
+
+}
+
 
 void Controlador::aceptar_abrir() {
 
@@ -450,7 +535,7 @@ void Controlador::aceptar_abrir() {
 
 		generarCircuito(circuito);
 
-		fachada_vista->aceptar_abrir();
+		fachada_vista->ocultar_abrir();
 
 	}
 
@@ -458,9 +543,22 @@ void Controlador::aceptar_abrir() {
 
 void Controlador::cancelar_abrir() {
 
-	fachada_vista->cancelar_abrir();
+	fachada_vista->ocultar_abrir();
 
 	fachada_vista->eliminar_grilla();
+
+}
+
+void Controlador::aceptar_nuevo() {
+
+	std::string nombre(fachada_vista->getNombreNuevo());
+	int id= modeloCliente->crearNuevo(nombre);
+	matrizActual= new Modelo_vista_circuito();
+	matrices.insert(make_pair(id,matrizActual));
+	fachada_vista->agregar_grilla(id);
+
+	fachada_vista->aceptar_nuevo();
+
 }
 
 /*----------------------------------------------------------------------------*/

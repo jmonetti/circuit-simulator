@@ -3,10 +3,8 @@
 
 #include "../controlador/common_Controladores_Window.h"
 #include "../controlador/common_Controladores_Archivo.h"
-
 #include <vector>
-#include "../common/constantes.h"
-#include "../common/common_Utils.h"
+
 
 const char* Ventana_Abrir::titulo[] = {
 
@@ -84,7 +82,7 @@ char* Ventana_Abrir::getCircuitoAbrir() {
 
 }
 
-void Ventana_Abrir::mostrarCircuitos() {
+void Ventana_Abrir::mostrarCircuitos(std::vector<char*>* circuitos) {
 
 	circuitoAbrir= NULL;
 
@@ -104,16 +102,14 @@ void Ventana_Abrir::mostrarCircuitos() {
 
 	gtk_widget_show(lista);
 
+	for (unsigned int var = 0; var < circuitos->size(); ++var) {
 
-	std::vector<char*> archivos;
-	Utils::obtenerArchivos(PATH_SAVES,&archivos);
-
-	for (unsigned int var = 0; var < archivos.size(); ++var) {
-
-		gtk_clist_append( GTK_CLIST(lista), &archivos[var]);
-		delete[] archivos[var];
+		gtk_clist_append( GTK_CLIST(lista), &(*circuitos)[var]);
+		delete[] (*circuitos)[var];
 
 	}
+
+	delete circuitos;
 
 	gtk_signal_connect(GTK_OBJECT( lista), "select_row",
 						GTK_SIGNAL_FUNC(select_row_callback), lista);

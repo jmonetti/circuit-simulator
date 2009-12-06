@@ -29,9 +29,7 @@ private:
 	GtkWidget* cuadro;
 	GtkWidget* label;
 
-	static void do_nothing(GtkWidget *widget, gpointer data);
-
-	static gint delete_event(GtkWidget *widget, GdkEvent *event, gpointer data);
+	static void callback_aceptar( GtkWidget *widget,gpointer callback_data );
 
 };
 

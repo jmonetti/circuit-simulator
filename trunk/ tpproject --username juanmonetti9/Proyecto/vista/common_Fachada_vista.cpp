@@ -67,6 +67,113 @@ int Fachada_vista::getIdActual() const{
 
 }
 
+void Fachada_vista::mostrar_ventana_upload(std::vector<char*>* circuitos) {
+
+	ventana_upload.mostrarCircuitos(circuitos);
+
+	ventana_upload.show();
+
+}
+
+bool Fachada_vista::upload_activo() {
+
+	return ventana_upload.estaActiva();
+
+}
+
+char* Fachada_vista::get_circuito_upload() {
+
+	return ventana_upload.getCircuitoUpload();
+
+}
+
+void Fachada_vista::ocultar_upload() {
+
+	ventana_upload.hide();
+
+}
+
+const char* Fachada_vista::get_host_upload() {
+
+	return ventana_upload.getHost();
+
+}
+
+const char* Fachada_vista::get_puerto_upload() {
+
+	return ventana_upload.getPuerto();
+
+}
+
+
+void Fachada_vista::mostrar_ventana_download() {
+
+	ventana_download.show();
+
+}
+
+bool Fachada_vista::download_activo() {
+
+	return ventana_download.estaActiva();
+
+}
+
+char* Fachada_vista::get_circuito_download() {
+
+	return ventana_download.getCircuitoDownload();
+
+}
+
+void Fachada_vista::ocultar_download() {
+
+	ventana_download.hide();
+
+}
+
+const char* Fachada_vista::get_host_download() {
+
+	return ventana_download.getHost();
+
+}
+
+const char* Fachada_vista::get_puerto_download() {
+
+	return ventana_download.getPuerto();
+
+}
+
+void Fachada_vista::mostrar_circuitos_servidor(std::vector<char*>* circuitos) {
+
+	ventana_download.mostrarCircuitos(circuitos);
+
+}
+
+
+
+void Fachada_vista::mostrar_ventana_entrada() {
+
+	ventana_entrada.show();
+
+}
+
+void Fachada_vista::mostrar_ventana_salida() {
+
+	ventana_salida.show();
+
+}
+
+const char* Fachada_vista::get_nombre_entrada() {
+
+	return ventana_entrada.getNombre();
+
+}
+
+const char* Fachada_vista::get_nombre_salida() {
+
+	return ventana_salida.getNombre();
+
+}
+
 void Fachada_vista::mostrar_error(const std::string &texto) {
 
 	ventana_error.mostrarError(texto);
@@ -75,27 +182,15 @@ void Fachada_vista::mostrar_error(const std::string &texto) {
 
 }
 
-void Fachada_vista::aceptar_error() {
+void Fachada_vista::mostrar_ventana_abrir(std::vector<char*>* circuitos) {
 
-	ventana_error.hide();
-
-}
-
-void Fachada_vista::mostrar_ventana_abrir() {
-
-	ventana_abrir.mostrarCircuitos();
+	ventana_abrir.mostrarCircuitos(circuitos);
 
 	ventana_abrir.show();
 
 }
 
-void Fachada_vista::aceptar_abrir() {
-
-	ventana_abrir.hide();
-
-}
-
-void Fachada_vista::cancelar_abrir() {
+void Fachada_vista::ocultar_abrir() {
 
 	ventana_abrir.hide();
 
@@ -107,8 +202,32 @@ bool Fachada_vista::abriendo() {
 
 }
 
+void Fachada_vista::mostrar_ventana_nuevo() {
+
+	ventana_nuevo.show();
+
+}
+
+void Fachada_vista::aceptar_nuevo() {
+
+	ventana_nuevo.hide();
+
+}
+
 char* Fachada_vista::getCircuitoAbrir() {
 
 	return ventana_abrir.getCircuitoAbrir();
+
+}
+
+const char* Fachada_vista::getNombreNuevo() {
+
+	return ventana_nuevo.getNombre();
+
+}
+
+void Fachada_vista::mostrar_confirmacion_guardar() {
+
+	ventana_guardar.show();
 
 }
