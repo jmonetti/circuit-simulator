@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<XML>
+
+  <Circuito>
+    <OR sentido="2" x="7" y="14"/>
+    <OR sentido="2" x="12" y="15"/>
+  </Circuito>
+
+</XML>

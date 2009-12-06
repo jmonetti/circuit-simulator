@@ -12,7 +12,7 @@ Accion_invertir_left::Accion_invertir_left(Controlador* controlador):Accion(cont
 
 void Accion_invertir_left::ejecutar(gdouble x,gdouble y){
 
-	get_controlador()->rotar_left(x,y);
+	get_controlador()->rotar(x,y,IZQUIERDA);
 
 }
 Accion_invertir_left::~Accion_invertir_left() {

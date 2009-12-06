@@ -20,13 +20,13 @@ bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
 
 
 	Celda* aux=get_celda_px(x,y);
-	*tipo=aux->get_tipo_celda();
+	*tipo=aux->get_datos()->get_tipo();
 	bool retorno=aux->esta_ocupada();
 
 	if(retorno){
 		//Si hay componente
-		*y= de_fila_a_pixel(aux->get_fila_padre());
-		*x= de_col_a_pixel(aux->get_colum_padre());
+		*y= de_fila_a_pixel(aux->get_datos()->get_fila_ppal());
+		*x= de_col_a_pixel(aux->get_datos()->get_col_ppal());
 	}
 
 	return retorno;
@@ -44,7 +44,8 @@ bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tip
 
 	int agregado=false;
 
-	//obtengo la celda
+	//obtengo la celda y los valores de x e y modificados con
+	//los valores del coentro de la celda
 	Celda* celda= get_celda_px(x,y);
 
 	if (celda){
