@@ -14,6 +14,16 @@ void Fachada_vista::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,S
 	ventana_interna->dibujar_componente(x,y,tipo,sentido,tam_pista);
 };
 
+void Fachada_vista::dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	ventana_interna->dibujar_caja_negra(x,y,cant_entradas,cant_salidas);
+}
+
+void Fachada_vista::borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	ventana_interna->borrar_caja_negra(x,y,cant_entradas,cant_salidas);
+}
+
 void Fachada_vista::borrar_pista(int _x,int _y,SENTIDO _sentido){
 
 	ventana_interna->borrar_pista(_x,_y,_sentido);

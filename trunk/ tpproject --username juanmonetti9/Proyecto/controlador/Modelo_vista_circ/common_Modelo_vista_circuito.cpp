@@ -39,7 +39,17 @@ void Modelo_vista_circuito::eliminar_componente(int x,int y){
 	if(aux)
 		aux->eliminar_componente();
 }
+bool Modelo_vista_circuito::agregar_caja_negra(int* x,int* y,int id,int cant_entradas,int cant_salidas){
 
+
+	//obtengo la celda y los valores de x e y modificados con
+	//los valores del coentro de la celda
+	Celda* celda= get_celda_px(x,y);
+
+	return celda->agregar_caja_negra(id,cant_entradas,cant_salidas);
+
+
+}
 bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido){
 
 	int agregado=false;
@@ -67,10 +77,9 @@ bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tip
 						    break;
 						    }
 
-			case T_CAJANEGRA:{
-							 agregado = celda->agregar_caja_negra(id,sentido);
-							 break;
-							 }
+			case T_CAJANEGRA:
+							break;
+
 
 			default:
 					agregado = celda->agregar_compuerta(_tipo,id,sentido);

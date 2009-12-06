@@ -35,7 +35,7 @@ private:
 
 	bool agregar_entorno_pista(SENTIDO _sentido,int _id);
 
-	bool agregar_entorno_caja_negra(SENTIDO _sentido,int _id);
+	bool agregar_entorno_caja_negra(int cant_entradas,int cant_salidas,int _id);
 
 	void vaciar_entorno(int identificador);
 
@@ -74,7 +74,7 @@ public:
 
 	bool agregar_pista(int nuevo_id,SENTIDO nuevo_sentido);
 
-	bool agregar_caja_negra(int nuevo_id,SENTIDO nuevo_sentido);
+	bool agregar_caja_negra(int nuevo_id,int cant_entradas,int cant_salidas);
 
 	bool agregar_entrada(int nuevo_id,SENTIDO nuevo_sentido);
 

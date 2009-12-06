@@ -16,11 +16,11 @@ Controlador* Controlador::instancia=NULL;
 
 Controlador::Controlador(Fachada_vista* fachada, ModeloCliente *modeloCliente) {
 
-	fachada_vista=fachada;
-	accion=new Accion_NULA(this);
-	arrstre_activo=false;
-	this->modeloCliente= modeloCliente;
-	matrizActual= NULL;
+	fachada_vista = fachada;
+	accion = new Accion_NULA(this);
+	arrastre_activo = false;
+	this->modeloCliente = modeloCliente;
+	matrizActual = NULL;
 
 }
 
@@ -192,42 +192,15 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 					}
 
-	case T_CAJANEGRA:	{
-
-					try {
-
-						Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
-						std::string nombre= fachada_vista->get_circuito_download();
-						std::string host= fachada_vista->get_host_download();
-						int puerto= atoi(fachada_vista->get_puerto_download());
-						Servidor servidor(host,puerto);
-						int id= modeloCliente->recibir(nombre,servidor); //TODO
-						//TODO integrar con modelo... hardcodear para poder dibujar, vas a tener q hacer un agregar caja negra
-								//porque le tenes que pasar la cantidad de entradas y salidas
-						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
-						celda=matrizActual->get_celda_px(_x,_y);
-
-					} catch (ConexionException e) {
-
-						agregadaModelo= false;
-
-					}
-
-					accion= new Accion_NULA(this);
-
+	case T_CAJANEGRA:
 				    break;
-
-					}
-
 
 	case T_PISTA: 	{
 
 					try {
 
-						g_print("Por agregar componente\n");//TODO
 						Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
 						id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
-						g_print("Agrege en modelo\n");//TODO
 						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
@@ -298,6 +271,50 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 		modeloCliente->eliminarCompuerta(id);
 	}
+
+}
+
+void Controlador::agregar_caja_negra(int x,int y,int cant_entradas,int cant_salidas){
+
+	int _x=x;
+	int _y=y;
+	//variables que representaran si se pudo agregr en el modelo y la vista
+	bool agregadaModelo= true;
+	bool agregadaVista = false;
+	//puntero a celda donde agrego e id del componente a agregar
+	Celda* celda= NULL;
+	int id;
+
+	try {
+
+		Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
+		//TODO std::string nombre= fachada_vista->get_circuito_download();
+		//TODO std::string host= fachada_vista->get_host_download();
+		//TODO int puerto= atoi(fachada_vista->get_puerto_download());
+		//TODO Servidor servidor(host,puerto);
+		//TODO id= modeloCliente->recibir(nombre,servidor);
+		//TODO ******---> integrar con modelo...
+
+		agregadaVista= matrizActual->agregar_caja_negra(&_x,&_y,id,cant_entradas,cant_salidas);
+		celda=matrizActual->get_celda_px(_x,_y);
+
+	} catch (ConexionException e) {
+
+		agregadaModelo= false;
+
+	}
+
+
+	if(agregadaModelo && celda && agregadaVista){
+
+		this->agregar_accion(new Accion_NULA(this));
+		fachada_vista->dibujar_caja_negra(_x,_y,cant_entradas,cant_salidas);
+
+	}else if (!agregadaVista) {
+		//TODO modeloCliente->eliminarCompuerta(id);
+	}
+
+
 
 }
 
@@ -373,8 +390,13 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 
 		try {
 			Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(_x),Modelo_vista_circuito::de_pixel_a_fila(_y));
+			//muevo el componente en el modelo
 			modeloCliente->mover(datos_origen->get_id(),posicion);
-			agregadoVista = matrizActual->agregar_componente(&_x,&_y,_tipo,datos_origen->get_id(),datos_origen->get_sentido());
+			//lo intento agregar en la nueva posicion
+			if(_tipo == T_CAJANEGRA)
+				agregadoVista = matrizActual->agregar_caja_negra(&_x,&_y,datos_origen->get_id(),datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
+			else
+				agregadoVista = matrizActual->agregar_componente(&_x,&_y,_tipo,datos_origen->get_id(),datos_origen->get_sentido());
 
 		} catch (ConexionException e) {
 
@@ -386,9 +408,14 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			//obtengo la celda destino para intentar agregar la compuerta
 			Celda* celda_destino=matrizActual->get_celda_px(_x,_y);
 			Datos_celda* datos_destino = celda_destino->get_datos();
-
-			fachada_vista->borrar_componente(_pos_x,_pos_y,_tipo,datos_origen->get_sentido());
-			fachada_vista->dibujar_componente(_x, _y,_tipo,datos_destino->get_sentido());
+			if(_tipo==T_CAJANEGRA){
+				fachada_vista->borrar_caja_negra(_pos_x,_pos_y,datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
+				fachada_vista->dibujar_caja_negra(_x, _y,datos_destino->get_cant_entradas(),datos_destino->get_cant_salidas());
+			}
+			else{
+				fachada_vista->borrar_componente(_pos_x,_pos_y,_tipo,datos_origen->get_sentido());
+				fachada_vista->dibujar_componente(_x, _y,_tipo,datos_destino->get_sentido());
+			}
 			matrizActual->eliminar_componente(_pos_x,_pos_y);
 
 		}else if (!agregadoVista) {
@@ -412,11 +439,21 @@ void Controlador::eliminar_componente(int x,int y){
 
 		Celda* celda=matrizActual->get_celda_px(_x,_y);
 		Datos_celda* datos = celda->get_datos();
+		//variables con datos para eliminar
 		SENTIDO sent=datos->get_sentido();
+		int entradas= datos->get_cant_entradas();
+		int salidas= datos->get_cant_salidas();
+		//la elimino del modelo
 		modeloCliente-> eliminarCompuerta(datos->get_id());
+		//la elimino de la vista
 		matrizActual->eliminar_componente(_x,_y);
-		fachada_vista->borrar_componente(_x,_y,_tipo,sent);
+		//la borro
+		if(_tipo == T_CAJANEGRA){
 
+			fachada_vista->borrar_caja_negra(_x,_y,entradas,salidas);
+		}
+		else
+			fachada_vista->borrar_componente(_x,_y,_tipo,sent);
 	}
 
 
@@ -424,17 +461,17 @@ void Controlador::eliminar_componente(int x,int y){
 
 void Controlador::conectar_drag_drop(){
 
-	if(!arrstre_activo){
+	if(!arrastre_activo){
 		fachada_vista->activar_dnd();
-		arrstre_activo=true;
+		arrastre_activo=true;
 	}
 }
 
 void Controlador::desconectar_drag_drop(){
 
-	if(arrstre_activo){
+	if(arrastre_activo){
 		fachada_vista->desactivar_dnd();
-		arrstre_activo=false;
+		arrastre_activo=false;
 	}
 }
 
@@ -525,7 +562,7 @@ void Controlador::simular(){
 
 bool Controlador::get_arrastre_activo()const{
 
-	return arrstre_activo;
+	return arrastre_activo;
 
 }
 

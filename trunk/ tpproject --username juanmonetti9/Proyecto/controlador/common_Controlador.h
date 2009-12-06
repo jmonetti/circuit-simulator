@@ -24,7 +24,7 @@ private:
 	ModeloCliente* modeloCliente; //modelo que representa el cliente
 	Fachada_vista* fachada_vista; //fachada para la comunicacion con la vista
 	Accion* accion;
-	bool arrstre_activo;
+	bool arrastre_activo;
 	int pos_x; //pos de clickeo
 	int pos_y; //pos de clickeo
 
@@ -66,6 +66,8 @@ public:
 	void agregar_salida(int x,int y,SENTIDO sentido= ESTE);
 
 	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
+
+	void agregar_caja_negra(int x,int y,int cant_entradas,int cant_salidas);
 
 	void eliminar_componente(int x,int y);
 

@@ -34,6 +34,8 @@ public:
 
 	bool agregar_componente(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido);
 
+	bool agregar_caja_negra(int* x,int* y,int id,int cant_entradas,int cant_salidas);
+
 	bool hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo);
 
 	void eliminar_componente(int x,int y);

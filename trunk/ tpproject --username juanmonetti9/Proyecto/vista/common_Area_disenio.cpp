@@ -154,6 +154,8 @@ void Area_disenio::conectar_DnD(){
 }
 
 
+
+
 /*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_Borrar_compuerta(gdouble x, gdouble y,SENTIDO sentido){
@@ -476,6 +478,69 @@ void Area_disenio::draw_salida_oeste(gdouble x, gdouble y){
 }
 /*----------------------------------------------------------------------------*/
 
+void Area_disenio::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	 GdkRectangle update_rect;
+
+	 update_rect.x = x -(CELDA_WIDTH)-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	 update_rect.y = y - (CELDA_HEIGHT)-(CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+	 update_rect.width = 3*CELDA_WIDTH; //ancho del rectangulo a redibujar
+
+	 //cantidad maxima entre entradas o salidas
+	 int cant_max = (cant_entradas > cant_salidas)? cant_entradas:cant_salidas;
+	 update_rect.height= (cant_max > 3)?(cant_max * CELDA_HEIGHT):(3 * CELDA_HEIGHT);
+
+
+	 for (int i = 0; i < cant_entradas; ++i) {
+
+		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+ i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (CELDA_HEIGHT/2),update_rect.y+i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+	 }
+
+	 for (int i = 0; i < cant_salidas; ++i) {
+
+		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+ (2*CELDA_WIDTH)+(CELDA_WIDTH/2) ,update_rect.y+ i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (3*CELDA_HEIGHT),update_rect.y+i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+	 }
+	 gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x+6,update_rect.y+2,update_rect.width-CELDA_WIDTH ,update_rect.height-4);
+
+	 //informa que la zona dada por update_rect debe actualizarse, el widget
+	 //generara un evento de exposicion
+	 gtk_widget_draw (drawing_area, &update_rect);
+
+}
+
+void Area_disenio::draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
+
+	 GdkRectangle update_rect;
+
+	 update_rect.x = x -(CELDA_WIDTH)-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	 update_rect.y = y - (CELDA_HEIGHT)-(CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+	 update_rect.width = 3*CELDA_WIDTH; //ancho del rectangulo a redibujar
+
+	 //cantidad maxima entre entradas o salidas
+	 int cant_max = (cant_entradas > cant_salidas)? cant_entradas:cant_salidas;
+	 update_rect.height= (cant_max > 3)?(cant_max * CELDA_HEIGHT):(3 * CELDA_HEIGHT);
+
+
+	 for (int i = 0; i < cant_entradas; ++i) {
+
+		 gdk_draw_line(pixmap, drawing_area->style->white_gc,update_rect.x,update_rect.y+ i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (CELDA_HEIGHT/2),update_rect.y+i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+	 }
+
+	 for (int i = 0; i < cant_salidas; ++i) {
+
+		 gdk_draw_line(pixmap, drawing_area->style->white_gc,update_rect.x+ (2*CELDA_WIDTH)+(CELDA_WIDTH/2) ,update_rect.y+ i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (3*CELDA_HEIGHT),update_rect.y+i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+	 }
+	 gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,false,update_rect.x+6,update_rect.y+2,update_rect.width-CELDA_WIDTH ,update_rect.height-4);
+
+	 //informa que la zona dada por update_rect debe actualizarse, el widget
+	 //generara un evento de exposicion
+	 gtk_widget_draw (drawing_area, &update_rect);
+
+
+
+
+
+}
 void Area_disenio::draw_NOT_sur(gdouble x, gdouble y){
 
 	 GdkRectangle update_rect;

@@ -10,6 +10,8 @@ Datos_celda::Datos_celda() {
 	this->id = -1;
 	this->sentido = ESTE;
 	this->tipo= T_VACIA;
+	cant_entradas = 0;
+	cant_salidas = 0;
 
 }
 
@@ -46,7 +48,29 @@ void Datos_celda::set_id(int nuevo_id){
 		this->id = nuevo_id;
 	}
 }
+int Datos_celda::get_cant_entradas()const{
 
+	return this->cant_entradas;
+}
+
+void Datos_celda::set_cant_entradas(int nueva_cant){
+
+	if(nueva_cant >= 0){
+		this->cant_entradas= nueva_cant;
+	}
+}
+
+int Datos_celda::get_cant_salidas()const{
+
+	return this->cant_salidas;
+}
+
+void Datos_celda::set_cant_salidas(int nueva_cant){
+
+	if(nueva_cant >= 0){
+		this->cant_salidas= nueva_cant;
+	}
+}
 int Datos_celda::get_fila_ppal()const{
 
 	return this->fila_ppal;
@@ -92,6 +116,8 @@ void Datos_celda::desocupar(){
 	this->id = -1;
 	this->sentido = ESTE;
 	this->tipo= T_VACIA;
+	this->cant_entradas=0;
+	this->cant_salidas=0;
 
 }
 

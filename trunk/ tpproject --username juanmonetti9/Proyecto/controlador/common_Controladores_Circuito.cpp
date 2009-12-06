@@ -15,6 +15,7 @@
 #include "Acciones/common_Accion_Draw_pista.h"
 #include "Acciones/common_Accion_new_entrada.h"
 #include "Acciones/common_Accion_new_salida.h"
+#include "Acciones/common_Accion_Draw_Caja_Negra.h"
 
 
 
@@ -129,10 +130,10 @@ void Controlador_Circuito::callback_Upload( GtkWidget *widget,gpointer callback_
 void Controlador_Circuito::callback_crear_Download( GtkWidget *widget,gpointer callback_data ){
 
 	Controlador* controlador=Controlador::get_instancia();
-
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->mostrar_download();
+		controlador->agregar_accion(new Accion_Draw_Caja_Negra(controlador));//TODO VOLAR a la bosta
+		//TODO  controlador->mostrar_download();
 	}
 
 
@@ -228,7 +229,6 @@ void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_d
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		g_print("Call_back pista\n");//TODO
 		controlador->agregar_accion(new Accion_Draw_pista(controlador));
 	}
 
