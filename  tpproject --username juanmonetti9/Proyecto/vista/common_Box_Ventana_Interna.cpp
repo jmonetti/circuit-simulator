@@ -28,16 +28,26 @@ int Box_Ventana_Interna::getGrillaActual() const {
 
 }
 
-void Box_Ventana_Interna::agregar_grilla(int id){
+void Box_Ventana_Interna::agregar_grilla(int id,const char* nombre){
 
 
 	Grilla* nueva_grilla=new Grilla(id);
 	_grillas.push_back(nueva_grilla);
 	nueva_grilla->show();
-	GtkWidget* label_grilla= gtk_label_new ("Circuito");
+	GtkWidget* label_grilla= gtk_label_new (nombre);
 	gtk_notebook_append_page(GTK_NOTEBOOK (noteb),nueva_grilla->getWidget(),label_grilla);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK (noteb),_grillas.size()-1);
 	actual=nueva_grilla;
+
+}
+
+void Box_Ventana_Interna::set_nombre_grilla(const char* nombre) {
+
+	int page_num= gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));
+
+	GtkWidget* page= gtk_notebook_get_nth_page(GTK_NOTEBOOK(noteb),page_num);
+
+	gtk_notebook_set_tab_label_text (GTK_NOTEBOOK(noteb),page,nombre);
 
 }
 

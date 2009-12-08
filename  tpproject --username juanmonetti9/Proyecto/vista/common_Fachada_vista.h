@@ -50,7 +50,9 @@ public:
 
 	void completar_grilla(Resultado* resultado);
 
-	void agregar_grilla(int id);
+	void agregar_grilla(int id,const char* nombre);
+
+	void set_nombre_grilla(const char* nombre);
 
 	int cambiar_grilla(int index);
 

@@ -696,7 +696,7 @@ void Controlador::abrir_circuito() {
 	if (!fachada_vista->abriendo()) {
 
 		fachada_vista->mostrar_ventana_abrir(modeloCliente->obtenerCircuitosGuardados());
-		fachada_vista->agregar_grilla(modeloCliente->getId());
+		fachada_vista->agregar_grilla(modeloCliente->getId(),"");
 
 	}
 
@@ -756,6 +756,8 @@ void Controlador::aceptar_abrir() {
 		matrizActual= new Modelo_vista_circuito();
 		matrices.insert(make_pair(circuito->getId(),matrizActual));
 
+		fachada_vista-> set_nombre_grilla(circuito->getNombre().c_str());
+
 		generarCircuito(circuito);
 
 		fachada_vista->ocultar_abrir();
@@ -778,7 +780,7 @@ void Controlador::aceptar_nuevo() {
 	int id= modeloCliente->crearNuevo(nombre);
 	matrizActual= new Modelo_vista_circuito();
 	matrices.insert(make_pair(id,matrizActual));
-	fachada_vista->agregar_grilla(id);
+	fachada_vista->agregar_grilla(id,nombre.c_str());
 
 	fachada_vista->aceptar_nuevo();
 
