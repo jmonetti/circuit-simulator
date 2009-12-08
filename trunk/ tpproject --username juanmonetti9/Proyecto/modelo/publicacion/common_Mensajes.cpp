@@ -8,7 +8,7 @@
 
 #include "common_Mensajes.h"
 
-DOMElement* Mensajes::GetSimular(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, bool* entradas) {
+DOMElement* Mensajes::GetSimular(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, bool* entradas) {
 
 	XMLCh tempStr [99];
 	std::string aux;
@@ -32,7 +32,7 @@ DOMElement* Mensajes::GetSimular(DOMDocument* doc,std::string &nombreCircuito,in
 
 }
 
-DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, int* entradas) {
+DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, int* entradas) {
 
 	XMLCh tempStr [99];
 	std::string aux;
@@ -68,7 +68,7 @@ DOMElement* Mensajes::GetListaCircuitos(DOMDocument* doc) {
 
 }
 
-DOMElement* Mensajes::GetCircuito(DOMDocument* doc, std::string &nombreCircuito) {
+DOMElement* Mensajes::GetCircuito(DOMDocument* doc,const std::string &nombreCircuito) {
 
 	XMLCh tempStr [99];
 	std::string aux;

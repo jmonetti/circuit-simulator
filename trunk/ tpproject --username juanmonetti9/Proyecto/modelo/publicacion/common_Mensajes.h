@@ -9,13 +9,13 @@ class Circuito;
 class Mensajes {
 public:
 
-	static DOMElement* GetSimular(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, bool* entradas);
+	static DOMElement* GetSimular(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, bool* entradas);
 
-	static DOMElement* GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, int* entradas);
+	static DOMElement* GetTiempoSimulacion(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, int* entradas);
 
 	static DOMElement* GetListaCircuitos(DOMDocument* doc);
 
-	static DOMElement* GetCircuito(DOMDocument* doc, std::string &nombreCircuito);
+	static DOMElement* GetCircuito(DOMDocument* doc, const std::string &nombreCircuito);
 
 };
 

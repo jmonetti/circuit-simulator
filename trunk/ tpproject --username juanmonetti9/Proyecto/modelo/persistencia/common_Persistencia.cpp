@@ -139,7 +139,7 @@ void Persistencia::guardarCircuito(const Circuito &circuito) {
 
 }
 
-void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::string &ruta, DOMElement* datos) {
+void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,const std::string &ruta, DOMElement* datos) {
 
 	XMLCh nombre[100];
 	XMLCh valor[100];
@@ -202,6 +202,62 @@ void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::str
     delete myFormatTarget;
 
 }
+
+DOMElement* Persistencia::getElemSOAP(std::string &ruta, std::string &tag) {
+
+
+	   struct stat estadoArchivo;
+
+	   int iretStat = stat(ruta.c_str(), &estadoArchivo);
+
+	   if( iretStat == ENOENT )
+	      throw ( std::runtime_error("Path file_name does not exist, or path is an empty string.") );
+	   else if( iretStat == ENOTDIR )
+	      throw ( std::runtime_error("A component of the path is not a directory."));
+	   else if( iretStat == ELOOP )
+	      throw ( std::runtime_error("Too many symbolic links encountered while traversing the path."));
+	   else if( iretStat == EACCES )
+	      throw ( std::runtime_error("Permission denied."));
+	   else if( iretStat == ENAMETOOLONG )
+	      throw ( std::runtime_error("File can not be read\n"));
+
+	   // Configure DOM parser.
+	   xercesc::XercesDOMParser *m_ConfigFileParser = new XercesDOMParser;
+
+	   m_ConfigFileParser->setValidationScheme( XercesDOMParser::Val_Never );
+	   m_ConfigFileParser->setDoNamespaces( false );
+	   m_ConfigFileParser->setDoSchema( false );
+	   m_ConfigFileParser->setLoadExternalDTD( false );
+
+	   try
+	  	   {
+
+		   XMLCh tempStr [100];
+		   XMLString::transcode(tag.c_str(), tempStr, 99);
+	  		   m_ConfigFileParser->parse( ruta.c_str() );
+
+	  		   DOMDocument* xmlDoc = m_ConfigFileParser->getDocument();
+
+	  		   DOMElement* elementRoot = xmlDoc->getDocumentElement();
+	  		   if( !elementRoot ) throw(std::runtime_error( "empty XML document" ));
+
+	  		   DOMNodeList* funcionList = elementRoot->getElementsByTagName(tempStr);
+
+	  		   DOMNode* funcion = funcionList->item(0);
+
+	  		   if (funcion != NULL)
+	  			   return dynamic_cast < xercesc::DOMElement* > ( funcion );
+
+	  	   }
+	   catch( xercesc::XMLException& e )
+	  	   {
+	  	      std::string message = xercesc::XMLString::transcode( e.getMessage() );
+	  	      throw runtime_error("Error parsing file: "+ message);
+	  	   }
+
+	   throw runtime_error ("Elemento no encontrado. - getElemSoap()");
+}
+
 
 DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
 
