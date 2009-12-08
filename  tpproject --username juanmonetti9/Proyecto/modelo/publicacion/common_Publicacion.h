@@ -25,10 +25,10 @@ public:
 	std::vector<char*>* obtenerCircuitos(Servidor servidor);
 
 	/* Genera pedido de simulacion */
-	static std::string generarPedido (std::string &nombreCircuito,int cantEntradas, bool* entradas);
+	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
 
 	/* Genera pedido de simulacion de tiempos*/
-	static std::string generarPedido (std::string &nombreCircuito,int cantEntradas,int* entradas);
+	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas,int* entradas);
 
 	static std::string publicarCircuito(Circuito* circuito);
 
@@ -36,14 +36,18 @@ public:
 	static std::string generarPedido();
 
 	/* Genera Pedido para obtener una Caja Negra*/
-	static std::string generarPedido(std::string nombreCircuito);
+	static std::string generarPedido(const std::string nombreCircuito);
+
+	bool* recuperarDatosSimular(std::string &ruta);
+
+	int* recuperarDatosTiempos(std::string &ruta);
 
 private:
 
 	Protocolo protocolo;
 
 	void conectar(Servidor servidor);
-	void enviarMensaje(const std::string &mensaje);
+	void enviarMensaje(const std::string &ruta);
 	std::string recibirMensaje();
 
 

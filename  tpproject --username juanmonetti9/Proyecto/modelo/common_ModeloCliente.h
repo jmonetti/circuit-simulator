@@ -70,6 +70,7 @@ public:
 	void getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones);
 
 
+
 private:
 
 	std::vector<Circuito*> circuitos;

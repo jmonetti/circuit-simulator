@@ -52,7 +52,9 @@ public:
 
 	static std::string publicarCircuito(Circuito* circuito);
 
-	static void generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::string &ruta, DOMElement* datos);
+	static void generarSOAP(DOMImplementation *impl,DOMDocument* doc,const std::string &ruta, DOMElement* datos);
+
+	DOMElement* getElemSOAP(std::string &ruta, std::string &tag);
 
 	DOMElement* getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo);
 
