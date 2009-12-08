@@ -2,6 +2,7 @@
 #include "common_Publicacion.h"
 #include <iostream>
 #include "../../common/common_Utils.h"
+#include <stdexcept>
 
 
 void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {

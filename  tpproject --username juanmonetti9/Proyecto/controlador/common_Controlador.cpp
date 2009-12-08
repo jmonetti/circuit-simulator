@@ -163,8 +163,9 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 							modeloCliente->getConexionVertice(id,&conexiones);
 							agregadaVista=matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 							celda=matrizActual->get_celda_px(_x,_y);
-							if(agregadaVista)
+							if(agregadaVista){
 								this->agregar_accion(NULL);
+							}
 
 						} catch (ConexionException e) {
 
@@ -349,9 +350,28 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 
 					modeloCliente->rotar(datos->get_id(),n_direccion);
 					modeloCliente->getConexionVertice(datos->get_id(),&conexiones);
+					std::list<Posicion> vertices;
+					std::list<SENTIDO>  sentidos;
+					incluir_componentes_rdraw(vertices,sentidos,datos->get_fila_ppal(),datos->get_col_ppal(),datos->get_id());
+
 					fachada_vista->borrar_componente(_x,_y,T_PISTA,datos->get_sentido());
 					celda->rotar(n_direccion);
 					fachada_vista->dibujar_componente(_x,_y,_tipo,datos->get_sentido());
+
+					//redibujo los componentes debido a la superposicion
+					std::list<Posicion>::const_iterator it_vertices = vertices.begin();
+					std::list<SENTIDO>::const_iterator it_sentido = sentidos.begin();
+					while( it_vertices != vertices.end() && it_sentido != sentidos.end()){
+
+						int x_rd= Modelo_vista_circuito::de_col_a_pixel(it_vertices->getX());
+						int y_rd= Modelo_vista_circuito::de_fila_a_pixel(it_vertices->getY());
+						SENTIDO sent_r= *it_sentido;
+						fachada_vista->dibujar_componente(x_rd,y_rd,T_PISTA,sent_r);
+						//incremento los iteradores
+						++it_vertices;
+						++it_sentido;
+					}
+
 
 				} catch (ConexionException e) {
 
@@ -380,6 +400,7 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 				fachada_vista->dibujar_componente(_x,_y,T_VACIA,datos->get_sentido());
 				celda->rotar(n_direccion);
 				fachada_vista->dibujar_componente(_x,_y,_tipo,datos->get_sentido());
+
 
 			} catch (ConexionException e) {
 
@@ -462,7 +483,25 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 				fachada_vista->borrar_componente(x_origen,y_origen,datos_origen->get_tipo(),datos_origen->get_sentido());
 				fachada_vista->dibujar_componente(x_destino,y_destino,datos_origen->get_tipo(),datos_destino->get_sentido());
 			}
+
+			std::list<Posicion> vertices;
+			std::list<SENTIDO>  sentidos;
+			incluir_componentes_rdraw(vertices,sentidos,datos_origen->get_fila_ppal(),datos_origen->get_col_ppal(),datos_origen->get_id());
+
 			matrizActual->eliminar_componente(x_origen,y_origen);
+			//redibujo los componentes debido a la superposicion
+			std::list<Posicion>::const_iterator it_vertices = vertices.begin();
+			std::list<SENTIDO>::const_iterator it_sentido = sentidos.begin();
+			while( it_vertices != vertices.end() && it_sentido != sentidos.end()){
+
+				int x_rd= Modelo_vista_circuito::de_col_a_pixel(it_vertices->getX());
+				int y_rd= Modelo_vista_circuito::de_fila_a_pixel(it_vertices->getY());
+				SENTIDO sent_r= *it_sentido;
+				fachada_vista->dibujar_componente(x_rd,y_rd,T_PISTA,sent_r);
+				//incremento los iteradores
+				++it_vertices;
+				++it_sentido;
+			}
 
 		}else if (!agregadoVista) {
 
@@ -497,18 +536,87 @@ void Controlador::eliminar_componente(int x,int y){
 
 		//la elimino del modelo
 		modeloCliente-> eliminarCompuerta(id_eliminar);
-		//la elimino de la vista
+
+		std::list<Posicion> vertices;
+		std::list<SENTIDO>  sentidos;
+		incluir_componentes_rdraw(vertices,sentidos,aux_datos->get_fila_ppal(),aux_datos->get_col_ppal(),aux_datos->get_id());
+
+		//elimino el componente de la vista
 		matrizActual->eliminar_componente(x_ppal,y_ppal);
 		//la borro
 		if(tipo == T_CAJANEGRA)
 			fachada_vista->borrar_caja_negra(x_ppal,y_ppal,entradas,salidas);
-		else
+		else{
 			fachada_vista->borrar_componente(x_ppal,y_ppal,tipo,sent);
+			//redibujo los componentes debido a la superposicion
+			std::list<Posicion>::const_iterator it_vertices = vertices.begin();
+			std::list<SENTIDO>::const_iterator it_sentido = sentidos.begin();
+			while( it_vertices != vertices.end() && it_sentido != sentidos.end()){
+
+				int x_rd= Modelo_vista_circuito::de_col_a_pixel(it_vertices->getX());
+				int y_rd= Modelo_vista_circuito::de_fila_a_pixel(it_vertices->getY());
+				SENTIDO sent_r= *it_sentido;
+				fachada_vista->dibujar_componente(x_rd,y_rd,T_PISTA,sent_r);
+				//incremento los iteradores
+				++it_vertices;
+				++it_sentido;
+			}
+
+		}
 
 	}
 
 }
 
+void Controlador::incluir_componentes_rdraw(std::list<Posicion> &vertices,std::list<SENTIDO>  &sentidos,unsigned fila,unsigned int colum,unsigned int id){
+
+	Celda* aux= matrizActual->get_celda(fila,colum);
+	Datos_celda* aux_datos = NULL;
+
+	if(aux->hay_secundario()){
+		if(aux->get_datos_secundarios()->get_id()==(int)id)
+			aux_datos = aux->get_datos_secundarios();
+	}
+	else if(aux->get_datos()->get_id()== (int)id){
+			aux_datos = aux->get_datos();
+		}
+
+	if(aux_datos){
+
+		std::list<Celda*>::const_iterator it = aux_datos->get_entorno().begin();
+
+		while( it!= aux_datos->get_entorno().end()){
+			//obtengo la celda del entorno
+			Celda* auxiliar= *it;
+			//busco datos pos de comp a redibujar y la incluyo en la lista
+			int fila_rdraw;
+			int col_rdraw;
+			if(auxiliar->hay_secundario()){
+				if(auxiliar->get_datos_secundarios()->get_id() == (int)id){
+					fila_rdraw = auxiliar->get_datos()->get_fila_ppal();
+					col_rdraw = auxiliar->get_datos()->get_col_ppal();
+					Posicion pos_rdraw(col_rdraw,fila_rdraw);
+					vertices.push_front(pos_rdraw);
+					sentidos.push_front(auxiliar->get_datos()->get_sentido());
+				}
+				else{
+					fila_rdraw = auxiliar->get_datos_secundarios()->get_fila_ppal();
+					col_rdraw = auxiliar->get_datos_secundarios()->get_col_ppal();
+					Posicion pos_rdraw(col_rdraw,fila_rdraw);
+					vertices.push_front(pos_rdraw);
+					sentidos.push_front(auxiliar->get_datos_secundarios()->get_sentido());
+				}
+			}
+			++it; //incremento el iterador
+		}
+		if(aux->hay_secundario()){
+			Posicion pos_rdraw(aux->get_datos()->get_col_ppal(),aux->get_datos()->get_fila_ppal());
+			vertices.push_front(pos_rdraw);
+			sentidos.push_front(aux->get_datos()->get_sentido());
+		}
+	}
+
+}
 void Controlador::conectar_drag_drop(){
 
 	if(!arrastre_activo){
