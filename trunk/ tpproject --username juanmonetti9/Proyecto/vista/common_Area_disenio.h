@@ -44,6 +44,7 @@ public:
 	void conectar_DnD();
 
 
+	void draw_vertice(gdouble x,gdouble y,SENTIDO sentido);
 
 	void draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 

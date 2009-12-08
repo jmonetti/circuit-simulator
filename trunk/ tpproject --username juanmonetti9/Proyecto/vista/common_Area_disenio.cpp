@@ -986,4 +986,41 @@ void Area_disenio::draw_XOR_sur(gdouble x, gdouble y){
 	gtk_widget_draw (drawing_area, &update_rect);
 }
 
+void Area_disenio::draw_vertice(gdouble x,gdouble y,SENTIDO sentido){
+
+
+	GdkRectangle update_rect;
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_HEIGHT;//alto del rectangulo a redibujar TODO PARCHE MAS UNO
+
+	switch(sentido){
+
+		case ESTE:{
+			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x+(CELDA_HEIGHT),update_rect.y+(CELDA_HEIGHT/2));
+			break;
+		}
+		case OESTE:{
+			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x,update_rect.y+(CELDA_HEIGHT/2));
+			break;
+			}
+		case NORTE:{
+			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+			break;
+			}
+		case SUR:{
+			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH),update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+			break;
+			}
+	}
+
+	//informa que la zona dada por update_rect debe actualizarse, el widget
+	//generara un evento de exposicion
+	gtk_widget_draw (drawing_area, &update_rect);
+
+
+}
+
 /*----------------------------------------------------------------------------*/

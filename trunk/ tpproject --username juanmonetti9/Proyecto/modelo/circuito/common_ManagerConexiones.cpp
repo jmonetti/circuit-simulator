@@ -174,7 +174,7 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 
 			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
 
-				ConexionVertice conexion(posicionEntrada,NORTE);
+				ConexionVertice conexion(posicionEntrada,SUR);
 				conexiones->push_back(conexion);
 				return true;
 
@@ -211,7 +211,7 @@ bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion 
 		{
 			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
 
-				ConexionVertice conexion(posicionEntrada,ESTE);
+				ConexionVertice conexion(posicionEntrada,OESTE);
 				conexiones->push_back(conexion);
 				return true;
 
@@ -321,7 +321,7 @@ bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion
 
 			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
 
-				ConexionVertice conexion(posicionEntrada,OESTE);
+				ConexionVertice conexion(posicionEntrada,ESTE);
 				conexiones->push_back(conexion);
 				return true;
 
@@ -430,7 +430,7 @@ bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion p
 
 			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
 
-				ConexionVertice conexion(posicionEntrada,SUR);
+				ConexionVertice conexion(posicionEntrada,NORTE);
 				conexiones->push_back(conexion);
 				return true;
 
