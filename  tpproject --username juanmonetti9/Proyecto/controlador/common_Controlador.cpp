@@ -406,68 +406,70 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 /*----------------------------------------------------------------------------*/
 void Controlador::arrastrar(gdouble x, gdouble y){
 
-	int _x=x;
-	int _y=y;
+
 	int _pos_x=pos_x;
 	int _pos_y=pos_y;
 	TIPO_COMPUERTA _tipo;
-	std::vector<ConexionVertice> conexiones;
 
-	if(matrizActual->hay_componente(&_pos_x,&_pos_y,&_tipo)){
+	//obtengo la celda origen
+	Celda* celda_origen=matrizActual->get_celda_px(pos_x,pos_y);
 
-		//obtengo la celda origen para obtener el sentido
-		Celda* celda_origen=matrizActual->get_celda_px(_pos_x,_pos_y);
-		Datos_celda* datos_origen;
-		if(celda_origen->hay_secundario())
-			datos_origen=celda_origen->get_datos_secundarios();
-		else
-			datos_origen=celda_origen->get_datos();
-		//intento agregar la compuerta en la celda destino
+	if(celda_origen->hay_secundario() || celda_origen->esta_ocupada()){
 
+		Datos_celda* datos_origen = (celda_origen->hay_secundario())?celda_origen->get_datos_secundarios():celda_origen->get_datos();
+
+		//variables usadas para identificar la posicion del destino
+		int fila_destino = Modelo_vista_circuito::de_pixel_a_fila(y);
+		int col_destino = Modelo_vista_circuito::de_pixel_a_col(x);
+		int x_destino = x;
+		int y_destino = y;
+
+		//intento mover
 		bool agregadoModelo= true;
 		bool agregadoVista= true;
+		std::vector<ConexionVertice> conexiones;
 
 		try {
-			Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(_x),Modelo_vista_circuito::de_pixel_a_fila(_y));
+			Posicion posicion(col_destino,fila_destino);
 			//muevo el componente en el modelo
 			modeloCliente->mover(datos_origen->get_id(),posicion);
 			modeloCliente->getConexionVertice(datos_origen->get_id(),&conexiones);
 			//lo intento agregar en la nueva posicion
 			if(_tipo == T_CAJANEGRA)
-				agregadoVista = matrizActual->agregar_caja_negra(&_x,&_y,datos_origen->get_id(),datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
+				agregadoVista = matrizActual->agregar_caja_negra(&x_destino,&y_destino,datos_origen->get_id(),datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
 			else
-				agregadoVista = matrizActual->agregar_componente(&_x,&_y,_tipo,datos_origen->get_id(),datos_origen->get_sentido());
+				agregadoVista = matrizActual->agregar_componente(&x_destino,&y_destino,datos_origen->get_tipo(),datos_origen->get_id(),datos_origen->get_sentido());
 
 		} catch (ConexionException e) {
 
 			agregadoModelo= false;
-			Posicion posicion(datos_origen->get_fila_ppal(),datos_origen->get_col_ppal());
+			Posicion posicion(datos_origen->get_col_ppal(),datos_origen->get_fila_ppal());
 			modeloCliente->mover(datos_origen->get_id(),posicion);
 		}
 
 		if(agregadoVista && agregadoModelo){
 
 			//obtengo la celda destino para intentar agregar la compuerta
-			Celda* celda_destino=matrizActual->get_celda_px(_x,_y);
-			Datos_celda* datos_destino;
-			if(celda_destino->hay_secundario())
-				datos_destino = celda_destino->get_datos_secundarios();
-			else
-				datos_destino= celda_destino->get_datos();
+			Celda* celda_destino=matrizActual->get_celda(fila_destino,col_destino);
+			Datos_celda* datos_destino = (celda_destino->hay_secundario())?celda_destino->get_datos_secundarios():celda_destino->get_datos();
+
+			//variables de posicion x e y para borrar el orige
+			int x_origen = Modelo_vista_circuito::de_col_a_pixel(datos_origen->get_col_ppal());
+			int y_origen = Modelo_vista_circuito::de_fila_a_pixel(datos_origen->get_fila_ppal());
 
 			if(_tipo==T_CAJANEGRA){
-				fachada_vista->borrar_caja_negra(_pos_x,_pos_y,datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
-				fachada_vista->dibujar_caja_negra(_x, _y,datos_destino->get_cant_entradas(),datos_destino->get_cant_salidas());
+				fachada_vista->borrar_caja_negra(x_origen,y_origen,datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
+				fachada_vista->dibujar_caja_negra(x_destino,y_destino,datos_destino->get_cant_entradas(),datos_destino->get_cant_salidas());
 			}
 			else{
-				fachada_vista->borrar_componente(_pos_x,_pos_y,_tipo,datos_origen->get_sentido());
-				fachada_vista->dibujar_componente(_x, _y,_tipo,datos_destino->get_sentido());
+				fachada_vista->borrar_componente(x_origen,y_origen,datos_origen->get_tipo(),datos_origen->get_sentido());
+				fachada_vista->dibujar_componente(x_destino,y_destino,datos_origen->get_tipo(),datos_destino->get_sentido());
 			}
 			matrizActual->eliminar_componente(_pos_x,_pos_y);
 
 		}else if (!agregadoVista) {
 
-			Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(_pos_x),Modelo_vista_circuito::de_pixel_a_fila(_pos_y));
+			Posicion posicion(datos_origen->get_col_ppal(),datos_origen->get_fila_ppal());
 			modeloCliente->mover(datos_origen->get_id(),posicion);
 
 		}
