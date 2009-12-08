@@ -417,8 +417,11 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 
 		//obtengo la celda origen para obtener el sentido
 		Celda* celda_origen=matrizActual->get_celda_px(_pos_x,_pos_y);
-		Datos_celda* datos_origen=celda_origen->get_datos();
-
+		Datos_celda* datos_origen;
+		if(celda_origen->hay_secundario())
+			datos_origen=celda_origen->get_datos_secundarios();
+		else
+			datos_origen=celda_origen->get_datos();
 		//intento agregar la compuerta en la celda destino
 
 		bool agregadoModelo= true;
@@ -446,7 +449,12 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 
 			//obtengo la celda destino para intentar agregar la compuerta
 			Celda* celda_destino=matrizActual->get_celda_px(_x,_y);
-			Datos_celda* datos_destino = celda_destino->get_datos();
+			Datos_celda* datos_destino;
+			if(celda_destino->hay_secundario())
+				datos_destino = celda_destino->get_datos_secundarios();
+			else
+				datos_destino= celda_destino->get_datos();
+
 			if(_tipo==T_CAJANEGRA){
 				fachada_vista->borrar_caja_negra(_pos_x,_pos_y,datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
 				fachada_vista->dibujar_caja_negra(_x, _y,datos_destino->get_cant_entradas(),datos_destino->get_cant_salidas());
@@ -470,31 +478,35 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 /*----------------------------------------------------------------------------*/
 void Controlador::eliminar_componente(int x,int y){
 
-	int _x=x;
-	int _y=y;
-	TIPO_COMPUERTA _tipo;
 
-	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
+	Celda* aux=matrizActual->get_celda_px(x,y);
 
-		Celda* celda=matrizActual->get_celda_px(_x,_y);
-		Datos_celda* datos = celda->get_datos();
+	if(aux->hay_secundario() || aux->esta_ocupada()){
+
+		Datos_celda* aux_datos = (aux->hay_secundario())?aux->get_datos_secundarios():aux->get_datos();
+
 		//variables con datos para eliminar
-		SENTIDO sent=datos->get_sentido();
-		int entradas= datos->get_cant_entradas();
-		int salidas= datos->get_cant_salidas();
+		SENTIDO sent= aux_datos->get_sentido();
+		TIPO_COMPUERTA tipo = aux_datos->get_tipo();
+		int id_eliminar= aux_datos->get_id();
+		int entradas=aux_datos->get_cant_entradas();
+		int salidas= aux_datos->get_cant_salidas();
+
+		//variables x e y de posicion de la celda ppal
+		int x_ppal = Modelo_vista_circuito::de_col_a_pixel(aux_datos->get_col_ppal());
+		int y_ppal = Modelo_vista_circuito::de_fila_a_pixel(aux_datos->get_fila_ppal());
+
 		//la elimino del modelo
-		modeloCliente-> eliminarCompuerta(datos->get_id());
+		modeloCliente-> eliminarCompuerta(id_eliminar);
 		//la elimino de la vista
-		matrizActual->eliminar_componente(_x,_y);
+		matrizActual->eliminar_componente(x_ppal,y_ppal);
 		//la borro
-		if(_tipo == T_CAJANEGRA){
-
-			fachada_vista->borrar_caja_negra(_x,_y,entradas,salidas);
-		}
+		if(tipo == T_CAJANEGRA)
+			fachada_vista->borrar_caja_negra(x_ppal,y_ppal,entradas,salidas);
 		else
-			fachada_vista->borrar_componente(_x,_y,_tipo,sent);
-	}
+			fachada_vista->borrar_componente(x_ppal,y_ppal,tipo,sent);
 
+	}
 
 }
 
