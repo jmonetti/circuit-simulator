@@ -2,15 +2,17 @@
 #ifndef CONSTANTES_H_
 #define CONSTANTES_H_
 
+#include <string>
+
 
 //Definicion para el tipo de compuertas
 enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA,T_CAJANEGRA, T_VACIA};
 
+enum TIPO_SOAP { LISTA, CIRCUITO, NUEVOCIRCUITO , SIMULAR , SIMULARTIEMPO, INVALIDO };
+
 enum SENTIDO { NORTE , SUR , ESTE , OESTE };
 
 enum DIRECCION { IZQUIERDA , DERECHA };
-
-enum TIPO_SOAP { LISTA, CIRCUITO, NUEVOCIRCUITO , SIMULAR , SIMULARTIEMPO, INVALIDO };
 
 //constantes de tamanio del drawing area
 const int DRW_AREA_WIDTH= 1170;

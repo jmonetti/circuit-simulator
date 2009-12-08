@@ -36,9 +36,9 @@ public:
 
 	std::string generarListaCircuitos();
 
-	int recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas);
+	void recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas);
 
-	int recuperarDatosTiempos(DOMNodeList* atributos, std::string &nombre, int* entradas);
+	void recuperarDatosTiempos(DOMNodeList* atributos, std::string &nombre, int* entradas);
 
 private:
 

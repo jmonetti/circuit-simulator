@@ -43,9 +43,16 @@ bool* ModeloServidor::simular(int idCircuito,const std::string &nombreCircuito,b
 
 }
 
-int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito) {
+int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas) {
 
 	Circuito* circuito= persistencia.recuperar(idCircuito,nombreCircuito);
+
+	std::vector<Entrada*>* entradasCircuito = circuito->getEntradas();
+	for (unsigned int var = 0; var < circuito->entradasCircuito->size(); ++var) {
+
+		(*entradasCircuitos)[var]->setTiempo(entradas[var]);
+
+	}
 
 	int* tiempos= circuito->calcularTiempoTransicion();
 
@@ -55,7 +62,7 @@ int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &
 
 }
 
-int ModeloServidor::recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas) {
+void ModeloServidor::recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas) {
 
 	DOMNode* atributo = atributos->item(0);
 	DOMElement* nombreCircuito = dynamic_cast < xercesc::DOMElement* > ( atributo );
@@ -69,16 +76,17 @@ int ModeloServidor::recuperarDatosSimular(DOMNodeList* atributos, std::string &n
 		atributo = atributos->item(i);
 		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
 		valor = persistencia.recuperarDatoTexto(ElemCte);
-		entrada = (bool) atoi(valor.c_str());
+		if(valor == "0")
+			entrada = false;
+		else
+			entrada = true;
 		entradas[i-1] = entrada;
 
 	}
 
-	return cant;
-
 }
 
-int ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &nombre, int* entradas) {
+void ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &nombre, int* entradas) {
 
 	DOMNode* atributo = atributos->item(0);
 	DOMElement* nombreCircuito = dynamic_cast < xercesc::DOMElement* > ( atributo );
@@ -96,8 +104,6 @@ int ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &n
 		entradas[i-1] = entrada;
 
 	}
-
-	return cant;
 
 }
 
@@ -181,7 +187,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			int idCircuito = getIdCircuito(nombre);
 			if(idCircuito != -1) {
 				recuperarDatosTiempos(atributos,nombre,entradas); //TODO
-				int* tiempos = calcularTiempoTransicion(idCircuito,nombre);
+				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
 				aux = peticion.generarRespuesta(cantEntradas, tiempos);
 				return aux;
 				//TODO AGREGAR CODIGO HTML con 200 OK;
@@ -194,7 +200,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			break;
 		}
 	}
-
+	return aux; //TODO HTML MENSAJE ERROR
 }
 
 
