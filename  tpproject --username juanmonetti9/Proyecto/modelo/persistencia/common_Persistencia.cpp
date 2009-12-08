@@ -13,7 +13,6 @@
 #include "../circuito/common_Circuito.h"
 #include "../circuito/common_FactoryCompuerta.h"
 #include "../publicacion/common_Servidor.h"
-#include "common_Mensajes.h"
 
 #include "common_Persistencia.h"
 
@@ -39,7 +38,13 @@ Persistencia::Persistencia() {
 	TAG_OR= XMLString::transcode("OR");
 	TAG_XOR= XMLString::transcode("XOR");
 	TAG_PISTA= XMLString::transcode("Pista");
+	TAG_GETSIMULACION = XMLString::transcode("GetSimulacion");
+	TAG_GETTIEMPOSIMULACION = XMLString::transcode("GetTiempoSimulacion");
+	TAG_PUBLICARCIRCUITO = XMLString::transcode("PublicarCircuito");
+	TAG_BODY = XMLString::transcode("soap:Body");
 
+	TAG_PEDIDOLISTA = XMLString::transcode("GetListaCircuitos");
+	TAG_PEDIDOCIRCUITO = XMLString::transcode("GetCircuito");
 
 
 }
@@ -57,6 +62,15 @@ Persistencia::~Persistencia() {
 	  XMLString::release( &TAG_OR );
 	  XMLString::release( &TAG_XOR );
 	  XMLString::release( &TAG_PISTA );
+
+	  XMLString::release( &TAG_GETSIMULACION );
+	  XMLString::release( &TAG_GETTIEMPOSIMULACION );
+	  XMLString::release( &TAG_PUBLICARCIRCUITO );
+	  XMLString::release( &TAG_BODY );
+	  XMLString::release( &TAG_PEDIDOLISTA );
+	  XMLString::release( &TAG_PEDIDOCIRCUITO );
+
+
 	}
 	catch( ... )
 	{
@@ -75,7 +89,7 @@ Persistencia::~Persistencia() {
 
 }
 
-void Persistencia::guardar(const Circuito &circuito) {
+void Persistencia::guardarCircuito(const Circuito &circuito) {
 
 	XMLCh tempStr[100];
 	XMLString::transcode("XML", tempStr, 99);
@@ -189,57 +203,105 @@ void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::str
 
 }
 
+DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
 
-std::string Persistencia::generarPedido (std::string &nombreCircuito,int cantEntradas, bool* entradas) {
+	   struct stat estadoArchivo;
 
-	XMLCh tempStr[100];
+	   int iretStat = stat(ruta.c_str(), &estadoArchivo);
 
-	XMLString::transcode("LS", tempStr, 99);
-	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+	   if( iretStat == ENOENT )
+	      throw ( std::runtime_error("Path file_name does not exist, or path is an empty string.") );
+	   else if( iretStat == ENOTDIR )
+	      throw ( std::runtime_error("A component of the path is not a directory."));
+	   else if( iretStat == ELOOP )
+	      throw ( std::runtime_error("Too many symbolic links encountered while traversing the path."));
+	   else if( iretStat == EACCES )
+	      throw ( std::runtime_error("Permission denied."));
+	   else if( iretStat == ENAMETOOLONG )
+	      throw ( std::runtime_error("File can not be read\n"));
 
-	DOMDocument* doc = impl->createDocument();
+	   // Configure DOM parser.
+	   xercesc::XercesDOMParser *m_ConfigFileParser = new XercesDOMParser;
 
-	std::string ruta = "GetSimulacion.xml";
+	   m_ConfigFileParser->setValidationScheme( XercesDOMParser::Val_Never );
+	   m_ConfigFileParser->setDoNamespaces( false );
+	   m_ConfigFileParser->setDoSchema( false );
+	   m_ConfigFileParser->setLoadExternalDTD( false );
 
-	generarSOAP(impl,doc,ruta,Mensajes::GetSimular(doc,nombreCircuito,cantEntradas, entradas));
+	   try
+	   {
+		   m_ConfigFileParser->parse( ruta.c_str() );
 
-	return ruta;
+		   DOMDocument* xmlDoc = m_ConfigFileParser->getDocument();
+
+		   DOMElement* elementRoot = xmlDoc->getDocumentElement();
+		   if( !elementRoot ) throw(std::runtime_error( "empty XML document" ));
+
+		   DOMNodeList* funcionList = elementRoot->getElementsByTagName(TAG_PUBLICARCIRCUITO);
+
+		   DOMNode* funcion = funcionList->item(0);
+
+		   if (funcion  != NULL) {
+
+			   tipo = NUEVOCIRCUITO;
+
+			   	return dynamic_cast <xercesc::DOMElement* > ( funcion );
+
+		   }
+
+		   funcionList = elementRoot->getElementsByTagName(TAG_PEDIDOLISTA);
+
+		   funcion = funcionList->item(0);
+
+		   if (funcion  != NULL) {
+
+			   tipo = LISTA;
+			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
+
+		   }
+
+		   funcionList = elementRoot->getElementsByTagName(TAG_PEDIDOCIRCUITO);
+
+		   funcion = funcionList->item(0);
+
+		   if (funcion  != NULL) {
+
+			   tipo = CIRCUITO;
+			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
+
+		   }
+
+		   funcionList = elementRoot->getElementsByTagName(TAG_GETSIMULACION);
+
+		   funcion = funcionList->item(0);
+
+		   if (funcion  != NULL) {
+
+			   tipo = SIMULAR;
+			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
+
+		   }
+
+		   funcionList = elementRoot->getElementsByTagName(TAG_GETTIEMPOSIMULACION);
+
+		   funcion = funcionList->item(0);
+
+		   if (funcion  != NULL) {
+
+			   tipo = SIMULARTIEMPO;
+			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
+		   }
+
+	   }
+	   catch( xercesc::XMLException& e )
+	   {
+	      std::string message = xercesc::XMLString::transcode( e.getMessage() );
+	      throw runtime_error("Error parsing file: "+ message);
+	   }
+	   tipo = INVALIDO;
+	   return NULL;
 
 }
-
-std::string Persistencia::generarPedido (std::string &nombreCircuito,int cantEntradas, int* entradas) {
-
-	XMLCh tempStr[100];
-	XMLString::transcode("LS", tempStr, 99);
-	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
-
-	DOMDocument* doc = impl->createDocument();
-
-	std::string ruta = "GetTiempoSimulacion.xml";
-
-	generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacion(doc,nombreCircuito,cantEntradas, entradas));
-
-	return ruta;
-
-
-}
-
-std::string Persistencia::publicarCircuito(Circuito *circuito) {
-
-	XMLCh tempStr[100];
-	XMLString::transcode("LS", tempStr, 99);
-	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
-
-	DOMDocument* doc = impl->createDocument();
-
-	std::string ruta = "PublicarCircuito.xml";
-
-	generarSOAP(impl,doc,ruta, circuito->obtenerCircuito(doc));
-
-	return ruta;
-
-}
-
 
 Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircuito) {
 
@@ -301,6 +363,17 @@ Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircu
 	   }
 
 	   return NULL;
+}
+
+std::string Persistencia::obtenerNombre(DOMElement* ElementoCte) {
+
+	std::string nombre;
+
+	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
+	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
+	nombre = XMLString::transcode(attr_nombre->getValue());
+
+	return nombre;
 
 }
 
@@ -594,6 +667,14 @@ void Persistencia::guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::
     XMLString::transcode(aux.c_str(),tempStr,99);
     atributo->setTextContent(tempStr);
     elem->appendChild(atributo);
+
+}
+
+std::string Persistencia::recuperarDatoTexto(DOMElement* ElementoCte) {
+
+	std::string aux = XMLString::transcode(ElementoCte->getTextContent());
+
+	return aux;
 
 }
 

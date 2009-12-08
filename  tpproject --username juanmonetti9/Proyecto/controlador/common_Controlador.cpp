@@ -17,7 +17,7 @@ Controlador* Controlador::instancia=NULL;
 Controlador::Controlador(Fachada_vista* fachada, ModeloCliente *modeloCliente) {
 
 	fachada_vista = fachada;
-	accion = new Accion_NULA(this);
+	accion = NULL;
 	arrastre_activo = false;
 	this->modeloCliente = modeloCliente;
 	matrizActual = NULL;
@@ -119,7 +119,7 @@ void Controlador::ejecutar_download() {
 
 	if (fachada_vista->get_circuito_download()) {
 
-		accion= new Accion_Draw_Caja_Negra(this);
+		agregar_accion(new Accion_Draw_Caja_Negra(this));
 		fachada_vista->ocultar_download();
 
 	}
@@ -151,6 +151,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 	//puntero a celda donde agrego e id del componente a agregar
 	Celda* celda= NULL;
 	int id;
+	std::vector<ConexionVertice> conexiones;
 
 	switch(_tipo){
 
@@ -159,14 +160,16 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 							Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
 							std::string nom= fachada_vista->get_nombre_entrada();
 							id= modeloCliente->agregarEntrada(posicion,nom,sentido);
+							modeloCliente->getConexionVertice(id,&conexiones);
 							agregadaVista=matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 							celda=matrizActual->get_celda_px(_x,_y);
+							if(agregadaVista)
+								this->agregar_accion(NULL);
 
 						} catch (ConexionException e) {
 
 							agregadaModelo= false;
 						}
-						accion= new Accion_NULA(this);
 						break;
 					}
 
@@ -177,8 +180,11 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 						Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
 						std::string nom= fachada_vista->get_nombre_salida();
 						id= modeloCliente->agregarSalida(posicion,nom,sentido);
+						modeloCliente->getConexionVertice(id,&conexiones);
 						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
+						if(agregadaVista)
+							this->agregar_accion(NULL);
 
 					} catch (ConexionException e) {
 
@@ -186,14 +192,11 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 					}
 
-					accion= new Accion_NULA(this);
+
 
 				    break;
 
 					}
-
-	case T_CAJANEGRA:
-				    break;
 
 	case T_PISTA: 	{
 
@@ -201,6 +204,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 						Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
 						id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
+						modeloCliente->getConexionVertice(id,&conexiones);
 						agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 						celda=matrizActual->get_celda_px(_x,_y);
 
@@ -221,7 +225,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 				Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
 				id= modeloCliente->agregarCompuerta(_tipo,posicion,sentido);
-
+				modeloCliente->getConexionVertice(id,&conexiones);
 				agregadaVista= matrizActual->agregar_componente(&_x,&_y,_tipo,id,sentido);
 				celda=matrizActual->get_celda_px(_x,_y);
 
@@ -274,7 +278,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 }
 
-void Controlador::agregar_caja_negra(int x,int y,int cant_entradas,int cant_salidas){
+void Controlador::agregar_caja_negra(int x,int y){
 
 	int _x=x;
 	int _y=y;
@@ -284,34 +288,40 @@ void Controlador::agregar_caja_negra(int x,int y,int cant_entradas,int cant_sali
 	//puntero a celda donde agrego e id del componente a agregar
 	Celda* celda= NULL;
 	int id;
+	std::vector<ConexionVertice> conexiones;
+
+	int cant_entradas;
+	int cant_salidas;
 
 	try {
 
 		Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
-		//TODO std::string nombre= fachada_vista->get_circuito_download();
-		//TODO std::string host= fachada_vista->get_host_download();
-		//TODO int puerto= atoi(fachada_vista->get_puerto_download());
-		//TODO Servidor servidor(host,puerto);
-		//TODO id= modeloCliente->recibir(nombre,servidor);
-		//TODO ******---> integrar con modelo...
-
-		agregadaVista= matrizActual->agregar_caja_negra(&_x,&_y,id,cant_entradas,cant_salidas);
+		std::string nom= fachada_vista->get_circuito_download();
+		std::string host= fachada_vista->get_host_download();
+		int puerto= atoi(fachada_vista->get_puerto_download());
+		Servidor servidor(host,puerto);
+		TamanioCajaNegra tamanio= modeloCliente->recibir(nom,servidor);
+		cant_entradas= tamanio.getCantEntradas();
+		cant_salidas= tamanio.getCantSalidas();
+		id= modeloCliente->agregarCajaNegra(posicion,nom,ESTE,servidor,tamanio);
+		modeloCliente->getConexionVertice(id,&conexiones);
+		agregadaVista=matrizActual->agregar_caja_negra(&_x,&_y,id,cant_entradas,cant_salidas);
 		celda=matrizActual->get_celda_px(_x,_y);
+		if(agregadaVista)
+			this->agregar_accion(NULL);
 
 	} catch (ConexionException e) {
 
 		agregadaModelo= false;
-
 	}
-
 
 	if(agregadaModelo && celda && agregadaVista){
 
-		this->agregar_accion(new Accion_NULA(this));
+		this->agregar_accion(NULL);
 		fachada_vista->dibujar_caja_negra(_x,_y,cant_entradas,cant_salidas);
 
 	}else if (!agregadaVista) {
-		//TODO modeloCliente->eliminarCompuerta(id);
+		modeloCliente->eliminarCompuerta(id);
 	}
 
 
@@ -323,6 +333,7 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 	int _x=x;
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
+	std::vector<ConexionVertice> conexiones;
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
@@ -337,12 +348,24 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 				try {
 
 					modeloCliente->rotar(datos->get_id(),n_direccion);
+					modeloCliente->getConexionVertice(datos->get_id(),&conexiones);
 					fachada_vista->borrar_componente(_x,_y,T_PISTA,datos->get_sentido());
 					celda->rotar(n_direccion);
 					fachada_vista->dibujar_componente(_x,_y,_tipo,datos->get_sentido());
 
 				} catch (ConexionException e) {
-					g_print("NO ROTO");//TODO
+
+					if (n_direccion == IZQUIERDA) {
+
+						modeloCliente->rotar(datos->get_id(),DERECHA);
+
+					}
+					if (n_direccion == DERECHA) {
+
+						modeloCliente->rotar(datos->get_id(),IZQUIERDA);
+
+					}
+
 				}
 			}
 
@@ -353,12 +376,24 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 			Datos_celda* datos= celda->get_datos();
 			try {
 				modeloCliente->rotar(datos->get_id(),n_direccion);
+				modeloCliente->getConexionVertice(datos->get_id(),&conexiones);
 				fachada_vista->dibujar_componente(_x,_y,T_VACIA,datos->get_sentido());
 				celda->rotar(n_direccion);
 				fachada_vista->dibujar_componente(_x,_y,_tipo,datos->get_sentido());
 
 			} catch (ConexionException e) {
-				g_print("NO ROTO");//TODO
+
+				if (n_direccion == IZQUIERDA) {
+
+					modeloCliente->rotar(datos->get_id(),DERECHA);
+
+				}
+				if (n_direccion == DERECHA) {
+
+					modeloCliente->rotar(datos->get_id(),IZQUIERDA);
+
+				}
+
 			}
 		}
 
@@ -376,6 +411,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 	int _pos_x=pos_x;
 	int _pos_y=pos_y;
 	TIPO_COMPUERTA _tipo;
+	std::vector<ConexionVertice> conexiones;
 
 	if(matrizActual->hay_componente(&_pos_x,&_pos_y,&_tipo)){
 
@@ -392,6 +428,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(_x),Modelo_vista_circuito::de_pixel_a_fila(_y));
 			//muevo el componente en el modelo
 			modeloCliente->mover(datos_origen->get_id(),posicion);
+			modeloCliente->getConexionVertice(datos_origen->get_id(),&conexiones);
 			//lo intento agregar en la nueva posicion
 			if(_tipo == T_CAJANEGRA)
 				agregadoVista = matrizActual->agregar_caja_negra(&_x,&_y,datos_origen->get_id(),datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
@@ -401,6 +438,8 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 		} catch (ConexionException e) {
 
 			agregadoModelo= false;
+			Posicion posicion(datos_origen->get_fila_ppal(),datos_origen->get_col_ppal());
+			modeloCliente->mover(datos_origen->get_id(),posicion);
 		}
 
 		if(agregadoVista && agregadoModelo){
@@ -641,10 +680,14 @@ void Controlador::generarCircuito(Circuito* circuito) {
 
 	std::vector<Compuerta*> compuertas= circuito->getCompuertas();
 
+	std::vector<ConexionVertice> conexiones;
+
 	for (unsigned int var = 0; var < compuertas.size(); ++var) {
 
 		Compuerta* compuerta= compuertas[var];
 		Posicion posicion= compuerta->getPosicion();
+
+		modeloCliente->getConexionVertice(compuerta->getId(),&conexiones);
 
 		int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
 		int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());

@@ -2,7 +2,7 @@
 #ifndef COMMON_MENSAJES_H_
 #define COMMON_MENSAJES_H_
 
-#include "common_Persistencia.h"
+#include "../persistencia/common_Persistencia.h"
 
 class Circuito;
 
