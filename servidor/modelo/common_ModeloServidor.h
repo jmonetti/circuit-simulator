@@ -31,7 +31,7 @@ public:
 
 	int getIdCircuito(std::string &nombreCircuito);
 
-	void guardarCircuito(DOMElement* funcion);
+	void obtenerDatosCircuito(std::string &nombre,int &cantEntradas,int &cantSalidas);
 
 	std::string generarListaCircuitos();
 

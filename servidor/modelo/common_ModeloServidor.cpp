@@ -48,6 +48,8 @@ int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &
 
 	Circuito* circuito= persistencia.recuperar(idCircuito,nombreCircuito);
 
+	//circuito->getConexionVertice() TODO
+
 	std::vector<Entrada*> entradasCircuito = circuito->getEntradas();
 	for (unsigned int var = 0; var < entradasCircuito.size(); ++var) {
 
@@ -77,10 +79,12 @@ void ModeloServidor::recuperarDatosSimular(DOMNodeList* atributos, std::string &
 		atributo = atributos->item(i);
 		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
 		valor = persistencia.recuperarDatoTexto(ElemCte);
+
 		if(valor == "0")
 			entrada = false;
 		else
 			entrada = true;
+
 		entradas[i-1] = entrada;
 
 	}
@@ -123,13 +127,15 @@ int ModeloServidor::getIdCircuito(std::string &nombreCircuito) {
 
 
 
-void ModeloServidor::guardarCircuito(DOMElement* funcion) {
+void ModeloServidor::obtenerDatosCircuito(std::string &nombre,int &cantEntradas,int &cantSalidas) {
 
-	std::string nombre = persistencia.obtenerNombre(funcion);
+	int id = getIdCircuito(nombre);
 
-	Circuito* circuitoNuevo = persistencia.parserCircuito(funcion,getId(),nombre);
+	Circuito* circuito = circuitos[id];
 
-	persistencia.guardarCircuito(*circuitoNuevo);
+	cantEntradas = circuito->getCantidadEntradas();
+
+	cantSalidas = circuito->getCantidadSalidas();
 
 }
 
@@ -151,7 +157,12 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 		case CIRCUITO: {
 
-			guardarCircuito(funcion);
+			std::string nombre = persistencia.obtenerNombre(funcion);
+			int cantEntradas;
+			int cantSalidas;
+			obtenerDatosCircuito(nombre,cantEntradas,cantSalidas);
+			aux = peticion.generarRespuesta(cantEntradas,cantSalidas);
+
 			//TODO GENERAR HTML CON 200 OK
 
 
@@ -170,7 +181,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		case SIMULAR: {
 			std::string nombre;
 			int cantEntradas = atributos->getLength() - 1 ;
-			bool entradas[cantEntradas];
+			bool* entradas = new bool[cantEntradas];
 			int idCircuito = getIdCircuito(nombre);
 			if (idCircuito != -1){
 				recuperarDatosSimular(atributos,nombre,entradas); //TODO preguntar a diego el tema de Resultado*
@@ -185,7 +196,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		case SIMULARTIEMPO: {
 			std::string nombre;
 			int cantEntradas = atributos->getLength() - 1 ;
-			int entradas[cantEntradas];
+			int* entradas = new int[cantEntradas];
 			int idCircuito = getIdCircuito(nombre);
 			if(idCircuito != -1) {
 				recuperarDatosTiempos(atributos,nombre,entradas); //TODO

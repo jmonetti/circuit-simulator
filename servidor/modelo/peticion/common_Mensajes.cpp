@@ -122,3 +122,23 @@ DOMElement* Mensajes::GetListaCircuitosResponse(DOMDocument* doc, std::vector<Ci
 
 }
 
+DOMElement* Mensajes::GetCircuitoResponse(DOMDocument* doc, int cantEntradas, int cantSalidas) {
+
+	XMLCh tempStr[100];
+
+	XMLString::transcode("GetCircuitoResponse",tempStr,99);
+	DOMElement* elem_datos = doc->createElement(tempStr);
+
+	std::string aux = "cantEntradas";
+	Persistencia::guardarElementoTexto(doc,elem_datos,aux,cantEntradas);
+
+
+	aux = "cantSalidas";
+	Persistencia::guardarElementoTexto(doc,elem_datos,aux,cantSalidas);
+
+
+    return elem_datos;
+
+}
+
+
