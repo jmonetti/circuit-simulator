@@ -21,6 +21,8 @@ public:
 
 	static DOMElement* GetListaCircuitosResponse(DOMDocument* doc, std::vector<Circuito*> circuitos);
 
+	static DOMElement* GetCircuitoResponse(DOMDocument* doc, int cantEntradas, int cantSalidas);
+
 };
 
 #endif /* COMMON_MENSAJES_H_ */

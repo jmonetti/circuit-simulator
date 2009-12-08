@@ -120,3 +120,19 @@ std::string Peticion::generarListaCircuitos(std::vector<Circuito*> circuitos) {
 	return ruta;
 
 }
+
+std::string Peticion::generarRespuesta(int cantEntradas, int cantSalidas) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "DatosCircuito.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetCircuitoResponse(doc,cantEntradas, cantSalidas));
+
+	return ruta;
+
+}

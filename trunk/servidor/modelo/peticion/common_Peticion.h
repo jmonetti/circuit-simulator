@@ -34,6 +34,8 @@ public:
 
 	static std::string generarRespuesta ();
 
+	std::string generarRespuesta(int cantEntradas, int cantSalidas);
+
 	std::string generarListaCircuitos(std::vector<Circuito*> circuitos);
 ;
 

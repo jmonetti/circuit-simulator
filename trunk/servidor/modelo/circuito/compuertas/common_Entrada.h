@@ -48,8 +48,8 @@ private:
 
 	SalidaCompuerta* salida;
 	bool valor;
-	std::string nombre;
 	int tiempo;
+	std::string nombre;
 
 };
 
