@@ -32,7 +32,9 @@ public:
 
 	void eliminarCompuerta(int idCompuerta);
 
-	void getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones);
+	void getConexionVertice(std::vector<ConexionVertice>* conexiones);
+
+	void realizarConexiones();
 
 	unsigned int getCantidadEntradas() const;
 
@@ -69,9 +71,11 @@ private:
 	void setearEntradas(bool* entradas);
 	void reset();
 
-	void verificarConexiones(Compuerta* compuerta, std::vector<ConexionVertice>* conexiones);
-	void establecerConexion(EntradaCompuerta* entrada, std::vector<ConexionVertice>* conexiones);
-	void establecerConexion(SalidaCompuerta* salida, std::vector<ConexionVertice>* conexiones);
+	void verificarConexiones(Compuerta* compuerta);
+	void establecerConexion(EntradaCompuerta* entrada);
+	void establecerConexion(SalidaCompuerta* salida);
+
+	void verificarConexionesVertice(Compuerta* compuerta,std::vector<ConexionVertice>* conexiones);
 
 	void eliminarEntradasCompuerta(Compuerta* compuerta);
 	void eliminarSalidasCompuerta(Compuerta* compuerta);

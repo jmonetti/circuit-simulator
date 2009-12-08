@@ -110,6 +110,8 @@ void Circuito::mover(int idCompuerta,Posicion posicion) {
 
 		ManagerConexiones::desconectar(compuerta);
 
+		verificarConexiones(compuerta);
+
 	}else {
 
 		throw CircuitoException("No se pudo mover. Compuerta invalida");
@@ -128,6 +130,8 @@ void Circuito::rotar(int idCompuerta,DIRECCION direccion) {
 		compuerta->rotar(direccion);
 
 		ManagerConexiones::desconectar(compuerta);
+
+		verificarConexiones(compuerta);
 
 	}else {
 
@@ -161,6 +165,8 @@ int Circuito::agregarCompuerta(Compuerta* compuerta) {
 
 	agregarEntradasCompuerta(compuerta);
 	agregarSalidasCompuerta(compuerta);
+
+	verificarConexiones(compuerta);
 
 	contadorCompuertas++;
 
@@ -217,17 +223,20 @@ void Circuito::eliminarCompuerta(int idCompuerta) {
 
 }
 
-void Circuito::getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones) {
+void Circuito::getConexionVertice(std::vector<ConexionVertice>* conexiones) {
 
-	Compuerta* compuerta= obtenerCompuerta(idCompuerta);
+	SalidaCompuerta* salidaCompuerta;
 
-	if (compuerta) {
+	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
 
-		verificarConexiones(compuerta,conexiones);
+		salidaCompuerta= entradasCompuerta[var] ->getConexion();
 
-	}else{
+		if (salidaCompuerta) {
 
-		throw CircuitoException("No existe la compuerta");
+			ManagerConexiones::obtenerConexionVertice(entradasCompuerta[var],salidaCompuerta,conexiones);
+
+		}
+
 	}
 
 }
@@ -309,11 +318,9 @@ DOMElement* Circuito::obtenerCircuito(DOMDocument* doc) const{
     XMLString::transcode("Circuito", tempStr, 99);
     DOMElement*   elem_circuito = doc->createElement(tempStr);
 
-    for (unsigned int var = 0; var < compuertas.size(); ++var) {
-
-		compuertas[var]->guardar(doc, elem_circuito);
-
-	}
+    aux= "nombre";
+    std::string nombre = getNombre();
+    Persistencia::guardarElemento(doc,elem_circuito,aux,nombre);
 
     return elem_circuito;
 
@@ -380,14 +387,13 @@ void Circuito::reset() {
 
 }
 
-void Circuito::verificarConexiones(Compuerta* compuerta,std::vector<ConexionVertice>* conexiones) {
+void Circuito::verificarConexiones(Compuerta* compuerta) {
 
 	EntradaCompuerta** entradas= compuerta->getEntradas();
 
 	for (int var = 0; var < compuerta->getCantidadEntradas(); ++var) {
 
-		establecerConexion(entradas[var],conexiones);
-
+		establecerConexion(entradas[var]);
 
 	}
 
@@ -395,14 +401,14 @@ void Circuito::verificarConexiones(Compuerta* compuerta,std::vector<ConexionVert
 
 	for (int var = 0; var < compuerta->getCantidadSalidas(); ++var) {
 
-		establecerConexion(salidas[var],conexiones);
+		establecerConexion(salidas[var]);
 
 	}
 
 }
 
 
-void Circuito::establecerConexion(EntradaCompuerta* entrada, std::vector<ConexionVertice>* conexiones) {
+void Circuito::establecerConexion(EntradaCompuerta* entrada) {
 
 	SalidaCompuerta* salida;
 
@@ -410,14 +416,14 @@ void Circuito::establecerConexion(EntradaCompuerta* entrada, std::vector<Conexio
 
 		salida= salidasCompuerta[var];
 
-		ManagerConexiones::conectar(entrada,salida,conexiones);
+		ManagerConexiones::conectar(entrada,salida);
 
 	}
 
 }
 
 
-void Circuito::establecerConexion(SalidaCompuerta* salida,std::vector<ConexionVertice>* conexiones) {
+void Circuito::establecerConexion(SalidaCompuerta* salida) {
 
 	EntradaCompuerta* entrada;
 
@@ -425,11 +431,7 @@ void Circuito::establecerConexion(SalidaCompuerta* salida,std::vector<ConexionVe
 
 		entrada= entradasCompuerta[var];
 
-		if (!entrada -> getConexion()) {
-
-			ManagerConexiones::conectar(entrada,salida,conexiones);
-
-		}
+		ManagerConexiones::conectar(entrada,salida);
 
 	}
 

@@ -67,7 +67,9 @@ public:
 
 	bool hayCircuito();
 
-	void getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones);
+	void getConexionVertice(std::vector<ConexionVertice>* conexiones);
+
+	std::vector<Compuerta*> getCompuertas();
 
 
 
