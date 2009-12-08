@@ -6,16 +6,26 @@
 #include "../excepciones/common_SocketException.h"
 using namespace std;
 
-Protocolo::Protocolo(Socket *socket) {
+Protocolo::Protocolo() {
 
-	this->socket->close();
-	this->socket= socket;
+
 
 }
 
 Protocolo::~Protocolo() {
 
-	delete socket;
+
+}
+
+void Protocolo::conectar(Servidor servidor) {
+
+	socket.connect(servidor.getHost(),servidor.getPuerto());
+
+}
+
+void Protocolo::desconectar() {
+
+	socket.close();
 
 }
 
@@ -40,7 +50,7 @@ void Protocolo::recibirMensaje(std::string &mensaje) {
 
 			int aux= 0;
 
-			aux= this->socket->receive(stream,SIZE_RECIBIR);
+			aux= this->socket.receive(stream,SIZE_RECIBIR);
 
 			this->mensajeSiguiente.append(stream,aux);
 
@@ -66,7 +76,7 @@ void Protocolo::enviarMensaje(const std::string &mensaje) {
 	try{
 		while (cantidadEscrito < size) {
 
-			aux= this->socket->send(stream + cantidadEscrito, size - cantidadEscrito);
+			aux= this->socket.send(stream + cantidadEscrito, size - cantidadEscrito);
 			cantidadEscrito+= aux;
 
 		}
@@ -81,6 +91,6 @@ void Protocolo::enviarMensaje(const std::string &mensaje) {
 
 void Protocolo::shutdown() {
 
-	socket->shutdown();
+	socket.shutdown();
 
 }
