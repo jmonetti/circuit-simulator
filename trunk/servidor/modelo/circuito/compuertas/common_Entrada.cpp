@@ -8,6 +8,8 @@ Entrada::Entrada(int id,SalidaCompuerta* salida, Posicion posicion, SENTIDO sent
 
 	actualizarSalidas();
 
+	this->tiempo= 0;
+
 }
 
 Entrada::~Entrada() {
@@ -18,7 +20,7 @@ Entrada::~Entrada() {
 
 void Entrada::actuarTiempo(int* tiempos) {
 
-	this->salida->setTiempoTransicion(0);
+	this->salida->setTiempoTransicion(tiempo);
 
 }
 
@@ -37,6 +39,12 @@ void Entrada::actuarSimular(bool* valores) {
 void Entrada::setValorEntrada(bool valor) {
 
 	this->valor= valor;
+
+}
+
+void Entrada::setTiempo(int tiempo) {
+
+	this->tiempo= tiempo;
 
 }
 

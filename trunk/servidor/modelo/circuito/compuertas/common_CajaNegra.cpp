@@ -35,7 +35,7 @@ CajaNegra::~CajaNegra() {
 
 void CajaNegra::actuarTiempo(int* tiempos) {
 
-	int* tiempoSalidas= publicacion.calcularTiempoTransicion(nombreCircuito,servidor,cantidadEntradas);
+	int* tiempoSalidas= peticion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,cantidadEntradas);
 
 	for (int var = 0; var < cantidadSalidas; ++var) {
 
@@ -49,7 +49,7 @@ void CajaNegra::actuarTiempo(int* tiempos) {
 
 void CajaNegra::actuarSimular(bool* valores) {
 
-	bool* valorSalidas= publicacion.simular(nombreCircuito,servidor,valores,cantidadEntradas);
+	bool* valorSalidas= peticion.simular(nombreCircuito,servidor,valores,cantidadEntradas);
 
 	for (int var = 0; var < cantidadSalidas; ++var) {
 

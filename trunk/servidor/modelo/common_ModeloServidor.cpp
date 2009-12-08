@@ -1,7 +1,8 @@
 
 #include "common_ModeloServidor.h"
-#include "../circuito/common_Circuito.h"
-
+#include "circuito/common_Circuito.h"
+#include <vector>
+#include "circuito/compuertas/common_Entrada.h"
 
 ModeloServidor::ModeloServidor() {
 
@@ -47,10 +48,10 @@ int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &
 
 	Circuito* circuito= persistencia.recuperar(idCircuito,nombreCircuito);
 
-	std::vector<Entrada*>* entradasCircuito = circuito->getEntradas();
-	for (unsigned int var = 0; var < circuito->entradasCircuito->size(); ++var) {
+	std::vector<Entrada*> entradasCircuito = circuito->getEntradas();
+	for (unsigned int var = 0; var < entradasCircuito.size(); ++var) {
 
-		(*entradasCircuitos)[var]->setTiempo(entradas[var]);
+		entradasCircuito[var]->setTiempo(entradas[var]);
 
 	}
 
@@ -160,6 +161,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			aux = persistencia.obtenerNombre(funcion);
 			Circuito* circuito = persistencia.parserCircuito(funcion, getId(), aux);
 			guardar(circuito);
+			persistencia.guardarCircuito(*circuito);
 			aux = peticion.generarRespuesta();
 			//TODO AGREGAR CODIGO HTML con 200 OK;
 			return aux;

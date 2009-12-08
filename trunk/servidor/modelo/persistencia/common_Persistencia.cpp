@@ -10,8 +10,8 @@
 #include <xercesc/dom/DOMLSSerializer.hpp>
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 
-#include "../../circuito/common_Circuito.h"
-#include "../../circuito/common_FactoryCompuerta.h"
+#include "../circuito/common_Circuito.h"
+#include "../circuito/common_FactoryCompuerta.h"
 #include "../peticion/common_Servidor.h"
 
 #include "common_Persistencia.h"

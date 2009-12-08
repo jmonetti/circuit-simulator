@@ -309,11 +309,9 @@ DOMElement* Circuito::obtenerCircuito(DOMDocument* doc) const{
     XMLString::transcode("Circuito", tempStr, 99);
     DOMElement*   elem_circuito = doc->createElement(tempStr);
 
-    for (unsigned int var = 0; var < compuertas.size(); ++var) {
-
-		compuertas[var]->guardar(doc, elem_circuito);
-
-	}
+    aux= "nombre";
+    std::string nombre = getNombre();
+    Persistencia::guardarElemento(doc,elem_circuito,aux,nombre);
 
     return elem_circuito;
 

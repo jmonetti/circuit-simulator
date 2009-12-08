@@ -7,8 +7,8 @@
 #include "common_SalidaCompuerta.h"
 #include <vector>
 #include <string>
-#include "../../publicacion/common_Publicacion.h"
-#include "../../publicacion/common_Servidor.h"
+#include "../../peticion/common_Peticion.h"
+#include "../../peticion/common_Servidor.h"
 
 using namespace std;
 
@@ -47,7 +47,7 @@ private:
 	SalidaCompuerta** salidas;
 	int cantidadEntradas;
 	int cantidadSalidas;
-	Publicacion publicacion;
+	Peticion peticion;
 	std::string nombreCircuito;
 	Servidor servidor;
 
