@@ -19,6 +19,11 @@ void Fachada_vista::dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int
 	ventana_interna->dibujar_caja_negra(x,y,cant_entradas,cant_salidas);
 }
 
+void Fachada_vista::dibujar_vertice(gdouble x,gdouble y,SENTIDO sentido){
+
+	ventana_interna->dibujar_vertice(x,y,sentido);
+}
+
 void Fachada_vista::borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
 
 	ventana_interna->borrar_caja_negra(x,y,cant_entradas,cant_salidas);

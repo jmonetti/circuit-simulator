@@ -189,6 +189,10 @@ void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA 
 
 }
 
+void Box_Ventana_Interna::dibujar_vertice(gdouble x,gdouble y,SENTIDO sentido){
+
+	actual->draw_vertice(x,y,sentido);
+}
 
 /*----------------------------------------------------------------------------*/
 

@@ -64,6 +64,8 @@ public:
 
 	void draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
+	void draw_vertice(gdouble x,gdouble y,SENTIDO sentido);
+
 	void draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
 	void draw_borrar_pista(int _x,int _y,SENTIDO _sentido);

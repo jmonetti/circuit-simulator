@@ -11,13 +11,13 @@ ConexionVertice::~ConexionVertice() {
 
 }
 
-Posicion ConexionVertice::getPosicion() {
+Posicion ConexionVertice::getPosicion()const {
 
 	return posicion;
 
 }
 
-SENTIDO ConexionVertice::getSentido() {
+SENTIDO ConexionVertice::getSentido()const{
 
 	return sentido;
 

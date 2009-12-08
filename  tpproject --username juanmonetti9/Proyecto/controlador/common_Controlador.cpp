@@ -257,6 +257,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 
 				fachada_vista->dibujar_componente(Modelo_vista_circuito::de_col_a_pixel(aux_celda->get_columna()),Modelo_vista_circuito::de_fila_a_pixel(aux_celda->get_fila()),_tipo,datos->get_sentido());
 
+
 			}
 			else{
 				Datos_celda* datos_sec = aux_celda->get_datos_secundarios();
@@ -269,10 +270,13 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 		}else
 			fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_datos()->get_sentido());
 
+		incluir_vertices(conexiones);
+
 	}
 	else if(agregadaModelo && celda && agregadaVista){
 
 		fachada_vista->dibujar_componente(_x,_y,_tipo,celda->get_datos()->get_sentido());
+		incluir_vertices(conexiones);
 
 	}else if (!agregadaVista) {
 
@@ -331,6 +335,26 @@ void Controlador::agregar_caja_negra(int x,int y){
 
 }
 
+void Controlador::incluir_vertices(std::vector<ConexionVertice> conexiones){
+
+	std::vector<ConexionVertice>::const_iterator it_conexion = conexiones.begin();
+
+	while( it_conexion != conexiones.end() ){
+
+		int x_rd= Modelo_vista_circuito::de_col_a_pixel(it_conexion->getPosicion().getX());
+		int y_rd= Modelo_vista_circuito::de_fila_a_pixel(it_conexion->getPosicion().getY());
+
+		fachada_vista->dibujar_vertice(x_rd,y_rd,it_conexion->getSentido());
+		//incremento los iteradores
+		++it_conexion;
+
+	}
+
+
+
+
+}
+
 void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 
 	int _x=x;
@@ -359,7 +383,7 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 					fachada_vista->borrar_componente(_x,_y,T_PISTA,datos->get_sentido());
 					celda->rotar(n_direccion);
 					fachada_vista->dibujar_componente(_x,_y,_tipo,datos->get_sentido());
-
+					incluir_vertices(conexiones);
 					//redibujo los componentes debido a la superposicion
 					std::list<Posicion>::const_iterator it_vertices = vertices.begin();
 					std::list<SENTIDO>::const_iterator it_sentido = sentidos.begin();
@@ -402,7 +426,7 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 				fachada_vista->dibujar_componente(_x,_y,T_VACIA,datos->get_sentido());
 				celda->rotar(n_direccion);
 				fachada_vista->dibujar_componente(_x,_y,_tipo,datos->get_sentido());
-
+				incluir_vertices(conexiones);
 
 			} catch (ConexionException e) {
 
@@ -480,11 +504,13 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			if(datos_origen->get_tipo() == T_CAJANEGRA){
 				fachada_vista->borrar_caja_negra(x_origen,y_origen,datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
 				fachada_vista->dibujar_caja_negra(x_destino,y_destino,datos_destino->get_cant_entradas(),datos_destino->get_cant_salidas());
+
 			}
 			else{
 				fachada_vista->borrar_componente(x_origen,y_origen,datos_origen->get_tipo(),datos_origen->get_sentido());
 				fachada_vista->dibujar_componente(x_destino,y_destino,datos_origen->get_tipo(),datos_destino->get_sentido());
 			}
+			incluir_vertices(conexiones);
 
 			std::list<Posicion> vertices;
 			std::list<SENTIDO>  sentidos;
@@ -819,6 +845,7 @@ void Controlador::generarCircuito(Circuito* circuito) {
 
 
 		fachada_vista->dibujar_componente(x,y,compuerta->getTipo(),compuerta->getSentido());
+		incluir_vertices(conexiones);
 
 	}
 }

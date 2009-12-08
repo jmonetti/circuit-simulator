@@ -60,6 +60,8 @@ public:
 
 	void dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
+	void dibujar_vertice(gdouble x,gdouble y,SENTIDO sentido);
+
 	void borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
 	void borrar_pista(int _x,int _y,SENTIDO _sentido);

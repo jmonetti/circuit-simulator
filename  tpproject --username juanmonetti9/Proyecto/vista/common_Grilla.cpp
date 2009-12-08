@@ -215,6 +215,11 @@ void Grilla::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salid
 	areaDisenio.draw_CAJANEGRA(x,y,cant_entradas,cant_salidas);
 }
 
+void Grilla::draw_vertice(gdouble x,gdouble y,SENTIDO sentido){
+
+	areaDisenio.draw_vertice(x,y,sentido);
+}
+
 void Grilla::draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
 
 	areaDisenio.draw_borrar_CAJANEGRA(x,y,cant_entradas,cant_salidas);

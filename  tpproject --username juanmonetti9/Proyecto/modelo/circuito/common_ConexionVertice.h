@@ -12,9 +12,9 @@ public:
 
 	virtual ~ConexionVertice();
 
-	Posicion getPosicion();
+	Posicion getPosicion()const;
 
-	SENTIDO getSentido();
+	SENTIDO getSentido()const;
 
 private:
 
