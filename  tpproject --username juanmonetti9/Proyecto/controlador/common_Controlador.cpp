@@ -407,9 +407,6 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 void Controlador::arrastrar(gdouble x, gdouble y){
 
 
-	int _pos_x=pos_x;
-	int _pos_y=pos_y;
-	TIPO_COMPUERTA _tipo;
 
 	//obtengo la celda origen
 	Celda* celda_origen=matrizActual->get_celda_px(pos_x,pos_y);
@@ -435,7 +432,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			modeloCliente->mover(datos_origen->get_id(),posicion);
 			modeloCliente->getConexionVertice(datos_origen->get_id(),&conexiones);
 			//lo intento agregar en la nueva posicion
-			if(_tipo == T_CAJANEGRA)
+			if(datos_origen->get_tipo() == T_CAJANEGRA)
 				agregadoVista = matrizActual->agregar_caja_negra(&x_destino,&y_destino,datos_origen->get_id(),datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
 			else
 				agregadoVista = matrizActual->agregar_componente(&x_destino,&y_destino,datos_origen->get_tipo(),datos_origen->get_id(),datos_origen->get_sentido());
@@ -457,7 +454,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			int x_origen = Modelo_vista_circuito::de_col_a_pixel(datos_origen->get_col_ppal());
 			int y_origen = Modelo_vista_circuito::de_fila_a_pixel(datos_origen->get_fila_ppal());
 
-			if(_tipo==T_CAJANEGRA){
+			if(datos_origen->get_tipo() == T_CAJANEGRA){
 				fachada_vista->borrar_caja_negra(x_origen,y_origen,datos_origen->get_cant_entradas(),datos_origen->get_cant_salidas());
 				fachada_vista->dibujar_caja_negra(x_destino,y_destino,datos_destino->get_cant_entradas(),datos_destino->get_cant_salidas());
 			}
@@ -465,7 +462,7 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 				fachada_vista->borrar_componente(x_origen,y_origen,datos_origen->get_tipo(),datos_origen->get_sentido());
 				fachada_vista->dibujar_componente(x_destino,y_destino,datos_origen->get_tipo(),datos_destino->get_sentido());
 			}
-			matrizActual->eliminar_componente(_pos_x,_pos_y);
+			matrizActual->eliminar_componente(x_origen,y_origen);
 
 		}else if (!agregadoVista) {
 
