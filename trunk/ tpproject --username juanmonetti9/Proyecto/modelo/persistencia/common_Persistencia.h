@@ -54,9 +54,9 @@ public:
 
 	static void generarSOAP(DOMImplementation *impl,DOMDocument* doc,const std::string &ruta, DOMElement* datos);
 
-	DOMElement* getElemSOAP(std::string &ruta, std::string &tag);
+	DOMElement* getElemSOAP(const std::string &ruta,const std::string &tag);
 
-	DOMElement* getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo);
+	DOMElement* getTipoSOAP(const std::string &ruta, TIPO_SOAP &tipo);
 
 	Circuito* parserCircuito(DOMElement* ElementoCte, int idCircuito, const std::string &nombreCircuito);
 

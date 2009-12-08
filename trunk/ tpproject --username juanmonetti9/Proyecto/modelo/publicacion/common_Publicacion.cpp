@@ -236,7 +236,7 @@ std::string Publicacion::recibirMensaje() {
 
 }
 
-bool* Publicacion::recuperarDatosSimular(std::string &ruta) {
+bool* Publicacion::recuperarDatosSimular(const std::string &ruta) {
 
 	Persistencia persistencia;
 
@@ -266,7 +266,7 @@ bool* Publicacion::recuperarDatosSimular(std::string &ruta) {
 
 }
 
-int* Publicacion::recuperarDatosTiempos(std::string &ruta) {
+int* Publicacion::recuperarDatosTiempos(const std::string &ruta) {
 
 
 	Persistencia persistencia;
@@ -295,7 +295,7 @@ int* Publicacion::recuperarDatosTiempos(std::string &ruta) {
 }
 
 
-TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(std::string &ruta) {
+TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(const std::string &ruta) {
 
 	//TODO
 	TamanioCajaNegra tamanio(1,1);
@@ -303,7 +303,7 @@ TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(std::string &ruta) {
 
 }
 
-void Publicacion::recuperarDatosCircuitos(std::string &ruta,std::vector<char*>* circuitos) {
+void Publicacion::recuperarDatosCircuitos(const std::string &ruta,std::vector<char*>* circuitos) {
 
 	//TODO
 

@@ -24,27 +24,6 @@ public:
 
 	void obtenerCircuitos(Servidor servidor, std::vector<char*>* circuitos);
 
-	/* Genera pedido de simulacion */
-	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
-
-	/* Genera pedido de simulacion de tiempos*/
-	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas,int* entradas);
-
-	static std::string publicarCircuito(Circuito* circuito);
-
-	/* Genera Pedido para la Lista de Circuitos*/
-	static std::string generarPedido();
-
-	/* Genera Pedido para obtener una Caja Negra*/
-	static std::string generarPedido(const std::string &nombreCircuito);
-
-	bool* recuperarDatosSimular(std::string &ruta);
-
-	int* recuperarDatosTiempos(std::string &ruta);
-
-	TamanioCajaNegra recuperarDatosCajaNegra(std::string &ruta);
-
-	void recuperarDatosCircuitos(std::string &ruta,std::vector<char*>* circuitos);
 
 private:
 
@@ -53,6 +32,28 @@ private:
 	void conectar(Servidor servidor);
 	void enviarMensaje(const std::string &ruta);
 	std::string recibirMensaje();
+
+	/* Genera pedido de simulacion */
+	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
+
+	/* Genera pedido de simulacion de tiempos*/
+	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas,int* entradas);
+
+	std::string publicarCircuito(Circuito* circuito);
+
+	/* Genera Pedido para la Lista de Circuitos*/
+	std::string generarPedido();
+
+	/* Genera Pedido para obtener una Caja Negra*/
+	std::string generarPedido(const std::string &nombreCircuito);
+
+	bool* recuperarDatosSimular(const std::string &ruta);
+
+	int* recuperarDatosTiempos(const std::string &ruta);
+
+	TamanioCajaNegra recuperarDatosCajaNegra(const std::string &ruta);
+
+	void recuperarDatosCircuitos(const std::string &ruta,std::vector<char*>* circuitos);
 
 
 };
