@@ -1,6 +1,6 @@
 
 #include "common_HiloComunicacion.h"
-#include "circuito/common_Circuito.h"
+#include "modelo/circuito/common_Circuito.h"
 
 HiloComunicacion::HiloComunicacion(Protocolo* protocolo) {
 
