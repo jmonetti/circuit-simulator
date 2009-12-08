@@ -161,14 +161,14 @@ void CajaNegra::actualizarEntradas() {
 			{
 
 				xEntrada= xCompuerta - 1;
-				yEntrada= yCompuerta - 1 + var;
+				yEntrada= yCompuerta - 1 + 2*var;
 				break;
 
 			}
 			case SUR:
 			{
 
-				xEntrada= xCompuerta + 1 - var;
+				xEntrada= xCompuerta + 1 - 2*var;
 				yEntrada= yCompuerta - 1;
 
 			}
@@ -176,7 +176,7 @@ void CajaNegra::actualizarEntradas() {
 			case NORTE:
 			{
 
-				xEntrada= xCompuerta - 1 + var;
+				xEntrada= xCompuerta - 1 + 2*var;
 				yEntrada= yCompuerta + 1;
 
 			}
@@ -185,7 +185,7 @@ void CajaNegra::actualizarEntradas() {
 			{
 
 				xEntrada= xCompuerta + 1;
-				yEntrada= yCompuerta + 1 - var;
+				yEntrada= yCompuerta + 1 - 2*var;
 			}
 
 			default:
@@ -219,7 +219,7 @@ void CajaNegra::actualizarSalidas() {
 			{
 
 				xSalida= xCompuerta + 1;
-				ySalida= yCompuerta - 1 + var;
+				ySalida= yCompuerta - 1 + 2*var;
 				break;
 
 			}
@@ -227,7 +227,7 @@ void CajaNegra::actualizarSalidas() {
 			case SUR:
 			{
 
-				xSalida= xCompuerta + 1 - var;
+				xSalida= xCompuerta + 1 - 2*var;
 				ySalida= yCompuerta + 1;
 
 			}
@@ -235,7 +235,7 @@ void CajaNegra::actualizarSalidas() {
 			case NORTE:
 			{
 
-				xSalida= xCompuerta - 1 + var;
+				xSalida= xCompuerta - 1 + 2*var;
 				ySalida= yCompuerta - 1;
 
 			}
@@ -244,7 +244,7 @@ void CajaNegra::actualizarSalidas() {
 			{
 
 				xSalida= xCompuerta - 1;
-				ySalida= yCompuerta + 1 - var;
+				ySalida= yCompuerta + 1 - 2*var;
 
 			}
 
