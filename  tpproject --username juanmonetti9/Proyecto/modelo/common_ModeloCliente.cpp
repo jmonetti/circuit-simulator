@@ -151,9 +151,9 @@ std::vector<char*>* ModeloCliente::obtenerCircuitosGuardados() {
 
 }
 
-std::vector<char*>* ModeloCliente::obtenerCircuitosServidor(Servidor servidor) {
+void ModeloCliente::obtenerCircuitosServidor(Servidor servidor, std::vector<char*>* circuitos) {
 
-	return publicacion.obtenerCircuitos(servidor);
+	return publicacion.obtenerCircuitos(servidor,circuitos);
 
 }
 
@@ -179,7 +179,7 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) 
 
 TamanioCajaNegra ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
-	return publicacion.recibir(nombreCircuito,servidor,circuitoActual);
+	return publicacion.recibir(nombreCircuito,servidor);
 
 }
 

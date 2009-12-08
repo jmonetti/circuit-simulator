@@ -20,9 +20,9 @@ public:
 
 	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad);
 
-	TamanioCajaNegra recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito);
+	TamanioCajaNegra recibir(const std::string &nombreCircuito,Servidor servidor);
 
-	std::vector<char*>* obtenerCircuitos(Servidor servidor);
+	void obtenerCircuitos(Servidor servidor, std::vector<char*>* circuitos);
 
 	/* Genera pedido de simulacion */
 	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
@@ -36,11 +36,15 @@ public:
 	static std::string generarPedido();
 
 	/* Genera Pedido para obtener una Caja Negra*/
-	static std::string generarPedido(const std::string nombreCircuito);
+	static std::string generarPedido(const std::string &nombreCircuito);
 
 	bool* recuperarDatosSimular(std::string &ruta);
 
 	int* recuperarDatosTiempos(std::string &ruta);
+
+	TamanioCajaNegra recuperarDatosCajaNegra(std::string &ruta);
+
+	void recuperarDatosCircuitos(std::string &ruta,std::vector<char*>* circuitos);
 
 private:
 
