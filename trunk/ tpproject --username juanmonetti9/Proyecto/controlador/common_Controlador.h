@@ -36,6 +36,8 @@ private:
 
 	void generarCircuito(Circuito* circuito);
 
+	void incluir_componentes_rdraw(std::list<Posicion> &vertices,std::list<SENTIDO>  &sentidos,unsigned fila,unsigned int colum,unsigned int id);
+
 public:
 
 	void guardar();
