@@ -56,19 +56,37 @@ int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 
 }
 
-TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito) {
+TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
-	return TamanioCajaNegra(17,20);
+	std::string ruta = generarPedido(nombreCircuito);
+
+	conectar(servidor);
+	enviarMensaje(ruta);
+	std::string respuesta = recibirMensaje();
+	ofstream frespuesta ("temp/respuesta.xml");
+	frespuesta.write(respuesta.c_str(),respuesta.size());
+	ruta = "temp/respuesta.xml";
+	TamanioCajaNegra tamanio = recuperarDatosCajaNegra(ruta);
+
+	protocolo.desconectar();
+
+	return tamanio;
 
 }
 
-std::vector<char*>* Publicacion::obtenerCircuitos(Servidor servidor) {
+void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuitos) {
 
-	std::vector<char*>* circuitos= new std::vector<char*>();
+	std::string ruta = generarPedido();
 
-	Utils::obtenerArchivos(PATH_SAVES,circuitos);
+	conectar(servidor);
+	enviarMensaje(ruta);
+	std::string respuesta = recibirMensaje();
+	ofstream frespuesta ("temp/respuesta.xml");
+	frespuesta.write(respuesta.c_str(),respuesta.size());
+	ruta = "temp/respuesta.xml";
+	recuperarDatosCircuitos(ruta,circuitos);
 
-	return circuitos;
+	protocolo.desconectar();
 
 }
 
@@ -139,7 +157,7 @@ std::string Publicacion::generarPedido() {
 
 }
 
-std::string Publicacion::generarPedido(const std::string nombreCircuito) {
+std::string Publicacion::generarPedido(const std::string &nombreCircuito) {
 
 	XMLCh tempStr[100];
 	XMLString::transcode("LS", tempStr, 99);
@@ -273,6 +291,21 @@ int* Publicacion::recuperarDatosTiempos(std::string &ruta) {
 	}
 
 	return salidas;
+
+}
+
+
+TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(std::string &ruta) {
+
+	//TODO
+	TamanioCajaNegra tamanio(1,1);
+	return tamanio;
+
+}
+
+void Publicacion::recuperarDatosCircuitos(std::string &ruta,std::vector<char*>* circuitos) {
+
+	//TODO
 
 }
 

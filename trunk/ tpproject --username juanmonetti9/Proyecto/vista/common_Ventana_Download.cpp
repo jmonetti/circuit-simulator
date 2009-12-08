@@ -153,8 +153,6 @@ void Ventana_Download::mostrarCircuitos(std::vector<char*>* circuitos) {
 
 	}
 
-	delete circuitos;
-
 	gtk_signal_connect(GTK_OBJECT( lista), "select_row",
 						GTK_SIGNAL_FUNC(select_row_callback), lista);
 

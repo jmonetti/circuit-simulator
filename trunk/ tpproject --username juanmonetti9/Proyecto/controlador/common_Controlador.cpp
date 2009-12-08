@@ -133,9 +133,11 @@ void Controlador::conectar() {
 	int puerto= atoi(fachada_vista->get_puerto_download());
 	Servidor servidor(host,puerto);
 
-	std::vector<char*>* circuitos= modeloCliente->obtenerCircuitosServidor(servidor);
+	std::vector<char*> circuitos;
 
-	fachada_vista->mostrar_circuitos_servidor(circuitos);
+	modeloCliente->obtenerCircuitosServidor(servidor, &circuitos);
+
+	fachada_vista->mostrar_circuitos_servidor(&circuitos);
 
 }
 

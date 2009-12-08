@@ -55,7 +55,7 @@ public:
 
 	std::vector<char*>* obtenerCircuitosGuardados();
 
-	std::vector<char*>* obtenerCircuitosServidor(Servidor servidor);
+	void obtenerCircuitosServidor(Servidor servidor, std::vector<char*>* circuitos);
 
 	Circuito* recuperar(const std::string &nombreCircuito);
 
