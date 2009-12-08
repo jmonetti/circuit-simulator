@@ -240,7 +240,16 @@ void Area_disenio::draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int ca
 		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x,update_rect.y+6,
 											  update_rect.x+3,update_rect.y+8);
 		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x,update_rect.y+6,
-												  update_rect.x+3,update_rect.y+4);
+											  update_rect.x+3,update_rect.y+4);
+
+		//borro coditos izq
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x,update_rect.y+(CELDA_HEIGHT/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH),update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+		//borro coditos derecha
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.y,update_rect.x+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x+3*CELDA_WIDTH,update_rect.y+(CELDA_HEIGHT/2));
 
 		gtk_widget_draw (drawing_area, &update_rect);
 
@@ -252,6 +261,8 @@ void Area_disenio::draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int ca
 		update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
 		update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
 
+
+
 		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
 									  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
 		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+6,update_rect.y,
@@ -262,6 +273,16 @@ void Area_disenio::draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int ca
 											  update_rect.x+4,update_rect.y+33);
 		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+6,update_rect.y+36,
 												  update_rect.x+8,update_rect.y+33);
+
+		//borro coditos arriba
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH),update_rect.y+(CELDA_WIDTH/2),update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+		//borro coditos abajo
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.x+(CELDA_WIDTH),update_rect.y+2*CELDA_WIDTH+(CELDA_WIDTH/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.x,update_rect.y+2*CELDA_WIDTH+(CELDA_WIDTH/2));
+		gdk_draw_line(pixmap,drawing_area->style->white_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+2*CELDA_WIDTH+(CELDA_WIDTH/2),update_rect.x+(CELDA_WIDTH/2),update_rect.y+3*CELDA_WIDTH);
+
 
 		gtk_widget_draw (drawing_area, &update_rect);
 	}
