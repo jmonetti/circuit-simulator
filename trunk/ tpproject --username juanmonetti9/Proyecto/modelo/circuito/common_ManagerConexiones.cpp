@@ -2,7 +2,7 @@
 #include <vector>
 #include "../../excepciones/common_ConexionException.h"
 
-bool ManagerConexiones::conectar(EntradaCompuerta* entrada,SalidaCompuerta* salida) {
+bool ManagerConexiones::conectar(EntradaCompuerta* entrada,SalidaCompuerta* salida, std::vector<ConexionVertice>* conexiones) {
 
 	Posicion posicionEntrada= entrada->getPosicion();
 	SENTIDO sentidoEntrada= entrada->getSentido();
@@ -10,7 +10,7 @@ bool ManagerConexiones::conectar(EntradaCompuerta* entrada,SalidaCompuerta* sali
 	Posicion posicionSalida= salida->getPosicion();
 	SENTIDO sentidoSalida= salida->getSentido();
 
-	if (hayConexion(posicionEntrada,sentidoEntrada,posicionSalida,sentidoSalida)) {
+	if (hayConexion(posicionEntrada,sentidoEntrada,posicionSalida,sentidoSalida,conexiones)) {
 
 		entrada->conectar(salida);
 		salida->conectar(entrada);
@@ -44,31 +44,31 @@ void ManagerConexiones::desconectar(Compuerta* compuerta) {
 }
 
 
-bool ManagerConexiones::hayConexion(Posicion posicionEntrada,SENTIDO sentidoEntrada, Posicion posicionSalida,SENTIDO sentidoSalida) {
+bool ManagerConexiones::hayConexion(Posicion posicionEntrada,SENTIDO sentidoEntrada, Posicion posicionSalida,SENTIDO sentidoSalida, std::vector<ConexionVertice>* conexiones) {
 
 	switch (sentidoEntrada) {
 
 		case NORTE:
 
-			return verificarConexionNorte(posicionEntrada,posicionSalida,sentidoSalida);
+			return verificarConexionNorte(posicionEntrada,posicionSalida,sentidoSalida, conexiones);
 
 			break;
 
 		case ESTE:
 
-			return verificarConexionEste(posicionEntrada,posicionSalida,sentidoSalida);
+			return verificarConexionEste(posicionEntrada,posicionSalida,sentidoSalida, conexiones);
 
 			break;
 
 		case OESTE:
 
-			return verificarConexionOeste(posicionEntrada,posicionSalida,sentidoSalida);
+			return verificarConexionOeste(posicionEntrada,posicionSalida,sentidoSalida, conexiones);
 
 			break;
 
 		case SUR:
 
-			return verificarConexionSur(posicionEntrada,posicionSalida,sentidoSalida);
+			return verificarConexionSur(posicionEntrada,posicionSalida,sentidoSalida, conexiones);
 
 			break;
 
@@ -111,7 +111,92 @@ void ManagerConexiones::desconectar(SalidaCompuerta* salida) {
 
 }
 
-bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida, std::vector<ConexionVertice>* conexiones) {
+
+	unsigned int xEntrada= posicionEntrada.getX();
+	unsigned int yEntrada= posicionEntrada.getY();
+
+	unsigned int xSalida= posicionSalida.getX();
+	unsigned int ySalida= posicionSalida.getY();
+
+	switch (sentidoSalida) {
+
+		case ESTE:
+		{
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
+
+				ConexionVertice conexion(posicionSalida,NORTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionEntrada,OESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
+
+		break;
+
+		case OESTE:
+
+		{
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
+
+				ConexionVertice conexion(posicionSalida,NORTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionEntrada,ESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
+
+		break;
+
+		case NORTE:
+
+		{
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
+
+				ConexionVertice conexion(posicionEntrada,NORTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
+
+		break;
+
+		default:
+
+			return false;
+
+			break;
+
+	}
+
+	return false;
+
+}
+
+bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida, std::vector<ConexionVertice>* conexiones) {
 
 	unsigned int xEntrada= posicionEntrada.getX();
 	unsigned int yEntrada= posicionEntrada.getY();
@@ -123,21 +208,64 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 
 		case ESTE:
 
-			return (((xEntrada == xSalida) && (yEntrada == ySalida - 1)) ||
-					((xEntrada == xSalida + 1) && (yEntrada == ySalida)));
+		{
+			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionEntrada,ESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
 
 			break;
 
-		case OESTE:
+		case SUR:
 
-			return (((xEntrada == xSalida) && (yEntrada == ySalida - 1)) ||
-					((xEntrada == xSalida - 1) && (yEntrada == ySalida)));
+		{
+			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionSalida,ESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
+
+				ConexionVertice conexion(posicionEntrada,NORTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+
+		}
 
 			break;
 
 		case NORTE:
+		{
 
-			return ((xEntrada == xSalida) && (yEntrada == ySalida - 1));
+			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionSalida,ESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
+
+				ConexionVertice conexion(posicionEntrada,SUR);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+
+		}
 
 			break;
 
@@ -153,7 +281,7 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 
 }
 
-bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida, std::vector<ConexionVertice>* conexiones) {
 
 	unsigned int xEntrada= posicionEntrada.getX();
 	unsigned int yEntrada= posicionEntrada.getY();
@@ -163,23 +291,67 @@ bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion 
 
 	switch (sentidoSalida) {
 
-		case ESTE:
+		case SUR:
 
-			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida));
+		{
+
+			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionSalida,OESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
+
+				ConexionVertice conexion(posicionEntrada,NORTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
 
 			break;
 
-		case SUR:
+		case OESTE:
 
-			return (((xEntrada == xSalida + 1) && (yEntrada == ySalida)) ||
-					((xEntrada == xSalida) && (yEntrada == ySalida + 1)));
+		{
+
+			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionEntrada,OESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
 
 			break;
 
 		case NORTE:
 
-			return (((xEntrada == xSalida + 1) && (yEntrada == ySalida)) ||
-					((xEntrada == xSalida) && (yEntrada == ySalida - 1))) ;
+		{
+
+			if((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionSalida,OESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
+
+				ConexionVertice conexion(posicionEntrada,SUR);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
 
 			break;
 
@@ -195,49 +367,7 @@ bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion 
 
 }
 
-bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
-
-	unsigned int xEntrada= posicionEntrada.getX();
-	unsigned int yEntrada= posicionEntrada.getY();
-
-	unsigned int xSalida= posicionSalida.getX();
-	unsigned int ySalida= posicionSalida.getY();
-
-	switch (sentidoSalida) {
-
-		case SUR:
-
-			return (((xEntrada == xSalida - 1) && (yEntrada == ySalida)) ||
-					((xEntrada == xSalida) && (yEntrada == ySalida + 1)));
-
-			break;
-
-		case OESTE:
-
-			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida));
-
-			break;
-
-		case NORTE:
-
-			return (((xEntrada == xSalida - 1) && (yEntrada == ySalida)) ||
-					((xEntrada == xSalida) && (yEntrada == ySalida - 1)));
-
-			break;
-
-		default:
-
-			return false;
-
-			break;
-
-	}
-
-	return false;
-
-}
-
-bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida) {
+bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida, std::vector<ConexionVertice>* conexiones) {
 
 	unsigned int xEntrada= posicionEntrada.getX();
 	unsigned int yEntrada= posicionEntrada.getY();
@@ -249,21 +379,65 @@ bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion p
 
 		case ESTE:
 
-			return (((xEntrada == xSalida) && (yEntrada == ySalida + 1)) ||
-					((xEntrada == xSalida + 1) && (yEntrada == ySalida)));
+		{
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
+
+				ConexionVertice conexion(posicionSalida,SUR);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionEntrada,OESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+		}
 
 			break;
 
 		case OESTE:
 
-			return (((xEntrada == xSalida) && (yEntrada == ySalida + 1)) ||
-					((xEntrada == xSalida - 1) && (yEntrada == ySalida)));
+		{
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
+
+				ConexionVertice conexion(posicionSalida,SUR);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
+
+				ConexionVertice conexion(posicionEntrada, ESTE);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
 
 			break;
 
 		case SUR:
 
-			return ((xEntrada == xSalida) && (yEntrada == ySalida + 1));
+		{
+
+			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
+
+				ConexionVertice conexion(posicionEntrada,SUR);
+				conexiones->push_back(conexion);
+				return true;
+
+			}
+
+		}
+
 
 			break;
 

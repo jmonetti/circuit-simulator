@@ -91,7 +91,11 @@ int ModeloCliente::agregarSalida(Posicion posicion, const string &nombre, SENTID
 }
 
 
+int ModeloCliente::agregarCajaNegra(Posicion posicion,const std::string &nombre, SENTIDO sentido,Servidor servidor, TamanioCajaNegra tamanio) {
 
+	return FactoryCompuerta::crearCajaNegra(*circuitoActual, posicion, nombre, sentido, servidor, tamanio.getCantEntradas(),tamanio.getCantSalidas());
+
+}
 
 void ModeloCliente::eliminarCompuerta(int idCompuerta) {
 
@@ -128,7 +132,7 @@ void ModeloCliente::guardar() {
 
 	if (circuitoActual) {
 
-		persistencia.guardar(*circuitoActual);
+		persistencia.guardarCircuito(*circuitoActual);
 
 	}else {
 
@@ -173,7 +177,7 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) 
 
 }
 
-int ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
+TamanioCajaNegra ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
 	return publicacion.recibir(nombreCircuito,servidor,circuitoActual);
 
@@ -188,6 +192,12 @@ int ModeloCliente::getId() {
 bool ModeloCliente::hayCircuito() {
 
 	return circuitoActual;
+
+}
+
+void ModeloCliente::getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones) {
+
+	circuitoActual->getConexionVertice(idCompuerta,conexiones);
 
 }
 

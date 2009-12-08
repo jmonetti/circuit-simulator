@@ -13,6 +13,8 @@
 
 int main(int argc,char* argv[]){
 
+
+
 	//inicializo y arranco la libreria
 	gtk_init (&argc,&argv);
 	Box_Ventana_Interna ventana_interna;
@@ -28,7 +30,6 @@ int main(int argc,char* argv[]){
 	ModeloCliente modeloCliente;
 	Controlador* controlador=Controlador::crear_instancia(&fachada,&modeloCliente);
 	ventana.show();
-
 
 	gtk_main ();
 

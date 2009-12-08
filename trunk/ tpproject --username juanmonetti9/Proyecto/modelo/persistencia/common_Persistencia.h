@@ -18,8 +18,12 @@
 
 #include <string>
 #include <sstream>
+
 class Circuito;
+
 #include <xercesc/util/PlatformUtils.hpp>
+
+#include "../../common/constantes.h"
 
 using namespace xercesc;
 using namespace std;
@@ -32,7 +36,7 @@ public:
 
 	virtual ~Persistencia();
 
-	void guardar(const Circuito &circuito);
+	void guardarCircuito(const Circuito &circuito);
 
 	Circuito* recuperar(int idCircuito, const std::string &nombreCircuito);
 
@@ -42,19 +46,23 @@ public:
 
 	static void guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor);
 
+	static std::string recuperarDatoTexto(DOMElement* ElementoCte);
+
 	static int recuperarDato(DOMElement* ElementoCte, std::string &nombre);
-
-	static std::string generarPedido (std::string &nombreCircuito,int cantEntradas, bool* entradas);
-
-	static std::string generarPedido (std::string &nombreCircuito,int cantEntradas, int* entradas);
 
 	static std::string publicarCircuito(Circuito* circuito);
 
-private:
-
 	static void generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::string &ruta, DOMElement* datos);
 
+	DOMElement* getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo);
+
 	Circuito* parserCircuito(DOMElement* ElementoCte, int idCircuito, const std::string &nombreCircuito);
+
+	std::string obtenerNombre(DOMElement* ElementoCte);
+
+private:
+
+
 
 	void parserSalida(DOMElement* ElementoCte, Circuito* circuito);
 
@@ -85,6 +93,13 @@ private:
 	XMLCh* TAG_OR;
 	XMLCh* TAG_XOR;
 	XMLCh* TAG_PISTA;
+	//TODO
+	XMLCh* TAG_GETSIMULACION;
+	XMLCh* TAG_GETTIEMPOSIMULACION;
+	XMLCh* TAG_PUBLICARCIRCUITO ;
+	XMLCh* TAG_BODY;
+	XMLCh* TAG_PEDIDOLISTA ;
+	XMLCh* TAG_PEDIDOCIRCUITO;
 
 
 };

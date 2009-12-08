@@ -6,8 +6,6 @@
 
 void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
-	std::cout<<"enviando circuito: "<<nombreCircuito<<" al servidor : host: "<<servidor.getHost()<<
-	" puerto: "<<servidor.getPuerto()<<std::endl;
 
 }
 
@@ -23,9 +21,9 @@ int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 
 }
 
-int Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito) {
+TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor,Circuito* circuito) {
 
-	return 0;
+	return TamanioCajaNegra(17,20);
 
 }
 
@@ -36,5 +34,56 @@ std::vector<char*>* Publicacion::obtenerCircuitos(Servidor servidor) {
 	Utils::obtenerArchivos(PATH_SAVES,circuitos);
 
 	return circuitos;
+
+}
+
+std::string Publicacion::generarPedido (std::string &nombreCircuito,int cantEntradas, bool* entradas) {
+
+	XMLCh tempStr[100];
+
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "GetSimulacion.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimular(doc,nombreCircuito,cantEntradas, entradas));
+
+	return ruta;
+
+}
+
+std::string Publicacion::generarPedido (std::string &nombreCircuito,int cantEntradas, int* entradas) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "GetTiempoSimulacion.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacion(doc,nombreCircuito,cantEntradas, entradas));
+
+	return ruta;
+
+
+}
+
+
+std::string Publicacion::publicarCircuito(Circuito *circuito) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "PublicarCircuito.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, circuito->obtenerCircuito(doc));
+
+	return ruta;
 
 }

@@ -5,7 +5,6 @@
 #include "stdlib.h"
 #include "Acciones/common_Accion_Draw_XOR.h"
 #include "Acciones/common_Accion_Draw_AND.h"
-#include "Acciones/common_Accion_NULA.h"
 #include "Acciones/common_Accion_Draw_NOT.h"
 #include "Acciones/common_Accion_Draw_OR.h"
 #include "Acciones/common_Accion_Borrar.h"
@@ -16,91 +15,6 @@
 #include "Acciones/common_Accion_new_entrada.h"
 #include "Acciones/common_Accion_new_salida.h"
 #include "Acciones/common_Accion_Draw_Caja_Negra.h"
-
-
-
-
-void Controlador_Circuito::crearVentanaDialogoServidor() {
-
-	GtkWidget* cuadro= gtk_dialog_new();
-	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Servidor");
-
-	GtkWidget* boton= gtk_button_new_with_label("Aceptar");
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
-	gtk_widget_show(boton);
-
-	boton= gtk_button_new_with_label("Cancelar");
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
-	gtk_widget_show(boton);
-
-    GtkWidget* label = gtk_label_new ("Host:");
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-
-
-    GtkWidget* entry= gtk_entry_new();
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show(entry);
-
-    label = gtk_label_new ("Puerto:");
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), label, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-
-
-
-    entry= gtk_entry_new();
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), entry, TRUE, TRUE, 0);
-	gtk_widget_show(entry);
-
-
-	gtk_widget_show(cuadro);
-}
-
-void Controlador_Circuito::crearVentanaDialogoPuertas(const char* titulo) {
-
-	GtkWidget* cuadro= gtk_dialog_new();
-	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, titulo);
-
-	GtkWidget* boton= gtk_button_new_with_label("Aceptar");
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
-	gtk_widget_show(boton);
-
-	boton= gtk_button_new_with_label("Cancelar");
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
-	gtk_widget_show(boton);
-
-	GtkWidget* combo= gtk_combo_new();
-
-    GList *glist = NULL;
-
-    char* texto[100];
-
-    for (int var = 0; var < 100; ++var) {
-
-    	texto[var]= new char[4];
-    	sprintf(texto[var],"%d",var);
-    	glist = g_list_append (glist, texto[var]);
-
-	}
-
-    gtk_combo_set_popdown_strings (GTK_COMBO (combo), glist);
-
-    for (int var = 0; var < 100; ++var) {
-
-        delete[] texto[var];
-
-   	}
-
-
-    g_list_free( glist );
-
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->vbox), combo, TRUE, TRUE, 0);
-    gtk_widget_show(combo);
-
-	gtk_widget_show(cuadro);
-
-
-}
 
 void Controlador_Circuito::callback_crear_Upload( GtkWidget *widget,gpointer callback_data ) {
 
@@ -132,8 +46,7 @@ void Controlador_Circuito::callback_crear_Download( GtkWidget *widget,gpointer c
 	Controlador* controlador=Controlador::get_instancia();
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_Draw_Caja_Negra(controlador));//TODO VOLAR a la bosta
-		//TODO  controlador->mostrar_download();
+		controlador->mostrar_download();
 	}
 
 

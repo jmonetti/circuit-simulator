@@ -13,7 +13,9 @@
 #include "simulacion/common_Simulador.h"
 #include "../common/constantes.h"
 #include "../common/common_Posicion.h"
+#include "../common/common_TamanioCajaNegra.h"
 #include "simulacion/common_Resultado.h"
+#include "circuito/common_ConexionVertice.h"
 
 class ModeloCliente {
 
@@ -22,6 +24,10 @@ public:
 	ModeloCliente();
 
 	virtual ~ModeloCliente();
+
+	void agregarEntradaCompuerta(int id);
+
+	void agregarSalidaCompuerta(int id);
 
 	int crearNuevo(const std::string &nombre);
 
@@ -34,6 +40,8 @@ public:
 	int agregarEntrada(Posicion posicion,const std::string &nombre, SENTIDO sentido);
 
 	int agregarSalida(Posicion posicion,const std::string &nombre, SENTIDO sentido);
+
+	int agregarCajaNegra(Posicion posicion,const std::string &nombre, SENTIDO sentido,Servidor servidor, TamanioCajaNegra tamanio);
 
 	void eliminarCompuerta(int idCompuerta);
 
@@ -53,11 +61,13 @@ public:
 
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
 
-	int recibir(const std::string &nombreCircuito,Servidor servidor);
+	TamanioCajaNegra recibir(const std::string &nombreCircuito,Servidor servidor);
 
 	int getId();
 
 	bool hayCircuito();
+
+	void getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones);
 
 
 private:

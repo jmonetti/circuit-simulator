@@ -48,13 +48,11 @@ void EntradaCompuerta::rotar(SENTIDO sentido) {
 
 void EntradaCompuerta::conectar(SalidaCompuerta* entrada) {
 
-	if (this->entrada) {
+	if (!this->entrada) {
 
-		throw ConexionException("Entrada compuerta ya conectada");
+		this->entrada= entrada;
 
 	}
-
-	this->entrada= entrada;
 
 }
 

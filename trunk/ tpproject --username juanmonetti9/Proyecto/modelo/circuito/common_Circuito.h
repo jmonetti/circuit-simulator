@@ -9,6 +9,7 @@
 #include "compuertas/common_Salida.h"
 #include <string>
 #include <vector>
+#include "common_ConexionVertice.h"
 
 
 class Circuito {
@@ -30,6 +31,8 @@ public:
 	int agregarCompuerta(Compuerta* compuerta);
 
 	void eliminarCompuerta(int idCompuerta);
+
+	void getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones);
 
 	unsigned int getCantidadEntradas() const;
 
@@ -66,9 +69,9 @@ private:
 	void setearEntradas(bool* entradas);
 	void reset();
 
-	void verificarConexiones(Compuerta* compuerta);
-	void establecerConexion(EntradaCompuerta* entrada);
-	void establecerConexion(SalidaCompuerta* salida);
+	void verificarConexiones(Compuerta* compuerta, std::vector<ConexionVertice>* conexiones);
+	void establecerConexion(EntradaCompuerta* entrada, std::vector<ConexionVertice>* conexiones);
+	void establecerConexion(SalidaCompuerta* salida, std::vector<ConexionVertice>* conexiones);
 
 	void eliminarEntradasCompuerta(Compuerta* compuerta);
 	void eliminarSalidasCompuerta(Compuerta* compuerta);

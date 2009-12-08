@@ -8,7 +8,6 @@
 #include "../common/common_Posicion.h"
 #include "../vista/common_Fachada_vista.h"
 #include "../common/constantes.h"
-#include "Acciones/common_Accion_NULA.h"
 #include "Acciones/common_Accion.h"
 #include "../modelo/common_ModeloCliente.h"
 #include <map>
@@ -67,7 +66,7 @@ public:
 
 	void agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO sentido = ESTE);
 
-	void agregar_caja_negra(int x,int y,int cant_entradas,int cant_salidas);
+	void agregar_caja_negra(int x,int y);
 
 	void eliminar_componente(int x,int y);
 

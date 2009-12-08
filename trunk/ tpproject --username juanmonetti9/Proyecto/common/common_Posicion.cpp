@@ -35,3 +35,4 @@ Posicion& Posicion::operator =(const Posicion &posicion) {
 	return *this;
 
 }
+
