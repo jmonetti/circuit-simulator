@@ -542,8 +542,6 @@ bool Celda::agregar_entorno_pista(SENTIDO _sentido,int _id){
 		 aux_1->set_componente(T_PISTA,_sentido,_id,fila,colum);
 		 aux_2->set_componente(T_PISTA,_sentido,_id,fila,colum);
 
-		 componente.get_entorno().push_front(aux_1);
-		 componente.get_entorno().push_front(aux_2);
 	 }
 	 else if(!datos_1->esta_ocupada() && aux_2->acepta_secundario(_sentido) && datos_2->es_principal()){
 
@@ -565,9 +563,19 @@ bool Celda::agregar_entorno_pista(SENTIDO _sentido,int _id){
 		 retorno=false;
 
 
-	if(!retorno){
-		vaciar_entorno(_id);
+	if(retorno){
+
+		if(esta_ocupada()){
+			componente_secundario.get_entorno().push_front(aux_1);
+			componente_secundario.get_entorno().push_front(aux_2);
+		}
+		else
+			componente.get_entorno().push_front(aux_1);
+			componente.get_entorno().push_front(aux_2);
 	}
+	/*if(!retorno){
+		vaciar_entorno(_id);
+	}*/
 
 	return retorno;
 
