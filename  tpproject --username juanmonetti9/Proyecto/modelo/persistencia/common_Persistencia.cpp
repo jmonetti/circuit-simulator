@@ -203,7 +203,7 @@ void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,const st
 
 }
 
-DOMElement* Persistencia::getElemSOAP(std::string &ruta, std::string &tag) {
+DOMElement* Persistencia::getElemSOAP(const std::string &ruta, const std::string &tag) {
 
 
 	   struct stat estadoArchivo;
@@ -259,7 +259,7 @@ DOMElement* Persistencia::getElemSOAP(std::string &ruta, std::string &tag) {
 }
 
 
-DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
+DOMElement* Persistencia::getTipoSOAP(const std::string &ruta, TIPO_SOAP &tipo) {
 
 	   struct stat estadoArchivo;
 
