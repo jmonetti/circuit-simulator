@@ -18,6 +18,8 @@ public:
 
 	void setValorEntrada(bool valor);
 
+	void setTiempo(int tiempo);
+
 	bool getValorEntrada() const;
 
 	std::string getNombre() const;
@@ -47,6 +49,7 @@ private:
 	SalidaCompuerta* salida;
 	bool valor;
 	std::string nombre;
+	int tiempo;
 
 };
 

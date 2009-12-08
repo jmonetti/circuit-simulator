@@ -6,7 +6,6 @@
 #include <vector>
 #include "persistencia/common_Persistencia.h"
 #include "peticion/common_Peticion.h"
-#include "simulacion/common_Simulador.h"
 
 using namespace std;
 
@@ -26,7 +25,7 @@ public:
 
 	bool* simular(int idCircuito,const std::string &nombreCircuito, bool* entradas); //TODO idCircuito
 
-	int* calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito);
+	int* calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas);
 
 	int getId();
 
@@ -46,7 +45,6 @@ private:
 
 	Persistencia persistencia;
 	Peticion peticion;
-	Simulador simulador;
 	int contadorId;
 
 };

@@ -7,7 +7,7 @@
 #include "../../common/constantes.h"
 #include "../../common/common_Posicion.h"
 #include <string>
-#include "../publicacion/common_Servidor.h"
+#include "../peticion/common_Servidor.h"
 
 class FactoryCompuerta {
 

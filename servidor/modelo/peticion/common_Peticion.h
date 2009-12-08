@@ -11,7 +11,6 @@
 #include "common_Servidor.h"
 #include <vector>
 #include "../circuito/common_Circuito.h"
-#include "../simulacion/common_ResultadoSimulacion.h"
 #include "common_Mensajes.h"
 
 class CajaNegra;
