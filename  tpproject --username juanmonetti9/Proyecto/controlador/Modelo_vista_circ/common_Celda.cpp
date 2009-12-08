@@ -235,7 +235,7 @@ bool Celda::agregar_caja_negra(int nuevo_id,int cant_entradas,int cant_salidas){
 
 void Celda::eliminar_componente(){
 
-	Celda* celda_ppal;
+	Celda* celda_ppal=NULL;
 	int aux_id;
 
 	if(hay_secundario()){
@@ -249,7 +249,8 @@ void Celda::eliminar_componente(){
 		celda_ppal = grilla->get_celda(componente.get_fila_ppal(),componente.get_col_ppal());
 
 	}
-	celda_ppal->desocupar_componente(aux_id);
+	if(celda_ppal)
+		celda_ppal->desocupar_componente(aux_id);
 }
 /*
 void Celda::eliminar_componente(int identificador){
@@ -626,6 +627,10 @@ void Celda::desocupar_componente(int identificador){
 
 		}
 		componente.desocupar();
+		if(hay_secundario()){
+			componente=componente_secundario;
+			componente_secundario.desocupar();
+		}
 
 	}else if(componente_secundario.get_id() == identificador){
 
@@ -640,7 +645,9 @@ void Celda::desocupar_componente(int identificador){
 
 		}
 		componente_secundario.desocupar();
+
 	}
+
 }
 
 /*----------------------------------------------------------------------------*/
