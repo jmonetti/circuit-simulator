@@ -195,9 +195,9 @@ bool ModeloCliente::hayCircuito() {
 
 }
 
-void ModeloCliente::getConexionVertice(int idCompuerta,std::vector<ConexionVertice>* conexiones) {
+void ModeloCliente::getConexionVertice(std::vector<ConexionVertice>* conexiones) {
 
-	circuitoActual->getConexionVertice(idCompuerta,conexiones);
+	circuitoActual->getConexionVertice(conexiones);
 
 }
 
@@ -217,3 +217,8 @@ Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 
 }
 
+std::vector<Compuerta*> ModeloCliente::getCompuertas() {
+
+	return circuitoActual->getCompuertas();
+
+}
