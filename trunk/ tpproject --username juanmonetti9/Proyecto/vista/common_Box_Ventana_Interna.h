@@ -29,7 +29,9 @@ public:
 
 	Box_Ventana_Interna();
 
-	void agregar_grilla(int id);
+	void agregar_grilla(int id,const char* nombre);
+
+	void set_nombre_grilla(const char* nombre);
 
 	int getGrillaActual() const;
 

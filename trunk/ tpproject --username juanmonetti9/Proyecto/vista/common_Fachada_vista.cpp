@@ -47,9 +47,15 @@ void Fachada_vista::completar_grilla(Resultado* resultado){
 
 }
 
-void Fachada_vista::agregar_grilla(int id){
+void Fachada_vista::agregar_grilla(int id,const char* nombre){
 
-	ventana_interna->agregar_grilla(id);
+	ventana_interna->agregar_grilla(id,nombre);
+
+}
+
+void Fachada_vista::set_nombre_grilla(const char* nombre) {
+
+	ventana_interna->set_nombre_grilla(nombre);
 
 }
 
