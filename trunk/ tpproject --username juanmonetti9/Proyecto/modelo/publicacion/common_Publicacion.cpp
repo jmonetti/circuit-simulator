@@ -10,7 +10,7 @@
 void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 	Persistencia persistencia;
-	Circuito* circuito= persistencia.recuperar(0,nombreCircuito);
+	Circuito* circuito= persistencia.recuperarCircuito(0,nombreCircuito);
 
 	std::string ruta = publicarCircuito(circuito);
 

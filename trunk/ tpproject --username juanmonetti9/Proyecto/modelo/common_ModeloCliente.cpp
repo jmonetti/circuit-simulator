@@ -159,7 +159,7 @@ void ModeloCliente::obtenerCircuitosServidor(Servidor servidor, std::vector<char
 
 Circuito* ModeloCliente::recuperar(const std::string &nombreCircuito) {
 
-	Circuito* circuito= persistencia.recuperar(contadorId, nombreCircuito);
+	Circuito* circuito= persistencia.recuperarCircuito(contadorId, nombreCircuito);
 
 	circuitos.push_back(circuito);
 
