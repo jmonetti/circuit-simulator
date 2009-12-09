@@ -13,9 +13,26 @@ Protocolo::Protocolo(Socket *socket) {
 
 }
 
+Protocolo::Protocolo() {
+
+
+}
+
 Protocolo::~Protocolo() {
 
 	delete socket;
+
+}
+
+void Protocolo::conectar(Servidor servidor) {
+
+	socket->connect(servidor.getHost(),servidor.getPuerto());
+
+}
+
+void Protocolo::desconectar() {
+
+	socket->close();
 
 }
 

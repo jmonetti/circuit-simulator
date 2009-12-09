@@ -38,7 +38,7 @@ public:
 
 	void guardarCircuito(const Circuito &circuito);
 
-	Circuito* recuperar(int idCircuito, const std::string &nombreCircuito);
+	Circuito* recuperarCircuito(int idCircuito, const std::string &nombreCircuito);
 
 	static void guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor);
 
@@ -54,7 +54,7 @@ public:
 
 	static void generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::string &ruta, DOMElement* datos);
 
-	DOMElement* getElemSOAP(std::string &ruta, std::string &tag);
+	DOMElement* getElemSOAP(const std::string &ruta, const std::string &tag);
 
 	DOMElement* getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo);
 
@@ -81,7 +81,6 @@ private:
 	void parserPista(DOMElement* ElementoCte, Circuito* circuito);
 
 	void parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito);
-
 
 
 	xercesc::XercesDOMParser *m_ConfigFileParser;

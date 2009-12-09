@@ -34,7 +34,7 @@ void ModeloServidor::recuperar() {
 
 bool* ModeloServidor::simular(int idCircuito,const std::string &nombreCircuito,bool* entradas) {
 
-	Circuito* circuito= persistencia.recuperar(idCircuito,nombreCircuito);
+	Circuito* circuito= persistencia.recuperarCircuito(idCircuito,nombreCircuito);
 
 	bool* salidas= circuito->simular(entradas);
 
@@ -46,9 +46,7 @@ bool* ModeloServidor::simular(int idCircuito,const std::string &nombreCircuito,b
 
 int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas) {
 
-	Circuito* circuito= persistencia.recuperar(idCircuito,nombreCircuito);
-
-	//circuito->getConexionVertice() TODO
+	Circuito* circuito= persistencia.recuperarCircuito(idCircuito,nombreCircuito);
 
 	std::vector<Entrada*> entradasCircuito = circuito->getEntradas();
 	for (unsigned int var = 0; var < entradasCircuito.size(); ++var) {
@@ -150,7 +148,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		case LISTA: {
 
 			aux = peticion.generarListaCircuitos(circuitos);
-			//TODO AGREGAR CODIGO HTML con 200 OK;
+
 			return aux;
 
 		}
@@ -163,8 +161,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			obtenerDatosCircuito(nombre,cantEntradas,cantSalidas);
 			aux = peticion.generarRespuesta(cantEntradas,cantSalidas);
 
-			//TODO GENERAR HTML CON 200 OK
-
+			return aux;
 
 		}
 
@@ -173,8 +170,8 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			Circuito* circuito = persistencia.parserCircuito(funcion, getId(), aux);
 			guardar(circuito);
 			persistencia.guardarCircuito(*circuito);
-			aux = peticion.generarRespuesta();
-			//TODO AGREGAR CODIGO HTML con 200 OK;
+			aux = STRNUEVOCIRCUITO;
+
 			return aux;
 		}
 
@@ -184,13 +181,13 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			bool* entradas = new bool[cantEntradas];
 			int idCircuito = getIdCircuito(nombre);
 			if (idCircuito != -1){
-				recuperarDatosSimular(atributos,nombre,entradas); //TODO preguntar a diego el tema de Resultado*
+				recuperarDatosSimular(atributos,nombre,entradas);
 				bool* salidas = simular(idCircuito,nombre,entradas);
 				aux = peticion.generarRespuesta(cantEntradas, salidas);
-				//TODO AGREGAR CODIGO HTML con 200 OK;
+
 				return aux;
 			}
-			//TODO HTML MENSAJE ERROR ID.
+			break;
 		}
 
 		case SIMULARTIEMPO: {
@@ -203,17 +200,13 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
 				aux = peticion.generarRespuesta(cantEntradas, tiempos);
 				return aux;
-				//TODO AGREGAR CODIGO HTML con 200 OK;
-			}
-			//TODO HTML MENSAJE ERROR ID.
-		}
 
-		case INVALIDO: {
-			//TODO HTML MENSAJE ERROR.
+			}
 			break;
 		}
+
 	}
-	return aux; //TODO HTML MENSAJE ERROR
+	return NULL;
 }
 
 
