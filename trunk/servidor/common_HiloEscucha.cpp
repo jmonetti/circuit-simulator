@@ -1,5 +1,6 @@
 #include "common_HiloEscucha.h"
 #include "socket/common_Protocolo.h"
+#include "excepciones/common_SocketException.h"
 
 HiloEscucha::HiloEscucha() {
 
@@ -42,36 +43,46 @@ void* HiloEscucha::run() {
 
 	while (esta_Activo()) {
 
-		Socket* cliente= socketEscuchando->accept();
+		try{
 
-		if (cliente) {
+			Socket* cliente= socketEscuchando->accept();
 
-			std::cerr<<"Nuevo cliente conectado"<<std::endl;
+			if (cliente) {
 
-			/*
-			 * Libero los hilos que terminaron
-			 */
+				std::cerr<<"Nuevo cliente conectado"<<std::endl;
 
-			vaciarHilos();
+				/*
+				 * Libero los hilos que terminaron
+				 */
 
-			/*
-			 * Creo el nuevo hilo para el cliente
-			 */
+				vaciarHilos();
 
-			HiloComunicacion* hiloComunicacion= new HiloComunicacion(new Protocolo(cliente));
-			this->hilosComunicacion.push_back(hiloComunicacion);
+				/*
+				 * Creo el nuevo hilo para el cliente
+				 */
 
-			try{
+				HiloComunicacion* hiloComunicacion= new HiloComunicacion(new Protocolo(cliente));
+				this->hilosComunicacion.push_back(hiloComunicacion);
 
-				hiloComunicacion->start();
+				try{
 
-			}catch (std::runtime_error &e) {
+					hiloComunicacion->start();
 
-				this->terminar();
+				}catch (std::runtime_error &e) {
+
+					this->terminar();
+
+				}
 
 			}
 
+
+		}catch (SocketException e) {
+
+			this->stop();
+
 		}
+
 
 
 	}
