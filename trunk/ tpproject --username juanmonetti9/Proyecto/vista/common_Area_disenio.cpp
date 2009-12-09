@@ -55,7 +55,7 @@ Area_disenio::Area_disenio() {
 	id_manejador_dnd=g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
 
 	//Creo el color negro
-
+/*
 	black.pixel=6000000;
 	black.red=0;
 	black.blue=2;
@@ -65,7 +65,7 @@ Area_disenio::Area_disenio() {
 	gdk_gc_set_foreground(negro_gc, &black);
 	gdk_gc_set_background(negro_gc, &black);
 	gdk_color_parse("black", &black);
-	gdk_gc_set_foreground(negro_gc, &black);
+	gdk_gc_set_foreground(negro_gc, &black);*/
 
 
 }
@@ -246,7 +246,7 @@ void Area_disenio::borrar(){
     //gc, /* contexto gráfico a utilizar */
     //1, 1, /* (x, y) inicial */
     //200, 200); /* (x, y) final */
-	//gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
+	gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
 
 	for (int var = 0; var < 65; ++var) {
 
