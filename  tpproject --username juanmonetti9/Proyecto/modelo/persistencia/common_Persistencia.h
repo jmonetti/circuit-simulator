@@ -28,16 +28,36 @@ class Circuito;
 using namespace xercesc;
 using namespace std;
 
+/*
+ * Clase Persistencia
+ */
+
 class Persistencia {
 
 public:
 
+	/*
+	 * Constructor
+	 */
 	Persistencia();
 
+	/*
+	 * Destructor
+	 */
 	virtual ~Persistencia();
 
+	/*
+	 * Guarda un circuito
+	 * circuito= circuito a guardar
+	 */
 	void guardarCircuito(const Circuito &circuito);
 
+	/*
+	 * Recupera un circuito
+	 * idCircuito= id del circuito
+	 * nombreCircuito= nombre del circuito
+	 * Retorna el circuito recuperado
+	 */
 	Circuito* recuperarCircuito(int idCircuito, const std::string &nombreCircuito);
 
 	static void guardarElemento(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor);

@@ -1,14 +1,11 @@
 #include "common_CajaNegra.h"
 
-CajaNegra::CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,int cantidadEntradas,
-int cantidadSalidas, Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor)
-: Compuerta(id,posicion,sentido), nombreCircuito(nombreCircuito), servidor(servidor){
+CajaNegra::CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,TamanioCajaNegra tamanio,
+Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor)
+: Compuerta(id,posicion,sentido), tamanio(tamanio), nombreCircuito(nombreCircuito), servidor(servidor){
 
 	this->entradas= entradas;
 	this->salidas= salidas;
-	this->cantidadEntradas= cantidadEntradas;
-	this->cantidadSalidas= cantidadSalidas;
-
 	actualizarEntradas();
 	actualizarSalidas();
 
@@ -16,13 +13,13 @@ int cantidadSalidas, Posicion posicion,SENTIDO sentido, const std::string &nombr
 
 CajaNegra::~CajaNegra() {
 
-	for (int i = 0; i < cantidadEntradas; ++i) {
+	for (int i = 0; i < getCantidadEntradas(); ++i) {
 
 		delete entradas[i];
 
 	}
 
-	for (int i = 0; i < cantidadSalidas; ++i) {
+	for (int i = 0; i < getCantidadSalidas(); ++i) {
 
 		delete salidas[i];
 
@@ -35,9 +32,9 @@ CajaNegra::~CajaNegra() {
 
 void CajaNegra::actuarTiempo(int* tiempos) {
 
-	int* tiempoSalidas= publicacion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,cantidadEntradas);
+	int* tiempoSalidas= publicacion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,getCantidadEntradas());
 
-	for (int var = 0; var < cantidadSalidas; ++var) {
+	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
 		salidas[var]->setValorSalida(tiempoSalidas[var]);
 
@@ -49,9 +46,9 @@ void CajaNegra::actuarTiempo(int* tiempos) {
 
 void CajaNegra::actuarSimular(bool* valores) {
 
-	bool* valorSalidas= publicacion.simular(nombreCircuito,servidor,valores,cantidadEntradas);
+	bool* valorSalidas= publicacion.simular(nombreCircuito,servidor,valores,getCantidadEntradas());
 
-	for (int var = 0; var < cantidadSalidas; ++var) {
+	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
 		salidas[var]->setValorSalida(valores[var]);
 
@@ -82,13 +79,13 @@ SalidaCompuerta** CajaNegra::getSalidas() {
 
 int CajaNegra::getCantidadEntradas() {
 
-	return cantidadEntradas;
+	return tamanio.getCantEntradas();
 
 }
 
 int CajaNegra::getCantidadSalidas() {
 
-	return cantidadSalidas;
+	return tamanio.getCantSalidas();
 
 }
 
@@ -103,12 +100,12 @@ void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
     /******* ATRIBUTO ENTRADAS*****************/
 
     aux = "entradas";
-    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,cantidadEntradas);
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getCantidadEntradas());
 
     /******* ATRIBUTO SALIDAS*****************/
 
     aux = "salidas";
-    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,cantidadSalidas);
+    Persistencia::guardarElemento(doc,elem_CajaNegra,aux,getCantidadSalidas());
 
     /******* ATRIBUTO POSICION X *****************/
 
@@ -150,7 +147,7 @@ void CajaNegra::actualizarEntradas() {
 	unsigned int yCompuerta= getPosicion().getY();
 
 
-	for (int var = 0; var < cantidadEntradas; ++var) {
+	for (int var = 0; var < getCantidadEntradas(); ++var) {
 
 		unsigned int xEntrada;
 		unsigned int yEntrada;
@@ -208,7 +205,7 @@ void CajaNegra::actualizarSalidas() {
 	unsigned int yCompuerta= getPosicion().getY();
 
 
-	for (int var = 0; var < cantidadSalidas; ++var) {
+	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
 		unsigned int xSalida;
 		unsigned int ySalida;

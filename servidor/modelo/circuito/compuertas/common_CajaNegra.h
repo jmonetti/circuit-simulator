@@ -9,6 +9,7 @@
 #include <string>
 #include "../../peticion/common_Peticion.h"
 #include "../../peticion/common_Servidor.h"
+#include "../../../common/common_TamanioCajaNegra.h"
 
 using namespace std;
 
@@ -16,8 +17,8 @@ class CajaNegra: public Compuerta {
 
 public:
 
-	CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,int cantidadEntradas,
-int cantidadSalidas, Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor);
+	CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,TamanioCajaNegra tamanio,
+			Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor);
 
 	virtual ~CajaNegra();
 
@@ -45,8 +46,7 @@ private:
 
 	EntradaCompuerta** entradas;
 	SalidaCompuerta** salidas;
-	int cantidadEntradas;
-	int cantidadSalidas;
+	TamanioCajaNegra tamanio;
 	Peticion peticion;
 	std::string nombreCircuito;
 	Servidor servidor;

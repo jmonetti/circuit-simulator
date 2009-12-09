@@ -572,7 +572,9 @@ void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) 
 
 	Servidor servidor(host,puerto);
 
-	FactoryCompuerta::crearCajaNegra(*circuito,posicion,nombreCircuito,(SENTIDO)sentido,servidor,entradas,salidas);
+	TamanioCajaNegra tamanio(entradas,salidas);
+
+	FactoryCompuerta::crearCajaNegra(*circuito,posicion,nombreCircuito,(SENTIDO)sentido,servidor,tamanio);
 
 }
 

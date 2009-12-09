@@ -165,17 +165,8 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 		case ESTE:
 		{
 
-			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
-
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
+			return (((xEntrada == xSalida) && (yEntrada == ySalida - 1)) ||
+					((xEntrada == xSalida + 1) && (yEntrada == ySalida)));
 
 		}
 
@@ -185,17 +176,8 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 
 		{
 
-			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
-
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
+			return (((xEntrada == xSalida) && (yEntrada == ySalida - 1)) ||
+					((xEntrada == xSalida - 1) && (yEntrada == ySalida)));
 
 		}
 
@@ -205,11 +187,7 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 
 		{
 
-			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
-
-				return true;
-
-			}
+			return ((xEntrada == xSalida) && (yEntrada == ySalida - 1));
 
 		}
 
@@ -222,8 +200,6 @@ bool ManagerConexiones::verificarConexionNorte(Posicion posicionEntrada,Posicion
 			break;
 
 	}
-
-	return false;
 
 }
 
@@ -240,55 +216,34 @@ bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion 
 		case ESTE:
 
 		{
-			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
 
-				return true;
-
-			}
+			return ((xEntrada == xSalida + 1) && (yEntrada == ySalida));
 
 		}
 
-			break;
+		break;
 
 		case SUR:
 
 		{
-			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
 
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
-
-				return true;
-
-			}
-
+			return (((xEntrada == xSalida + 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida + 1)));
 
 		}
 
-			break;
+		break;
 
 		case NORTE:
+
 		{
 
-			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
-
-				return true;
-
-			}
-
+			return (((xEntrada == xSalida + 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida - 1)));
 
 		}
 
-			break;
+		break;
 
 		default:
 
@@ -298,7 +253,6 @@ bool ManagerConexiones::verificarConexionEste(Posicion posicionEntrada,Posicion 
 
 	}
 
-	return false;
 
 }
 
@@ -316,55 +270,33 @@ bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion
 
 		{
 
-			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
-
-				return true;
-
-			}
+			return (((xEntrada == xSalida - 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida + 1)));
 
 		}
 
-			break;
+		break;
 
 		case OESTE:
 
 		{
 
-			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
+			return ((xEntrada == xSalida - 1) && (yEntrada == ySalida));
 
 		}
 
-			break;
+		break;
 
 		case NORTE:
 
 		{
 
-			if((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida) && (yEntrada == ySalida - 1)) {
-
-				return true;
-
-			}
+			return (((xEntrada == xSalida - 1) && (yEntrada == ySalida)) ||
+					((xEntrada == xSalida) && (yEntrada == ySalida - 1)));
 
 		}
 
-			break;
+		break;
 
 		default:
 
@@ -373,8 +305,6 @@ bool ManagerConexiones::verificarConexionOeste(Posicion posicionEntrada,Posicion
 			break;
 
 	}
-
-	return false;
 
 }
 
@@ -392,55 +322,33 @@ bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion p
 
 		{
 
-			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
+			return (((xEntrada == xSalida) && (yEntrada == ySalida + 1)) ||
+					((xEntrada == xSalida + 1) && (yEntrada == ySalida)));
 
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida + 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
 		}
 
-			break;
+		break;
 
 		case OESTE:
 
 		{
 
-			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
-
-				return true;
-
-			}
-
-			if ((xEntrada == xSalida - 1) && (yEntrada == ySalida)) {
-
-				return true;
-
-			}
+			return (((xEntrada == xSalida) && (yEntrada == ySalida + 1)) ||
+					((xEntrada == xSalida - 1) && (yEntrada == ySalida)));
 
 		}
 
-			break;
+		break;
 
 		case SUR:
 
 		{
 
-			if ((xEntrada == xSalida) && (yEntrada == ySalida + 1)) {
-
-				return true;
-
-			}
+			return ((xEntrada == xSalida) && (yEntrada == ySalida + 1));
 
 		}
 
-
-			break;
+		break;
 
 		default:
 
@@ -449,8 +357,6 @@ bool ManagerConexiones::verificarConexionSur(Posicion posicionEntrada,Posicion p
 			break;
 
 	}
-
-	return false;
 
 }
 

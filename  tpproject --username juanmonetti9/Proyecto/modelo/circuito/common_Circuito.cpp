@@ -38,9 +38,23 @@ Circuito::~Circuito() {
 
 bool* Circuito::simular(bool* entradas) {
 
-	if (salidas.empty()) {
+	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
 
-		throw CircuitoException("No se pudo simular.Circuito incompleto");
+		if (!entradasCompuerta[var]->getConexion()) {
+
+			throw CircuitoException("No se pudo simular.Circuito incompleto");
+
+		}
+
+	}
+
+	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
+
+		if (salidasCompuerta[var]->getConexiones().empty()) {
+
+			throw CircuitoException("No se pudo simular.Circuito incompleto");
+
+		}
 
 	}
 
@@ -52,16 +66,7 @@ bool* Circuito::simular(bool* entradas) {
 
 	for (unsigned int var = 0; var < salidas.size(); ++var) {
 
-		try {
-
-			salidas[var]->simular();
-
-		} catch (CircuitoException e) {
-
-			delete[] retorno;
-
-			throw e;
-		}
+		salidas[var]->simular();
 
 		retorno[var]= salidas[var]->getValor();
 
@@ -73,24 +78,34 @@ bool* Circuito::simular(bool* entradas) {
 
 int* Circuito::calcularTiempoTransicion() {
 
+	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
+
+		if (!entradasCompuerta[var]->getConexion()) {
+
+			throw CircuitoException("No se pudo simular.Circuito incompleto");
+
+		}
+
+	}
+
+	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
+
+		if (salidasCompuerta[var]->getConexiones().empty()) {
+
+			throw CircuitoException("No se pudo simular.Circuito incompleto");
+
+		}
+
+	}
+
+
 	this->reset();
 
 	int* retorno= new int[salidas.size()];
 
 	for (unsigned int var = 0; var < salidas.size(); ++var) {
 
-		try {
-
-			salidas[var]->calcularTiempoTransicion();
-
-		} catch (CircuitoException e) {
-
-			delete[] retorno;
-
-			throw e;
-
-		}
-
+		salidas[var]->calcularTiempoTransicion();
 
 		retorno[var]= salidas[var]->getTiempoTransicion();
 
@@ -106,11 +121,11 @@ void Circuito::mover(int idCompuerta,Posicion posicion) {
 
 	if (compuerta) {
 
-		compuerta->mover(posicion);
-
 		ManagerConexiones::desconectar(compuerta);
 
-		verificarConexiones(compuerta);
+		compuerta->mover(posicion);
+
+		conectarCompuerta(compuerta);
 
 	}else {
 
@@ -127,11 +142,11 @@ void Circuito::rotar(int idCompuerta,DIRECCION direccion) {
 
 	if (compuerta) {
 
-		compuerta->rotar(direccion);
-
 		ManagerConexiones::desconectar(compuerta);
 
-		verificarConexiones(compuerta);
+		compuerta->rotar(direccion);
+
+		conectarCompuerta(compuerta);
 
 	}else {
 
@@ -166,11 +181,12 @@ int Circuito::agregarCompuerta(Compuerta* compuerta) {
 	agregarEntradasCompuerta(compuerta);
 	agregarSalidasCompuerta(compuerta);
 
-	verificarConexiones(compuerta);
+	conectarCompuerta(compuerta);
 
 	contadorCompuertas++;
 
 	return contadorCompuertas - 1;
+
 }
 
 void Circuito::eliminarCompuerta(int idCompuerta) {
@@ -387,7 +403,7 @@ void Circuito::reset() {
 
 }
 
-void Circuito::verificarConexiones(Compuerta* compuerta) {
+void Circuito::conectarCompuerta(Compuerta* compuerta) {
 
 	EntradaCompuerta** entradas= compuerta->getEntradas();
 

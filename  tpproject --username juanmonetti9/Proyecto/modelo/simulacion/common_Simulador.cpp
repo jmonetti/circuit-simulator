@@ -42,12 +42,14 @@ std::vector<ResultadoSimulacion*>* Simulador::calcularSimulacion(Circuito &circu
 	bool* salidas;
 	bool* entradas= new bool[cantidadEntradas];
 
+	// incializo las entradas en false
 	for (unsigned int var = 0; var < cantidadEntradas; ++var) {
 
 		entradas[var]= false;
 
 	}
 
+	//total de simulaciones
 	int potencia= pow(2,(double) cantidadEntradas);
 
 	for (int i= 0; i < potencia; ++i) {
@@ -70,6 +72,7 @@ std::vector<ResultadoSimulacion*>* Simulador::calcularSimulacion(Circuito &circu
 		ResultadoSimulacion* resultado = new ResultadoSimulacion(entradas,salidas,cantidadEntradas,cantidadSalidas);
 		resultadoSimulacion->push_back(resultado);
 
+		//en caso de que no sea la ultima simulacion
 		if (i < potencia - 1) {
 
 			entradas= generarEntradas(i, cantidadEntradas, entradas);
@@ -96,10 +99,17 @@ ResultadoTiempo* Simulador::calcularTiempo(Circuito &circuito) {
 bool* Simulador::generarEntradas(int i,unsigned int cantidadEntradas,const bool* entradasAnt) {
 
 	bool* entradas= new bool[cantidadEntradas];
+	int potencia;
+
+	/*
+	 * Cada posicion del vector de entradas cambia de valor cuando el numero de
+	 * simulacion (i + 1) es divisible por 2 elevado a la posicion del vector
+	 */
 
 	for (unsigned int var = 0; var < cantidadEntradas; ++var) {
 
-		int potencia= pow(2,(double) cantidadEntradas - var -1);
+		potencia= pow(2,(double) cantidadEntradas - var -1);
+
 		if ((i + 1) % (potencia) == 0) {
 
 			entradas[var]= !entradasAnt[var];

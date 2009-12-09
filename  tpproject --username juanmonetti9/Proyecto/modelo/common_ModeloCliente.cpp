@@ -19,6 +19,7 @@ ModeloCliente::~ModeloCliente() {
 		delete circuitos[var];
 
 	}
+
 }
 
 int ModeloCliente::crearNuevo(const std::string &nombre) {
@@ -72,34 +73,64 @@ void ModeloCliente::eliminar() {
 
 int ModeloCliente::agregarCompuerta(TIPO_COMPUERTA tipo,Posicion posicion,SENTIDO sentido) {
 
-	return FactoryCompuerta::crearCompuerta(tipo, *circuitoActual, posicion,sentido);
+	if (circuitoActual) {
+
+		return FactoryCompuerta::crearCompuerta(tipo, *circuitoActual, posicion,sentido);
+
+	}
+
+	throw CircuitoException("No existe circuito para agregar compuerta");
 
 }
 
 int ModeloCliente::agregarEntrada(Posicion posicion, const string &nombre, SENTIDO sentido) {
 
+	if (circuitoActual) {
 
-	return FactoryCompuerta::crearEntrada(*circuitoActual,posicion,nombre,sentido);
+		return FactoryCompuerta::crearEntrada(*circuitoActual,posicion,nombre,sentido);
+
+	}
+
+	throw CircuitoException("No existe circuito para agregar compuerta");
 
 }
 
 int ModeloCliente::agregarSalida(Posicion posicion, const string &nombre, SENTIDO sentido) {
 
+	if (circuitoActual) {
 
-	return FactoryCompuerta::crearSalida(*circuitoActual,posicion,nombre,sentido);
+		return FactoryCompuerta::crearSalida(*circuitoActual,posicion,nombre,sentido);
+
+	}
+
+	throw CircuitoException("No existe circuito para agregar compuerta");
 
 }
 
 
 int ModeloCliente::agregarCajaNegra(Posicion posicion,const std::string &nombre, SENTIDO sentido,Servidor servidor, TamanioCajaNegra tamanio) {
 
-	return FactoryCompuerta::crearCajaNegra(*circuitoActual, posicion, nombre, sentido, servidor, tamanio.getCantEntradas(),tamanio.getCantSalidas());
+	if (circuitoActual) {
+
+		return FactoryCompuerta::crearCajaNegra(*circuitoActual, posicion, nombre, sentido, servidor, tamanio);
+
+	}
+
+	throw CircuitoException("No existe circuito para agregar compuerta");
 
 }
 
 void ModeloCliente::eliminarCompuerta(int idCompuerta) {
 
-	circuitoActual->eliminarCompuerta(idCompuerta);
+	if (circuitoActual) {
+
+		circuitoActual->eliminarCompuerta(idCompuerta);
+
+	}else {
+
+		throw CircuitoException("No existe circuito para eliminar compuerta");
+
+	}
 
 }
 
@@ -118,13 +149,29 @@ Resultado* ModeloCliente::simular() {
 
 void ModeloCliente::rotar(int idCompuerta,DIRECCION direccion) {
 
-	circuitoActual->rotar(idCompuerta, direccion);
+	if (circuitoActual) {
+
+		circuitoActual->rotar(idCompuerta, direccion);
+
+	}else {
+
+		throw CircuitoException("No existe circuito para rotar compuerta");
+
+	}
 
 }
 
 void ModeloCliente::mover(int idCompuerta,Posicion posicion) {
 
-	circuitoActual->mover(idCompuerta,posicion);
+	if (circuitoActual) {
+
+		circuitoActual->mover(idCompuerta,posicion);
+
+	}else {
+
+		throw CircuitoException("No existe circuito para mover compuerta");
+
+	}
 
 }
 
@@ -144,9 +191,7 @@ void ModeloCliente::guardar() {
 std::vector<char*>* ModeloCliente::obtenerCircuitosGuardados() {
 
 	std::vector<char*>* circuitos= new std::vector<char*>();
-
 	Utils::obtenerArchivos(PATH_SAVES,circuitos);
-
 	return circuitos;
 
 }
@@ -201,6 +246,12 @@ void ModeloCliente::getConexionVertice(std::vector<ConexionVertice>* conexiones)
 
 }
 
+std::vector<Compuerta*>& ModeloCliente::getCompuertas() {
+
+	return circuitoActual->getCompuertas();
+
+}
+
 Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 
 	for (unsigned int var = 0; var < circuitos.size(); ++var) {
@@ -217,8 +268,3 @@ Circuito* ModeloCliente::obtenerCircuito(int idCircuito) {
 
 }
 
-std::vector<Compuerta*> ModeloCliente::getCompuertas() {
-
-	return circuitoActual->getCompuertas();
-
-}
