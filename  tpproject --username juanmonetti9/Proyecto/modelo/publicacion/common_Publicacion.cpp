@@ -15,8 +15,8 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 	std::string ruta = publicarCircuito(circuito);
 
 	conectar(servidor);
-	enviarMensaje(ruta);
-	std::string respuesta = recibirMensaje();
+	enviarPedido(ruta);
+	std::string respuesta = recibirRespuesta();
 	protocolo.desconectar();
 }
 
@@ -25,8 +25,8 @@ bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,b
 	std::string ruta = generarPedido(nombreCircuito,cantidad,entradas);
 
 	conectar(servidor);
-	enviarMensaje(ruta);
-	std::string respuesta = recibirMensaje();
+	enviarPedido(ruta);
+	std::string respuesta = recibirRespuesta();
 	ofstream frespuesta ("temp/respuesta.xml");
 	frespuesta.write(respuesta.c_str(),respuesta.size());
 	ruta = "temp/respuesta.xml";
@@ -43,8 +43,8 @@ int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 	std::string ruta = generarPedido(nombreCircuito,cantidad,tiempos);
 
 	conectar(servidor);
-	enviarMensaje(ruta);
-	std::string respuesta = recibirMensaje();
+	enviarPedido(ruta);
+	std::string respuesta = recibirRespuesta();
 	ofstream frespuesta ("temp/respuesta.xml");
 	frespuesta.write(respuesta.c_str(),respuesta.size());
 	ruta = "temp/respuesta.xml";
@@ -61,8 +61,8 @@ TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor
 	std::string ruta = generarPedido(nombreCircuito);
 
 	conectar(servidor);
-	enviarMensaje(ruta);
-	std::string respuesta = recibirMensaje();
+	enviarPedido(ruta);
+	std::string respuesta = recibirRespuesta();
 	ofstream frespuesta ("temp/respuesta.xml");
 	frespuesta.write(respuesta.c_str(),respuesta.size());
 	ruta = "temp/respuesta.xml";
@@ -79,8 +79,8 @@ void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuit
 	std::string ruta = generarPedido();
 
 	conectar(servidor);
-	enviarMensaje(ruta);
-	std::string respuesta = recibirMensaje();
+	enviarPedido(ruta);
+	std::string respuesta = recibirRespuesta();
 	ofstream frespuesta ("temp/respuesta.xml");
 	frespuesta.write(respuesta.c_str(),respuesta.size());
 	ruta = "temp/respuesta.xml";
@@ -99,7 +99,7 @@ std::string Publicacion::generarPedido (const std::string &nombreCircuito,int ca
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "GetSimulacion.xml";
+	std::string ruta = "temp/GetSimulacion.xml";
 
 	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimular(doc,nombreCircuito,cantEntradas, entradas));
 
@@ -115,7 +115,7 @@ std::string Publicacion::generarPedido (const std::string &nombreCircuito,int ca
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "GetTiempoSimulacion.xml";
+	std::string ruta = "temp/GetTiempoSimulacion.xml";
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacion(doc,nombreCircuito,cantEntradas, entradas));
 
@@ -133,7 +133,7 @@ std::string Publicacion::publicarCircuito(Circuito *circuito) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "PublicarCircuito.xml";
+	std::string ruta = "temp/PublicarCircuito.xml";
 
 	Persistencia::generarSOAP(impl,doc,ruta, circuito->obtenerCircuito(doc));
 
@@ -149,7 +149,7 @@ std::string Publicacion::generarPedido() {
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "GetListaCircuitos.xml";
+	std::string ruta = "temp/GetListaCircuitos.xml";
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetListaCircuitos(doc));
 
@@ -165,7 +165,7 @@ std::string Publicacion::generarPedido(const std::string &nombreCircuito) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "GetCircuito.xml";
+	std::string ruta = "temp/GetCircuito.xml";
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetCircuito(doc, nombreCircuito));
 
@@ -178,7 +178,8 @@ void Publicacion::conectar(Servidor servidor) {
 	protocolo.conectar(servidor);
 
 }
-void Publicacion::enviarMensaje(const std::string &ruta) {
+
+void Publicacion::enviarPedido(const std::string &ruta) {
 
 	ifstream fmensaje (ruta.c_str());
 	std::string linea;
@@ -205,7 +206,7 @@ void Publicacion::enviarMensaje(const std::string &ruta) {
 
 }
 
-std::string Publicacion::recibirMensaje() {
+std::string Publicacion::recibirRespuesta() {
 
 	std::string linea;
 	std::string mensaje;
@@ -215,8 +216,8 @@ std::string Publicacion::recibirMensaje() {
 	 */
 	std::string codigoError = linea.substr(8,3);
 	protocolo.recibirMensaje(linea);
-	protocolo.recibirMensaje(linea);
 	std::string length = linea.substr(16);
+	protocolo.recibirMensaje(linea);
 	if(codigoError == "400") {
 		throw runtime_error("Pedido Invalido");
 	}
@@ -232,7 +233,7 @@ std::string Publicacion::recibirMensaje() {
 		return mensaje;
 
 	}
-	throw runtime_error("Codigo de error HTML invalido - recibirMensaje()");
+	throw runtime_error("Codigo de error HTML invalido - recibirRespuesta()");
 
 }
 
@@ -297,15 +298,53 @@ int* Publicacion::recuperarDatosTiempos(const std::string &ruta) {
 
 TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(const std::string &ruta) {
 
-	//TODO
-	TamanioCajaNegra tamanio(1,1);
+	Persistencia persistencia;
+
+	std::string elemento = "GetCircuitoResponse";
+	DOMElement* elem_conexiones = persistencia.getElemSOAP(ruta,elemento );
+
+	DOMNodeList* lista_attr = elem_conexiones->getChildNodes();
+	DOMNode* atributo = lista_attr->item(0);
+	DOMElement* ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+
+	std::string aux = persistencia.recuperarDatoTexto(ElemCte);
+	int cantEntradas = atoi(aux.c_str());
+
+	atributo = lista_attr->item(1);
+	ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+
+	aux = persistencia.recuperarDatoTexto(ElemCte);
+
+	int cantSalidas = atoi(aux.c_str());
+
+	TamanioCajaNegra tamanio(cantEntradas,cantSalidas);
 	return tamanio;
 
 }
 
 void Publicacion::recuperarDatosCircuitos(const std::string &ruta,std::vector<char*>* circuitos) {
 
-	//TODO
+	Persistencia persistencia;
+
+	std::string elemento = "GetListaCircuitosResponse";
+	DOMElement* elem_lista = persistencia.getElemSOAP(ruta,elemento );
+
+	DOMNodeList* lista_attr = elem_lista->getChildNodes();
+	DOMNode* atributo;
+	std::string nombre;
+	DOMElement* ElemCte;
+	char* aux;
+	for (unsigned int i = 0; i<lista_attr->getLength(); ++i) {
+
+		atributo = lista_attr->item(i);
+		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+		nombre = persistencia.recuperarDatoTexto(ElemCte);
+		aux= new char[nombre.size() + 1];
+		aux[nombre.size()] = '\0';
+		nombre.copy(aux,nombre.size());
+		circuitos->push_back(aux);
+
+	}
 
 }
 

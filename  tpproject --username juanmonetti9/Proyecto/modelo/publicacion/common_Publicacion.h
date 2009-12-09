@@ -30,8 +30,8 @@ private:
 	Protocolo protocolo;
 
 	void conectar(Servidor servidor);
-	void enviarMensaje(const std::string &ruta);
-	std::string recibirMensaje();
+	void enviarPedido(const std::string &ruta);
+	std::string recibirRespuesta();
 
 	/* Genera pedido de simulacion */
 	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
