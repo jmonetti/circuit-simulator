@@ -255,8 +255,8 @@ void CajaNegra::actualizarSalidas() {
 		}
 
 		Posicion posicion(xSalida,ySalida);
-		entradas[var]->mover(posicion);
-		entradas[var]->rotar(getSentido());
+		salidas[var]->mover(posicion);
+		salidas[var]->rotar(getSentido());
 
 	}
 

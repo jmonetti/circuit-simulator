@@ -40,6 +40,8 @@ private:
 
 	void incluir_vertices(std::vector<ConexionVertice> conexiones);
 
+	void redibujar_circuito(std::vector<Compuerta*> compuertas);
+
 public:
 
 	void guardar();
