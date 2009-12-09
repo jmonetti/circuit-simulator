@@ -8,7 +8,7 @@
 //Definicion para el tipo de compuertas
 enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SALIDA,T_CAJANEGRA, T_VACIA};
 
-enum TIPO_SOAP { LISTA, CIRCUITO, NUEVOCIRCUITO , SIMULAR , SIMULARTIEMPO, INVALIDO };
+enum TIPO_SOAP { LISTA, CIRCUITO, NUEVOCIRCUITO , SIMULAR , SIMULARTIEMPO };
 
 enum SENTIDO { NORTE , SUR , ESTE , OESTE };
 
@@ -37,5 +37,7 @@ const static int TIEMPO_TRANSICION_XOR= 30;
 const static int TIEMPO_TRANSICION_NOT= 5;
 
 const static char* PATH_SAVES= "saves/";
+
+const std::string STRNUEVOCIRCUITO = "NuevoCircuito";
 
 #endif /* CONSTANTES_H_ */

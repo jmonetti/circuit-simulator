@@ -203,7 +203,7 @@ void Persistencia::generarSOAP(DOMImplementation *impl,DOMDocument* doc,std::str
 
 }
 
-DOMElement* Persistencia::getElemSOAP(std::string &ruta, std::string &tag) {
+DOMElement* Persistencia::getElemSOAP(const std::string &ruta, const std::string &tag) {
 
 
 	   struct stat estadoArchivo;
@@ -353,12 +353,11 @@ DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
 	      std::string message = xercesc::XMLString::transcode( e.getMessage() );
 	      throw runtime_error("Error parsing file: "+ message);
 	   }
-	   tipo = INVALIDO;
 	   return NULL;
 
 }
 
-Circuito* Persistencia::recuperar(int idCircuito, const std::string &nombreCircuito) {
+Circuito* Persistencia::recuperarCircuito(int idCircuito, const std::string &nombreCircuito) {
 
 	   struct stat estadoArchivo;
 

@@ -29,11 +29,9 @@ public:
 	 */
 	void terminar();
 
-	std::string recibirPedido();
+	std::string recibirPedido(int &codigoError);
 
-	void responder(std::string &respuesta);
-
-
+	void enviarRespuesta(const std::string &ruta, int &codigoError);
 
 
 

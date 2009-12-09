@@ -6,6 +6,7 @@
 
 #include <string>
 #include "common_Socket.h"
+#include "../modelo/peticion/common_Servidor.h"
 
 class Protocolo {
 
@@ -13,7 +14,13 @@ public:
 
 	Protocolo(Socket* socket);
 
+	Protocolo();
+
 	virtual ~Protocolo();
+
+	void conectar(Servidor servidor);
+
+	void desconectar();
 
 	void recibirMensaje(std::string &mensaje);
 

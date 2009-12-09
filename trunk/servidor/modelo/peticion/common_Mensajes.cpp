@@ -4,11 +4,11 @@
 #include <sys/stat.h>
 
 #include <errno.h>
-#include "../../circuito/common_Circuito.h"
+#include "../circuito/common_Circuito.h"
 
 #include "common_Mensajes.h"
 
-DOMElement* Mensajes::GetSimular(DOMDocument* doc,std::string &nombreCircuito,int cantEntradas, bool* entradas) {
+DOMElement* Mensajes::GetSimular(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, bool* entradas) {
 
 	XMLCh tempStr [99];
 	std::string aux;
@@ -32,7 +32,7 @@ DOMElement* Mensajes::GetSimular(DOMDocument* doc,std::string &nombreCircuito,in
 
 }
 
-DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCircuito) {
+DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,const std::string &nombreCircuito, int cantEntradas, int* entradas) {
 
 	XMLCh tempStr [99];
 	std::string aux;
@@ -46,6 +46,11 @@ DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,std::string &nombreCi
     XMLString::transcode(nombreCircuito.c_str(),tempStr,99);
     nombre->setTextContent(tempStr);
     funcion->appendChild(nombre);
+
+    for(int i=0;i<cantEntradas;++i){
+    	aux = "Entrada";
+    	Persistencia::guardarElementoTexto(doc,funcion,aux,entradas[i]);
+    }
 
     return funcion;
 
@@ -80,26 +85,6 @@ DOMElement* Mensajes::GetTiempoSimulacionResponse(DOMDocument* doc,int cantSalid
     	aux = "TiempoSalida";
     	Persistencia::guardarElementoTexto(doc,funcion,aux,salidas[i]);
     }
-
-    return funcion;
-
-}
-
-DOMElement* Mensajes::PublicarCircuitoResponse(DOMDocument* doc) {
-
-	XMLCh tempStr [100];
-	std::string aux;
-
-	XMLString::transcode("PublicarCircuitoResponse",tempStr,99);
-	DOMElement *funcion = doc->createElement(tempStr);
-
-    XMLString::transcode("resultado", tempStr, 29);
-    DOMElement* atributo = doc->createElement(tempStr);
-
-	aux = "Publicado";
-    XMLString::transcode(aux.c_str(),tempStr,99);
-    atributo->setTextContent(tempStr);
-    funcion->appendChild(atributo);
 
     return funcion;
 
