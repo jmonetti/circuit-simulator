@@ -4,7 +4,7 @@
 
 #include "common_Socket.h"
 #include "../excepciones/common_SocketException.h"
-
+#include <iostream>
 /*----------------------------------------------------------------------------*/
 Socket::Socket(){
 
@@ -243,11 +243,13 @@ void Socket::shutdown(){
 		int error=::shutdown(fd,SHUT_RDWR);
 		//si la variable error es -1 lanzo una excepcion
 		if(error==-1){
+			std::cout<<"errorrr"<<std::endl;
 			throw SocketException("Error Socket -cancelar_socket() -valor recibido(-1)");
 		}
 	}
 	else{
 
+		std::cout<<"acacaca"<<std::endl;
 		throw SocketException("Error Socket -cancelar_socket(): Socket invalido");
 	}
 }
