@@ -58,32 +58,6 @@ void Grilla::completar_tabla(Resultado* resultado){
 }
 /*----------------------------------------------------------------------------*/
 
-void Grilla::disconnect_DnD(){
-
-	//gtk_drag_dest_unset(drawing_area);
-	//gtk_drag_source_unset(drawing_area);
-
-
-}
-/*----------------------------------------------------------------------------*/
-
-void Grilla::connect_DnD(){
-
-	//Seteo el drawing area para que sea dropeable
-	//gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
-	//gtk_drag_source_set(drawing_area,GDK_BUTTON1_MASK,target_list,n_targets,GDK_ACTION_COPY);
-	//Seteo el drawing area para que sea dropeable
-	//gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
-
-
-}
-/*----------------------------------------------------------------------------*/
-void Grilla::draw_borrar_pista(int _x,int _y,SENTIDO _sentido){
-
-	areaDisenio.draw_Borrar_pista(_x,_y,_sentido);
-
-}
-
 void Grilla::limpiar_area(){
 
 	areaDisenio.borrar();
@@ -227,37 +201,6 @@ void Grilla::draw_vertice(gdouble x,gdouble y,SENTIDO sentido){
 	areaDisenio.draw_vertice(x,y,sentido);
 }
 
-void Grilla::draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
-
-	areaDisenio.draw_borrar_CAJANEGRA(x,y,cant_entradas,cant_salidas);
-}
-/*----------------------------------------------------------------------------*/
-
-void Grilla::draw_borrar(gdouble x, gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int cant_celdas){
-
-	switch(tipo){
-
-	case T_ENTRADA:{
-				areaDisenio.draw_Borrar_entrada(x,y,sentido);
-				break;
-				}
-	case T_SALIDA:{
-				areaDisenio.draw_Borrar_salida(x,y,sentido);
-				break;
-				}
-	case T_PISTA:{
-				areaDisenio.draw_Borrar_pista(x,y,sentido,cant_celdas);
-				break;
-				}
-	default:{
-
-			areaDisenio.draw_Borrar_compuerta(x,y,sentido);
-			}
-
-
-	}
-
-}
 
 
 void escalar(int fa){

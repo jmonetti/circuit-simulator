@@ -55,29 +55,15 @@ public:
 	virtual void escalar(int _fa);
 
 	/**
-	 * TODO este va a dibujar cualquier compuerta
-	 * y sobre la pestania actual CAMBIAR
+	 * Retorna el widget
 	 */
+	virtual GtkWidget* getWidget();
+
 	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista);
 
 	void dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
 	void dibujar_vertice(gdouble x,gdouble y,SENTIDO sentido);
-
-	void borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
-
-	void borrar_pista(int _x,int _y,SENTIDO _sentido);
-
-	void borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
-
-	void connect_dnd();
-
-	void disconnect_dnd();
-
-	/**
-	 * Retorna el widget
-	 */
-	virtual GtkWidget* getWidget();
 
 	virtual ~Box_Ventana_Interna();
 

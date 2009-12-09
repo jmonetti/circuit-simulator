@@ -44,12 +44,6 @@ public:
 
 	void dibujar_vertice(gdouble x,gdouble y,SENTIDO sentido);
 
-	void borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
-
-	void borrar_pista(int _x,int _y,SENTIDO _sentido);
-
-	void borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
-
 	void completar_grilla(Resultado* resultado);
 
 	void agregar_grilla(int id,const char* nombre);
@@ -59,10 +53,6 @@ public:
 	int cambiar_grilla(int index);
 
 	void eliminar_grilla();
-
-	void activar_dnd();
-
-	void desactivar_dnd();
 
 	int getIdActual() const;
 

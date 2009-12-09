@@ -306,56 +306,76 @@ void Controlador::rotar(int x,int y,DIRECCION n_direccion){
 	int _x=x;
 	int _y=y;
 	TIPO_COMPUERTA _tipo;
-	std::vector<ConexionVertice> conexiones;
+
+
 
 	if(matrizActual->hay_componente(&_x,&_y,&_tipo)){
 
+		//Obtengo la celda padre la que representa la compuerta
+		Celda* celda=matrizActual->get_celda_px(_x,_y);
+		Datos_celda* aux_datos= celda->get_datos();
+		Datos_celda datos=*aux_datos;
+
 		if(_tipo == T_PISTA){
 
-			//Obtengo la celda padre la que representa la compuerta
-			Celda* celda=matrizActual->get_celda_px(_x,_y);
-			Datos_celda* datos= celda->get_datos();
 
 			if(celda->puede_rotar()){
 
 				try {
-					modeloCliente->rotar(datos->get_id(),n_direccion);
+					modeloCliente->rotar(datos.get_id(),n_direccion);
 					celda->rotar(n_direccion);
 
 				} catch (ConexionException e) {
 
-					if (n_direccion == IZQUIERDA) {
-
-						modeloCliente->rotar(datos->get_id(),DERECHA);
-					}
-					if (n_direccion == DERECHA) {
-
-						modeloCliente->rotar(datos->get_id(),IZQUIERDA);
-					}
+					if (n_direccion == IZQUIERDA)
+						modeloCliente->rotar(datos.get_id(),DERECHA);
+					else
+						modeloCliente->rotar(datos.get_id(),IZQUIERDA);
 				}
 			}
 
-		}else if(_tipo != T_ENTRADA && _tipo != T_SALIDA && _tipo != T_CAJANEGRA){
+		}else if(_tipo == T_ENTRADA || _tipo == T_SALIDA){
 
-			//Obtengo la celda padre la que representa la compuerta
-			Celda* celda=matrizActual->get_celda_px(_x,_y);
-			Datos_celda* datos= celda->get_datos();
 			try {
-				modeloCliente->rotar(datos->get_id(),n_direccion);
+				modeloCliente->rotar(datos.get_id(),n_direccion);
+				//Elimino el componente de la vista
+				int x_origen=Modelo_vista_circuito::de_col_a_pixel(celda->get_columna());
+				int y_origen=Modelo_vista_circuito::de_col_a_pixel(celda->get_fila());
+				//elimino el componente
+				matrizActual->eliminar_componente(x_origen,y_origen);
+				//lo intento agregar con el nuevo sentido
+				SENTIDO nuevo_sentido=(n_direccion == IZQUIERDA)?(Celda::turn_left(datos.get_sentido())):(Celda::turn_right(datos.get_sentido()));
+				bool rotado_vista = matrizActual->agregar_componente(&x_origen,&y_origen,datos.get_tipo(),datos.get_id(),nuevo_sentido);
+				if(!rotado_vista){
+					rotado_vista = matrizActual->agregar_componente(&x_origen,&y_origen,datos.get_tipo(),datos.get_id(),datos.get_sentido());
+					if (n_direccion == IZQUIERDA)
+						modeloCliente->rotar(datos.get_id(),DERECHA);
+					else
+						modeloCliente->rotar(datos.get_id(),IZQUIERDA);
+
+				}
+			} catch (ConexionException e) {
+
+				if (n_direccion == IZQUIERDA)
+					modeloCliente->rotar(datos.get_id(),DERECHA);
+				else
+					modeloCliente->rotar(datos.get_id(),IZQUIERDA);
+			}
+
+		}
+		else if(_tipo != T_CAJANEGRA){
+
+
+			try {
+				modeloCliente->rotar(datos.get_id(),n_direccion);
 				celda->rotar(n_direccion);
 
 			} catch (ConexionException e) {
 
-				if (n_direccion == IZQUIERDA) {
-
-					modeloCliente->rotar(datos->get_id(),DERECHA);
-
-				}
-				if (n_direccion == DERECHA) {
-
-					modeloCliente->rotar(datos->get_id(),IZQUIERDA);
-
-				}
+				if (n_direccion == IZQUIERDA)
+					modeloCliente->rotar(datos.get_id(),DERECHA);
+				else
+					modeloCliente->rotar(datos.get_id(),IZQUIERDA);
 			}
 		}
 
@@ -533,7 +553,7 @@ void Controlador::incluir_componentes_rdraw(std::list<Posicion> &vertices,std::l
 void Controlador::conectar_drag_drop(){
 
 	if(!arrastre_activo){
-		fachada_vista->activar_dnd();
+
 		arrastre_activo=true;
 	}
 }
@@ -541,7 +561,7 @@ void Controlador::conectar_drag_drop(){
 void Controlador::desconectar_drag_drop(){
 
 	if(arrastre_activo){
-		fachada_vista->desactivar_dnd();
+
 		arrastre_activo=false;
 	}
 }
