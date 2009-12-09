@@ -54,6 +54,19 @@ Area_disenio::Area_disenio() {
 	//conecto con el controlador para cuando se suelte la seleccion en el destino.
 	id_manejador_dnd=g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
 
+	//Creo el color negro
+
+	black.pixel=6000000;
+	black.red=0;
+	black.blue=2;
+	black.green=2;
+	gdk_color_parse("black", &black);
+	negro_gc = gdk_gc_new(drawing_area->window);
+	gdk_gc_set_foreground(negro_gc, &black);
+	gdk_gc_set_background(negro_gc, &black);
+	gdk_color_parse("black", &black);
+	gdk_gc_set_foreground(negro_gc, &black);
+
 
 }
 
@@ -114,6 +127,7 @@ void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event,gpo
 	area_disenio->set_pixmap(p_pixmap);
 	//Rellena t0do el pixmap de blanco
 	gdk_draw_rectangle (p_pixmap,widget->style->white_gc,true,0,0,widget->allocation.width,widget->allocation.height);
+	area_disenio->borrar();
 
 }
 
@@ -129,6 +143,7 @@ void Area_disenio::exponer_pixmap (GtkWidget *widget, GdkEventExpose *event,gpoi
 	gdk_draw_pixmap(widget->window,widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
                   p_pixmap,event->area.x, event->area.y,event->area.x, event->area.y,
                   event->area.width, event->area.height);
+
 }
 
 /*----------------------------------------------------------------------------*/
@@ -195,6 +210,56 @@ void Area_disenio::draw_Borrar_entrada(gdouble x,gdouble y, SENTIDO sentido){
 	}
 
 	gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
+
+	gtk_widget_draw (drawing_area, &update_rect);
+
+}
+
+void Area_disenio::borrar(){
+
+	GdkRectangle update_rect;
+
+	update_rect.x = 0; //pos x del rectangulo a redibujar
+	update_rect.y = 0; //pos y del rectangulo a redibujar
+	update_rect.width = DRW_AREA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = DRW_AREA_HEIGHT;//alto del rectangulo a redibujar
+
+
+
+//*********************************
+
+    // contexto gráfico
+//    gc = gdk_gc_new( widget );
+
+    // Propiedades de linea
+    //gd/k_gc_set_line_attributes(gc,5,/* grosor */GDK_LINE_DOUBLE_DASH, /* tipo de línea (sólida en este caso) */
+    //GDK_CAP_PROJECTING, /* terminación (redondeada en este caso) */
+    //GDK_JOIN_ROUND); /* unión de trazos (redondeado en este caso) */
+
+   // aMiColor = { 0, 0XFFFF, 0, 0 };
+    //colormap = gtk_widget_get_colormap( widget );
+    //gdk_colormap_alloc_color( colormap, color,
+    //FALSE, /* sólo lectura, para poder compartirlo */
+    //TRUE ); /* si no lo puede reservar, pide uno parecido */
+    //gdk_gc_set_foreground( gc, color );
+    //gdk_draw_line( widget, /* área en donde dibujar */
+    //gc, /* contexto gráfico a utilizar */
+    //1, 1, /* (x, y) inicial */
+    //200, 200); /* (x, y) final */
+	//gdk_draw_rectangle (pixmap,drawing_area->style->white_gc,true,update_rect.x,update_rect.y,update_rect.width,update_rect.height);
+
+	for (int var = 0; var < 65; ++var) {
+
+		gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+var * (CELDA_HEIGHT)+6,
+										  update_rect.x+DRW_AREA_WIDTH,update_rect.y+var *(CELDA_HEIGHT)+6);
+	}
+
+	for (int var = 0; var < 97; ++var) {
+
+		gdk_draw_line(pixmap,/*negro_gc*/drawing_area->style->black_gc,update_rect.x + var*(CELDA_HEIGHT),update_rect.y,
+										  update_rect.x+var*(CELDA_HEIGHT),update_rect.y+DRW_AREA_HEIGHT);
+	}
+
 
 	gtk_widget_draw (drawing_area, &update_rect);
 
@@ -509,17 +574,17 @@ void Area_disenio::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant
 
 	 //cantidad maxima entre entradas o salidas
 	 int cant_max = (cant_entradas > cant_salidas)? cant_entradas:cant_salidas;
-	 update_rect.height= (cant_max > 3)?(cant_max * CELDA_HEIGHT):(3 * CELDA_HEIGHT);
+	 update_rect.height= (cant_max > 3)?(((2*cant_max)-1) * CELDA_HEIGHT):(3 * CELDA_HEIGHT);
 
 
 	 for (int i = 0; i < cant_entradas; ++i) {
 
-		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+ i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (CELDA_HEIGHT/2),update_rect.y+i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+ i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (CELDA_HEIGHT/2),update_rect.y+i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2));
 	 }
 
 	 for (int i = 0; i < cant_salidas; ++i) {
 
-		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+ (2*CELDA_WIDTH)+(CELDA_WIDTH/2) ,update_rect.y+ i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (3*CELDA_HEIGHT),update_rect.y+i*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+ (2*CELDA_WIDTH)+(CELDA_WIDTH/2) ,update_rect.y+ i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (3*CELDA_HEIGHT),update_rect.y+i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2));
 	 }
 	 gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x+6,update_rect.y+2,update_rect.width-CELDA_WIDTH ,update_rect.height-4);
 

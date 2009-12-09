@@ -40,6 +40,12 @@ void Fachada_vista::borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SE
 	ventana_interna->borrar_componente(x,y,tipo,sentido,tam_pista);
 }
 
+void Fachada_vista::limpiar_area_disenio(){
+
+	ventana_interna->limpiar_area();
+
+}
+
 void Fachada_vista::activar_dnd(){
 
 	ventana_interna->connect_dnd();

@@ -16,6 +16,9 @@ private:
 	GtkWidget* box_pestania_uno;
 	GtkWidget* box_size_pestania_uno;
 	int id_manejador_dnd;
+	//colores TODO
+	GdkColor black;
+	GdkGC *negro_gc;
 
 public:
 
@@ -30,6 +33,8 @@ public:
 	GdkPixmap* get_pixmap();
 
 	void set_pixmap(GdkPixmap *n_pixmap);
+
+	void borrar();
 
 	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
 

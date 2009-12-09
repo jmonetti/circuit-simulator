@@ -444,7 +444,7 @@ bool Celda::agregar_entorno_caja_negra(int cant_entradas,int cant_salidas,int _i
 	unsigned int j = colum -1;
 
 	//Recorro el entorno
-	while( retorno && (i < fila+cant_max-1)){
+	while( retorno && (i < fila+(2*cant_max)-2)){
 
 		while( retorno && (j <= colum+1)){
 

@@ -41,6 +41,14 @@ void Box_Ventana_Interna::agregar_grilla(int id,const char* nombre){
 
 }
 
+void Box_Ventana_Interna::limpiar_area(){
+
+	actual->limpiar_area();
+
+}
+
+
+
 void Box_Ventana_Interna::set_nombre_grilla(const char* nombre) {
 
 	int page_num= gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));

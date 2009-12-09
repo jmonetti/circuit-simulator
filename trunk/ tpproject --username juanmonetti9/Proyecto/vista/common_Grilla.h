@@ -68,6 +68,8 @@ public:
 
 	void draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
+	void limpiar_area();
+
 	void draw_borrar_pista(int _x,int _y,SENTIDO _sentido);
 
 

@@ -36,6 +36,8 @@ public:
 
 	Fachada_vista(Box_Ventana_Interna* ventata_int);
 
+	void limpiar_area_disenio();
+
 	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
 
 	void dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
