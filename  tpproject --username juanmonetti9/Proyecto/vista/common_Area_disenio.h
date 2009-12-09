@@ -16,9 +16,11 @@ private:
 	GtkWidget* box_pestania_uno;
 	GtkWidget* box_size_pestania_uno;
 	int id_manejador_dnd;
-	//colores TODO
-	GdkColor black;
-	GdkGC *negro_gc;
+
+	//Colores
+	GdkGC* negro_gc;
+	GdkGC* gris_gc;
+	GdkGC* azul_gc;
 
 public:
 
@@ -34,26 +36,32 @@ public:
 
 	void set_pixmap(GdkPixmap *n_pixmap);
 
+	/*
+	 * Retorna el un color
+	 */
+	GdkGC* get_color_negro();
+
+	GdkGC* get_color_gris();
+
+	GdkGC* get_color_azul();
+
+	/**
+	 * Borra el area de diseño dejando una grilla en blanco
+	 */
+
 	void borrar();
 
-	void draw_Borrar_compuerta(gdouble x,gdouble y, SENTIDO sentido);
-
-	void draw_Borrar_entrada(gdouble x,gdouble y, SENTIDO sentido);
-
-	void draw_Borrar_salida(gdouble x,gdouble y, SENTIDO sentido);
-
-	void draw_Borrar_pista(gdouble x,gdouble y, SENTIDO sentido,int cant_celdas=1);
-
-	void desconectar_DnD();
-
-	void conectar_DnD();
-
+	/**
+	 * Dibuja un vertice
+	 */
 
 	void draw_vertice(gdouble x,gdouble y,SENTIDO sentido);
 
+	/**
+	 * Dibuja una caja negra
+	 */
 	void draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
-	void draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 	/**
 	 * Dibuja una pista en la pantalla
 	 */

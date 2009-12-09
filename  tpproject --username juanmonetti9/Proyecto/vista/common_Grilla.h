@@ -46,8 +46,6 @@ public:
 
 	void completar_tabla(Resultado* resultado);
 
-	void draw_borrar(gdouble x, gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int cant_celdas=0);
-
 	void draw_salida(gdouble x,gdouble y, SENTIDO sentido);
 
 	void draw_entrada(gdouble x,gdouble y, SENTIDO sentido);
@@ -66,17 +64,8 @@ public:
 
 	void draw_vertice(gdouble x,gdouble y,SENTIDO sentido);
 
-	void draw_borrar_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
-
 	void limpiar_area();
 
-	void draw_borrar_pista(int _x,int _y,SENTIDO _sentido);
-
-
-
-	void disconnect_DnD();
-
-	void connect_DnD();
 
 };
 

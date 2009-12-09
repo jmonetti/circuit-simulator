@@ -147,7 +147,7 @@ bool Celda::agregar_salida(int nuevo_id,SENTIDO nuevo_sentido){
 
 	if(!esta_ocupada()){
 
-		agregada=agregar_entorno_ES(T_SALIDA,ESTE,nuevo_id);
+		agregada=agregar_entorno_ES(T_SALIDA,nuevo_sentido,nuevo_id);
 
 		if(agregada){
 			set_componente(T_SALIDA,nuevo_sentido,nuevo_id,fila,colum);
@@ -166,7 +166,7 @@ bool Celda::agregar_entrada(int id,SENTIDO _sentido){
 
 		if(!esta_ocupada()){
 
-			agregada=agregar_entorno_ES(T_ENTRADA,ESTE,id);
+			agregada=agregar_entorno_ES(T_ENTRADA,_sentido,id);
 
 			if(agregada){
 				set_componente(T_ENTRADA,_sentido,id,fila,colum);

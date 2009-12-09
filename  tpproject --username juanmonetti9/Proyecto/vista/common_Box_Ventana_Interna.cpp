@@ -112,44 +112,9 @@ void Box_Ventana_Interna::escalar(int _fa){
 
 }
 
-void Box_Ventana_Interna::connect_dnd(){
-
-	actual->connect_DnD();
-}
-
-void Box_Ventana_Interna::disconnect_dnd(){
-
-	actual->disconnect_DnD();
-}
-
-void Box_Ventana_Interna::borrar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
-
-	if( tipo == T_PISTA){
-
-		actual->draw_borrar(x,y,tipo,sentido,tam_pista);
-
-	}else{
-
-		actual->draw_borrar(x,y,tipo,sentido);
-	}
-
-
-
-}
-
-void Box_Ventana_Interna::borrar_pista(int _x,int _y,SENTIDO _sentido){
-
-	actual->draw_borrar_pista(_x,_y,_sentido);
-}
-
 void Box_Ventana_Interna::dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
 
 	actual->draw_CAJANEGRA(x,y,cant_entradas,cant_salidas);
-}
-
-void Box_Ventana_Interna::borrar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
-
-	actual->draw_borrar_CAJANEGRA(x,y,cant_entradas,cant_salidas);
 }
 
 void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
@@ -173,7 +138,7 @@ void Box_Ventana_Interna::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA 
 					break;
 		}
 		case T_VACIA:{
-					actual->draw_borrar(x,y,tipo,sentido,tam_pista);
+
 					break;
 		}
 		case T_ENTRADA:{
