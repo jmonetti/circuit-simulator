@@ -10,8 +10,10 @@ enum TIPO_COMPUERTA { T_AND , T_OR , T_NOT , T_XOR , T_PISTA , T_ENTRADA , T_SAL
 
 enum TIPO_SOAP { LISTA, CIRCUITO, NUEVOCIRCUITO , SIMULAR , SIMULARTIEMPO };
 
+//Sentido de la compuerta
 enum SENTIDO { NORTE , SUR , ESTE , OESTE };
 
+//Direccion para rotar
 enum DIRECCION { IZQUIERDA , DERECHA };
 
 //constantes de tamanio del drawing area
@@ -31,11 +33,13 @@ const int CELDA_HEIGHT= 12;
 #define _WORD   16
 #define _DWORD  32
 
+//Tiempos de transicion de las compuertas
 const static int TIEMPO_TRANSICION_AND= 10;
 const static int TIEMPO_TRANSICION_OR= 20;
 const static int TIEMPO_TRANSICION_XOR= 30;
 const static int TIEMPO_TRANSICION_NOT= 5;
 
+//Path donde se guardan los circuitos
 const static char* PATH_SAVES= "saves/";
 
 #endif /* CONSTANTES_H_ */

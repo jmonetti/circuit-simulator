@@ -14,14 +14,46 @@ class Publicacion {
 
 public:
 
+	/*
+	 * Envia un circuito a un servidor
+	 * nombreCircuito= nombre del circuito
+	 * servidor= servidor a donde se va a enviar el circuito
+	 */
 	void enviar(const std::string &nombreCircuito,Servidor servidor);
 
+	/*
+	 * Simula un circuito de un servidor
+	 * nombreCircuito= nombre del circuito
+	 * servidor= servidor que tiene el circuito
+	 * entradas= los valores de entrada
+	 * cantidad= cantidad de entradas
+	 * Retorna los valores de salida
+	 */
 	bool* simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad);
 
+	/*
+	 * Calcula el tiempo de transicion de un circuito de un servidor
+	 * nombreCircuito= nombre del circuito
+	 * servidor= servidor que tiene el circuito
+	 * tiempos= tiempos de entradas
+	 * cantidad= cantidad de tiempos
+	 * Retorna los tiempos de las salidas
+	 */
 	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad);
 
+	/*
+	 * Recibe un circuito de un servidor
+	 * nombreCircuito= nombre del circuito
+	 * servidor= servidor que tiene al circuito
+	 * Retorna el tamanio del circuito
+	 */
 	TamanioCajaNegra recibir(const std::string &nombreCircuito,Servidor servidor);
 
+	/*
+	 * Obtiene la lista de circuitos que tiene un servidor
+	 * servidor= servidor que tiene los circuitos
+	 * circuitos= vector donde se cargan los nombres de los circuitos
+	 */
 	void obtenerCircuitos(Servidor servidor, std::vector<char*>* circuitos);
 
 

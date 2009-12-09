@@ -3,9 +3,25 @@
 
 Posicion::Posicion(unsigned int x, unsigned int y) {
 
-	this->x= x;
+	if (x == 0) {
 
-	this->y= y;
+		this->x= 1;
+
+	}else{
+
+		this->x= x;
+
+	}
+
+	if (y == 0) {
+
+		this->y= 1;
+
+	}else{
+
+		this->y= y;
+
+	}
 
 }
 

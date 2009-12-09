@@ -10,22 +10,53 @@
 #include <vector>
 #include "common_ConexionVertice.h"
 
+/*
+ * Clase ManagerConexiones
+ *
+ * Realiza las conexiones y desconexiones
+ */
+
 class ManagerConexiones {
 
 public:
 
+	/*
+	 * Conecta,si puede, una EntradaCompuerta con una SalidaCompuerta
+	 * entrada= EntradaCompuerta a conectar
+	 * salida= SalidaCompuerta a conectar
+	 * Retorna true si se pudo conectar
+	 */
 	static bool conectar(EntradaCompuerta* entrada,SalidaCompuerta* salida);
 
+	/*
+	 * Desconectar una compuerta
+	 * compuerta= compuerta a desconectar
+	 */
 	static void desconectar(Compuerta* compuerta);
 
+	/*
+	 * Obtiene, si hay, conexion perpendicular
+	 * entrada= EntradaCompuerta conectada
+	 * salida= SalidaCompuerta conectada
+	 * conexiones= vector donde se carga la conexion perpendicular
+	 */
 	static void obtenerConexionVertice(EntradaCompuerta* entrada, SalidaCompuerta* salida, std::vector<ConexionVertice>* conexiones);
 
 private:
 
+	/*
+	 * Verifica si hay conexion segun la posicion y sentido de la entrada y salida
+	 */
 	static bool hayConexion(Posicion posicionEntrada,SENTIDO sentidoEntrada, Posicion posicionSalida,SENTIDO sentidoSalida);
 
+	/*
+	 * Desconecta una EntradaCompuerta
+	 */
 	static void desconectar(EntradaCompuerta* entrada);
 
+	/*
+	 * Desconecta una SalidaCompuerta
+	 */
 	static void desconectar(SalidaCompuerta* salida);
 
 	static bool verificarConexionNorte(Posicion posicionEntrada,Posicion posicionSalida,SENTIDO sentidoSalida);

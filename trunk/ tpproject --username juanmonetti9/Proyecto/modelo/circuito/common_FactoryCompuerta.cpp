@@ -76,26 +76,26 @@ int FactoryCompuerta::crearSalida(Circuito &circuito, Posicion posicion, const s
 }
 
 int FactoryCompuerta::crearCajaNegra(Circuito &circuito,Posicion posicion,const std::string &nombre,SENTIDO sentido,Servidor servidor,
-int cantEntradas,int cantSalidas) {
+TamanioCajaNegra tamanio) {
 
-	EntradaCompuerta** entradas= new EntradaCompuerta*[cantEntradas];
+	EntradaCompuerta** entradas= new EntradaCompuerta*[tamanio.getCantEntradas()];
 
-	for (int var = 0; var < cantEntradas; ++var) {
+	for (int var = 0; var < tamanio.getCantEntradas(); ++var) {
 
 		entradas[var]= new EntradaCompuerta();
 
 	}
 
-	SalidaCompuerta** salidas= new SalidaCompuerta*[cantSalidas];
+	SalidaCompuerta** salidas= new SalidaCompuerta*[tamanio.getCantSalidas()];
 
-	for (int var = 0; var < cantSalidas; ++var) {
+	for (int var = 0; var < tamanio.getCantSalidas(); ++var) {
 
 		salidas[var]= new SalidaCompuerta();
 
 	}
 
 
-	Compuerta* compuerta= new CajaNegra(circuito.getContadorCompuertas(),entradas,salidas,cantEntradas,cantSalidas,posicion,sentido,nombre,servidor);
+	Compuerta* compuerta= new CajaNegra(circuito.getContadorCompuertas(),entradas,salidas,tamanio,posicion,sentido,nombre,servidor);
 
 	return circuito.agregarCompuerta(compuerta);
 

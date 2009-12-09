@@ -7,10 +7,6 @@ TamanioCajaNegra::TamanioCajaNegra(int cantEntradas,int cantSalidas) {
 
 }
 
-TamanioCajaNegra::~TamanioCajaNegra() {
-
-}
-
 int TamanioCajaNegra::getCantEntradas() const{
 
 	return cantEntradas;

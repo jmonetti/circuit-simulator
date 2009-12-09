@@ -7,10 +7,6 @@ ConexionVertice::ConexionVertice(Posicion posicion,SENTIDO sentido) {
 
 }
 
-ConexionVertice::~ConexionVertice() {
-
-}
-
 Posicion ConexionVertice::getPosicion()const {
 
 	return posicion;

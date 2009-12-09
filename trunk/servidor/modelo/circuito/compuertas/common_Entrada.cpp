@@ -8,7 +8,7 @@ Entrada::Entrada(int id,SalidaCompuerta* salida, Posicion posicion, SENTIDO sent
 
 	actualizarSalidas();
 
-	this->tiempo= 0;
+	tiempo= 0;
 
 }
 

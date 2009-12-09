@@ -4,16 +4,30 @@
 #include "../../common/constantes.h"
 #include "../../common/common_Posicion.h"
 
+/*
+ * Clase ConexionVertice
+ * Encapsula la conexion perpendicular
+ */
+
 class ConexionVertice {
 
 public:
 
+	/*
+	 * Constructor
+	 * posicion= posicion de la conexion perpendicular
+	 * sentido= sentido de la conexion perpendicular
+	 */
 	ConexionVertice(Posicion posicion, SENTIDO sentido);
 
-	virtual ~ConexionVertice();
-
+	/*
+	 * Retorna la posicion
+	 */
 	Posicion getPosicion()const;
 
+	/*
+	 * Retorna el sentido
+	 */
 	SENTIDO getSentido()const;
 
 private:
