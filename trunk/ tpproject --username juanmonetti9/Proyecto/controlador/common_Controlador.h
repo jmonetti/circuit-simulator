@@ -104,6 +104,8 @@ public:
 
 	void aceptar_nuevo();
 
+	void destruir_vista();
+
 
 	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
 

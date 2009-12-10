@@ -720,6 +720,12 @@ void Controlador::aceptar_nuevo() {
 
 }
 
+void Controlador::destruir_vista(){
+
+	fachada_vista->delete_vista();
+
+}
+
 /*----------------------------------------------------------------------------*/
 
 Controlador::~Controlador() {
@@ -728,6 +734,13 @@ Controlador::~Controlador() {
 	//libero la memoria reservada por la accion actual
 	delete(accion);
 	}
+	std::map<int,Modelo_vista_circuito*>::const_iterator  it;
+	it= matrices.begin();
+	while( it!= matrices.end()){
+		delete((Modelo_vista_circuito*)it->second);
+		++it; //incremento el iterador
+	}
+	g_print("PASEEEEEEEEEEEEEEEEEEEEE\n");
 
 }
 
