@@ -740,7 +740,7 @@ Controlador::~Controlador() {
 		delete((Modelo_vista_circuito*)it->second);
 		++it; //incremento el iterador
 	}
-	g_print("PASEEEEEEEEEEEEEEEEEEEEE\n");
+
 
 }
 

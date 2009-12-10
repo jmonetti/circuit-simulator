@@ -149,9 +149,14 @@ Celda* Modelo_vista_circuito::get_celda_px(int* x,int* y){
 Modelo_vista_circuito::~Modelo_vista_circuito() {
 
 	for (int i = 0; i < FILAS_MODELO; i++){
+
 		for (int j = 0; j < COLUMNAS_MODELO; j++){
+
 			delete modelo_grilla[i][j];
 
 		}
+
+
 	}
+
 }
