@@ -25,7 +25,7 @@
 
 
 const int WIDTH_BOTONERA= 68;
-const int HEIGHT_BOTONERA= 500;
+const int HEIGHT_BOTONERA= 450;
 
 class Box_herramientas_Circuito: public Componente_Visual {
 
