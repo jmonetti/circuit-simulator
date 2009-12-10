@@ -18,10 +18,6 @@ Controlador_Ventana::~Controlador_Ventana() {
 
 }
 
-void Controlador_Ventana::do_nothing(GtkWidget *widget, gpointer data) {
-
-}
-
 
 gint Controlador_Ventana::delete_event_true(GtkWidget *widget, GdkEvent *event, gpointer data) {
 
