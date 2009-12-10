@@ -6,17 +6,6 @@
 #include "../excepciones/common_SocketException.h"
 using namespace std;
 
-Protocolo::Protocolo() {
-
-
-
-}
-
-Protocolo::~Protocolo() {
-
-
-}
-
 void Protocolo::conectar(Servidor servidor) {
 
 	socket.connect(servidor.getHost(),servidor.getPuerto());

@@ -12,13 +12,9 @@ class Protocolo {
 
 public:
 
-	Protocolo();
-
 	void conectar(Servidor servidor);
 
 	void desconectar();
-
-	virtual ~Protocolo();
 
 	void recibirMensaje(std::string &mensaje);
 
