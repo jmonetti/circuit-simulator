@@ -108,7 +108,7 @@ void Persistencia::guardarCircuito(const Circuito &circuito) {
     if (theSerializer->getDomConfig()->canSetParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true))
          theSerializer->getDomConfig()->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
 
-    std::string ruta = PATH_SAVES + circuito.getNombre() + ".xml";
+    std::string ruta = PATH_SAVES + circuito.getNombre();
 
     XMLFormatTarget *myFormatTarget = new LocalFileFormatTarget(ruta.c_str());
 
@@ -311,8 +311,7 @@ Circuito* Persistencia::recuperarCircuito(int idCircuito, const std::string &nom
 				DOMElement* ElementoCte = dynamic_cast< xercesc::DOMElement* >( circuito );
 				if( XMLString::equals(ElementoCte->getTagName(), TAG_CIRCUITO))
 				{
-					unsigned int pos= nombreCircuito.find(".xml");
-					return parserCircuito(ElementoCte, idCircuito,nombreCircuito.substr(0,pos));
+					return parserCircuito(ElementoCte, idCircuito,nombreCircuito);
 				}
 		   }
 	   }
