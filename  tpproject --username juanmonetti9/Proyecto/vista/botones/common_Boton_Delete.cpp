@@ -8,7 +8,7 @@
 Boton_Delete::Boton_Delete():Boton() {
 
 	agregarImagen((gchar*)"imagenes/delete.png");
-	agregarToolTip((gchar*)"Borrar seleccionado");
+	agregarToolTip((gchar*)"Borrar");
 	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_Delete), NULL);
 
 }

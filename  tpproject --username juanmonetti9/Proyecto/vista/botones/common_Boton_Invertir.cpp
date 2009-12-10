@@ -7,7 +7,7 @@
 Boton_Invertir::Boton_Invertir():Boton() {
 
 	agregarImagen((gchar*)"imagenes/rotar_right.png");
-	agregarToolTip((gchar*)"Invertir Seleccionado");
+	agregarToolTip((gchar*)"Invertir Derecha");
 	gtk_signal_connect (GTK_OBJECT (getWidget()), "clicked", GTK_SIGNAL_FUNC (Controlador_Circuito::callback_InvertirR), NULL);
 
 
