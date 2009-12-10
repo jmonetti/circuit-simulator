@@ -259,12 +259,17 @@ void Celda::eliminar_componente(int identificador){
 
 	if(componente.get_id() == identificador){
 		celda_ppal = grilla->get_celda(componente.get_fila_ppal(),componente.get_col_ppal());
+		celda_ppal->desocupar_componente(identificador);
+		if(hay_secundario()){
+			componente
+		}
 	}
 	else if(componente_secundario.get_id() == identificador){
 
 		celda_ppal = grilla->get_celda(componente_secundario.get_fila_ppal(),componente_secundario.get_col_ppal());
+		celda_ppal->desocupar_componente(identificador);
 	}
-	celda_ppal->desocupar_componente(identificador);
+
 
 }*/
 

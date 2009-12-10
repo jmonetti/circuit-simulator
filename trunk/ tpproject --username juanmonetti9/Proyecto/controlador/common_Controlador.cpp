@@ -413,7 +413,8 @@ void Controlador::arrastrar(gdouble x, gdouble y){
 			//muevo el componente en el modelo
 			modeloCliente->mover(datos_origen.get_id(),posicion);
 			//Elimino el componente de la vista
-			matrizActual->eliminar_componente(x_origen,y_origen);
+			Celda* ppal_origen=matrizActual->get_celda_px(x_origen,y_origen);
+			ppal_origen->desocupar_componente(datos_origen.get_id());
 
 			//lo intento agregar en la nueva posicion
 			if(datos_origen.get_tipo() == T_CAJANEGRA)
