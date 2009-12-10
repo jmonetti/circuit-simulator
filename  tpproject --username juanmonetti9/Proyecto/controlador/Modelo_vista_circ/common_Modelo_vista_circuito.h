@@ -26,7 +26,7 @@ class Modelo_vista_circuito {
 
 private:
 
-	Dato_circuito  modelo_grilla[COLUMNAS_MODELO][FILAS_MODELO];
+	Dato_circuito  modelo_grilla[FILAS_MODELO][COLUMNAS_MODELO];
 
 public:
 
