@@ -22,8 +22,9 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad) {
 
+	cout<<"entra??"<<endl; //TODO
 	std::string ruta = generarPedido(nombreCircuito,cantidad,entradas);
-
+	cout<<"genera el pedido.."<<endl;	//TODO
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
@@ -70,7 +71,6 @@ TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor
 	ofstream frespuesta ("temp/GetCircuitoResponse.xml");
 	frespuesta << respuesta;
 	frespuesta.close();
-	//frespuesta.write(respuesta.c_str(),respuesta.size()); //TODO
 	ruta = "temp/GetCircuitoResponse.xml";
 	TamanioCajaNegra tamanio = recuperarDatosCajaNegra(ruta);
 
@@ -314,14 +314,18 @@ TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(const std::string &ruta) {
 	std::string elemento = "GetCircuitoResponse";
 	DOMElement* elem_conexiones = persistencia.getElemSOAP(ruta,elemento );
 
-	DOMNodeList* lista_attr = elem_conexiones->getChildNodes();
-	DOMNode* atributo = lista_attr->item(0);
+	XMLCh tempStr[30];
+	XMLString::transcode("cantEntradas",tempStr,29);
+	DOMNodeList* lista_entradas = elem_conexiones->getElementsByTagName(tempStr);
+	DOMNode* atributo = lista_entradas->item(0);
 	DOMElement* ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
 
 	std::string aux = persistencia.recuperarDatoTexto(ElemCte);
 	int cantEntradas = atoi(aux.c_str());
 
-	atributo = lista_attr->item(1);
+	XMLString::transcode("cantSalidas",tempStr,29);
+	DOMNodeList* lista_salidas = elem_conexiones->getElementsByTagName(tempStr);
+	atributo = lista_salidas->item(0);
 	ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
 
 	aux = persistencia.recuperarDatoTexto(ElemCte);
@@ -329,6 +333,7 @@ TamanioCajaNegra Publicacion::recuperarDatosCajaNegra(const std::string &ruta) {
 	int cantSalidas = atoi(aux.c_str());
 
 	TamanioCajaNegra tamanio(cantEntradas,cantSalidas);
+
 	return tamanio;
 
 }
