@@ -38,7 +38,9 @@ Ventana_Nuevo::Ventana_Nuevo() {
 }
 
 Ventana_Nuevo::~Ventana_Nuevo() {
-	// TODO Auto-generated destructor stub
+
+	gtk_widget_destroy(cuadro);
+
 }
 
 void Ventana_Nuevo::show() {
