@@ -7,7 +7,7 @@ Box_herramientas_Circuito::Box_herramientas_Circuito() {
 
 	//box con primera columna de botones
 	_panel=gtk_vbox_new(false,0);
-	gtk_widget_set_usize(_panel,WIDTH_BOTONERA,HEIGH_BOTONERA);
+	gtk_widget_set_usize(_panel,WIDTH_BOTONERA,HEIGHT_BOTONERA);
 	//box botonera principal
 	_panel_size=gtk_hbox_new(false,0);
 	gtk_box_pack_start (GTK_BOX (_panel_size),_panel,false,false,0);
