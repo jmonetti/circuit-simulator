@@ -362,13 +362,16 @@ bool Celda::agregar_entorno_ES(TIPO_COMPUERTA _tipo,SENTIDO _sentido,int _id){
 
 		Celda* aux=grilla->get_celda(fila_entorno,col_entorno);
 
-		if(! aux->get_datos()->esta_ocupada() ){
+		if(aux){
 
+			if(! aux->get_datos()->esta_ocupada() ){
 			 aux->set_componente(_tipo,_sentido,_id,fila,colum);
 			 componente.get_entorno().push_front(aux);
-		 }
-		 else
+			}
+			else
 			 retorno=false;
+		}else
+			retorno=false;
 	}
 	else
 		retorno=false;
@@ -456,16 +459,21 @@ bool Celda::agregar_entorno_caja_negra(int cant_entradas,int cant_salidas,int _i
 			if( i!=fila && j!=colum){
 
 				Celda* aux=grilla->get_celda(i,j);
-				Datos_celda* datos_aux = aux->get_datos();
 
-				if(!datos_aux->esta_ocupada()){
-					aux->set_componente(T_CAJANEGRA,ESTE,_id,fila,colum);
-					datos_aux->set_cant_entradas(cant_entradas);
-					datos_aux->set_cant_salidas(cant_salidas);
-					componente.get_entorno().push_front(aux);
+				if(aux){
+
+					Datos_celda* datos_aux = aux->get_datos();
+
+					if(!datos_aux->esta_ocupada()){
+						aux->set_componente(T_CAJANEGRA,ESTE,_id,fila,colum);
+						datos_aux->set_cant_entradas(cant_entradas);
+						datos_aux->set_cant_salidas(cant_salidas);
+						componente.get_entorno().push_front(aux);
+					}
+					else
+						retorno=false;
 				}
-				else
-					retorno=false;
+				else retorno=false;
 			}
 			j++;
 		}
@@ -494,18 +502,19 @@ bool Celda::agregar_entorno_compuerta(TIPO_COMPUERTA _tipo,int _id,SENTIDO nuevo
 
 			if(!(i==f && j==c)){
 				Celda* aux=grilla->get_celda(i,j);
-				Datos_celda* datos_aux = aux->get_datos();
 
-				if(retorno && aux){
-					if(!datos_aux->esta_ocupada()){
+				if(aux!=NULL){
+					Datos_celda* datos_aux = aux->get_datos();
+
+					if(retorno && !datos_aux->esta_ocupada()){
+
 						aux->set_componente(_tipo,nuevo_sentido,_id,fila,colum);
 						componente.get_entorno().push_front(aux);
 					}
 					else
-						retorno=false;
-				}
-				else
-					retorno =false;
+						retorno =false;
+				}else
+					retorno=false;
 			}
 		}
 	}
@@ -578,9 +587,7 @@ bool Celda::agregar_entorno_pista(SENTIDO _sentido,int _id){
 			componente.get_entorno().push_front(aux_1);
 			componente.get_entorno().push_front(aux_2);
 	}
-	/*if(!retorno){
-		vaciar_entorno(_id);
-	}*/
+
 
 	return retorno;
 

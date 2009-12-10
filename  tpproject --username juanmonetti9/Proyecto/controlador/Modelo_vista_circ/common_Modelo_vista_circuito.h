@@ -5,22 +5,12 @@
 
 
 #include "common_Celda.h"
-
+#include "../../common/constantes.h"
 #include <string.h>
 #include <gtkmm.h>
 
-// declaracion foward
-//todo class Celda;
-
 //defino al dato del modelo
 typedef struct Celda* Dato_circuito;
-
-
-//Constantes del tamanio del modelo
-const int PIXELES_WIDTH= 1200;
-const int PIXELES_HEIGHT= 780;
-const int FILAS_MODELO= 65;
-const int COLUMNAS_MODELO= 100;
 
 class Modelo_vista_circuito {
 

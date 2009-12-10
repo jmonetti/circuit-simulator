@@ -91,13 +91,13 @@ bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tip
 
 int Modelo_vista_circuito::de_pixel_a_fila(int y){
 
-	int fila=((y*FILAS_MODELO)/PIXELES_HEIGHT)+1;
+	int fila=((y*FILAS_MODELO)/DRW_AREA_HEIGHT)+1;
 	return fila;
 }
 
 int Modelo_vista_circuito::de_pixel_a_col(int x){
 
-	int columna = ((x*COLUMNAS_MODELO)/PIXELES_WIDTH)+1;
+	int columna = ((x*COLUMNAS_MODELO)/DRW_AREA_WIDTH)+1;
 	return columna;
 }
 
@@ -117,7 +117,7 @@ int Modelo_vista_circuito::de_fila_a_pixel(int fila){
 
 Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
-	if(fila>=1 && colum>=1){
+	if(fila>=1 && colum>=1 && fila<=FILAS_MODELO && colum<=COLUMNAS_MODELO ){
 
 		return modelo_grilla[fila-1][colum-1];
 	}
