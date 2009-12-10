@@ -39,7 +39,7 @@ private:
 
 	void vaciar_entorno(int identificador);
 
-	void desocupar_componente(int identificador);
+
 
 
 public:
@@ -65,6 +65,8 @@ public:
 	bool acepta_secundario(SENTIDO _sent)const;
 
 	bool puede_rotar()const; ///todo solo para pistas
+
+	void desocupar_componente(int identificador);
 
 	void rotar(DIRECCION direcc);
 
