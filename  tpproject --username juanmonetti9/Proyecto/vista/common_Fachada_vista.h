@@ -108,6 +108,8 @@ public:
 
 	void mostrar_confirmacion_guardar();
 
+	void delete_vista();
+
 
 };
 

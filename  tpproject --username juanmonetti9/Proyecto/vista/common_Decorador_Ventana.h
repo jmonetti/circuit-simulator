@@ -29,6 +29,8 @@ public:
 	 */
 	virtual GtkWidget* getWidget();
 
+	virtual ~Decorador_Ventana();
+
 
 };
 #endif

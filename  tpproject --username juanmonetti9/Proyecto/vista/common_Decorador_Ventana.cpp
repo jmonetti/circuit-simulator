@@ -41,3 +41,8 @@ GtkWidget* Decorador_Ventana::getWidget(){
 	return _ventana;
 }
 /*----------------------------------------------------------------------------*/
+
+Decorador_Ventana::~Decorador_Ventana(){
+
+	//gtk_object_destroy(GTK_OBJECT(_ventana));
+}
