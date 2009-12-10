@@ -25,7 +25,7 @@ public:
 
 	std::string generarRespuesta(std::string &ruta_pedido);
 
-	bool* simular(int idCircuito,const std::string &nombreCircuito, bool* entradas); //TODO idCircuito
+	bool* simular(int idCircuito, bool* entradas);
 
 	int* calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas);
 

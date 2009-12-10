@@ -54,13 +54,9 @@ void ModeloServidor::recuperar() {
 
 }
 
-bool* ModeloServidor::simular(int idCircuito,const std::string &nombreCircuito,bool* entradas) {
+bool* ModeloServidor::simular(int idCircuito,bool* entradas) {
 
-	Circuito* circuito= persistencia.recuperarCircuito(idCircuito,nombreCircuito);
-
-	bool* salidas= circuito->simular(entradas);
-
-	delete circuito;
+	bool* salidas= circuitos[idCircuito]->simular(entradas);
 
 	return salidas;
 
@@ -218,7 +214,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			int idCircuito = getIdCircuito(nombre);
 			if (idCircuito != -1){
 				recuperarDatosSimular(atributos,nombre,entradas);
-				bool* salidas = simular(idCircuito,nombre,entradas);
+				bool* salidas = simular(idCircuito,entradas);
 				aux = peticion.generarRespuesta(cantEntradas, salidas);
 
 				return aux;
