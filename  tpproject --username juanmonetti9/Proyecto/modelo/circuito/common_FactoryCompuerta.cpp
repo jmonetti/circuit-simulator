@@ -79,6 +79,7 @@ int FactoryCompuerta::crearCajaNegra(Circuito &circuito,Posicion posicion,const 
 TamanioCajaNegra tamanio) {
 
 	EntradaCompuerta** entradas= new EntradaCompuerta*[tamanio.getCantEntradas()];
+	SalidaCompuerta** salidas= new SalidaCompuerta*[tamanio.getCantSalidas()];
 
 	for (int var = 0; var < tamanio.getCantEntradas(); ++var) {
 
@@ -86,7 +87,6 @@ TamanioCajaNegra tamanio) {
 
 	}
 
-	SalidaCompuerta** salidas= new SalidaCompuerta*[tamanio.getCantSalidas()];
 
 	for (int var = 0; var < tamanio.getCantSalidas(); ++var) {
 
@@ -94,8 +94,13 @@ TamanioCajaNegra tamanio) {
 
 	}
 
-
 	Compuerta* compuerta= new CajaNegra(circuito.getContadorCompuertas(),entradas,salidas,tamanio,posicion,sentido,nombre,servidor);
+
+	for (int var = 0; var < tamanio.getCantSalidas(); ++var) {
+
+		salidas[var]->setCompuerta(compuerta);
+
+	}
 
 	return circuito.agregarCompuerta(compuerta);
 
