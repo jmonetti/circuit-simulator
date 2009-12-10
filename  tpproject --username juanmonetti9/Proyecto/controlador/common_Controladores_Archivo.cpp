@@ -7,7 +7,7 @@
 
 void Controlador_Archivo::callback_Imprimir( GtkWidget *widget,gpointer callback_data ){
 	//TODO
-	g_print("Apretado el Imprimir\n");
+	//g_print("Apretado el Imprimir\n");
 	//fin TODO
 }
 
