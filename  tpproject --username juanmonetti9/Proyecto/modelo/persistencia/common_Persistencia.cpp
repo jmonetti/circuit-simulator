@@ -245,8 +245,13 @@ DOMElement* Persistencia::getElemSOAP(const std::string &ruta, const std::string
 
 	  		   DOMNode* funcion = funcionList->item(0);
 
-	  		   if (funcion != NULL)
-	  			   return dynamic_cast < xercesc::DOMElement* > ( funcion );
+	  		   if (funcion != NULL){
+	  			  if( funcion->getNodeType() &&  // true is not NULL
+	  				funcion->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+	  				{
+						  return dynamic_cast < xercesc::DOMElement* > ( funcion );
+	  				}
+	  		   }
 
 	  	   }
 	   catch( xercesc::XMLException& e )

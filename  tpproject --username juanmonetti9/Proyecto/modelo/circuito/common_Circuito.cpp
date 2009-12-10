@@ -336,7 +336,14 @@ DOMElement* Circuito::obtenerCircuito(DOMDocument* doc) const{
 
     aux= "nombre";
     std::string nombre = getNombre();
+
     Persistencia::guardarElemento(doc,elem_circuito,aux,nombre);
+
+	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+		compuertas[var]->guardar(doc,elem_circuito);  //TODO GUARDAR COMPUERTAS
+
+	}
 
     return elem_circuito;
 
