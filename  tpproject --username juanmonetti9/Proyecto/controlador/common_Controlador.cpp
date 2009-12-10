@@ -281,7 +281,7 @@ void Controlador::agregar_caja_negra(int x,int y){
 		this->redibujar_circuito(modeloCliente->getCompuertas());
 
 	}else if (!agregadaVista) {
-		//modeloCliente->eliminarCompuerta(id);
+		modeloCliente->eliminarCompuerta(id);
 	}
 }
 
