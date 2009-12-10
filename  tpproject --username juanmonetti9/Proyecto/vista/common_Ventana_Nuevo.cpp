@@ -39,7 +39,6 @@ Ventana_Nuevo::Ventana_Nuevo() {
 
 Ventana_Nuevo::~Ventana_Nuevo() {
 
-	gtk_widget_destroy(cuadro);
 
 }
 
