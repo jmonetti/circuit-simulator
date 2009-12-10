@@ -46,6 +46,8 @@ public:
 
 	static void guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::string &nombre,int valor);
 
+	static void guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::string &nombre,std::string &valor);
+
 	static std::string recuperarDatoTexto(DOMElement* ElementoCte);
 
 	static int recuperarDato(DOMElement* ElementoCte, std::string &nombre);

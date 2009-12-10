@@ -9,7 +9,6 @@
 class Circuito;
 
 
-
 class HiloComunicacion: public Thread {
 
 public:
@@ -17,7 +16,7 @@ public:
 	/*
 	 * Constructor
 	 */
-	HiloComunicacion(Protocolo* protocolo);
+	HiloComunicacion(ModeloServidor *modeloServidor, Protocolo* protocolo);
 
 	/*
 	 * Destructor
@@ -43,7 +42,7 @@ private:
 
 	Protocolo* protocolo;
 
-	ModeloServidor modelo;
+	ModeloServidor* modelo;
 
 };
 

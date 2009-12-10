@@ -308,17 +308,16 @@ void Circuito::guardar(DOMDocument* doc) const{
 
 }
 
-DOMElement* Circuito::obtenerCircuito(DOMDocument* doc) const{
+DOMElement* Circuito::obtenerElemCircuito(DOMDocument* doc) const{
 
 	XMLCh tempStr[100];
-	std::string aux;
 
-    XMLString::transcode("Circuito", tempStr, 99);
+    XMLString::transcode("nombreCircuito", tempStr, 99);
     DOMElement*   elem_circuito = doc->createElement(tempStr);
 
-    aux= "nombre";
     std::string nombre = getNombre();
-    Persistencia::guardarElemento(doc,elem_circuito,aux,nombre);
+    XMLString::transcode(nombre.c_str(),tempStr,99);
+    elem_circuito->setTextContent(tempStr);
 
     return elem_circuito;
 

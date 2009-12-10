@@ -94,12 +94,12 @@ DOMElement* Mensajes::GetListaCircuitosResponse(DOMDocument* doc, std::vector<Ci
 
 	XMLCh tempStr[100];
 
-	XMLString::transcode("circuitos",tempStr,99);
+	XMLString::transcode("GetListaCircuitosResponse",tempStr,99);
 	DOMElement* elem_circuitos = doc->createElement(tempStr);
 
 	for (unsigned int var = 0; var < circuitos.size(); ++var) {
 
-		elem_circuitos->appendChild(circuitos[var]->obtenerCircuito(doc));
+		elem_circuitos->appendChild(circuitos[var]->obtenerElemCircuito(doc));
 
 	}
 

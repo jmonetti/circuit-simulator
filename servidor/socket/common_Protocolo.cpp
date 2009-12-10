@@ -8,7 +8,6 @@ using namespace std;
 
 Protocolo::Protocolo(Socket *socket) {
 
-	this->socket->close();
 	this->socket= socket;
 
 }
