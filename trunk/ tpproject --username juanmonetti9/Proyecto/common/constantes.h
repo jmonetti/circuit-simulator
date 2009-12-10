@@ -20,6 +20,11 @@ enum DIRECCION { IZQUIERDA , DERECHA };
 const int DRW_AREA_WIDTH= 1170;
 const int DRW_AREA_HEIGHT= 780;
 
+//Constantes del tamanio del modelo
+const int FILAS_MODELO= 65;
+const int COLUMNAS_MODELO= 98;
+
+
 //constante de tamanio del area de dibujo de una compuerta
 const int COMPUERTA_WIDTH= 36;
 const int COMPUERTA_HEIGHT= 36;
