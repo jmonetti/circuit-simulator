@@ -46,8 +46,8 @@ void Controlador_Circuito::callback_crear_Download( GtkWidget *widget,gpointer c
 	Controlador* controlador=Controlador::get_instancia();
 	if(controlador){
 		controlador->desconectar_drag_drop();
-		controlador->agregar_accion(new Accion_Draw_Caja_Negra(controlador));
-		//controlador->mostrar_download();
+		//controlador->agregar_accion(new Accion_Draw_Caja_Negra(controlador));
+		controlador->mostrar_download();
 	}
 
 

@@ -27,9 +27,11 @@ bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,b
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/respuesta.xml");
-	frespuesta.write(respuesta.c_str(),respuesta.size());
-	ruta = "temp/respuesta.xml";
+	ofstream frespuesta ("temp/GetSimulacionResponse.xml");
+	frespuesta << respuesta;
+	frespuesta.close();
+	//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
+	ruta = "temp/GetSimulacionResponse.xml";
 	bool* salidas = recuperarDatosSimular(ruta);
 
 	protocolo.desconectar();
@@ -45,9 +47,11 @@ int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/respuesta.xml");
-	frespuesta.write(respuesta.c_str(),respuesta.size());
-	ruta = "temp/respuesta.xml";
+	ofstream frespuesta ("temp/GetTiempoSimulacionResponse.xml");
+	frespuesta << respuesta;
+	frespuesta.close();
+	//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
+	ruta = "temp/GetTiempoSimulacionResponse.xml";
 	int* salidas_tiempos = recuperarDatosTiempos(ruta);
 
 	protocolo.desconectar();
@@ -63,9 +67,11 @@ TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/respuesta.xml");
-	frespuesta.write(respuesta.c_str(),respuesta.size());
-	ruta = "temp/respuesta.xml";
+	ofstream frespuesta ("temp/GetCircuitoResponse.xml");
+	frespuesta << respuesta;
+	frespuesta.close();
+	//frespuesta.write(respuesta.c_str(),respuesta.size()); //TODO
+	ruta = "temp/GetCircuitoResponse.xml";
 	TamanioCajaNegra tamanio = recuperarDatosCajaNegra(ruta);
 
 	protocolo.desconectar();
@@ -81,9 +87,10 @@ void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuit
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/respuesta.xml");
-	frespuesta.write(respuesta.c_str(),respuesta.size());
-	ruta = "temp/respuesta.xml";
+	ofstream frespuesta ("temp/GetListaCircuitosResponse.xml");
+	frespuesta << respuesta;
+	frespuesta.close();
+	ruta = "temp/GetListaCircuitosResponse.xml";
 	recuperarDatosCircuitos(ruta,circuitos);
 
 	protocolo.desconectar();
@@ -197,10 +204,10 @@ void Publicacion::enviarPedido(const std::string &ruta) {
 
 	std::string lenght;
     std::stringstream converter;
-    converter << total.size();
+    converter << soap.size();
     lenght = converter.str();
 
-	total += "Contenten-Length: " + lenght + "\n\n";
+	total += "Content-Length: " + lenght + "\n\n";
 	total += soap;
 	protocolo.enviarMensaje(total);
 
@@ -214,9 +221,13 @@ std::string Publicacion::recibirRespuesta() {
 	/* Codigo de error: chequeo codigo de error q llega en la primera linea
 	 * desde el caracter 8 al 13
 	 */
-	std::string codigoError = linea.substr(8,3);
+
+	std::string codigoError = linea.substr(9,3);
+
 	protocolo.recibirMensaje(linea);
+
 	std::string length = linea.substr(16);
+
 	protocolo.recibirMensaje(linea);
 	if(codigoError == "400") {
 		throw runtime_error("Pedido Invalido");
@@ -333,17 +344,24 @@ void Publicacion::recuperarDatosCircuitos(const std::string &ruta,std::vector<ch
 	DOMNode* atributo;
 	std::string nombre;
 	DOMElement* ElemCte;
+	unsigned int length = lista_attr->getLength();
 	char* aux;
-	for (unsigned int i = 0; i<lista_attr->getLength(); ++i) {
+
+	for (unsigned int i = 0; i<length; ++i) {
 
 		atributo = lista_attr->item(i);
-		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
-		nombre = persistencia.recuperarDatoTexto(ElemCte);
-		aux= new char[nombre.size() + 1];
-		aux[nombre.size()] = '\0';
-		nombre.copy(aux,nombre.size());
-		circuitos->push_back(aux);
+		if( atributo->getNodeType() &&  // true is not NULL
+		atributo->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+		{
+			ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
 
+			nombre = persistencia.recuperarDatoTexto(ElemCte);
+
+			aux= new char[nombre.size() + 1];
+			aux[nombre.size()] = '\0';
+			nombre.copy(aux,nombre.size());
+			circuitos->push_back(aux);
+		}
 	}
 
 }
