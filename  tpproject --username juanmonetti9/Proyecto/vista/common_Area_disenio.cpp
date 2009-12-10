@@ -85,6 +85,7 @@ GdkGC* Area_disenio::get_color_negro(){
 		return negro_gc;
 
 }
+
 GdkGC* Area_disenio::get_color_azul(){
 
 	if(!azul_gc){
@@ -102,11 +103,7 @@ GdkGC* Area_disenio::get_color_azul(){
 	}
 	else
 		return azul_gc;
-
-
-
 }
-
 
 GdkGC* Area_disenio::get_color_gris(){
 
@@ -127,22 +124,13 @@ GdkGC* Area_disenio::get_color_gris(){
 	}
 	else
 		return gris_gc;
-
-
-
 }
-
-
-
-
-
 
 void Area_disenio::show() {
 
 	gtk_widget_show (drawing_area);
 	gtk_widget_show (box_size_pestania_uno);
 	gtk_widget_show(box_pestania_uno);
-
 
 }
 
@@ -155,16 +143,12 @@ GtkWidget* Area_disenio::getWidget() {
 GdkPixmap* Area_disenio::get_pixmap(){
 
 	return pixmap;
-
 }
 
 void Area_disenio::set_pixmap(GdkPixmap *n_pixmap){
 
 	pixmap = n_pixmap;
 }
-
-
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event,gpointer data){
 
@@ -188,9 +172,6 @@ void Area_disenio::crear_pixmap (GtkWidget *widget, GdkEventConfigure *event,gpo
 	area_disenio->borrar();
 
 }
-
-
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::exponer_pixmap (GtkWidget *widget, GdkEventExpose *event,gpointer data){
 
@@ -230,112 +211,10 @@ void Area_disenio::borrar(){
 		gdk_draw_line(pixmap,gris,update_rect.x + var*(CELDA_HEIGHT),update_rect.y,
 										  update_rect.x+var*(CELDA_HEIGHT),update_rect.y+DRW_AREA_HEIGHT);
 	}
-/*
-	for (int var1 = 0; var1 < 65; ++var1) {
-
-		for (int var = 0; var < 98; ++var) {
-
-			gdk_draw_line(pixmap,gris,update_rect.x+var*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.y+var1*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+var*(CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.y+var1*(CELDA_HEIGHT)+(CELDA_HEIGHT/2));
-		}
-	}*/
-
-
-
-	gtk_widget_draw (drawing_area, &update_rect);
-
-}
-
-/*----------------------------------------------------------------------------*/
-
-void Area_disenio::draw_pista_sur(gdouble x, gdouble y){
-
-	GdkRectangle update_rect;
-
-	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
-	update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
-
-	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
-	update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
-
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
-								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+6,update_rect.y+36,
-									  update_rect.x+4,update_rect.y+33);
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+6,update_rect.y+36,
-										  update_rect.x+8,update_rect.y+33);
-
-
 	gtk_widget_draw (drawing_area, &update_rect);
 }
-/*----------------------------------------------------------------------------*/
 
-void Area_disenio::draw_pista_norte(gdouble x, gdouble y){
-
-	GdkRectangle update_rect;
-
-	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
-	update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
-
-	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
-	update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
-
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
-								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+6,update_rect.y,
-								  update_rect.x+4,update_rect.y+3);
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+6,update_rect.y,
-									  update_rect.x+8,update_rect.y+3);
-
-	gtk_widget_draw (drawing_area, &update_rect);
-}
-/*----------------------------------------------------------------------------*/
-
-void Area_disenio::draw_pista_este(gdouble x, gdouble y){
-
-
-
-	GdkRectangle update_rect;
-
-	update_rect.x = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
-	update_rect.y = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
-
-	update_rect.width = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
-	update_rect.height = CELDA_WIDTH;//alto del rectangulo a redibujar
-
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
-								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+33,update_rect.y+4,
-								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+6);
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+33,update_rect.y+8,
-									  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+6);
-
-	gtk_widget_draw (drawing_area, &update_rect);
-}
-/*----------------------------------------------------------------------------*/
-
-void Area_disenio::draw_pista_oeste(gdouble x, gdouble y){
-
-	GdkRectangle update_rect;
-
-	update_rect.x = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
-	update_rect.y = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
-
-	update_rect.width = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
-	update_rect.height = CELDA_WIDTH;//alto del rectangulo a redibujar
-
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
-								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
-
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+6,
-									  update_rect.x+3,update_rect.y+8);
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+6,
-										  update_rect.x+3,update_rect.y+4);
-
-	gtk_widget_draw (drawing_area, &update_rect);
-
-}
-
-/*----------------------------------------------------------------------------*/
+/*------------------- Metodos para el dibujo de entradas -------------------*/
 
 void Area_disenio::draw_entrada_sur(gdouble x, gdouble y){
 
@@ -346,7 +225,6 @@ void Area_disenio::draw_entrada_sur(gdouble x, gdouble y){
 	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
 	update_rect.width =  CELDA_WIDTH;     //ancho del rectangulo a redibujar
 	update_rect.height = 2 * CELDA_HEIGHT;//alto del rectangulo a redibujar
-
 
 	//dibnujo el rectangulo
 	gdk_draw_rectangle (pixmap,color,false,update_rect.x+1,update_rect.y,update_rect.width-2,update_rect.height-(CELDA_HEIGHT/2));
@@ -364,10 +242,7 @@ void Area_disenio::draw_entrada_sur(gdouble x, gdouble y){
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
-
-
 }
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_entrada_norte(gdouble x, gdouble y){
 
@@ -398,7 +273,6 @@ void Area_disenio::draw_entrada_norte(gdouble x, gdouble y){
 	gtk_widget_draw (drawing_area, &update_rect);
 
 }
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_entrada_este(gdouble x, gdouble y){
 
@@ -427,10 +301,7 @@ void Area_disenio::draw_entrada_este(gdouble x, gdouble y){
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
-
-
 }
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_entrada_oeste(gdouble x, gdouble y){
 
@@ -456,14 +327,12 @@ void Area_disenio::draw_entrada_oeste(gdouble x, gdouble y){
 	gdk_draw_line(pixmap, color,update_rect.x+12,update_rect.y+6,update_rect.x+18,update_rect.y+6);
 	gdk_draw_line(pixmap, color,update_rect.x+12,update_rect.y+10,update_rect.x+18,update_rect.y+10);
 
-
-
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
-
 }
-/*----------------------------------------------------------------------------*/
+
+/*------------------- Metodos para el dibujo de salidas -------------------*/
 
 void Area_disenio::draw_salida_sur(gdouble x, gdouble y){
 
@@ -475,13 +344,11 @@ void Area_disenio::draw_salida_sur(gdouble x, gdouble y){
 	update_rect.width =  CELDA_WIDTH;     //ancho del rectangulo a redibujar
 	update_rect.height = 2 * CELDA_HEIGHT +1;//alto del rectangulo a redibujar
 
-
 	//dibnujo el rectangulo
 	gdk_draw_rectangle (pixmap,color,false,update_rect.x,update_rect.y+(CELDA_WIDTH/2),update_rect.width-1,update_rect.height-(CELDA_HEIGHT/2)-1);
 	//dibujo la linea de salida
 	gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2),
 							  update_rect.x+(CELDA_WIDTH/2),update_rect.y);
-
 	//linea vertical de la S
 	gdk_draw_line(pixmap, color,update_rect.x+3,update_rect.y+1+(CELDA_HEIGHT),update_rect.x+3,update_rect.y+5+(CELDA_HEIGHT));
 	gdk_draw_line(pixmap, color,update_rect.x+9,update_rect.y+5+(CELDA_HEIGHT),update_rect.x+9,update_rect.y+9+(CELDA_HEIGHT));
@@ -495,7 +362,6 @@ void Area_disenio::draw_salida_sur(gdouble x, gdouble y){
 	gtk_widget_draw (drawing_area, &update_rect);
 
 }
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_salida_norte(gdouble x, gdouble y){
 
@@ -526,7 +392,6 @@ void Area_disenio::draw_salida_norte(gdouble x, gdouble y){
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
 }
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_salida_este(gdouble x, gdouble y){
 
@@ -537,7 +402,6 @@ void Area_disenio::draw_salida_este(gdouble x, gdouble y){
 	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
 	update_rect.width = 2*CELDA_WIDTH+1; //ancho del rectangulo a redibujar
 	update_rect.height = CELDA_HEIGHT;//alto del rectangulo a redibujar
-
 
 	//dibnujo el rectangulo
 	gdk_draw_rectangle (pixmap,color,false,update_rect.x+6,update_rect.y,18,11);
@@ -552,15 +416,10 @@ void Area_disenio::draw_salida_este(gdouble x, gdouble y){
 	gdk_draw_line(pixmap, color,update_rect.x+12,update_rect.y+6,update_rect.x+18,update_rect.y+6);
 	gdk_draw_line(pixmap, color,update_rect.x+12,update_rect.y+9,update_rect.x+18,update_rect.y+9);
 
-
-
-
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
-
 }
-/*----------------------------------------------------------------------------*/
 
 void Area_disenio::draw_salida_oeste(gdouble x, gdouble y){
 
@@ -590,13 +449,98 @@ void Area_disenio::draw_salida_oeste(gdouble x, gdouble y){
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
+}
+/*------------------- Metodos para el dibujo de pistas -------------------*/
+
+void Area_disenio::draw_pista_sur(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;
+	GdkGC *color=this->get_color_negro();
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
+								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
+	gdk_draw_line(pixmap,color,update_rect.x+6,update_rect.y+36,
+									  update_rect.x+4,update_rect.y+33);
+	gdk_draw_line(pixmap,color,update_rect.x+6,update_rect.y+36,
+										  update_rect.x+8,update_rect.y+33);
+
+	gtk_widget_draw (drawing_area, &update_rect);
+}
+
+void Area_disenio::draw_pista_norte(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = CELDA_WIDTH; //ancho del rectangulo a redibujar
+	update_rect.height = 3 * CELDA_HEIGHT;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y,
+								  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(3 * CELDA_HEIGHT));
+	gdk_draw_line(pixmap,color,update_rect.x+6,update_rect.y,
+								  update_rect.x+4,update_rect.y+3);
+	gdk_draw_line(pixmap,color,update_rect.x+6,update_rect.y,
+									  update_rect.x+8,update_rect.y+3);
+
+	gtk_widget_draw (drawing_area, &update_rect);
+}
+
+void Area_disenio::draw_pista_este(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+	update_rect.x = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_WIDTH;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
+								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
+	gdk_draw_line(pixmap,color,update_rect.x+33,update_rect.y+4,
+								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+6);
+	gdk_draw_line(pixmap,color,update_rect.x+33,update_rect.y+8,
+									  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+6);
+
+	gtk_widget_draw (drawing_area, &update_rect);
+}
+
+void Area_disenio::draw_pista_oeste(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+	update_rect.x = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
+	update_rect.y = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
+
+	update_rect.width = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
+	update_rect.height = CELDA_WIDTH;//alto del rectangulo a redibujar
+
+	gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+(CELDA_WIDTH/2),
+								  update_rect.x+(3 * CELDA_HEIGHT),update_rect.y+(CELDA_WIDTH/2));
+
+	gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+6,
+									  update_rect.x+3,update_rect.y+8);
+	gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+6,
+										  update_rect.x+3,update_rect.y+4);
+
+	gtk_widget_draw (drawing_area, &update_rect);
 
 }
-/*----------------------------------------------------------------------------*/
+
+
+/*------------------- Metodos para el dibujo de cajaNegra  -----------------*/
 
 void Area_disenio::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	 update_rect.x = x -(CELDA_WIDTH)-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (CELDA_HEIGHT)-(CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -609,14 +553,14 @@ void Area_disenio::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant
 
 	 for (int i = 0; i < cant_entradas; ++i) {
 
-		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+ i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (CELDA_HEIGHT/2),update_rect.y+i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+		 gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+ i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (CELDA_HEIGHT/2),update_rect.y+i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2));
 	 }
 
 	 for (int i = 0; i < cant_salidas; ++i) {
 
-		 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+ (2*CELDA_WIDTH)+(CELDA_WIDTH/2) ,update_rect.y+ i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (3*CELDA_HEIGHT),update_rect.y+i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2));
+		 gdk_draw_line(pixmap, color,update_rect.x+ (2*CELDA_WIDTH)+(CELDA_WIDTH/2) ,update_rect.y+ i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2),update_rect.x+ (3*CELDA_HEIGHT),update_rect.y+i*(2*CELDA_HEIGHT)+(CELDA_HEIGHT/2));
 	 }
-	 gdk_draw_rectangle (pixmap,drawing_area->style->black_gc,false,update_rect.x+6,update_rect.y+2,update_rect.width-CELDA_WIDTH ,update_rect.height-4);
+	 gdk_draw_rectangle (pixmap,color,false,update_rect.x+6,update_rect.y+2,update_rect.width-CELDA_WIDTH ,update_rect.height-4);
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
@@ -624,35 +568,31 @@ void Area_disenio::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant
 
 }
 
-
+/*------------------- Metodos para el dibujo de NOT -------------------*/
 
 void Area_disenio::draw_NOT_sur(gdouble x, gdouble y){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
 	 update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
 	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x,update_rect.y+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	 gdk_draw_line(pixmap, color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x,update_rect.y+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap,color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
 	 	 						  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
 	 gtk_widget_draw (drawing_area, &update_rect);
-
-
 }
-
-
 
 void Area_disenio::draw_NOT_oeste(gdouble x, gdouble y){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -661,24 +601,22 @@ void Area_disenio::draw_NOT_oeste(gdouble x, gdouble y){
 
 
 	 //Dibujo compuerta NOT
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),
+	 gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),
 						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
 	 gtk_widget_draw (drawing_area, &update_rect);
-
 }
 
 void Area_disenio::draw_NOT_este(gdouble x, gdouble y){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
-	 GdkGC* negro = get_color_negro();
 
 	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -686,23 +624,21 @@ void Area_disenio::draw_NOT_este(gdouble x, gdouble y){
 	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	 //Dibujo compuerta NOT
-	 gdk_draw_line(pixmap,negro,update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),
+	 gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),
 						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, negro,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(2*CELDA_WIDTH)+(CELDA_WIDTH/2),update_rect.y+(COMPUERTA_WIDTH/2));
-	 gdk_draw_line(pixmap, negro,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT);
-	 gdk_draw_line(pixmap, negro,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT,update_rect.x+(2*CELDA_WIDTH)+(CELDA_WIDTH/2),update_rect.y+(COMPUERTA_WIDTH/2));
-	 gdk_draw_line(pixmap, negro,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
+	 gdk_draw_line(pixmap, color,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(2*CELDA_WIDTH)+(CELDA_WIDTH/2),update_rect.y+(COMPUERTA_WIDTH/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT);
+	 gdk_draw_line(pixmap, color,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT,update_rect.x+(2*CELDA_WIDTH)+(CELDA_WIDTH/2),update_rect.y+(COMPUERTA_WIDTH/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
 						  update_rect.x+COMPUERTA_WIDTH,update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2);
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
 	 gtk_widget_draw (drawing_area, &update_rect);
-
 }
-
 
 void Area_disenio::draw_NOT_norte(gdouble x, gdouble y){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -710,28 +646,23 @@ void Area_disenio::draw_NOT_norte(gdouble x, gdouble y){
 	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	 //Dibujo compuerta NOT
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	 gdk_draw_line(pixmap,color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
 						  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y);
+	 gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y);
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
 	 gtk_widget_draw (drawing_area, &update_rect);
-
-
-
 }
 
-
-/*----------------------------------------------------------------------------*/
-
+/*------------------- Metodos para el dibujo de ANDs -------------------*/
 
 void Area_disenio::draw_AND_este(gdouble x, gdouble y){
 
-	  GdkRectangle update_rect;
+	  GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -739,26 +670,25 @@ void Area_disenio::draw_AND_este(gdouble x, gdouble y){
 	  update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	  //Dibujo compuerta or
-	  gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
+	  gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
 						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
-	  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+	  gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
 						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
-	  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x-(3*(CELDA_WIDTH/2)),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
-	  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT);
+	  gdk_draw_arc(pixmap, color,false,update_rect.x-(3*(CELDA_WIDTH/2)),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
+	  gdk_draw_line(pixmap, color,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT);
 
-	  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
+	  gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
 						  update_rect.x+COMPUERTA_WIDTH,update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2);
 
 	  //informa que la zona dada por update_rect debe actualizarse, el widget
 	  //generara un evento de exposicion
 	  gtk_widget_draw (drawing_area, &update_rect);
 
-
-
 }
+
 void Area_disenio::draw_AND_oeste(gdouble x, gdouble y){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -766,26 +696,24 @@ void Area_disenio::draw_AND_oeste(gdouble x, gdouble y){
 	  update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	 //dibujo recta
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
+	 gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
 	 //arco para salida
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x+(CELDA_WIDTH/2),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17400,11700);
+	 gdk_draw_arc(pixmap, color,false,update_rect.x+(CELDA_WIDTH/2),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17400,11700);
 	//dibujo entradas
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+	gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
 		 	  						  update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 	//dibuja salida
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-
+	gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
-		 //generara un evento de exposicion
-		 gtk_widget_draw (drawing_area, &update_rect);
+	//generara un evento de exposicion
+	gtk_widget_draw (drawing_area, &update_rect);
 }
 
 void Area_disenio::draw_AND_norte(gdouble x, gdouble y){
 
-
-	GdkRectangle update_rect;
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -794,27 +722,26 @@ void Area_disenio::draw_AND_norte(gdouble x, gdouble y){
 
 
 	 //arco para salida
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
+	 gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
 	//dibujo entradas
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+	 gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
 	 	  						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	 gdk_draw_line(pixmap,color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
 	 	 						   update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 	//dibuja salida
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
 	 //linea
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	 gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
-		 //generara un evento de exposicion
-		 gtk_widget_draw (drawing_area, &update_rect);
-
+	 //generara un evento de exposicion
+	 gtk_widget_draw (drawing_area, &update_rect);
 }
 
 void Area_disenio::draw_AND_sur(gdouble x, gdouble y){
 
-	GdkRectangle update_rect;
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -822,87 +749,79 @@ void Area_disenio::draw_AND_sur(gdouble x, gdouble y){
 	update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	//recta
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
 	//arco para salida
-	gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
+	gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
 	//dibujo entradas
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
 	//dibuja salida
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	gdk_draw_line(pixmap,color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
 		  	 						  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
 
 }
-/*----------------------------------------------------------------------------*/
 
+/*------------------- Metodos para el dibujo de ORs -------------------*/
 
 void Area_disenio::draw_OR_norte(gdouble x, gdouble y){
 
-
-	GdkRectangle update_rect;
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
 	 update_rect.width = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
 	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
-
-
 	 //arco para salida
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
+	 gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
 	 //arco para entrada
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y+26,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
+	 gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y+26,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
 
 	 //dibujo entradas
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+	 gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
 	 	  						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	 gdk_draw_line(pixmap,color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
 	 	 						   update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 	//dibuja salida
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-
+	 gdk_draw_line(pixmap, color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
 
 	 //informa que la zona dada por update_rect debe actualizarse, el widget
 	 //generara un evento de exposicion
 	 gtk_widget_draw (drawing_area, &update_rect);
-
 }
+
 void Area_disenio::draw_OR_este(gdouble x, gdouble y){
 
+	  GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
-	GdkRectangle update_rect;
+	  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
+	  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
+	  update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
+	  update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
-		  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
-		  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-		  update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-		  update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
+	  //Dibujo compuerta or
+	  gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
+					  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+	  gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+					  update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
+	  gdk_draw_arc(pixmap, color,false,update_rect.x-(3*(CELDA_WIDTH/2)),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
 
-		  //Dibujo compuerta or
-		  gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
-						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
-		  gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-						  update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
-		  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x-(3*(CELDA_WIDTH/2)),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
+	  gdk_draw_arc(pixmap, color,false,update_rect.x-3,update_rect.y,10,COMPUERTA_HEIGHT,-5850,11700);
 
-		  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x-3,update_rect.y,10,COMPUERTA_HEIGHT,-5850,11700);
-
-		  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
-						  update_rect.x+COMPUERTA_WIDTH,update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2);
-		  //informa que la zona dada por update_rect debe actualizarse, el widget
-		  //generara un evento de exposicion
-		  gtk_widget_draw (drawing_area, &update_rect);
-
-
+	  gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
+					  update_rect.x+COMPUERTA_WIDTH,update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2);
+	  //informa que la zona dada por update_rect debe actualizarse, el widget
+	  //generara un evento de exposicion
+	  gtk_widget_draw (drawing_area, &update_rect);
 }
 
 void Area_disenio::draw_OR_oeste(gdouble x, gdouble y){
 
-	 GdkRectangle update_rect;
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -911,17 +830,17 @@ void Area_disenio::draw_OR_oeste(gdouble x, gdouble y){
 
 
 	  //arco para salida
-	  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x+(CELDA_WIDTH/2),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
+	  gdk_draw_arc(pixmap, color,false,update_rect.x+(CELDA_WIDTH/2),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
 	  //arco para salida
-	  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x+27,update_rect.y,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
+	  gdk_draw_arc(pixmap, color,false,update_rect.x+27,update_rect.y,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
 
 
 	  //dibujo entradas
-	  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
-	  gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+	  gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
+	  gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
 		 	  						  update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 	  //dibuja salida
-	  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
+	  gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 
 	  //informa que la zona dada por update_rect debe actualizarse, el widget
 	  //generara un evento de exposicion
@@ -931,123 +850,7 @@ void Area_disenio::draw_OR_oeste(gdouble x, gdouble y){
 
 void Area_disenio::draw_OR_sur(gdouble x, gdouble y){
 
-
-		GdkRectangle update_rect;
-
-		update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
-		update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-		update_rect.width = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-		update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
-
-		//arco para salida
-		gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
-		 //arco para entrada
-		gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y-3,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
-
-		//dibujo entradas
-		gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-		gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-		//dibuja salida
-		 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
-		  	 						  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-
-
-		//informa que la zona dada por update_rect debe actualizarse, el widget
-		//generara un evento de exposicion
-		 gtk_widget_draw (drawing_area, &update_rect);
-
-
-}
-/*----------------------------------------------------------------------------*/
-
-
-void Area_disenio::draw_XOR_este(gdouble x, gdouble y){
-
-	  GdkRectangle update_rect;
-
-	  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
-	  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-	  update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-	  update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
-
-	  //Dibujo compuerta xor
-	  gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
-					  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
-	  gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-					  update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
-	  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x-(3*(CELDA_WIDTH/2)),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
-	  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y,10,COMPUERTA_HEIGHT,-5850,11700);
-	  gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x-3,update_rect.y,10,COMPUERTA_HEIGHT,-5850,11700);
-
-	  gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
-					  update_rect.x+COMPUERTA_WIDTH,update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2);
-	  //informa que la zona dada por update_rect debe actualizarse, el widget
-	  //generara un evento de exposicion
-	  gtk_widget_draw (drawing_area, &update_rect);
-
-}
-
-void Area_disenio::draw_XOR_oeste(gdouble x, gdouble y){
-
-	 GdkRectangle update_rect;
-
-	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
-	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-	 update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
-
-
-	 //arco para salida
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x+(CELDA_WIDTH/2),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-	 //arco para salida
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x+27,update_rect.y,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x+29,update_rect.y,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-
-	//dibujo entradas
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-		 	  						  update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-	//dibuja salida
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-
-	 //informa que la zona dada por update_rect debe actualizarse, el widget
-		 //generara un evento de exposicion
-		 gtk_widget_draw (drawing_area, &update_rect);
-
-}
-
-void Area_disenio::draw_XOR_norte(gdouble x, gdouble y){
-
-	GdkRectangle update_rect;
-
-	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
-	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-	 update_rect.width = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
-
-	 //arco para salida
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
-
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y+26,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
-	 gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y+28,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
-	//dibujo entradas
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
-	 	  						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
-	 gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
-	 	 						   update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-	//dibuja salida
-	 gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-
-
-	 //informa que la zona dada por update_rect debe actualizarse, el widget
-	 //generara un evento de exposicion
-	 gtk_widget_draw (drawing_area, &update_rect);
-
-}
-
-void Area_disenio::draw_XOR_sur(gdouble x, gdouble y){
-
-	GdkRectangle update_rect;
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -1055,19 +858,126 @@ void Area_disenio::draw_XOR_sur(gdouble x, gdouble y){
 	update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	//arco para salida
-	gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
-	//arco para entrada
-	gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y-4,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
+	gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
 	 //arco para entrada
-	gdk_draw_arc(pixmap, drawing_area->style->black_gc,false,update_rect.x,update_rect.y-2,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
+	gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y-3,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
+
 	//dibujo entradas
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
-	gdk_draw_line(pixmap, drawing_area->style->black_gc,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
 	//dibuja salida
-	gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	 gdk_draw_line(pixmap,color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+								  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+
+
+	//informa que la zona dada por update_rect debe actualizarse, el widget
+	//generara un evento de exposicion
+	 gtk_widget_draw (drawing_area, &update_rect);
+}
+
+/*------------------- Metodos para el dibujo de XORs -------------------*/
+
+void Area_disenio::draw_XOR_este(gdouble x, gdouble y){
+
+  GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+  update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
+  update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
+  update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
+  update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
+
+  //Dibujo compuerta xor
+  gdk_draw_line(pixmap,color,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),
+				  update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_HEIGHT/2));
+  gdk_draw_line(pixmap, color,update_rect.x,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+				  update_rect.x+(CELDA_WIDTH/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_WIDTH/2));
+  gdk_draw_arc(pixmap, color,false,update_rect.x-(3*(CELDA_WIDTH/2)),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
+  gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y,10,COMPUERTA_HEIGHT,-5850,11700);
+  gdk_draw_arc(pixmap, color,false,update_rect.x-3,update_rect.y,10,COMPUERTA_HEIGHT,-5850,11700);
+
+  gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_WIDTH-(CELDA_WIDTH/2),update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2,
+				  update_rect.x+COMPUERTA_WIDTH,update_rect.y+CELDA_HEIGHT+CELDA_HEIGHT/2);
+  //informa que la zona dada por update_rect debe actualizarse, el widget
+  //generara un evento de exposicion
+  gtk_widget_draw (drawing_area, &update_rect);
+
+}
+
+void Area_disenio::draw_XOR_oeste(gdouble x, gdouble y){
+
+	 GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
+	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
+	 update_rect.width = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
+	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
+
+	 //arco para salida
+	 gdk_draw_arc(pixmap, color,false,update_rect.x+(CELDA_WIDTH/2),update_rect.y,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
+	 //arco para salida
+	 gdk_draw_arc(pixmap, color,false,update_rect.x+27,update_rect.y,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
+	 gdk_draw_arc(pixmap, color,false,update_rect.x+29,update_rect.y,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
+
+	//dibujo entradas
+	gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2),update_rect.x+COMPUERTA_HEIGHT,update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+		 	  						  update_rect.x+COMPUERTA_HEIGHT,update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	//dibuja salida
+	gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.x,update_rect.y+CELDA_HEIGHT+(CELDA_HEIGHT/2));
+
+	 //informa que la zona dada por update_rect debe actualizarse, el widget
+	//generara un evento de exposicion
+	gtk_widget_draw (drawing_area, &update_rect);
+}
+
+void Area_disenio::draw_XOR_norte(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+	 update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
+	 update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
+	 update_rect.width = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
+	 update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
+
+	 //arco para salida
+	 gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
+
+	 gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y+26,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
+	 gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y+28,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
+	//dibujo entradas
+	 gdk_draw_line(pixmap,color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),
+	 	  						  update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT);
+	 gdk_draw_line(pixmap,color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
+	 	 						   update_rect.x+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	//dibuja salida
+	 gdk_draw_line(pixmap, color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+
+	 //informa que la zona dada por update_rect debe actualizarse, el widget
+	 //generara un evento de exposicion
+	 gtk_widget_draw (drawing_area, &update_rect);
+}
+
+void Area_disenio::draw_XOR_sur(gdouble x, gdouble y){
+
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
+
+	update_rect.x = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
+	update_rect.y = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
+	update_rect.width = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
+	update_rect.height = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
+
+	//arco para salida
+	gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
+	//arco para entrada
+	gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y-4,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
+	 //arco para entrada
+	gdk_draw_arc(pixmap, color,false,update_rect.x,update_rect.y-2,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
+	//dibujo entradas
+	gdk_draw_line(pixmap, color,update_rect.x+(CELDA_HEIGHT/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	gdk_draw_line(pixmap, color,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y,update_rect.x+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+	//dibuja salida
+	gdk_draw_line(pixmap,color,update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT,
 		  	 						  update_rect.x+CELDA_HEIGHT+(CELDA_HEIGHT/2),update_rect.y+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-
-
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
 	gtk_widget_draw (drawing_area, &update_rect);
@@ -1075,8 +985,7 @@ void Area_disenio::draw_XOR_sur(gdouble x, gdouble y){
 
 void Area_disenio::draw_vertice(gdouble x,gdouble y,SENTIDO sentido){
 
-
-	GdkRectangle update_rect;
+	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
 	update_rect.x = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	update_rect.y = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -1086,19 +995,19 @@ void Area_disenio::draw_vertice(gdouble x,gdouble y,SENTIDO sentido){
 	switch(sentido){
 
 		case ESTE:{
-			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x+(CELDA_HEIGHT),update_rect.y+(CELDA_HEIGHT/2));
+			gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x+(CELDA_HEIGHT),update_rect.y+(CELDA_HEIGHT/2));
 			break;
 		}
 		case OESTE:{
-			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x,update_rect.y+(CELDA_HEIGHT/2));
+			gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH/2),update_rect.x,update_rect.y+(CELDA_HEIGHT/2));
 			break;
 			}
 		case NORTE:{
-			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+			gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y,update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
 			break;
 			}
 		case SUR:{
-			gdk_draw_line(pixmap,drawing_area->style->black_gc,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH),update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
+			gdk_draw_line(pixmap,color,update_rect.x+(CELDA_WIDTH/2),update_rect.y+(CELDA_WIDTH),update_rect.x+(CELDA_HEIGHT/2),update_rect.y+(CELDA_HEIGHT/2));
 			break;
 			}
 	}
