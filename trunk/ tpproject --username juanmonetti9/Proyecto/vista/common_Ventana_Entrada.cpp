@@ -9,7 +9,7 @@ Ventana_Entrada::Ventana_Entrada() {
 	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Entrada");
 
 	gtk_signal_connect (GTK_OBJECT (&GTK_DIALOG(cuadro)->window), "destroy",
-									GTK_SIGNAL_FUNC (Controlador_Ventana::do_nothing), NULL);
+									GTK_SIGNAL_FUNC (Controlador_Ventana::destroy), NULL);
 
 	gtk_signal_connect (GTK_OBJECT (&GTK_DIALOG(cuadro)->window), "delete_event",
 							GTK_SIGNAL_FUNC (Controlador_Ventana::delete_event_true), NULL);
