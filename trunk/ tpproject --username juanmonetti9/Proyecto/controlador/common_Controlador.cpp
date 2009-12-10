@@ -257,14 +257,14 @@ void Controlador::agregar_caja_negra(int x,int y){
 
 
 		Posicion posicion(Modelo_vista_circuito::de_pixel_a_col(x),Modelo_vista_circuito::de_pixel_a_fila(y));
-		/*std::string nom= fachada_vista->get_circuito_download();
+		std::string nom= fachada_vista->get_circuito_download();
 		std::string host= fachada_vista->get_host_download();
-		int puerto= atoi(fachada_vista->get_puerto_download());*/
-		Servidor servidor("localhost",5000);
-		TamanioCajaNegra tamanio(5,3);//= //modeloCliente->recibir(nom,servidor);
+		int puerto= atoi(fachada_vista->get_puerto_download());
+		Servidor servidor(host,puerto);
+		TamanioCajaNegra tamanio= modeloCliente->recibir(nom,servidor);
 		cant_entradas= tamanio.getCantEntradas();
 		cant_salidas= tamanio.getCantSalidas();
-		id= modeloCliente->agregarCajaNegra(posicion,"carlos",ESTE,servidor,tamanio);
+		id= modeloCliente->agregarCajaNegra(posicion,nom,ESTE,servidor,tamanio);
 		agregadaVista=matrizActual->agregar_caja_negra(&_x,&_y,id,cant_entradas,cant_salidas);
 		celda=matrizActual->get_celda_px(_x,_y);
 		if(agregadaVista)
