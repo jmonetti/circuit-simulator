@@ -17,6 +17,8 @@ public:
 
 	virtual ~ModeloServidor();
 
+	void cargarCircuitos();
+
 	void guardar(Circuito* circuito);
 
 	void recuperar();

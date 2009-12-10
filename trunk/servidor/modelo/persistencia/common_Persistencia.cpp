@@ -2,7 +2,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <list>
-
+#include <iostream> //TODO
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -40,7 +40,7 @@ Persistencia::Persistencia() {
 	TAG_PISTA= XMLString::transcode("Pista");
 	TAG_GETSIMULACION = XMLString::transcode("GetSimulacion");
 	TAG_GETTIEMPOSIMULACION = XMLString::transcode("GetTiempoSimulacion");
-	TAG_PUBLICARCIRCUITO = XMLString::transcode("PublicarCircuito");
+	TAG_PUBLICARCIRCUITO = XMLString::transcode("Circuito");
 	TAG_BODY = XMLString::transcode("soap:Body");
 
 	TAG_PEDIDOLISTA = XMLString::transcode("GetListaCircuitos");
@@ -300,16 +300,16 @@ DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
 
 			   tipo = NUEVOCIRCUITO;
 
-			   	return dynamic_cast <xercesc::DOMElement* > ( funcion );
+				return dynamic_cast <xercesc::DOMElement* > ( funcion );
 
 		   }
+
 
 		   funcionList = elementRoot->getElementsByTagName(TAG_PEDIDOLISTA);
 
 		   funcion = funcionList->item(0);
 
 		   if (funcion  != NULL) {
-
 			   tipo = LISTA;
 			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
 
@@ -353,6 +353,7 @@ DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
 	      std::string message = xercesc::XMLString::transcode( e.getMessage() );
 	      throw runtime_error("Error parsing file: "+ message);
 	   }
+
 	   return NULL;
 
 }
@@ -720,6 +721,19 @@ void Persistencia::guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::
     aux = converter.str();
 
     XMLString::transcode(aux.c_str(),tempStr,99);
+    atributo->setTextContent(tempStr);
+    elem->appendChild(atributo);
+
+}
+
+void Persistencia::guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::string &nombre,std::string &valor) {
+
+	XMLCh tempStr[30];
+
+    XMLString::transcode(nombre.c_str(), tempStr, 29);
+    DOMElement* atributo = doc->createElement(tempStr);
+
+    XMLString::transcode(valor.c_str(),tempStr,99);
     atributo->setTextContent(tempStr);
     elem->appendChild(atributo);
 

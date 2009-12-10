@@ -3,6 +3,8 @@
 #include "circuito/common_Circuito.h"
 #include <vector>
 #include "circuito/compuertas/common_Entrada.h"
+#include "../common/common_Utils.h"
+#include <fstream>
 
 ModeloServidor::ModeloServidor() {
 
@@ -15,6 +17,26 @@ ModeloServidor::~ModeloServidor() {
 	for (unsigned int var = 0; var < circuitos.size(); ++var) {
 
 		delete circuitos[var];
+
+	}
+
+}
+
+void ModeloServidor::cargarCircuitos() {
+
+	std::vector<char*> circuitos;
+	Utils::obtenerArchivos(PATH_SAVES,&circuitos);
+	for (unsigned int var = 0; var < circuitos.size(); ++var) {
+
+		std::string ruta = circuitos[var];
+		std::string ruta_saves = PATH_SAVES + ruta;
+		ifstream nuevoCircuito(ruta.c_str());
+
+		Circuito* circuitoNuevo = persistencia.recuperarCircuito(contadorId,ruta);
+
+		guardar(circuitoNuevo);
+
+		delete[] circuitos[var];
 
 	}
 
@@ -141,8 +163,11 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 	TIPO_SOAP tipo;
 	std::string aux;
+
 	DOMElement* funcion = persistencia.getTipoSOAP(ruta_pedido,tipo);
-	DOMNodeList* atributos = funcion->getChildNodes();
+
+	cout<<"tipo: "<<tipo<<endl;
+
 	switch (tipo) {
 
 		case LISTA: {
@@ -154,18 +179,28 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		}
 
 		case CIRCUITO: {
-
-			std::string nombre = persistencia.obtenerNombre(funcion);
-			int cantEntradas;
-			int cantSalidas;
-			obtenerDatosCircuito(nombre,cantEntradas,cantSalidas);
-			aux = peticion.generarRespuesta(cantEntradas,cantSalidas);
+			DOMNodeList* list_aux = funcion->getChildNodes();
+			DOMNode* circuito;
+			for (unsigned int var = 0; var < list_aux->getLength(); ++var) {
+				circuito = list_aux->item(var);
+				if( circuito->getNodeType() &&  // true is not NULL
+				 circuito->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+				{
+					DOMElement* elem_nombre = dynamic_cast < xercesc::DOMElement* > ( circuito );
+					std::string nombre = persistencia.recuperarDatoTexto(elem_nombre);
+					int cantEntradas;
+					int cantSalidas;
+					obtenerDatosCircuito(nombre,cantEntradas,cantSalidas);
+					aux = peticion.generarRespuesta(cantEntradas,cantSalidas);
+				}
+			}
 
 			return aux;
 
 		}
 
 		case NUEVOCIRCUITO: {
+
 			aux = persistencia.obtenerNombre(funcion);
 			Circuito* circuito = persistencia.parserCircuito(funcion, getId(), aux);
 			guardar(circuito);
@@ -176,6 +211,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		}
 
 		case SIMULAR: {
+			DOMNodeList* atributos = funcion->getChildNodes();
 			std::string nombre;
 			int cantEntradas = atributos->getLength() - 1 ;
 			bool* entradas = new bool[cantEntradas];
@@ -191,12 +227,13 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		}
 
 		case SIMULARTIEMPO: {
+			DOMNodeList* atributos = funcion->getChildNodes();
 			std::string nombre;
 			int cantEntradas = atributos->getLength() - 1 ;
 			int* entradas = new int[cantEntradas];
 			int idCircuito = getIdCircuito(nombre);
 			if(idCircuito != -1) {
-				recuperarDatosTiempos(atributos,nombre,entradas); //TODO
+				recuperarDatosTiempos(atributos,nombre,entradas);
 				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
 				aux = peticion.generarRespuesta(cantEntradas, tiempos);
 				return aux;

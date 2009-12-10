@@ -3,8 +3,9 @@
 #include "common_HiloComunicacion.h"
 #include "modelo/circuito/common_Circuito.h"
 
-HiloComunicacion::HiloComunicacion(Protocolo* protocolo) {
+HiloComunicacion::HiloComunicacion(ModeloServidor *modeloServidor,Protocolo* protocolo) {
 
+	this->modelo = modeloServidor;
 	this->protocolo= protocolo;
 
 }
@@ -46,11 +47,12 @@ std::string HiloComunicacion::recibirPedido(int &codigoError) {
 			mensaje += linea;
 			longitud -= linea.size();
 		}
-
 		std::string ruta_pedido = "temp/pedido.xml";
 		ofstream output(ruta_pedido.c_str());
+		output << mensaje;
+		output.close();
 		codigoError = 200;
-		return mensaje;
+		return ruta_pedido;
 
 	}
 	codigoError = 400;
@@ -74,12 +76,12 @@ void HiloComunicacion::enviarRespuesta(const std::string &ruta, int &codigoError
 
 			}
 
-			total += "HTML/1.1 200 OK";
+			total += "HTML/1.1 200 OK\n";
 
 			std::string lenght;
-			std::stringstream converter;
-			converter << total.size();
-			lenght = converter.str();
+		    std::stringstream converter;
+		    converter << soap.size();
+		    lenght = converter.str();
 
 			total += "Content-Length: " + lenght + "\n\n";
 			total += soap;
@@ -112,13 +114,14 @@ void* HiloComunicacion::run() {
 
 		std::string ruta_pedido = recibirPedido(codigoError);
 
-		std::string ruta_respuesta = modelo.generarRespuesta(ruta_pedido);
+		std::string ruta_respuesta = modelo->generarRespuesta(ruta_pedido);
 
 		if (ruta_respuesta.empty())
 			codigoError = 400;
 
 		enviarRespuesta(ruta_respuesta, codigoError);
-
+		cout<<"envia respuesta"<<endl;
+		this->stop();
 	}
 	return NULL;
 

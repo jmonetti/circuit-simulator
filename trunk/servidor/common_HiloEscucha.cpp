@@ -2,8 +2,9 @@
 #include "socket/common_Protocolo.h"
 #include "excepciones/common_SocketException.h"
 
-HiloEscucha::HiloEscucha() {
+HiloEscucha::HiloEscucha(ModeloServidor &modeloServidor) {
 
+	modelo = &modeloServidor;
 	socketEscuchando= new Socket();
 
 }
@@ -61,7 +62,7 @@ void* HiloEscucha::run() {
 				 * Creo el nuevo hilo para el cliente
 				 */
 
-				HiloComunicacion* hiloComunicacion= new HiloComunicacion(new Protocolo(cliente));
+				HiloComunicacion* hiloComunicacion= new HiloComunicacion(modelo,new Protocolo(cliente));
 				this->hilosComunicacion.push_back(hiloComunicacion);
 
 				try{

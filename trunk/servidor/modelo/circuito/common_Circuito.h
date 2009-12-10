@@ -116,9 +116,9 @@ public:
 	void guardar(DOMDocument* doc) const;
 
 	/*
-	 * Obtiene el circuito
+	 * Obtiene el nombre del circuito
 	 */
-	DOMElement* obtenerCircuito(DOMDocument* doc) const;
+	DOMElement* obtenerElemCircuito(DOMDocument* doc) const;
 
 private:
 
