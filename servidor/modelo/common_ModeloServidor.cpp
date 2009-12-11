@@ -167,8 +167,6 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 	DOMElement* funcion = persistencia.getTipoSOAP(ruta_pedido,tipo);
 
-	cout<<"tipo: "<<tipo<<endl;
-
 	switch (tipo) {
 
 		case LISTA: {
