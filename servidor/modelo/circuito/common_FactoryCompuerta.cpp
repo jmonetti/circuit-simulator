@@ -97,6 +97,13 @@ TamanioCajaNegra tamanio) {
 
 	Compuerta* compuerta= new CajaNegra(circuito.getContadorCompuertas(),entradas,salidas,tamanio,posicion,sentido,nombre,servidor);
 
+	for (int var = 0; var < tamanio.getCantSalidas(); ++var) {
+
+		salidas[var]->setCompuerta(compuerta);
+
+	}
+
+
 	return circuito.agregarCompuerta(compuerta);
 
 }
