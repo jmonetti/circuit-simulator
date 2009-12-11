@@ -20,7 +20,7 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 	protocolo.desconectar();
 }
 
-bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad) {
+void Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad,bool* salidas) {
 
 	std::string ruta = generarPedido(nombreCircuito,cantidad,entradas);
 	conectar(servidor);
@@ -30,15 +30,13 @@ bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,b
 	frespuesta << respuesta;
 	frespuesta.close();
 	ruta = "temp/GetSimulacionResponse.xml";
-	bool* salidas = recuperarDatosSimular(ruta);
+	recuperarDatosSimular(ruta,salidas);
 
 	protocolo.desconectar();
 
-	return salidas;
-
 }
 
-int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor,int* tiempos,int cantidad) {
+void Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor,int* tiempos,int cantidad,int* salidas) {
 
 	std::string ruta = generarPedido(nombreCircuito,cantidad,tiempos);
 
@@ -50,11 +48,9 @@ int* Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 	frespuesta.close();
 	//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
 	ruta = "temp/GetTiempoSimulacionResponse.xml";
-	int* salidas_tiempos = recuperarDatosTiempos(ruta);
+	recuperarDatosTiempos(ruta,salidas);
 
 	protocolo.desconectar();
-
-	return salidas_tiempos;
 
 }
 
@@ -245,7 +241,7 @@ std::string Publicacion::recibirRespuesta() {
 
 }
 
-bool* Publicacion::recuperarDatosSimular(const std::string &ruta) {
+void Publicacion::recuperarDatosSimular(const std::string &ruta,bool* salidas) {
 
 	Persistencia persistencia;
 
@@ -254,10 +250,10 @@ bool* Publicacion::recuperarDatosSimular(const std::string &ruta) {
 
 	DOMNodeList* lista_attr = elem_salidas->getChildNodes();
 	DOMNode* atributo;
-	bool* salidas = new bool[lista_attr->getLength()];
 	std::string str_valor;
 	bool  valor;
 	DOMElement* ElemCte;
+	int j= 0;
 	for (unsigned int i = 0; i<lista_attr->getLength() ; ++i) {
 
 		atributo = lista_attr->item(i);
@@ -270,15 +266,14 @@ bool* Publicacion::recuperarDatosSimular(const std::string &ruta) {
 				valor = false;
 			else
 				valor = true;
-			salidas[i] = valor;
+			salidas[j] = valor;
+			j++;
 		}
 	}
 
-	return salidas;
-
 }
 
-int* Publicacion::recuperarDatosTiempos(const std::string &ruta) {
+void Publicacion::recuperarDatosTiempos(const std::string &ruta,int* salidas) {
 
 
 	Persistencia persistencia;
@@ -288,10 +283,10 @@ int* Publicacion::recuperarDatosTiempos(const std::string &ruta) {
 
 	DOMNodeList* lista_attr = elem_salidas->getChildNodes();
 	DOMNode* atributo;
-	int* salidas = new int[lista_attr->getLength()];
 	std::string str_salida;
 	int salida;
 	DOMElement* ElemCte;
+	int j= 0;
 	for (unsigned int i = 0; i<lista_attr->getLength(); ++i) {
 
 		atributo = lista_attr->item(i);
@@ -301,11 +296,10 @@ int* Publicacion::recuperarDatosTiempos(const std::string &ruta) {
 			ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
 			str_salida = persistencia.recuperarDatoTexto(ElemCte);
 			salida = atoi(str_salida.c_str());
-			salidas[i] = salida;
+			salidas[j] = salida;
+			j++;
 		}
 	}
-
-	return salidas;
 
 }
 

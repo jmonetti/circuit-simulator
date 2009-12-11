@@ -29,7 +29,7 @@ public:
 	 * cantidad= cantidad de entradas
 	 * Retorna los valores de salida
 	 */
-	bool* simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad);
+	void simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad,bool* salidas);
 
 	/*
 	 * Calcula el tiempo de transicion de un circuito de un servidor
@@ -39,7 +39,7 @@ public:
 	 * cantidad= cantidad de tiempos
 	 * Retorna los tiempos de las salidas
 	 */
-	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad);
+	void calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad,int* salidas);
 
 	/*
 	 * Recibe un circuito de un servidor
@@ -79,9 +79,9 @@ private:
 	/* Genera Pedido para obtener una Caja Negra*/
 	std::string generarPedido(const std::string &nombreCircuito);
 
-	bool* recuperarDatosSimular(const std::string &ruta);
+	void recuperarDatosSimular(const std::string &ruta,bool* salidas);
 
-	int* recuperarDatosTiempos(const std::string &ruta);
+	void recuperarDatosTiempos(const std::string &ruta,int* salidas);
 
 	TamanioCajaNegra recuperarDatosCajaNegra(const std::string &ruta);
 

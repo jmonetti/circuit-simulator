@@ -84,12 +84,12 @@ int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &
 void ModeloServidor::recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas) {
 
 	DOMNode* atributo;
-	int cant = atributos->getLength();
+	unsigned int cant = atributos->getLength();
 	DOMElement* ElemCte;
 	std::string valor;
 	bool entrada;
 	int contadorEntradas = 0;
-	for (int i = 1; i<cant; ++i) {
+	for (unsigned int i = 2; i<cant; ++i) {
 
 		atributo = atributos->item(i);
 		if( atributo->getNodeType() &&  // true is not NULL
@@ -118,7 +118,7 @@ void ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &
 	std::string valor;
 	int entrada;
 	int contadorEntradas = 0;
-	for (int i = 1; i<cant; ++i) {
+	for (int i = 0; i<cant; ++i) {
 
 		atributo = atributos->item(i);
 
@@ -216,9 +216,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		case SIMULAR: {
 			DOMNodeList* atributos = funcion->getChildNodes();
 			std::string nombre;
-			int cantEntradas = atributos->getLength() - 1 ;
 
-			bool* entradas = new bool[cantEntradas/2 -1]; //getLength devuelve el numero de hijos por dos y debo restarle el hijo del nombre
 			DOMNode* nodo_circuito = atributos->item(1);
 			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
 			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
@@ -226,12 +224,15 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			int idCircuito = getIdCircuito(nombre);
 
 			if (idCircuito != -1){
-				recuperarDatosSimular(atributos,nombre,entradas);
 
+				bool* entradas = new bool[circuitos[idCircuito]->getCantidadEntradas()];
+				recuperarDatosSimular(atributos,nombre,entradas);
 				bool* salidas = simular(idCircuito,entradas);
 				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
 				aux = peticion.generarRespuesta(cantSalidas, salidas);
 				cout<<aux<<endl;
+				delete[] entradas;
+				delete[] salidas;
 				return aux;
 			}
 			break;
@@ -240,8 +241,6 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		case SIMULARTIEMPO: {
 			DOMNodeList* atributos = funcion->getChildNodes();
 			std::string nombre;
-			int cantEntradas = atributos->getLength() - 1 ;
-			int* entradas = new int[cantEntradas/2 -1 ];
 			DOMNode* nodo_circuito = atributos->item(1);
 			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
 			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
@@ -250,12 +249,15 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 			if(idCircuito != -1) {
 ;
+				int* entradas = new int[circuitos[idCircuito]->getCantidadEntradas()];
 				recuperarDatosTiempos(atributos,nombre,entradas);
 
 				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
 				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
 				aux = peticion.generarRespuesta(cantSalidas, tiempos);
 				return aux;
+				delete[] entradas;
+				delete[] tiempos;
 
 			}
 			break;
