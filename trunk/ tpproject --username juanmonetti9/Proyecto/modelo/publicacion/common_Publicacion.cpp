@@ -5,6 +5,7 @@
 #include <sstream>
 #include "../../common/common_Utils.h"
 #include <stdexcept>
+#include <stdio.h>
 #include "../../excepciones/common_PublicacionException.h"
 #include "../../excepciones/common_SocketException.h"
 
@@ -20,7 +21,9 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 		conectar(servidor);
 		enviarPedido(ruta);
+		remove(ruta.c_str());
 		std::string respuesta = recibirRespuesta();
+		remove(respuesta.c_str());
 		protocolo.desconectar();
 
 	} catch (SocketException e) {
@@ -40,12 +43,14 @@ void Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bo
 
 		conectar(servidor);
 		enviarPedido(ruta);
+		remove(ruta.c_str());
 		std::string respuesta = recibirRespuesta();
 		ofstream frespuesta ("temp/GetSimulacionResponse.xml");
 		frespuesta << respuesta;
 		frespuesta.close();
 		ruta = "temp/GetSimulacionResponse.xml";
 		recuperarDatosSimular(ruta,salidas);
+		remove(ruta.c_str());
 
 		protocolo.desconectar();
 
@@ -66,13 +71,14 @@ void Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 
 		conectar(servidor);
 		enviarPedido(ruta);
+		remove(ruta.c_str());
 		std::string respuesta = recibirRespuesta();
 		ofstream frespuesta ("temp/GetTiempoSimulacionResponse.xml");
 		frespuesta << respuesta;
 		frespuesta.close();
-		//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
 		ruta = "temp/GetTiempoSimulacionResponse.xml";
 		recuperarDatosTiempos(ruta,salidas);
+		remove(ruta.c_str());
 
 		protocolo.desconectar();
 
@@ -93,12 +99,14 @@ TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor
 
 		conectar(servidor);
 		enviarPedido(ruta);
+		remove(ruta.c_str());
 		std::string respuesta = recibirRespuesta();
 		ofstream frespuesta ("temp/GetCircuitoResponse.xml");
 		frespuesta << respuesta;
 		frespuesta.close();
 		ruta = "temp/GetCircuitoResponse.xml";
 		TamanioCajaNegra tamanio = recuperarDatosCajaNegra(ruta);
+		remove(ruta.c_str());
 
 		protocolo.desconectar();
 		return tamanio;
@@ -121,12 +129,14 @@ void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuit
 
 		conectar(servidor);
 		enviarPedido(ruta);
+		remove(ruta.c_str());
 		std::string respuesta = recibirRespuesta();
 		ofstream frespuesta ("temp/GetListaCircuitosResponse.xml");
 		frespuesta << respuesta;
 		frespuesta.close();
 		ruta = "temp/GetListaCircuitosResponse.xml";
 		recuperarDatosCircuitos(ruta,circuitos);
+		remove(ruta.c_str());
 
 		protocolo.desconectar();
 
