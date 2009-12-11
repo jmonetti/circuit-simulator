@@ -4,9 +4,9 @@
 
 HiloEscucha::HiloEscucha(ModeloServidor &modeloServidor) {
 
-	modelo = &modeloServidor;
-	socketEscuchando= new Socket();
-
+	this->modelo = &modeloServidor;
+	this->socketEscuchando= new Socket();
+	this->contPedidos = 0;
 }
 
 HiloEscucha::~HiloEscucha() {
@@ -62,7 +62,7 @@ void* HiloEscucha::run() {
 				 * Creo el nuevo hilo para el cliente
 				 */
 
-				HiloComunicacion* hiloComunicacion= new HiloComunicacion(modelo,new ProtocoloServidor(cliente));
+				HiloComunicacion* hiloComunicacion= new HiloComunicacion(modelo,new ProtocoloServidor(cliente), contPedidos);
 				this->hilosComunicacion.push_back(hiloComunicacion);
 
 				try{

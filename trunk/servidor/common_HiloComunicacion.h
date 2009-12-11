@@ -16,7 +16,7 @@ public:
 	/*
 	 * Constructor
 	 */
-	HiloComunicacion(ModeloServidor *modeloServidor, ProtocoloServidor* protocolo);
+	HiloComunicacion(ModeloServidor *modeloServidor, ProtocoloServidor* protocolo, int &contPedidos);
 
 	/*
 	 * Destructor
@@ -39,6 +39,8 @@ protected:
 	virtual void* run();
 
 private:
+
+	int *contPedidos;
 
 	ProtocoloServidor* protocolo;
 

@@ -38,6 +38,10 @@ const static int TIEMPO_TRANSICION_NOT= 5;
 
 const static char* PATH_SAVES= "saves/";
 
-const std::string STRNUEVOCIRCUITO = "NuevoCircuito";
+const static std::string PATH_TEMP= "temp/";
+
+const static std::string STRNUEVOCIRCUITO = "NuevoCircuito";
+
+const std::string PEDIDO = "pedido";
 
 #endif /* CONSTANTES_H_ */
