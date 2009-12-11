@@ -12,42 +12,32 @@
 #include <vector>
 #include "../circuito/common_Circuito.h"
 #include "common_Mensajes.h"
-#include "../../socket/common_Protocolo.h"
+#include "../../socket/common_ProtocoloCliente.h"
 
 class CajaNegra;
 
 class Peticion {
 public:
 
-	bool* simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad);
+	void simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad,bool* salidas);
 
-	int* calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad);
+	void calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad,int* salidas);
 
 	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
 
 	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, int* entradas);
 
-	static std::string generarRespuesta (int cantSalidas, bool* salidas);
-
-	static std::string generarRespuesta (int cantSalidas, int* salidas);
-
-	std::string generarRespuesta(int cantEntradas, int cantSalidas);
-
-	std::string generarListaCircuitos(std::vector<Circuito*> circuitos);
-
 private:
 
-	Protocolo protocolo;
+	ProtocoloCliente protocolo;
 
 	void conectar(Servidor servidor);
 	void enviarPedido(const std::string &ruta);
 	std::string recibirRespuesta();
 
-	void enviarRespuesta(const std::string &ruta);
+	void recuperarDatosSimular(const std::string &ruta,bool* salidas);
 
-	bool* recuperarDatosSimular(const std::string &ruta);
-
-	int* recuperarDatosTiempos(const std::string &ruta);
+	void recuperarDatosTiempos(const std::string &ruta,int* salidas);
 ;
 
 

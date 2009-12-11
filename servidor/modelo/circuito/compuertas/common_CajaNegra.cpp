@@ -1,4 +1,5 @@
 #include "common_CajaNegra.h"
+#include "../../../excepciones/common_CircuitoException.h"
 
 CajaNegra::CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,TamanioCajaNegra tamanio,
 Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor)
@@ -32,11 +33,14 @@ CajaNegra::~CajaNegra() {
 
 void CajaNegra::actuarTiempo(int* tiempos) {
 
-	int* tiempoSalidas= peticion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,getCantidadEntradas());
+	int* tiempoSalidas= new int[getCantidadSalidas()];
+
+	peticion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,getCantidadEntradas(),tiempoSalidas);
+
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
-		salidas[var]->setValorSalida(tiempoSalidas[var]);
+		salidas[var]->setTiempoTransicion(tiempoSalidas[var]);
 
 	}
 
@@ -46,11 +50,13 @@ void CajaNegra::actuarTiempo(int* tiempos) {
 
 void CajaNegra::actuarSimular(bool* valores) {
 
-	bool* valorSalidas= peticion.simular(nombreCircuito,servidor,valores,getCantidadEntradas());
+	bool* valorSalidas= new bool[getCantidadSalidas()];
+
+	peticion.simular(nombreCircuito,servidor,valores,getCantidadEntradas(),valorSalidas);
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
-		salidas[var]->setValorSalida(valores[var]);
+		salidas[var]->setValorSalida(valorSalidas[var]);
 
 	}
 

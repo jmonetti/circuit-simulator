@@ -3,7 +3,7 @@
 #define COMMON_HILOCOMUNICACION_H_
 
 #include "thread/common_Thread.h"
-#include "socket/common_Protocolo.h"
+#include "socket/common_ProtocoloServidor.h"
 #include "modelo/common_ModeloServidor.h"
 
 class Circuito;
@@ -16,7 +16,7 @@ public:
 	/*
 	 * Constructor
 	 */
-	HiloComunicacion(ModeloServidor *modeloServidor, Protocolo* protocolo);
+	HiloComunicacion(ModeloServidor *modeloServidor, ProtocoloServidor* protocolo);
 
 	/*
 	 * Destructor
@@ -40,7 +40,7 @@ protected:
 
 private:
 
-	Protocolo* protocolo;
+	ProtocoloServidor* protocolo;
 
 	ModeloServidor* modelo;
 

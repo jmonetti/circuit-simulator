@@ -3,7 +3,7 @@
 #include "common_HiloComunicacion.h"
 #include "modelo/circuito/common_Circuito.h"
 
-HiloComunicacion::HiloComunicacion(ModeloServidor *modeloServidor,Protocolo* protocolo) {
+HiloComunicacion::HiloComunicacion(ModeloServidor *modeloServidor,ProtocoloServidor* protocolo) {
 
 	this->modelo = modeloServidor;
 	this->protocolo= protocolo;

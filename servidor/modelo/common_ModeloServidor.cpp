@@ -173,7 +173,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 		case LISTA: {
 
-			aux = peticion.generarListaCircuitos(circuitos);
+			aux = generarListaCircuitos(circuitos);
 
 			return aux;
 
@@ -192,7 +192,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 					int cantEntradas;
 					int cantSalidas;
 					obtenerDatosCircuito(nombre,cantEntradas,cantSalidas);
-					aux = peticion.generarRespuesta(cantEntradas,cantSalidas);
+					aux = generarRespuesta(cantEntradas,cantSalidas);
 				}
 			}
 
@@ -227,7 +227,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 				recuperarDatosSimular(atributos,nombre,entradas);
 				bool* salidas = simular(idCircuito,entradas);
 				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
-				aux = peticion.generarRespuesta(cantSalidas, salidas);
+				aux = generarRespuesta(cantSalidas, salidas);
 				cout<<aux<<endl;
 				delete[] entradas;
 				delete[] salidas;
@@ -252,10 +252,10 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
 				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
-				aux = peticion.generarRespuesta(cantSalidas, tiempos);
-				return aux;
+				aux = generarRespuesta(cantSalidas, tiempos);
 				delete[] entradas;
 				delete[] tiempos;
+				return aux;
 
 			}
 			break;
@@ -273,3 +273,73 @@ int ModeloServidor::getId() {
 	return contadorId;
 
 }
+
+
+std::string ModeloServidor::generarRespuesta (int cantSalidas, bool* salidas) {
+
+	XMLCh tempStr[100];
+
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "temp/GetSimulacionResponse.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimularResponse(doc,cantSalidas, salidas));
+
+	return ruta;
+
+}
+
+std::string ModeloServidor::generarRespuesta (int cantSalidas, int* salidas) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "temp/GetTiempoSimulacionResponse.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacionResponse(doc,cantSalidas, salidas));
+
+	return ruta;
+
+}
+
+
+
+std::string ModeloServidor::generarListaCircuitos(std::vector<Circuito*> circuitos) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "temp/GetListaCircuitosResponse.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetListaCircuitosResponse(doc,circuitos));
+
+	return ruta;
+
+}
+
+std::string ModeloServidor::generarRespuesta(int cantEntradas, int cantSalidas) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "temp/GetCircuitoResponse.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetCircuitoResponse(doc,cantEntradas, cantSalidas));
+
+	return ruta;
+
+}
+
+

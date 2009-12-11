@@ -1,22 +1,16 @@
-/**************************   Clase Protocolo **************************************/
-/**************************       Grupo 8     **************************************/
+/**************************   Clase Protocolo Cliente **************************************/
+/**************************           Grupo 8         **************************************/
 
-#ifndef CLASS_PROTOCOLO_H_
-#define CLASS_PROTOCOLO_H_
+#ifndef CLASS_PROTOCOLOCLIENTE_H_
+#define CLASS_PROTOCOLOCLIENTE_H_
 
 #include <string>
 #include "common_Socket.h"
 #include "../modelo/peticion/common_Servidor.h"
 
-class Protocolo {
+class ProtocoloCliente {
 
 public:
-
-	Protocolo(Socket* socket);
-
-	Protocolo();
-
-	virtual ~Protocolo();
 
 	void conectar(Servidor servidor);
 
@@ -30,7 +24,7 @@ public:
 
 private:
 
-	Socket* socket;
+	Socket socket;
 	std::string mensajeSiguiente;
 	static const unsigned int SIZE_RECIBIR = 10;
 
