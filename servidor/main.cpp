@@ -6,11 +6,7 @@
 
 int main(int argc, char **argv) {
 
-	ModeloServidor modelo;
-
-	modelo.cargarCircuitos();
-
-	HiloEscucha hiloEscucha(modelo);
+	HiloEscucha hiloEscucha;
 
 	hiloEscucha.escuchar(atoi(argv[1]));
 

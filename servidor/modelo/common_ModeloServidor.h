@@ -20,25 +20,13 @@ public:
 
 	virtual ~ModeloServidor();
 
-	void cargarCircuitos();
-
-	void guardar(Circuito* circuito);
-
-	void recuperar();
-
 	std::string generarRespuesta(std::string &ruta_pedido);
 
-	bool* simular(int idCircuito, bool* entradas);
+	bool* simular(Circuito* circuito, bool* entradas);
 
-	int* calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas);
-
-	int getId();
-
-	int getIdCircuito(std::string &nombreCircuito);
+	int* calcularTiempoTransicion(Circuito* circuito,int* entradas);
 
 	void obtenerDatosCircuito(std::string &nombre,int &cantEntradas,int &cantSalidas);
-
-	std::string generarListaCircuitos();
 
 	void recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas);
 
@@ -46,12 +34,9 @@ public:
 
 private:
 
-	std::vector<Circuito*> circuitos;
-
 	Mutex mutex;
 
 	Persistencia persistencia;
-	int contadorId;
 
 	std::string generarRespuesta (int cantSalidas, bool* salidas);
 
@@ -59,7 +44,7 @@ private:
 
 	std::string generarRespuesta(int cantEntradas, int cantSalidas);
 
-	std::string generarListaCircuitos(std::vector<Circuito*> circuitos);
+	std::string generarListaCircuitos(std::vector<char*> circuitos);
 
 	void enviarRespuesta(const std::string &ruta);
 

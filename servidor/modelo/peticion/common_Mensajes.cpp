@@ -90,17 +90,26 @@ DOMElement* Mensajes::GetTiempoSimulacionResponse(DOMDocument* doc,int cantSalid
 
 }
 
-DOMElement* Mensajes::GetListaCircuitosResponse(DOMDocument* doc, std::vector<Circuito*> circuitos) {
+DOMElement* Mensajes::GetListaCircuitosResponse(DOMDocument* doc, std::vector<char*> circuitos) {
 
 	XMLCh tempStr[100];
+
+	XMLCh tempStrNombre[100];
 
 	XMLString::transcode("GetListaCircuitosResponse",tempStr,99);
 	DOMElement* elem_circuitos = doc->createElement(tempStr);
 
 	for (unsigned int var = 0; var < circuitos.size(); ++var) {
 
-		elem_circuitos->appendChild(circuitos[var]->obtenerElemCircuito(doc));
+		XMLString::transcode("nombreCircuito", tempStrNombre, 99);
+		DOMElement*   elem_circuito = doc->createElement(tempStrNombre);
 
+		XMLString::transcode(circuitos[var],tempStrNombre,99);
+		elem_circuito->setTextContent(tempStrNombre);
+
+		elem_circuitos->appendChild(elem_circuito);
+
+		delete[] circuitos[var];
 	}
 
 	return elem_circuitos;

@@ -15,7 +15,7 @@ public:
 	/*
 	 * Constructor
 	 */
-	HiloEscucha(ModeloServidor &modeloServidor);
+	HiloEscucha();
 
 	/*
 	 * Destructor
@@ -40,11 +40,6 @@ protected:
 private:
 
 	Socket* socketEscuchando;
-
-	/*
-	 * Modelo del Servidor.
-	 */
-	ModeloServidor *modelo;
 
 	/*
 	 * Hilos para comunicarse con el cliente

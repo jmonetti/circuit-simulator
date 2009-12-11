@@ -17,7 +17,7 @@ public:
 	/*
 	 * Constructor
 	 */
-	HiloComunicacion(ModeloServidor *modeloServidor, ProtocoloServidor* protocolo);
+	HiloComunicacion(ProtocoloServidor* protocolo);
 
 	/*
 	 * Destructor
@@ -45,7 +45,7 @@ private:
 
 	ProtocoloServidor* protocolo;
 
-	ModeloServidor* modelo;
+	ModeloServidor modelo;
 
 };
 
