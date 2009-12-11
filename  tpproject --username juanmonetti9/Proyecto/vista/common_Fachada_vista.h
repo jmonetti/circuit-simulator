@@ -12,7 +12,7 @@
 #include "common_Ventana_Error.h"
 #include "common_Ventana_Abrir.h"
 #include "common_Ventana_Nuevo.h"
-#include "common_Ventana_Guardar.h"
+#include "common_Ventana_Confirmacion.h"
 #include "common_Ventana_Entrada.h"
 #include "common_Ventana_Salida.h"
 #include "common_Ventana_Upload.h"
@@ -26,7 +26,7 @@ private:
 	Ventana_Error ventana_error;
 	Ventana_Abrir ventana_abrir;
 	Ventana_Nuevo ventana_nuevo;
-	Ventana_Guardar ventana_guardar;
+	Ventana_Confirmacion ventana_confirmacion;
 	Ventana_Entrada ventana_entrada;
 	Ventana_Salida ventana_salida;
 	Ventana_Upload ventana_upload;
@@ -106,7 +106,7 @@ public:
 
 	const char* getNombreNuevo();
 
-	void mostrar_confirmacion_guardar();
+	void mostrar_confirmacion(const std::string &texto);
 
 	void delete_vista();
 

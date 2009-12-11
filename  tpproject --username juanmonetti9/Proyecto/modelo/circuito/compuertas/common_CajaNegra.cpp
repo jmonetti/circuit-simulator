@@ -1,4 +1,6 @@
 #include "common_CajaNegra.h"
+#include "../../../excepciones/common_PublicacionException.h"
+#include "../../../excepciones/common_CircuitoException.h"
 
 CajaNegra::CajaNegra(int id,EntradaCompuerta** entradas, SalidaCompuerta** salidas,TamanioCajaNegra tamanio,
 Posicion posicion,SENTIDO sentido, const std::string &nombreCircuito,Servidor servidor)
@@ -33,7 +35,16 @@ CajaNegra::~CajaNegra() {
 void CajaNegra::actuarTiempo(int* tiempos) {
 
 	int* tiempoSalidas= new int[getCantidadSalidas()];
-	publicacion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,getCantidadEntradas(),tiempoSalidas);
+	try {
+
+		publicacion.calcularTiempoTransicion(nombreCircuito,servidor,tiempos,getCantidadEntradas(),tiempoSalidas);
+
+	} catch (PublicacionException e) {
+
+		delete [] tiempoSalidas;
+		throw CircuitoException(e.getMensaje());
+
+	}
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
@@ -48,7 +59,17 @@ void CajaNegra::actuarTiempo(int* tiempos) {
 void CajaNegra::actuarSimular(bool* valores) {
 
 	bool* valorSalidas= new bool[getCantidadSalidas()];
-	publicacion.simular(nombreCircuito,servidor,valores,getCantidadEntradas(),valorSalidas);
+
+	try {
+
+		publicacion.simular(nombreCircuito,servidor,valores,getCantidadEntradas(),valorSalidas);
+
+	} catch (PublicacionException e) {
+
+		delete[] valorSalidas;
+		throw CircuitoException(e.getMensaje());
+
+	}
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
