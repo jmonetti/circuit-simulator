@@ -83,47 +83,54 @@ int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &
 
 void ModeloServidor::recuperarDatosSimular(DOMNodeList* atributos, std::string &nombre, bool* entradas) {
 
-	DOMNode* atributo = atributos->item(0);
-	DOMElement* nombreCircuito = dynamic_cast < xercesc::DOMElement* > ( atributo );
-	nombre = persistencia.recuperarDatoTexto(nombreCircuito);
+	DOMNode* atributo;
 	int cant = atributos->getLength();
 	DOMElement* ElemCte;
 	std::string valor;
 	bool entrada;
+	int contadorEntradas = 0;
 	for (int i = 1; i<cant; ++i) {
 
 		atributo = atributos->item(i);
-		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
-		valor = persistencia.recuperarDatoTexto(ElemCte);
+		if( atributo->getNodeType() &&  // true is not NULL
+		 atributo->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+		{
+			ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+			valor = persistencia.recuperarDatoTexto(ElemCte);
 
-		if(valor == "0")
-			entrada = false;
-		else
-			entrada = true;
+			if(valor == "0")
+				entrada = false;
+			else
+				entrada = true;
 
-		entradas[i-1] = entrada;
-
+			entradas[contadorEntradas] = entrada;
+			contadorEntradas++;
+		}
 	}
 
 }
 
 void ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &nombre, int* entradas) {
 
-	DOMNode* atributo = atributos->item(0);
-	DOMElement* nombreCircuito = dynamic_cast < xercesc::DOMElement* > ( atributo );
-	nombre = persistencia.recuperarDatoTexto(nombreCircuito);
+	DOMNode* atributo;
 	int cant = atributos->getLength();
 	DOMElement* ElemCte;
 	std::string valor;
 	int entrada;
+	int contadorEntradas = 0;
 	for (int i = 1; i<cant; ++i) {
 
 		atributo = atributos->item(i);
-		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
-		valor = persistencia.recuperarDatoTexto(ElemCte);
-		entrada = atoi(valor.c_str());
-		entradas[i-1] = entrada;
 
+		if( atributo->getNodeType() &&  // true is not NULL
+		 atributo->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+		{
+			ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+			valor = persistencia.recuperarDatoTexto(ElemCte);
+			entrada = atoi(valor.c_str());
+			entradas[contadorEntradas] = entrada;
+			contadorEntradas++;
+		}
 	}
 
 }
@@ -210,13 +217,21 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			DOMNodeList* atributos = funcion->getChildNodes();
 			std::string nombre;
 			int cantEntradas = atributos->getLength() - 1 ;
-			bool* entradas = new bool[cantEntradas];
+
+			bool* entradas = new bool[cantEntradas/2 -1]; //getLength devuelve el numero de hijos por dos y debo restarle el hijo del nombre
+			DOMNode* nodo_circuito = atributos->item(1);
+			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
+			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
+
 			int idCircuito = getIdCircuito(nombre);
+
 			if (idCircuito != -1){
 				recuperarDatosSimular(atributos,nombre,entradas);
-				bool* salidas = simular(idCircuito,entradas);
-				aux = peticion.generarRespuesta(cantEntradas, salidas);
 
+				bool* salidas = simular(idCircuito,entradas);
+				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
+				aux = peticion.generarRespuesta(cantSalidas, salidas);
+				cout<<aux<<endl;
 				return aux;
 			}
 			break;
@@ -226,12 +241,20 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			DOMNodeList* atributos = funcion->getChildNodes();
 			std::string nombre;
 			int cantEntradas = atributos->getLength() - 1 ;
-			int* entradas = new int[cantEntradas];
+			int* entradas = new int[cantEntradas/2 -1 ];
+			DOMNode* nodo_circuito = atributos->item(1);
+			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
+			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
+
 			int idCircuito = getIdCircuito(nombre);
+
 			if(idCircuito != -1) {
+;
 				recuperarDatosTiempos(atributos,nombre,entradas);
+
 				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
-				aux = peticion.generarRespuesta(cantEntradas, tiempos);
+				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
+				aux = peticion.generarRespuesta(cantSalidas, tiempos);
 				return aux;
 
 			}
