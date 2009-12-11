@@ -5,6 +5,7 @@
 #include "thread/common_Thread.h"
 #include "socket/common_ProtocoloServidor.h"
 #include "modelo/common_ModeloServidor.h"
+#include "modelo/common_ManagerArchivos.h"
 
 class Circuito;
 
@@ -16,7 +17,7 @@ public:
 	/*
 	 * Constructor
 	 */
-	HiloComunicacion(ModeloServidor *modeloServidor, ProtocoloServidor* protocolo, int &contPedidos);
+	HiloComunicacion(ModeloServidor *modeloServidor, ProtocoloServidor* protocolo);
 
 	/*
 	 * Destructor
@@ -40,7 +41,7 @@ protected:
 
 private:
 
-	int *contPedidos;
+	Mutex mutex;
 
 	ProtocoloServidor* protocolo;
 

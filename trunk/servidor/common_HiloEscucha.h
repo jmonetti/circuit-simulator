@@ -38,10 +38,6 @@ protected:
 	virtual void* run();
 
 private:
-	/*
-	 * Contador de pedidos del Servidor.
-	 */
-	int contPedidos;
 
 	Socket* socketEscuchando;
 

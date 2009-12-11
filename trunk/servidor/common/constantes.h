@@ -44,4 +44,6 @@ const static std::string STRNUEVOCIRCUITO = "NuevoCircuito";
 
 const std::string PEDIDO = "pedido";
 
+const std::string RESPUESTA = "respuesta";
+
 #endif /* CONSTANTES_H_ */

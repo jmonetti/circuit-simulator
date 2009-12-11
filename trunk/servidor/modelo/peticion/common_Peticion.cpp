@@ -11,10 +11,14 @@ void Peticion::simular(const std::string &nombreCircuito,Servidor servidor,bool*
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/GetSimulacionResponse.xml");
+
+	Lock k(&mutex);
+	ruta = ManagerArchivos::getNombreRespuesta();
+
+	ofstream frespuesta (ruta.c_str());
 	frespuesta << respuesta;
 	frespuesta.close();
-	ruta = "temp/GetSimulacionResponse.xml";
+
 	recuperarDatosSimular(ruta,salidas);
 
 	protocolo.desconectar();
@@ -29,11 +33,14 @@ void Peticion::calcularTiempoTransicion(const std::string &nombreCircuito,Servid
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/GetTiempoSimulacionResponse.xml");
+
+	Lock k(&mutex);
+	ruta = ManagerArchivos::getNombreRespuesta();
+
+	ofstream frespuesta (ruta.c_str());
 	frespuesta << respuesta;
 	frespuesta.close();
-	//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
-	ruta = "temp/GetTiempoSimulacionResponse.xml";
+
 	recuperarDatosTiempos(ruta,salidas);
 
 	protocolo.desconectar();
@@ -181,7 +188,8 @@ std::string Peticion::generarPedido (const std::string &nombreCircuito,int cantE
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "temp/GetSimulacion.xml";
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombrePedido();
 
 	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimular(doc,nombreCircuito,cantEntradas, entradas));
 
@@ -197,7 +205,8 @@ std::string Peticion::generarPedido (const std::string &nombreCircuito,int cantE
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "temp/GetTiempoSimulacion.xml";
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombrePedido();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacion(doc,nombreCircuito,cantEntradas, entradas));
 
