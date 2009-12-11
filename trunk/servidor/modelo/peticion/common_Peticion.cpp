@@ -10,6 +10,7 @@ void Peticion::simular(const std::string &nombreCircuito,Servidor servidor,bool*
 
 	conectar(servidor);
 	enviarPedido(ruta);
+	ManagerArchivos::removerArchivo(ruta);
 	std::string respuesta = recibirRespuesta();
 
 	Lock k(&mutex);
@@ -20,7 +21,7 @@ void Peticion::simular(const std::string &nombreCircuito,Servidor servidor,bool*
 	frespuesta.close();
 
 	recuperarDatosSimular(ruta,salidas);
-
+	ManagerArchivos::removerArchivo(ruta);
 	protocolo.desconectar();
 
 
@@ -32,6 +33,7 @@ void Peticion::calcularTiempoTransicion(const std::string &nombreCircuito,Servid
 
 	conectar(servidor);
 	enviarPedido(ruta);
+	ManagerArchivos::removerArchivo(ruta);
 	std::string respuesta = recibirRespuesta();
 
 	Lock k(&mutex);
@@ -42,6 +44,7 @@ void Peticion::calcularTiempoTransicion(const std::string &nombreCircuito,Servid
 	frespuesta.close();
 
 	recuperarDatosTiempos(ruta,salidas);
+	ManagerArchivos::removerArchivo(ruta);
 
 	protocolo.desconectar();
 
