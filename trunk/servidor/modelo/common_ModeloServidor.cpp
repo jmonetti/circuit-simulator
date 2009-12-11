@@ -8,63 +8,23 @@
 
 ModeloServidor::ModeloServidor() {
 
-	contadorId = 0;
-
 }
 
 ModeloServidor::~ModeloServidor() {
 
-	for (unsigned int var = 0; var < circuitos.size(); ++var) {
-
-		delete circuitos[var];
-
-	}
 
 }
 
-void ModeloServidor::cargarCircuitos() {
 
-	std::vector<char*> circuitos;
-	Utils::obtenerArchivos(PATH_SAVES,&circuitos);
-	for (unsigned int var = 0; var < circuitos.size(); ++var) {
+bool* ModeloServidor::simular(Circuito* circuito,bool* entradas) {
 
-		std::string ruta = circuitos[var];
-		std::string ruta_saves = PATH_SAVES + ruta;
-		ifstream nuevoCircuito(ruta.c_str());
-
-		Circuito* circuitoNuevo = persistencia.recuperarCircuito(contadorId,ruta);
-
-		guardar(circuitoNuevo);
-
-		delete[] circuitos[var];
-
-	}
-
-}
-
-void ModeloServidor::guardar(Circuito* circuito) {
-
-	circuitos.push_back(circuito);
-
-	contadorId++;
-
-}
-
-void ModeloServidor::recuperar() {
-
-}
-
-bool* ModeloServidor::simular(int idCircuito,bool* entradas) {
-
-	bool* salidas= circuitos[idCircuito]->simular(entradas);
+	bool* salidas= circuito->simular(entradas);
 
 	return salidas;
 
 }
 
-int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas) {
-
-	Circuito* circuito= circuitos[idCircuito];
+int* ModeloServidor::calcularTiempoTransicion(Circuito* circuito, int* entradas) {
 
 	std::vector<Entrada*> entradasCircuito = circuito->getEntradas();
 	for (unsigned int var = 0; var < entradasCircuito.size(); ++var) {
@@ -133,30 +93,16 @@ void ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &
 
 }
 
-int ModeloServidor::getIdCircuito(std::string &nombreCircuito) {
-
-	for (unsigned int var = 0; var < circuitos.size(); ++var) {
-
-		if (nombreCircuito == circuitos[var]->getNombre())
-			return var; 	//TODO Id Circuito == var
-
-	}
-
-	return -1;
-
-}
-
-
 
 void ModeloServidor::obtenerDatosCircuito(std::string &nombre,int &cantEntradas,int &cantSalidas) {
 
-	int id = getIdCircuito(nombre);
-
-	Circuito* circuito = circuitos[id];
+	Circuito* circuito = persistencia.recuperarCircuito(0,nombre);
 
 	cantEntradas = circuito->getCantidadEntradas();
 
 	cantSalidas = circuito->getCantidadSalidas();
+
+	delete circuito;
 
 }
 
@@ -170,6 +116,9 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 	switch (tipo) {
 
 		case LISTA: {
+			std::vector<char*> circuitos;
+			Utils::obtenerArchivos(PATH_SAVES,&circuitos);
+
 			aux = generarListaCircuitos(circuitos);
 
 			return aux;
@@ -200,10 +149,11 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 		case NUEVOCIRCUITO: {
 
 			aux = persistencia.obtenerNombre(funcion);
-			Circuito* circuito = persistencia.parserCircuito(funcion, getId(), aux);
-			guardar(circuito);
+			Circuito* circuito = persistencia.parserCircuito(funcion, 0, aux);
 			persistencia.guardarCircuito(*circuito);
 			aux = STRNUEVOCIRCUITO;
+
+			delete circuito;
 
 			return aux;
 		}
@@ -216,20 +166,19 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
 			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
 
-			int idCircuito = getIdCircuito(nombre);
+			Circuito* circuito= persistencia.recuperarCircuito(0,nombre);
 
-			if (idCircuito != -1){
+			bool* entradas = new bool[circuito->getCantidadEntradas()];
+			recuperarDatosSimular(atributos,nombre,entradas);
+			bool* salidas = simular(circuito,entradas);
+			int cantSalidas = circuito->getCantidadSalidas();
+			aux = generarRespuesta(cantSalidas, salidas);
+			cout<<aux<<endl;
+			delete[] entradas;
+			delete[] salidas;
+			delete circuito;
+			return aux;
 
-				bool* entradas = new bool[circuitos[idCircuito]->getCantidadEntradas()];
-				recuperarDatosSimular(atributos,nombre,entradas);
-				bool* salidas = simular(idCircuito,entradas);
-				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
-				aux = generarRespuesta(cantSalidas, salidas);
-				cout<<aux<<endl;
-				delete[] entradas;
-				delete[] salidas;
-				return aux;
-			}
 			break;
 		}
 
@@ -240,35 +189,24 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
 			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
 
-			int idCircuito = getIdCircuito(nombre);
+			Circuito* circuito= persistencia.recuperarCircuito(0,nombre);
 
-			if(idCircuito != -1) {
-;
-				int* entradas = new int[circuitos[idCircuito]->getCantidadEntradas()];
-				recuperarDatosTiempos(atributos,nombre,entradas);
+			int* entradas = new int[circuito->getCantidadEntradas()];
+			recuperarDatosTiempos(atributos,nombre,entradas);
 
-				int* tiempos = calcularTiempoTransicion(idCircuito,nombre, entradas);
-				int cantSalidas = circuitos[idCircuito]->getCantidadSalidas();
-				aux = generarRespuesta(cantSalidas, tiempos);
-				delete[] entradas;
-				delete[] tiempos;
-				return aux;
+			int* tiempos = calcularTiempoTransicion(circuito,entradas);
+			int cantSalidas = circuito->getCantidadSalidas();
+			aux = generarRespuesta(cantSalidas, tiempos);
+			delete[] entradas;
+			delete[] tiempos;
+			delete circuito;
+			return aux;
 
-			}
 			break;
 		}
 
 	}
 	return NULL;
-}
-
-
-
-
-int ModeloServidor::getId() {
-
-	return contadorId;
-
 }
 
 
@@ -309,7 +247,7 @@ std::string ModeloServidor::generarRespuesta (int cantSalidas, int* salidas) {
 
 
 
-std::string ModeloServidor::generarListaCircuitos(std::vector<Circuito*> circuitos) {
+std::string ModeloServidor::generarListaCircuitos(std::vector<char*> circuitos) {
 
 	XMLCh tempStr[100];
 	XMLString::transcode("LS", tempStr, 99);

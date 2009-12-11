@@ -17,7 +17,7 @@ public:
 
 	static DOMElement* GetTiempoSimulacionResponse(DOMDocument* doc,int cantSalidas, int* salidas);
 
-	static DOMElement* GetListaCircuitosResponse(DOMDocument* doc, std::vector<Circuito*> circuitos);
+	static DOMElement* GetListaCircuitosResponse(DOMDocument* doc, std::vector<char*> circuitos);
 
 	static DOMElement* GetCircuitoResponse(DOMDocument* doc, int cantEntradas, int cantSalidas);
 

@@ -4,9 +4,8 @@
 #include "common_HiloComunicacion.h"
 #include "modelo/circuito/common_Circuito.h"
 
-HiloComunicacion::HiloComunicacion(ModeloServidor *modeloServidor,ProtocoloServidor* protocolo) {
+HiloComunicacion::HiloComunicacion(ProtocoloServidor* protocolo) {
 
-	this->modelo = modeloServidor;
 	this->protocolo= protocolo;
 
 }
@@ -117,7 +116,7 @@ void* HiloComunicacion::run() {
 
 		std::string ruta_pedido = recibirPedido(codigoError);
 
-		std::string ruta_respuesta = modelo->generarRespuesta(ruta_pedido);
+		std::string ruta_respuesta = modelo.generarRespuesta(ruta_pedido);
 		ManagerArchivos::removerArchivo(ruta_pedido);
 		if (ruta_respuesta.empty())
 			codigoError = 400;
