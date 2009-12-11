@@ -22,16 +22,13 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 bool* Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad) {
 
-	cout<<"entra??"<<endl; //TODO
 	std::string ruta = generarPedido(nombreCircuito,cantidad,entradas);
-	cout<<"genera el pedido.."<<endl;	//TODO
 	conectar(servidor);
 	enviarPedido(ruta);
 	std::string respuesta = recibirRespuesta();
 	ofstream frespuesta ("temp/GetSimulacionResponse.xml");
 	frespuesta << respuesta;
 	frespuesta.close();
-	//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
 	ruta = "temp/GetSimulacionResponse.xml";
 	bool* salidas = recuperarDatosSimular(ruta);
 
@@ -264,14 +261,17 @@ bool* Publicacion::recuperarDatosSimular(const std::string &ruta) {
 	for (unsigned int i = 0; i<lista_attr->getLength() ; ++i) {
 
 		atributo = lista_attr->item(i);
-		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
-		str_valor = persistencia.recuperarDatoTexto(ElemCte);
-		if (str_valor == "0")
-			valor = false;
-		else
-			valor = true;
-		salidas[i] = valor;
-
+		if( atributo->getNodeType() &&  // true is not NULL
+		 atributo->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+		{
+			ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+			str_valor = persistencia.recuperarDatoTexto(ElemCte);
+			if (str_valor == "0")
+				valor = false;
+			else
+				valor = true;
+			salidas[i] = valor;
+		}
 	}
 
 	return salidas;
@@ -295,11 +295,14 @@ int* Publicacion::recuperarDatosTiempos(const std::string &ruta) {
 	for (unsigned int i = 0; i<lista_attr->getLength(); ++i) {
 
 		atributo = lista_attr->item(i);
-		ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
-		str_salida = persistencia.recuperarDatoTexto(ElemCte);
-		salida = atoi(str_salida.c_str());
-		salidas[i] = salida;
-
+		if( atributo->getNodeType() &&  // true is not NULL
+		 atributo->getNodeType() == DOMNode::ELEMENT_NODE ) // is element
+		{
+			ElemCte = dynamic_cast < xercesc::DOMElement* > ( atributo );
+			str_salida = persistencia.recuperarDatoTexto(ElemCte);
+			salida = atoi(str_salida.c_str());
+			salidas[i] = salida;
+		}
 	}
 
 	return salidas;
