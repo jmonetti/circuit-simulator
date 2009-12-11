@@ -1,4 +1,5 @@
 #include "common_Compuerta.h"
+#include "../../../excepciones/common_CircuitoException.h"
 
 Compuerta::Compuerta(int id, Posicion posicion, SENTIDO sentido) : posicion(posicion){
 
@@ -71,7 +72,16 @@ void Compuerta::simular() {
 
 	}
 
-	actuarSimular(valores);
+	try {
+
+		actuarSimular(valores);
+
+	} catch (CircuitoException e) {
+
+		delete[] valores;
+		throw e;
+
+	}
 
 	delete[] valores;
 
@@ -89,7 +99,16 @@ void Compuerta::calcularTiempoTransicion() {
 
 	}
 
-	actuarTiempo(tiempos);
+	try {
+
+		actuarTiempo(tiempos);
+
+	} catch (CircuitoException e) {
+
+		delete[] tiempos;
+		throw e;
+
+	}
 
 	delete[] tiempos;
 

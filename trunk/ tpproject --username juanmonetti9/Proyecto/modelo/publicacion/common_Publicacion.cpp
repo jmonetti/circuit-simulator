@@ -5,6 +5,8 @@
 #include <sstream>
 #include "../../common/common_Utils.h"
 #include <stdexcept>
+#include "../../excepciones/common_PublicacionException.h"
+#include "../../excepciones/common_SocketException.h"
 
 
 void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
@@ -14,25 +16,45 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 	std::string ruta = publicarCircuito(circuito);
 
-	conectar(servidor);
-	enviarPedido(ruta);
-	std::string respuesta = recibirRespuesta();
-	protocolo.desconectar();
+	try {
+
+		conectar(servidor);
+		enviarPedido(ruta);
+		std::string respuesta = recibirRespuesta();
+		protocolo.desconectar();
+
+	} catch (SocketException e) {
+
+		protocolo.desconectar();
+		throw PublicacionException("Error al enviar el circuito");
+
+	}
+
 }
 
 void Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad,bool* salidas) {
 
 	std::string ruta = generarPedido(nombreCircuito,cantidad,entradas);
-	conectar(servidor);
-	enviarPedido(ruta);
-	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/GetSimulacionResponse.xml");
-	frespuesta << respuesta;
-	frespuesta.close();
-	ruta = "temp/GetSimulacionResponse.xml";
-	recuperarDatosSimular(ruta,salidas);
 
-	protocolo.desconectar();
+	try {
+
+		conectar(servidor);
+		enviarPedido(ruta);
+		std::string respuesta = recibirRespuesta();
+		ofstream frespuesta ("temp/GetSimulacionResponse.xml");
+		frespuesta << respuesta;
+		frespuesta.close();
+		ruta = "temp/GetSimulacionResponse.xml";
+		recuperarDatosSimular(ruta,salidas);
+
+		protocolo.desconectar();
+
+	} catch (SocketException e) {
+
+		protocolo.desconectar();
+		throw PublicacionException("Error al simular el circuito en servidor");
+
+	}
 
 }
 
@@ -40,17 +62,26 @@ void Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 
 	std::string ruta = generarPedido(nombreCircuito,cantidad,tiempos);
 
-	conectar(servidor);
-	enviarPedido(ruta);
-	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/GetTiempoSimulacionResponse.xml");
-	frespuesta << respuesta;
-	frespuesta.close();
-	//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
-	ruta = "temp/GetTiempoSimulacionResponse.xml";
-	recuperarDatosTiempos(ruta,salidas);
+	try {
 
-	protocolo.desconectar();
+		conectar(servidor);
+		enviarPedido(ruta);
+		std::string respuesta = recibirRespuesta();
+		ofstream frespuesta ("temp/GetTiempoSimulacionResponse.xml");
+		frespuesta << respuesta;
+		frespuesta.close();
+		//frespuesta.write(respuesta.c_str(),respuesta.size()); TODO
+		ruta = "temp/GetTiempoSimulacionResponse.xml";
+		recuperarDatosTiempos(ruta,salidas);
+
+		protocolo.desconectar();
+
+	} catch (SocketException e) {
+
+		protocolo.desconectar();
+		throw PublicacionException("Error al calcular tiempos del circuito en servidor");
+
+	}
 
 }
 
@@ -58,18 +89,27 @@ TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor
 
 	std::string ruta = generarPedido(nombreCircuito);
 
-	conectar(servidor);
-	enviarPedido(ruta);
-	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/GetCircuitoResponse.xml");
-	frespuesta << respuesta;
-	frespuesta.close();
-	ruta = "temp/GetCircuitoResponse.xml";
-	TamanioCajaNegra tamanio = recuperarDatosCajaNegra(ruta);
+	try {
 
-	protocolo.desconectar();
+		conectar(servidor);
+		enviarPedido(ruta);
+		std::string respuesta = recibirRespuesta();
+		ofstream frespuesta ("temp/GetCircuitoResponse.xml");
+		frespuesta << respuesta;
+		frespuesta.close();
+		ruta = "temp/GetCircuitoResponse.xml";
+		TamanioCajaNegra tamanio = recuperarDatosCajaNegra(ruta);
 
-	return tamanio;
+		protocolo.desconectar();
+		return tamanio;
+
+	} catch (SocketException e) {
+
+		protocolo.desconectar();
+		throw PublicacionException("Error al recibir circuito");
+
+	}
+
 
 }
 
@@ -77,16 +117,25 @@ void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuit
 
 	std::string ruta = generarPedido();
 
-	conectar(servidor);
-	enviarPedido(ruta);
-	std::string respuesta = recibirRespuesta();
-	ofstream frespuesta ("temp/GetListaCircuitosResponse.xml");
-	frespuesta << respuesta;
-	frespuesta.close();
-	ruta = "temp/GetListaCircuitosResponse.xml";
-	recuperarDatosCircuitos(ruta,circuitos);
+	try {
 
-	protocolo.desconectar();
+		conectar(servidor);
+		enviarPedido(ruta);
+		std::string respuesta = recibirRespuesta();
+		ofstream frespuesta ("temp/GetListaCircuitosResponse.xml");
+		frespuesta << respuesta;
+		frespuesta.close();
+		ruta = "temp/GetListaCircuitosResponse.xml";
+		recuperarDatosCircuitos(ruta,circuitos);
+
+		protocolo.desconectar();
+
+	} catch (SocketException e) {
+
+		protocolo.desconectar();
+		throw PublicacionException("Error al recibir la lista de circuitos");
+
+	}
 
 }
 

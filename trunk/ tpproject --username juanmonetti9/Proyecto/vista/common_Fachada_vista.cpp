@@ -227,9 +227,10 @@ const char* Fachada_vista::getNombreNuevo() {
 
 }
 
-void Fachada_vista::mostrar_confirmacion_guardar() {
+void Fachada_vista::mostrar_confirmacion(const std::string &texto) {
 
-	ventana_guardar.show();
+	ventana_confirmacion.mostrarConfirmacion(texto);
+	ventana_confirmacion.show();
 
 }
 

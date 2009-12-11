@@ -64,7 +64,7 @@ bool* ModeloServidor::simular(int idCircuito,bool* entradas) {
 
 int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &nombreCircuito,int* entradas) {
 
-	Circuito* circuito= persistencia.recuperarCircuito(idCircuito,nombreCircuito);
+	Circuito* circuito= circuitos[idCircuito];
 
 	std::vector<Entrada*> entradasCircuito = circuito->getEntradas();
 	for (unsigned int var = 0; var < entradasCircuito.size(); ++var) {
@@ -74,8 +74,6 @@ int* ModeloServidor::calcularTiempoTransicion(int idCircuito,const std::string &
 	}
 
 	int* tiempos= circuito->calcularTiempoTransicion();
-
-	delete circuito;
 
 	return tiempos;
 
@@ -118,7 +116,7 @@ void ModeloServidor::recuperarDatosTiempos(DOMNodeList* atributos, std::string &
 	std::string valor;
 	int entrada;
 	int contadorEntradas = 0;
-	for (int i = 0; i<cant; ++i) {
+	for (int i = 2; i<cant; ++i) {
 
 		atributo = atributos->item(i);
 

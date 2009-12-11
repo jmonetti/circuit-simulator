@@ -3,6 +3,7 @@
 #include "common_Controlador.h"
 #include "../excepciones/common_ConexionException.h"
 #include "../excepciones/common_CircuitoException.h"
+#include "../excepciones/common_PublicacionException.h"
 #include "../modelo/simulacion/common_Resultado.h"
 #include "Acciones/common_Accion_Draw_Caja_Negra.h"
 #include <string>
@@ -92,9 +93,19 @@ void Controlador::ejecutar_upload() {
 
 		Servidor servidor(host,puerto);
 
-		modeloCliente->enviar(fachada_vista->get_circuito_upload(),servidor);
+		try {
 
-		fachada_vista->ocultar_upload();
+			modeloCliente->enviar(fachada_vista->get_circuito_upload(),servidor);
+			fachada_vista->mostrar_confirmacion("Circuito Enviado Exitosamente");
+			fachada_vista->ocultar_upload();
+
+		} catch (PublicacionException e) {
+
+			fachada_vista->mostrar_error(e.getMensaje());
+
+		}
+
+
 
 	}
 
@@ -135,9 +146,17 @@ void Controlador::conectar() {
 
 	std::vector<char*> circuitos;
 
-	modeloCliente->obtenerCircuitosServidor(servidor, &circuitos);
+	try{
 
-	fachada_vista->mostrar_circuitos_servidor(&circuitos);
+		modeloCliente->obtenerCircuitosServidor(servidor, &circuitos);
+
+		fachada_vista->mostrar_circuitos_servidor(&circuitos);
+
+	}catch(PublicacionException e) {
+
+		fachada_vista->mostrar_error(e.getMensaje());
+
+	}
 
 }
 
@@ -272,7 +291,13 @@ void Controlador::agregar_caja_negra(int x,int y){
 
 	} catch (ConexionException e) {
 		agregadaModelo= false;
+	} catch (PublicacionException e) {
+
+		agregadaModelo= false;
+		fachada_vista->mostrar_error(e.getMensaje());
+
 	}
+
 
 	if(agregadaModelo && celda && agregadaVista){
 
@@ -280,7 +305,7 @@ void Controlador::agregar_caja_negra(int x,int y){
 		//redibujo
 		this->redibujar_circuito(modeloCliente->getCompuertas());
 
-	}else if (!agregadaVista) {
+	}else if ((!agregadaVista) && (agregadaModelo)) {
 		modeloCliente->eliminarCompuerta(id);
 	}
 }
@@ -572,7 +597,7 @@ void Controlador::guardar(){
 	try {
 
 		modeloCliente->guardar();
-		fachada_vista->mostrar_confirmacion_guardar();
+		fachada_vista->mostrar_confirmacion("Circuito Guardado Exitosamente");
 
 	} catch (CircuitoException e) {
 
@@ -711,12 +736,17 @@ void Controlador::cancelar_abrir() {
 void Controlador::aceptar_nuevo() {
 
 	std::string nombre(fachada_vista->getNombreNuevo());
-	int id= modeloCliente->crearNuevo(nombre);
-	matrizActual= new Modelo_vista_circuito();
-	matrices.insert(make_pair(id,matrizActual));
-	fachada_vista->agregar_grilla(id,nombre.c_str());
 
-	fachada_vista->aceptar_nuevo();
+	if (nombre != "") {
+
+		int id= modeloCliente->crearNuevo(nombre);
+		matrizActual= new Modelo_vista_circuito();
+		matrices.insert(make_pair(id,matrizActual));
+		fachada_vista->agregar_grilla(id,nombre.c_str());
+
+		fachada_vista->aceptar_nuevo();
+
+	}
 	//this->redibujar_circuito(modeloCliente->getCompuertas());
 
 }
