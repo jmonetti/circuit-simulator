@@ -36,7 +36,7 @@ void CajaNegra::actuarTiempo(int* tiempos) {
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
-		salidas[var]->setValorSalida(tiempoSalidas[var]);
+		salidas[var]->setTiempoTransicion(tiempoSalidas[var]);
 
 	}
 
@@ -50,7 +50,7 @@ void CajaNegra::actuarSimular(bool* valores) {
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
-		salidas[var]->setValorSalida(valores[var]);
+		salidas[var]->setValorSalida(valorSalidas[var]);
 
 	}
 
