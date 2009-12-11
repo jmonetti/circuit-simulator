@@ -15,7 +15,8 @@ OR::OR(int id, int tiempoTransicion, EntradaCompuerta* entrada1,EntradaCompuerta
 
 OR::~OR() {
 
-	delete[] entradas;
+	delete entradas[0];
+	delete entradas[1];
 	delete salida;
 
 }
