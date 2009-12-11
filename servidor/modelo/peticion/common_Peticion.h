@@ -13,6 +13,9 @@
 #include "../circuito/common_Circuito.h"
 #include "common_Mensajes.h"
 #include "../../socket/common_ProtocoloCliente.h"
+#include "../../thread/common_Lock.h"
+#include "../../thread/common_Mutex.h"
+#include "../common_ManagerArchivos.h"
 
 class CajaNegra;
 
@@ -23,11 +26,13 @@ public:
 
 	void calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor, int* tiempos,int cantidad,int* salidas);
 
-	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
+	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
 
-	static std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, int* entradas);
+	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, int* entradas);
 
 private:
+
+	Mutex mutex;
 
 	ProtocoloCliente protocolo;
 

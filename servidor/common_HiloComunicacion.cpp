@@ -4,11 +4,10 @@
 #include "common_HiloComunicacion.h"
 #include "modelo/circuito/common_Circuito.h"
 
-HiloComunicacion::HiloComunicacion(ModeloServidor *modeloServidor,ProtocoloServidor* protocolo, int &contadorPedidos) {
+HiloComunicacion::HiloComunicacion(ModeloServidor *modeloServidor,ProtocoloServidor* protocolo) {
 
 	this->modelo = modeloServidor;
 	this->protocolo= protocolo;
-	contPedidos = &contadorPedidos;
 
 }
 
@@ -50,11 +49,8 @@ std::string HiloComunicacion::recibirPedido(int &codigoError) {
 			mensaje += linea;
 			longitud -= linea.size();
 		}
-	    std::stringstream converter;
-	    converter << *contPedidos;
-	    contPedidosAux = converter.str();
-		std::string ruta_pedido = PATH_TEMP + PEDIDO + contPedidosAux;//"temp/pedido.xml";
-		(*contPedidos)++;
+		Lock k(&mutex);
+		std::string ruta_pedido = ManagerArchivos::getNombrePedido();
 		ofstream output(ruta_pedido.c_str());
 		output << mensaje;
 		output.close();
@@ -122,12 +118,12 @@ void* HiloComunicacion::run() {
 		std::string ruta_pedido = recibirPedido(codigoError);
 
 		std::string ruta_respuesta = modelo->generarRespuesta(ruta_pedido);
-		remove(ruta_pedido.c_str());
+		ManagerArchivos::removerArchivo(ruta_pedido);
 		if (ruta_respuesta.empty())
 			codigoError = 400;
 
 		enviarRespuesta(ruta_respuesta, codigoError);
-		remove(ruta_respuesta.c_str());
+		ManagerArchivos::removerArchivo(ruta_respuesta);
 		cout<<"envia respuesta"<<endl;
 		protocolo->desconectar();
 		this->stop();

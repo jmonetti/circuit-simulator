@@ -170,7 +170,6 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 	switch (tipo) {
 
 		case LISTA: {
-
 			aux = generarListaCircuitos(circuitos);
 
 			return aux;
@@ -282,7 +281,8 @@ std::string ModeloServidor::generarRespuesta (int cantSalidas, bool* salidas) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "temp/GetSimulacionResponse.xml";
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimularResponse(doc,cantSalidas, salidas));
 
@@ -298,7 +298,8 @@ std::string ModeloServidor::generarRespuesta (int cantSalidas, int* salidas) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "temp/GetTiempoSimulacionResponse.xml";
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacionResponse(doc,cantSalidas, salidas));
 
@@ -316,7 +317,8 @@ std::string ModeloServidor::generarListaCircuitos(std::vector<Circuito*> circuit
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "temp/GetListaCircuitosResponse.xml";
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetListaCircuitosResponse(doc,circuitos));
 
@@ -332,7 +334,8 @@ std::string ModeloServidor::generarRespuesta(int cantEntradas, int cantSalidas) 
 
 	DOMDocument* doc = impl->createDocument();
 
-	std::string ruta = "temp/GetCircuitoResponse.xml";
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetCircuitoResponse(doc,cantEntradas, cantSalidas));
 

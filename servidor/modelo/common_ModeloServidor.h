@@ -6,6 +6,9 @@
 #include <vector>
 #include "persistencia/common_Persistencia.h"
 #include "peticion/common_Peticion.h"
+#include "../thread/common_Lock.h"
+#include "../thread/common_Mutex.h"
+#include "common_ManagerArchivos.h"
 
 using namespace std;
 
@@ -45,12 +48,14 @@ private:
 
 	std::vector<Circuito*> circuitos;
 
+	Mutex mutex;
+
 	Persistencia persistencia;
 	int contadorId;
 
-	static std::string generarRespuesta (int cantSalidas, bool* salidas);
+	std::string generarRespuesta (int cantSalidas, bool* salidas);
 
-	static std::string generarRespuesta (int cantSalidas, int* salidas);
+	std::string generarRespuesta (int cantSalidas, int* salidas);
 
 	std::string generarRespuesta(int cantEntradas, int cantSalidas);
 
