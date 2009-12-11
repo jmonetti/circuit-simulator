@@ -46,8 +46,17 @@ private:
 	std::vector<Circuito*> circuitos;
 
 	Persistencia persistencia;
-	Peticion peticion;
 	int contadorId;
+
+	static std::string generarRespuesta (int cantSalidas, bool* salidas);
+
+	static std::string generarRespuesta (int cantSalidas, int* salidas);
+
+	std::string generarRespuesta(int cantEntradas, int cantSalidas);
+
+	std::string generarListaCircuitos(std::vector<Circuito*> circuitos);
+
+	void enviarRespuesta(const std::string &ruta);
 
 };
 
