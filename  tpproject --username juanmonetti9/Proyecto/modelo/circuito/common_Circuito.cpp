@@ -22,18 +22,6 @@ Circuito::~Circuito() {
 
 	}
 
-	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
-
-		delete salidasCompuerta[var];
-
-	}
-
-	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
-
-		delete entradasCompuerta[var];
-
-	}
-
 }
 
 bool* Circuito::simular(bool* entradas) {
