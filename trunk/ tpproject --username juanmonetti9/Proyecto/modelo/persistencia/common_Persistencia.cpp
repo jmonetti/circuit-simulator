@@ -38,6 +38,7 @@ Persistencia::Persistencia() {
 	TAG_OR= XMLString::transcode("OR");
 	TAG_XOR= XMLString::transcode("XOR");
 	TAG_PISTA= XMLString::transcode("Pista");
+	TAG_CAJANEGRA= XMLString::transcode("CajaNegra");
 	TAG_GETSIMULACION = XMLString::transcode("GetSimulacion");
 	TAG_GETTIEMPOSIMULACION = XMLString::transcode("GetTiempoSimulacion");
 	TAG_PUBLICARCIRCUITO = XMLString::transcode("PublicarCircuito");
@@ -62,6 +63,7 @@ Persistencia::~Persistencia() {
 	  XMLString::release( &TAG_OR );
 	  XMLString::release( &TAG_XOR );
 	  XMLString::release( &TAG_PISTA );
+	  XMLString::release( &TAG_CAJANEGRA );
 
 	  XMLString::release( &TAG_GETSIMULACION );
 	  XMLString::release( &TAG_GETTIEMPOSIMULACION );
@@ -400,6 +402,14 @@ Circuito* Persistencia::parserCircuito(DOMElement* ElementoCte, int idCircuito, 
 									{
 										parserSalida(ElementoCte, circuito);
 
+									}
+									else
+									{
+										if( XMLString::equals(ElementoCte->getTagName(), TAG_CAJANEGRA))
+										{
+											parserCajaNegra(ElementoCte, circuito);
+
+										}
 									}
 								}
 							}
