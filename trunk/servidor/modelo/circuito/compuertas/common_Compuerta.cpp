@@ -7,6 +7,11 @@ Compuerta::Compuerta(int id, Posicion posicion, SENTIDO sentido) : posicion(posi
 
 }
 
+Compuerta::~Compuerta() {
+
+
+}
+
 Entrada* Compuerta::getEntrada(){
 
 	return NULL;

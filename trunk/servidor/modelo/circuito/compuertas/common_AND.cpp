@@ -1,6 +1,7 @@
 
 #include "common_AND.h"
 
+
 AND::AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1, EntradaCompuerta* entrada2, SalidaCompuerta* salida,Posicion posicion, SENTIDO sentido)
 : Compuerta(id,posicion,sentido){
 
@@ -16,8 +17,10 @@ AND::AND(int id,int tiempoTransicion,EntradaCompuerta* entrada1, EntradaCompuert
 
 AND::~AND() {
 
-	delete[] entradas;
+	delete entradas[0];
+	delete entradas[1];
 	delete salida;
+
 
 }
 

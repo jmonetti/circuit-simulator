@@ -7,6 +7,7 @@
 #include "../../excepciones/common_ConexionException.h"
 #include "common_ManagerConexiones.h"
 
+#include <iostream>
 Circuito::Circuito(int id,const std::string &nombre) : nombre(nombre) {
 
 	this->contadorCompuertas= 0;
@@ -19,18 +20,6 @@ Circuito::~Circuito() {
 	for (unsigned int i = 0; i < compuertas.size(); ++i) {
 
 		delete compuertas[i];
-
-	}
-
-	for (unsigned int var = 0; var < salidasCompuerta.size(); ++var) {
-
-		delete salidasCompuerta[var];
-
-	}
-
-	for (unsigned int var = 0; var < entradasCompuerta.size(); ++var) {
-
-		delete entradasCompuerta[var];
 
 	}
 
