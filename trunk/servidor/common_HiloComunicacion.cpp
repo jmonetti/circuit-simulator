@@ -121,6 +121,7 @@ void* HiloComunicacion::run() {
 
 		enviarRespuesta(ruta_respuesta, codigoError);
 		cout<<"envia respuesta"<<endl;
+		protocolo->desconectar();
 		this->stop();
 	}
 	return NULL;
