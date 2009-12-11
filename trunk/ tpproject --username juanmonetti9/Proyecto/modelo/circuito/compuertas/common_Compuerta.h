@@ -33,6 +33,8 @@ public:
 	 */
 	Compuerta(int id,Posicion posicion,SENTIDO sentido);
 
+	virtual ~Compuerta();
+
 	/*
 	 * Metodo tipo casteo para Entrada
 	 */
