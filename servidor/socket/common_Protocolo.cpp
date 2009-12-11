@@ -14,16 +14,27 @@ Protocolo::Protocolo(Socket *socket) {
 
 Protocolo::Protocolo() {
 
+	socket= NULL;
 
 }
 
 Protocolo::~Protocolo() {
 
-	delete socket;
+	if (socket) {
+
+		delete socket;
+
+	}
 
 }
 
 void Protocolo::conectar(Servidor servidor) {
+
+	if (!socket) {
+
+		socket= new Socket();
+
+	}
 
 	socket->connect(servidor.getHost(),servidor.getPuerto());
 
