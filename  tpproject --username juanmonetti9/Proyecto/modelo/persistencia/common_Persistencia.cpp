@@ -332,7 +332,10 @@ std::string Persistencia::obtenerNombre(DOMElement* ElementoCte) {
 
 	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
 	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
-	nombre = XMLString::transcode(attr_nombre->getValue());
+	char* aux= XMLString::transcode(attr_nombre->getValue());
+	nombre = aux;
+	XMLString::release(&aux);
+	XMLString::release(&ATTR_NOMBRE);
 
 	return nombre;
 
@@ -437,7 +440,10 @@ void Persistencia::parserSalida(DOMElement* ElementoCte, Circuito* circuito) {
 
 	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
 	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
-	nombre = XMLString::transcode(attr_nombre->getValue());
+	char* aux= XMLString::transcode(attr_nombre->getValue());
+	nombre = aux;
+	XMLString::release(&aux);
+	XMLString::release(&ATTR_NOMBRE);
 
 	Posicion posicion(x,y);
 
@@ -458,7 +464,10 @@ void Persistencia::parserEntrada(DOMElement* ElementoCte, Circuito* circuito) {
 
 	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
 	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
-	nombre = XMLString::transcode(attr_nombre->getValue());
+	char* aux= XMLString::transcode(attr_nombre->getValue());
+	nombre= aux;
+	XMLString::release(&aux);
+	XMLString::release(&ATTR_NOMBRE);
 
 	Posicion posicion(x,y);
 
@@ -572,12 +581,19 @@ void Persistencia::parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito) 
 	std::string nombreCircuito;
 	XMLCh* ATTR_NOMBRE = XMLString::transcode("nombre");
 	DOMAttr* attr_nombre = ElementoCte->getAttributeNode(ATTR_NOMBRE);
-	nombreCircuito = XMLString::transcode(attr_nombre->getValue());
+	char* aux = XMLString::transcode(attr_nombre->getValue());
+	nombreCircuito= aux;
+	XMLString::release(&aux);
+	XMLString::release(&ATTR_NOMBRE);
+
 
 	std::string host;
 	XMLCh* ATTR_HOST = XMLString::transcode("host");
 	DOMAttr* attr_host = ElementoCte->getAttributeNode(ATTR_HOST);
-	host = XMLString::transcode(attr_host->getValue());
+	aux = XMLString::transcode(attr_host->getValue());
+	host= aux;
+	XMLString::release(&aux);
+	XMLString::release(&ATTR_HOST);
 
 	nombre= "puerto";
 	int puerto= Persistencia::recuperarDato(ElementoCte,nombre);
@@ -643,7 +659,9 @@ void Persistencia::guardarElementoTexto(DOMDocument* doc, DOMElement* elem,std::
 
 std::string Persistencia::recuperarDatoTexto(DOMElement* ElementoCte) {
 
-	std::string aux = XMLString::transcode(ElementoCte->getTextContent());
+	char* aux = XMLString::transcode(ElementoCte->getTextContent());
+	std::string dato= aux;
+	XMLString::release(&aux);
 
 	return aux;
 
@@ -653,8 +671,10 @@ int Persistencia::recuperarDato(DOMElement* ElementoCte, std::string &nombre) {
 
 	XMLCh* ATTR_DATO = XMLString::transcode(nombre.c_str());
 	DOMAttr* attr_dato = ElementoCte->getAttributeNode(ATTR_DATO);
-	std::string aux = XMLString::transcode(attr_dato->getValue());
+	char* aux = XMLString::transcode(attr_dato->getValue());
+	std::string dato= aux;
+	XMLString::release(&aux);
 
-	return atoi(aux.c_str());
+	return atoi(dato.c_str());
 
 }
