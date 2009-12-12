@@ -127,6 +127,13 @@ public:
 	 */
 	DOMElement* obtenerCircuito(DOMDocument* doc) const;
 
+	/*
+	 * Obtiene una compuerta
+	 * idCompuerta= id de la compuerta a obtener
+	 * Retorna la compuerta obtenida
+	 */
+	Compuerta* obtenerCompuerta(int idCompuerta);
+
 private:
 
 	/*
@@ -140,13 +147,6 @@ private:
 	 * compuerta= compuerta de las SalidaCompuerta
 	 */
 	void agregarSalidasCompuerta(Compuerta* compuerta);
-
-	/*
-	 * Obtiene una compuerta
-	 * idCompuerta= id de la compuerta a obtener
-	 * Retorna la compuerta obtenida
-	 */
-	Compuerta* obtenerCompuerta(int idCompuerta);
 
 	/*
 	 * Setea los valores a las entradas

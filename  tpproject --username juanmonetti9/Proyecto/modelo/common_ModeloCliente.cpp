@@ -4,6 +4,7 @@
 #include "circuito/common_FactoryCompuerta.h"
 #include "../excepciones/common_CircuitoException.h"
 #include "../common/common_Utils.h"
+#include "circuito/compuertas/common_CajaNegra.h"
 
 ModeloCliente::ModeloCliente() {
 
@@ -225,6 +226,23 @@ void ModeloCliente::enviar(const std::string &nombreCircuito,Servidor servidor) 
 TamanioCajaNegra ModeloCliente::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
 	return publicacion.recibir(nombreCircuito,servidor);
+
+}
+
+Circuito* ModeloCliente::obtenerCircuitoServidor(int id) {
+
+	Compuerta* compuerta= circuitoActual->obtenerCompuerta(id);
+
+	if (compuerta->getTipo() == T_CAJANEGRA) {
+
+		CajaNegra* cajaNegra= (CajaNegra*) compuerta;
+		return publicacion.verCajaNegra(cajaNegra->getNombre(),cajaNegra->getServidor());
+
+	}else{
+
+		throw CircuitoException ("Error al obtener circuito del servidor. No es Caja Negra");
+
+	}
 
 }
 
