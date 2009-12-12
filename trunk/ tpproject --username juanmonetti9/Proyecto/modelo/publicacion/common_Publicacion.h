@@ -56,6 +56,13 @@ public:
 	 */
 	void obtenerCircuitos(Servidor servidor, std::vector<char*>* circuitos);
 
+	/*
+	 * Obtiene el diseño de la caja negra.
+	 * nombreCajaNegra = nombre del circuito caja negra.
+	 * servidor = servidor que tiene al circuito.
+	 */
+	Circuito* verCajaNegra(const std::string &nombreCajaNegra,Servidor servidor);
+
 
 private:
 
@@ -66,18 +73,21 @@ private:
 	std::string recibirRespuesta();
 
 	/* Genera pedido de simulacion */
-	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
+	std::string generarPedidoSimulacion (const std::string &nombreCircuito,int cantEntradas, bool* entradas);
 
 	/* Genera pedido de simulacion de tiempos*/
-	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas,int* entradas);
+	std::string generarPedidoTiempoSimulacion (const std::string &nombreCircuito,int cantEntradas,int* entradas);
 
 	std::string publicarCircuito(Circuito* circuito);
 
 	/* Genera Pedido para la Lista de Circuitos*/
-	std::string generarPedido();
+	std::string generarPedidoListaCircuitos();
 
 	/* Genera Pedido para obtener una Caja Negra*/
-	std::string generarPedido(const std::string &nombreCircuito);
+	std::string generarPedidoCircuito(const std::string &nombreCircuito);
+
+	/* Genera Pedido para obtener el diseño de una Caja Negra*/
+	std::string generarPedidoDisenio(const std::string &nombreCircuito);
 
 	void recuperarDatosSimular(const std::string &ruta,bool* salidas);
 
@@ -86,6 +96,8 @@ private:
 	TamanioCajaNegra recuperarDatosCajaNegra(const std::string &ruta);
 
 	void recuperarDatosCircuitos(const std::string &ruta,std::vector<char*>* circuitos);
+
+	Circuito* recuperarDisenioCajaNegra(const std::string &ruta);
 
 
 };

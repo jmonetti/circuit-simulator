@@ -10,7 +10,7 @@
 
 DOMElement* Mensajes::GetSimular(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, bool* entradas) {
 
-	XMLCh tempStr [99];
+	XMLCh tempStr [100];
 	std::string aux;
 
 	XMLString::transcode("GetSimulacion",tempStr,99);
@@ -34,7 +34,7 @@ DOMElement* Mensajes::GetSimular(DOMDocument* doc,const std::string &nombreCircu
 
 DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,const std::string &nombreCircuito,int cantEntradas, int* entradas) {
 
-	XMLCh tempStr [99];
+	XMLCh tempStr [100];
 	std::string aux;
 
 	XMLString::transcode("GetTiempoSimulacion",tempStr,99);
@@ -58,7 +58,7 @@ DOMElement* Mensajes::GetTiempoSimulacion(DOMDocument* doc,const std::string &no
 
 DOMElement* Mensajes::GetListaCircuitos(DOMDocument* doc) {
 
-	XMLCh tempStr [99];
+	XMLCh tempStr [100];
 	std::string aux;
 
 	XMLString::transcode("GetListaCircuitos",tempStr,99);
@@ -70,7 +70,7 @@ DOMElement* Mensajes::GetListaCircuitos(DOMDocument* doc) {
 
 DOMElement* Mensajes::GetCircuito(DOMDocument* doc,const std::string &nombreCircuito) {
 
-	XMLCh tempStr [99];
+	XMLCh tempStr [100];
 	std::string aux;
 
 	XMLString::transcode("GetCircuito",tempStr,99);
@@ -84,6 +84,26 @@ DOMElement* Mensajes::GetCircuito(DOMDocument* doc,const std::string &nombreCirc
     funcion->appendChild(nombre);
 
     return funcion;
+
+}
+
+DOMElement* Mensajes::GetDisenio(DOMDocument* doc, const std::string &nombreCircuito) {
+
+	XMLCh tempStr [100];
+	std::string aux;
+
+	XMLString::transcode("GetDisenio",tempStr,99);
+	DOMElement *funcion = doc->createElement(tempStr);
+
+    XMLString::transcode("nombreCircuito", tempStr, 99);
+    DOMElement* nombre = doc->createElement(tempStr);
+
+    XMLString::transcode(nombreCircuito.c_str(),tempStr,99);
+    nombre->setTextContent(tempStr);
+    funcion->appendChild(nombre);
+
+    return funcion;
+
 
 }
 
