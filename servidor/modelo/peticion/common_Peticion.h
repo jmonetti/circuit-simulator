@@ -39,7 +39,6 @@ private:
 	void recuperarDatosSimular(const std::string &ruta,bool* salidas);
 
 	void recuperarDatosTiempos(const std::string &ruta,int* salidas);
-;
 
 
 };
