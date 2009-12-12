@@ -44,6 +44,8 @@ private:
 
 	std::string generarRespuesta(int cantEntradas, int cantSalidas);
 
+	std::string generarRespuesta(Circuito* circuito);
+
 	std::string generarListaCircuitos(std::vector<char*> circuitos);
 
 	void enviarRespuesta(const std::string &ruta);
