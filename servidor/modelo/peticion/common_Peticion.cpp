@@ -10,18 +10,17 @@ void Peticion::simular(const std::string &nombreCircuito,Servidor servidor,bool*
 
 	conectar(servidor);
 	enviarPedido(ruta);
-	ManagerArchivos::removerArchivo(ruta);
+	ManagerArchivos::getInstancia()->removerArchivo(ruta);
 	std::string respuesta = recibirRespuesta();
 
-	Lock k(&mutex);
-	ruta = ManagerArchivos::getNombreRespuesta();
+	ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	ofstream frespuesta (ruta.c_str());
 	frespuesta << respuesta;
 	frespuesta.close();
 
 	recuperarDatosSimular(ruta,salidas);
-	ManagerArchivos::removerArchivo(ruta);
+	ManagerArchivos::getInstancia()->removerArchivo(ruta);
 	protocolo.desconectar();
 
 
@@ -33,18 +32,17 @@ void Peticion::calcularTiempoTransicion(const std::string &nombreCircuito,Servid
 
 	conectar(servidor);
 	enviarPedido(ruta);
-	ManagerArchivos::removerArchivo(ruta);
+	ManagerArchivos::getInstancia()->removerArchivo(ruta);
 	std::string respuesta = recibirRespuesta();
 
-	Lock k(&mutex);
-	ruta = ManagerArchivos::getNombreRespuesta();
+	ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	ofstream frespuesta (ruta.c_str());
 	frespuesta << respuesta;
 	frespuesta.close();
 
 	recuperarDatosTiempos(ruta,salidas);
-	ManagerArchivos::removerArchivo(ruta);
+	ManagerArchivos::getInstancia()->removerArchivo(ruta);
 
 	protocolo.desconectar();
 
@@ -191,8 +189,7 @@ std::string Peticion::generarPedido (const std::string &nombreCircuito,int cantE
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombrePedido();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombrePedido();
 
 	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimular(doc,nombreCircuito,cantEntradas, entradas));
 
@@ -208,8 +205,7 @@ std::string Peticion::generarPedido (const std::string &nombreCircuito,int cantE
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombrePedido();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombrePedido();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacion(doc,nombreCircuito,cantEntradas, entradas));
 

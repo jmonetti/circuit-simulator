@@ -23,6 +23,8 @@ Grilla::Grilla(int id) : scrollDisenio(&areaDisenio),scrollTabla(&tablaLogica){
 	scrollDisenio.show();
 	scrollTabla.show();
 
+	areaDisenio.conectarClick();
+
 	this->id= id;
 }
 

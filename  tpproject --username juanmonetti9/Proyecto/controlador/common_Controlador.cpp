@@ -863,11 +863,19 @@ void Controlador::generarCircuito(Circuito* circuito) {
 		int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
 		int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
 
-		matrizActual->agregar_componente(&x,&y,compuerta->getTipo(),compuerta->getId(),compuerta->getSentido());
+		if(compuerta->getTipo()== T_CAJANEGRA){
+
+			matrizActual->agregar_caja_negra(&x,&y,compuerta->getId(),compuerta->getCantidadEntradas(),compuerta->getCantidadSalidas());
+
+		}else {
+
+			matrizActual->agregar_componente(&x,&y,compuerta->getTipo(),compuerta->getId(),compuerta->getSentido());
+		}
 
 	}
 
-		this->redibujar_circuito(compuertas);
+	this->redibujar_circuito(compuertas);
+
 }
 void Controlador::redibujar_circuito(std::vector<Compuerta*> compuertas) {
 

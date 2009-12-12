@@ -41,8 +41,6 @@ protected:
 
 private:
 
-	Mutex mutex;
-
 	ProtocoloServidor* protocolo;
 
 	ModeloServidor modelo;

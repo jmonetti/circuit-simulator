@@ -1,12 +1,34 @@
-
-
 #include "common_ManagerArchivos.h"
+#include "../thread/common_Lock.h"
 
-int ManagerArchivos::contPedidos = 0;
+ManagerArchivos* ManagerArchivos::instancia= NULL;
 
-int ManagerArchivos::contRespuestas = 0;
+ManagerArchivos* ManagerArchivos::crearInstancia() {
+
+	if(instancia == NULL){
+
+		instancia= new ManagerArchivos();
+
+	}
+
+	return instancia;
+
+}
+
+ManagerArchivos* ManagerArchivos::getInstancia() {
+
+	return instancia;
+
+}
+
+ManagerArchivos::~ManagerArchivos() {
+
+}
+
 
 std::string ManagerArchivos::getNombrePedido() {
+
+	Lock l(&mutexPedidos);
 
     std::stringstream converter;
 
@@ -22,6 +44,8 @@ std::string ManagerArchivos::getNombrePedido() {
 }
 
 std::string ManagerArchivos::getNombreRespuesta() {
+
+	Lock l(&mutexRespuestas);
 
     std::stringstream converter;
 
@@ -40,4 +64,10 @@ void ManagerArchivos::removerArchivo(std::string &archivo) {
 
 	remove(archivo.c_str());
 
+}
+
+ManagerArchivos::ManagerArchivos() {
+
+	contPedidos= 0;
+	contRespuestas= 0;
 }

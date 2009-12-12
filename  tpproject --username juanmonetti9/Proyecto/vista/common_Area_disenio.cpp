@@ -34,9 +34,6 @@ Area_disenio::Area_disenio() {
 	//Seteo el tamanio por defecto del drawing area
 	gtk_drawing_area_size (GTK_DRAWING_AREA (drawing_area),DRW_AREA_WIDTH,
 							  DRW_AREA_HEIGHT);
-	//Seteo el drawing area para que sea dropeable
-	gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
-	gtk_drag_source_set(drawing_area,GDK_BUTTON1_MASK,target_list,n_targets,GDK_ACTION_COPY);
 
 
 	//incluyo el drawing area en la caja
@@ -51,11 +48,6 @@ Area_disenio::Area_disenio() {
 						  (GtkSignalFunc)crear_pixmap, this);
 
 
-	//conecto con la señal ("button_press_event") de precionar el boton del mouse
-	gtk_signal_connect (GTK_OBJECT (drawing_area), "button_press_event",
-						  (GtkSignalFunc)Controlador_Circuito::button_press_event, NULL);
-	//conecto con el controlador para cuando se suelte la seleccion en el destino.
-	id_manejador_dnd=g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
 
 
 
@@ -63,6 +55,21 @@ Area_disenio::Area_disenio() {
 }
 
 Area_disenio::~Area_disenio() {
+
+}
+
+void Area_disenio::conectarClick() {
+
+	//Seteo el drawing area para que sea dropeable
+	gtk_drag_dest_set(drawing_area,GTK_DEST_DEFAULT_MOTION,target_list,n_targets,GDK_ACTION_COPY);
+	gtk_drag_source_set(drawing_area,GDK_BUTTON1_MASK,target_list,n_targets,GDK_ACTION_COPY);
+
+	//conecto con la señal ("button_press_event") de precionar el boton del mouse
+	gtk_signal_connect (GTK_OBJECT (drawing_area), "button_press_event",
+						  (GtkSignalFunc)Controlador_Circuito::button_press_event, NULL);
+	//conecto con el controlador para cuando se suelte la seleccion en el destino.
+	id_manejador_dnd=g_signal_connect (drawing_area, "drag-drop",G_CALLBACK (Controlador_Circuito::drag_drop_handl), NULL);
+
 
 }
 
