@@ -43,6 +43,7 @@ Persistencia::Persistencia() {
 	TAG_GETTIEMPOSIMULACION = XMLString::transcode("GetTiempoSimulacion");
 	TAG_PUBLICARCIRCUITO = XMLString::transcode("Circuito");
 	TAG_BODY = XMLString::transcode("soap:Body");
+	TAG_DISENIO = XMLString::transcode("GetDisenio");
 
 	TAG_PEDIDOLISTA = XMLString::transcode("GetListaCircuitos");
 	TAG_PEDIDOCIRCUITO = XMLString::transcode("GetCircuito");
@@ -69,6 +70,7 @@ Persistencia::~Persistencia() {
 	  XMLString::release( &TAG_GETTIEMPOSIMULACION );
 	  XMLString::release( &TAG_PUBLICARCIRCUITO );
 	  XMLString::release( &TAG_BODY );
+	  XMLString::release( &TAG_DISENIO );
 	  XMLString::release( &TAG_PEDIDOLISTA );
 	  XMLString::release( &TAG_PEDIDOCIRCUITO );
 
@@ -348,6 +350,17 @@ DOMElement* Persistencia::getTipoSOAP(std::string &ruta, TIPO_SOAP &tipo) {
 			   tipo = SIMULARTIEMPO;
 			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
 		   }
+
+		   funcionList = elementRoot->getElementsByTagName(TAG_DISENIO);
+
+		   funcion = funcionList->item(0);
+
+		   if (funcion  != NULL) {
+			   tipo = DISENIO;
+			   return dynamic_cast <xercesc::DOMElement* > ( funcion );
+
+		   }
+
 
 	   }
 	   catch( xercesc::XMLException& e )

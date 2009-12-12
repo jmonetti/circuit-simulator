@@ -312,6 +312,29 @@ DOMElement* Circuito::obtenerElemCircuito(DOMDocument* doc) const{
 
 }
 
+DOMElement* Circuito::obtenerCircuito(DOMDocument* doc) const{
+
+	XMLCh tempStr[100];
+	std::string aux;
+
+    XMLString::transcode("Circuito", tempStr, 99);
+    DOMElement*   elem_circuito = doc->createElement(tempStr);
+
+    aux= "nombre";
+    std::string nombre = getNombre();
+
+    Persistencia::guardarElemento(doc,elem_circuito,aux,nombre);
+
+	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+		compuertas[var]->guardar(doc,elem_circuito);  //TODO GUARDAR COMPUERTAS
+
+	}
+
+    return elem_circuito;
+
+}
+
 void Circuito::agregarEntradasCompuerta(Compuerta* compuerta) {
 
 	EntradaCompuerta** entradas= compuerta->getEntradas();

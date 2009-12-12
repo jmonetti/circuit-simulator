@@ -120,6 +120,11 @@ public:
 	 */
 	DOMElement* obtenerElemCircuito(DOMDocument* doc) const;
 
+	/*
+	 * Obtiene el circuito
+	 */
+	DOMElement* obtenerCircuito(DOMDocument* doc) const;
+
 private:
 
 	/*

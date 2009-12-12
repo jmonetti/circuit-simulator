@@ -179,7 +179,6 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			delete circuito;
 			return aux;
 
-			break;
 		}
 
 		case SIMULARTIEMPO: {
@@ -202,7 +201,18 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			delete circuito;
 			return aux;
 
-			break;
+		}
+
+		case DISENIO: {
+
+			aux = persistencia.obtenerNombre(funcion);
+			Circuito* circuito = persistencia.recuperarCircuito(0,aux);
+			aux = generarRespuesta(circuito);
+
+			delete circuito;
+
+			return aux;
+
 		}
 
 	}
@@ -281,4 +291,20 @@ std::string ModeloServidor::generarRespuesta(int cantEntradas, int cantSalidas) 
 
 }
 
+std::string ModeloServidor::generarRespuesta(Circuito* circuito) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	Lock k(&mutex);
+	std::string ruta = ManagerArchivos::getNombreRespuesta();
+
+	Persistencia::generarSOAP(impl,doc,ruta, circuito->obtenerCircuito(doc));
+
+	return ruta;
+
+}
 
