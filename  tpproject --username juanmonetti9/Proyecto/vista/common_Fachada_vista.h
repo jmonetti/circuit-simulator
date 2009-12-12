@@ -63,7 +63,7 @@ public:
 
 	void ocultar_Caja_negra();
 
-	void mostrar_Caja_negra();
+	void mostrar_Caja_negra(const std::string &nombre);
 
 
 	/**

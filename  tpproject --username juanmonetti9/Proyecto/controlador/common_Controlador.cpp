@@ -326,7 +326,7 @@ void Controlador::mostrar_caja_negra(int x,int y) {
 
 				Circuito* circuito= modeloCliente->obtenerCircuitoServidor(id);
 
-				fachada_vista->mostrar_Caja_negra();
+				fachada_vista->mostrar_Caja_negra(circuito->getNombre());
 
 				std::vector<Compuerta*> compuertas= circuito->getCompuertas();
 
