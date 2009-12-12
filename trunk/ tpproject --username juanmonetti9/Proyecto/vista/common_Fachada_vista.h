@@ -17,6 +17,7 @@
 #include "common_Ventana_Salida.h"
 #include "common_Ventana_Upload.h"
 #include "common_Ventana_Download.h"
+#include "common_Ventana_Caja_Negra.h"
 
 class Fachada_vista {
 
@@ -31,6 +32,7 @@ private:
 	Ventana_Salida ventana_salida;
 	Ventana_Upload ventana_upload;
 	Ventana_Download ventana_download;
+	Ventana_Caja_Negra ventana_caja_negra;
 
 public:
 
@@ -38,11 +40,35 @@ public:
 
 	void limpiar_area_disenio();
 
+	/**
+	 * Metodos para el dibujo sobre el area de diseño
+	 */
+
 	void dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista=0);
 
 	void dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
 
 	void dibujar_vertice(gdouble x,gdouble y,SENTIDO sentido);
+
+	/**
+	 * Metodos para el dibujo sobre la ventana auxiliar donde se
+	 * mostrara el contenido de una caja negra
+	 */
+
+	void dibujar_componente_CN(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido);
+
+	void dibujar_caja_negra_CN(gdouble x,gdouble y,int cant_entradas,int cant_salidas);
+
+	void dibujar_vertice_CN(gdouble x,gdouble y,SENTIDO sentido);
+
+	void ocultar_Caja_negra();
+
+	void mostrar_Caja_negra();
+
+
+	/**
+	 * Metodos de la fachada
+	 */
 
 	void completar_grilla(Resultado* resultado);
 

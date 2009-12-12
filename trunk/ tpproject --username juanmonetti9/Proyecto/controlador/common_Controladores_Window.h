@@ -18,6 +18,9 @@ public:
 	virtual ~Controlador_Ventana();
 
 	static gint delete_event_true(GtkWidget *widget, GdkEvent *event, gpointer data);
+
+	static gint delete_event_esconder(GtkWidget *widget, GdkEvent *event, gpointer data);
 };
+
 
 #endif /* COMMON_CONTROLADOR_VENTANA_H_ */
