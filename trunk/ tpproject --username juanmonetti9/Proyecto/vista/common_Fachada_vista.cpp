@@ -45,8 +45,9 @@ void Fachada_vista::ocultar_Caja_negra(){
 
 }
 
-void Fachada_vista::mostrar_Caja_negra(){
+void Fachada_vista::mostrar_Caja_negra(const std::string &nombre){
 
+	ventana_caja_negra.setear_nombre(nombre);
 	ventana_caja_negra.show();
 }
 

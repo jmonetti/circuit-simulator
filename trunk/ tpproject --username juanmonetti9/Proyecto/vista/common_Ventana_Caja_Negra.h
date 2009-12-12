@@ -46,6 +46,8 @@ public:
 
 	GtkWidget* getWidget();
 
+	void setear_nombre(const std::string &nombre);
+
 	void agregar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido);
 
 	void agregar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas);

@@ -7,8 +7,7 @@ Ventana_Caja_Negra::Ventana_Caja_Negra(){
 
 	//Creo la ventana
 	ventana = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	//seteo el titulo que llevara la ventana
-	gtk_window_set_title (GTK_WINDOW (ventana), " Caja Negra ");
+
 	gtk_widget_set_usize(ventana,400,400);
 	//creo la caja y la incluyo en la ventana
 	box_ventana=gtk_vbox_new(false,0);
@@ -32,6 +31,15 @@ Ventana_Caja_Negra::Ventana_Caja_Negra(){
 
 
 }
+
+
+void Ventana_Caja_Negra::setear_nombre(const std::string &nombre) {
+
+	//seteo el titulo que llevara la ventana
+	gtk_window_set_title (GTK_WINDOW (ventana), nombre.c_str());
+
+}
+
 void Ventana_Caja_Negra::dibujar_pista(gdouble x,gdouble y,SENTIDO sentido){
 
 	switch(sentido){
