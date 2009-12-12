@@ -17,6 +17,8 @@ public:
 
 	static DOMElement* GetCircuito(DOMDocument* doc, const std::string &nombreCircuito);
 
+	static DOMElement* GetDisenio(DOMDocument* doc, const std::string &nombreCircuito);
+
 };
 
 #endif /* COMMON_MENSAJES_H_ */

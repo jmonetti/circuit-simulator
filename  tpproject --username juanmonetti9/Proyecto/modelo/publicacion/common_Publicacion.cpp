@@ -37,7 +37,7 @@ void Publicacion::enviar(const std::string &nombreCircuito,Servidor servidor) {
 
 void Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bool* entradas,int cantidad,bool* salidas) {
 
-	std::string ruta = generarPedido(nombreCircuito,cantidad,entradas);
+	std::string ruta = generarPedidoSimulacion(nombreCircuito,cantidad,entradas);
 
 	try {
 
@@ -65,7 +65,7 @@ void Publicacion::simular(const std::string &nombreCircuito,Servidor servidor,bo
 
 void Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Servidor servidor,int* tiempos,int cantidad,int* salidas) {
 
-	std::string ruta = generarPedido(nombreCircuito,cantidad,tiempos);
+	std::string ruta = generarPedidoTiempoSimulacion(nombreCircuito,cantidad,tiempos);
 
 	try {
 
@@ -93,7 +93,7 @@ void Publicacion::calcularTiempoTransicion(const std::string &nombreCircuito,Ser
 
 TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor servidor) {
 
-	std::string ruta = generarPedido(nombreCircuito);
+	std::string ruta = generarPedidoCircuito(nombreCircuito);
 
 	try {
 
@@ -118,12 +118,11 @@ TamanioCajaNegra Publicacion::recibir(const std::string &nombreCircuito,Servidor
 
 	}
 
-
 }
 
 void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuitos) {
 
-	std::string ruta = generarPedido();
+	std::string ruta = generarPedidoListaCircuitos();
 
 	try {
 
@@ -149,7 +148,37 @@ void Publicacion::obtenerCircuitos(Servidor servidor,std::vector<char*>* circuit
 
 }
 
-std::string Publicacion::generarPedido (const std::string &nombreCircuito,int cantEntradas, bool* entradas) {
+Circuito* Publicacion::verCajaNegra(const std::string &nombreCajaNegra, Servidor servidor) {
+
+
+	std::string ruta = generarPedidoDisenio(nombreCajaNegra);
+
+	try {
+
+		conectar(servidor);
+		enviarPedido(ruta);
+		remove(ruta.c_str());
+		std::string respuesta = recibirRespuesta();
+		ofstream frespuesta ("temp/GetDisenioResponse.xml");
+		frespuesta << respuesta;
+		frespuesta.close();
+		ruta = "temp/GetDisenioResponse.xml";
+		Circuito* cajaNegra = recuperarDisenioCajaNegra(ruta);
+		remove(ruta.c_str());
+
+		protocolo.desconectar();
+		return cajaNegra;
+
+	} catch (SocketException e) {
+
+		protocolo.desconectar();
+		throw PublicacionException("Error al recibir el diseño del circuito Caja Negra");
+
+	}
+
+}
+
+std::string Publicacion::generarPedidoSimulacion (const std::string &nombreCircuito,int cantEntradas, bool* entradas) {
 
 	XMLCh tempStr[100];
 
@@ -166,7 +195,7 @@ std::string Publicacion::generarPedido (const std::string &nombreCircuito,int ca
 
 }
 
-std::string Publicacion::generarPedido (const std::string &nombreCircuito,int cantEntradas, int* entradas) {
+std::string Publicacion::generarPedidoTiempoSimulacion (const std::string &nombreCircuito,int cantEntradas, int* entradas) {
 
 	XMLCh tempStr[100];
 	XMLString::transcode("LS", tempStr, 99);
@@ -200,7 +229,7 @@ std::string Publicacion::publicarCircuito(Circuito *circuito) {
 
 }
 
-std::string Publicacion::generarPedido() {
+std::string Publicacion::generarPedidoListaCircuitos() {
 
 	XMLCh tempStr[100];
 	XMLString::transcode("LS", tempStr, 99);
@@ -216,7 +245,7 @@ std::string Publicacion::generarPedido() {
 
 }
 
-std::string Publicacion::generarPedido(const std::string &nombreCircuito) {
+std::string Publicacion::generarPedidoCircuito(const std::string &nombreCircuito) {
 
 	XMLCh tempStr[100];
 	XMLString::transcode("LS", tempStr, 99);
@@ -227,6 +256,22 @@ std::string Publicacion::generarPedido(const std::string &nombreCircuito) {
 	std::string ruta = "temp/GetCircuito.xml";
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetCircuito(doc, nombreCircuito));
+
+	return ruta;
+
+}
+
+std::string Publicacion::generarPedidoDisenio(const std::string &nombreCircuito) {
+
+	XMLCh tempStr[100];
+	XMLString::transcode("LS", tempStr, 99);
+	DOMImplementation *impl = DOMImplementationRegistry::getDOMImplementation(tempStr);
+
+	DOMDocument* doc = impl->createDocument();
+
+	std::string ruta = "temp/GetDisenio.xml";
+
+	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetDisenio(doc, nombreCircuito));
 
 	return ruta;
 
@@ -427,3 +472,20 @@ void Publicacion::recuperarDatosCircuitos(const std::string &ruta,std::vector<ch
 
 }
 
+Circuito* Publicacion::recuperarDisenioCajaNegra(const std::string &ruta) {
+
+	Persistencia persistencia;
+
+	std::string elemento = "Circuito";
+	DOMElement* elem_Circuito = persistencia.getElemSOAP(ruta,elemento );
+
+	TIPO_SOAP tipo;
+	std::string aux;
+
+	aux = persistencia.obtenerNombre(elem_Circuito);
+	Circuito* circuito = persistencia.parserCircuito(elem_Circuito, 0, aux);
+
+	return circuito;
+
+
+}
