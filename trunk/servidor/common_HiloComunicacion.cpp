@@ -48,8 +48,7 @@ std::string HiloComunicacion::recibirPedido(int &codigoError) {
 			mensaje += linea;
 			longitud -= linea.size();
 		}
-		Lock k(&mutex);
-		std::string ruta_pedido = ManagerArchivos::getNombrePedido();
+		std::string ruta_pedido = ManagerArchivos::getInstancia()->getNombrePedido();
 		ofstream output(ruta_pedido.c_str());
 		output << mensaje;
 		output.close();
@@ -117,12 +116,12 @@ void* HiloComunicacion::run() {
 		std::string ruta_pedido = recibirPedido(codigoError);
 
 		std::string ruta_respuesta = modelo.generarRespuesta(ruta_pedido);
-		ManagerArchivos::removerArchivo(ruta_pedido);
+		ManagerArchivos::getInstancia()->removerArchivo(ruta_pedido);
 		if (ruta_respuesta.empty())
 			codigoError = 400;
 
 		enviarRespuesta(ruta_respuesta, codigoError);
-		ManagerArchivos::removerArchivo(ruta_respuesta);
+		ManagerArchivos::getInstancia()->removerArchivo(ruta_respuesta);
 		cout<<"envia respuesta"<<endl;
 		protocolo->desconectar();
 		this->stop();

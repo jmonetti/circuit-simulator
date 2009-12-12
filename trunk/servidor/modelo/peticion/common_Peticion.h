@@ -13,8 +13,6 @@
 #include "../circuito/common_Circuito.h"
 #include "common_Mensajes.h"
 #include "../../socket/common_ProtocoloCliente.h"
-#include "../../thread/common_Lock.h"
-#include "../../thread/common_Mutex.h"
 #include "../common_ManagerArchivos.h"
 
 class CajaNegra;
@@ -31,8 +29,6 @@ public:
 	std::string generarPedido (const std::string &nombreCircuito,int cantEntradas, int* entradas);
 
 private:
-
-	Mutex mutex;
 
 	ProtocoloCliente protocolo;
 

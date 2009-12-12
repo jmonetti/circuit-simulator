@@ -7,21 +7,38 @@
 #include <stdio.h>
 
 #include "../common/constantes.h"
-
-using namespace std;
+#include "../thread/common_Mutex.h"
 
 class ManagerArchivos {
+
 public:
 
-	static int contPedidos;
+	static ManagerArchivos* crearInstancia();
 
-	static int contRespuestas;
+	static ManagerArchivos* getInstancia();
 
-	static std::string getNombrePedido();
+	virtual ~ManagerArchivos();
 
-	static std::string getNombreRespuesta();
+	std::string getNombrePedido();
 
-	static void removerArchivo(std::string &archivo);
+	std::string getNombreRespuesta();
+
+	void removerArchivo(std::string &archivo);
+
+private:
+
+	static ManagerArchivos* instancia;
+
+	ManagerArchivos();
+
+	int contPedidos;
+
+	int contRespuestas;
+
+	Mutex mutexPedidos;
+
+	Mutex mutexRespuestas;
+
 };
 
 #endif /* COMMON_MANAGERARCHIVOS_H_ */

@@ -32,6 +32,8 @@ public:
 
 	GtkWidget* getWidget();
 
+	void conectarClick();
+
 	GdkPixmap* get_pixmap();
 
 	void set_pixmap(GdkPixmap *n_pixmap);

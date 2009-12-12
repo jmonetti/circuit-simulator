@@ -232,8 +232,7 @@ std::string ModeloServidor::generarRespuesta (int cantSalidas, bool* salidas) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombreRespuesta();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta,Mensajes::GetSimularResponse(doc,cantSalidas, salidas));
 
@@ -249,8 +248,7 @@ std::string ModeloServidor::generarRespuesta (int cantSalidas, int* salidas) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombreRespuesta();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetTiempoSimulacionResponse(doc,cantSalidas, salidas));
 
@@ -268,8 +266,7 @@ std::string ModeloServidor::generarListaCircuitos(std::vector<char*> circuitos) 
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombreRespuesta();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetListaCircuitosResponse(doc,circuitos));
 
@@ -285,8 +282,7 @@ std::string ModeloServidor::generarRespuesta(int cantEntradas, int cantSalidas) 
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombreRespuesta();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, Mensajes::GetCircuitoResponse(doc,cantEntradas, cantSalidas));
 
@@ -302,8 +298,7 @@ std::string ModeloServidor::generarRespuesta(Circuito* circuito) {
 
 	DOMDocument* doc = impl->createDocument();
 
-	Lock k(&mutex);
-	std::string ruta = ManagerArchivos::getNombreRespuesta();
+	std::string ruta = ManagerArchivos::getInstancia()->getNombreRespuesta();
 
 	Persistencia::generarSOAP(impl,doc,ruta, circuito->obtenerCircuito(doc));
 

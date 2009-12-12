@@ -1,10 +1,13 @@
 #include "common_HiloEscucha.h"
 #include <stdlib.h>
 #include <iostream>
+#include "modelo/common_ManagerArchivos.h"
 
 #define PARAR 'x'
 
 int main(int argc, char **argv) {
+
+	ManagerArchivos* managerArchivos= ManagerArchivos::crearInstancia();
 
 	HiloEscucha hiloEscucha;
 
@@ -28,6 +31,8 @@ int main(int argc, char **argv) {
 	 */
 	hiloEscucha.terminar();
 	hiloEscucha.join();
+
+	delete managerArchivos;
 
 }
 

@@ -6,8 +6,6 @@
 #include <vector>
 #include "persistencia/common_Persistencia.h"
 #include "peticion/common_Peticion.h"
-#include "../thread/common_Lock.h"
-#include "../thread/common_Mutex.h"
 #include "common_ManagerArchivos.h"
 
 using namespace std;
@@ -33,8 +31,6 @@ public:
 	void recuperarDatosTiempos(DOMNodeList* atributos, std::string &nombre, int* entradas);
 
 private:
-
-	Mutex mutex;
 
 	Persistencia persistencia;
 
