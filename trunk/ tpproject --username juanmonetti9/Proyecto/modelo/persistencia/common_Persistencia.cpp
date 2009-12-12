@@ -663,7 +663,7 @@ std::string Persistencia::recuperarDatoTexto(DOMElement* ElementoCte) {
 	std::string dato= aux;
 	XMLString::release(&aux);
 
-	return aux;
+	return dato;
 
 }
 

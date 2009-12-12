@@ -22,10 +22,11 @@
 #include "botones/common_Boton_Upload.h"
 #include "botones/common_Boton_Salida.h"
 #include "botones/common_Boton_entrada.h"
+#include "botones/common_Boton_Mostrar.h"
 
 
 const int WIDTH_BOTONERA= 68;
-const int HEIGHT_BOTONERA= 450;
+const int HEIGHT_BOTONERA= 470;
 
 class Box_herramientas_Circuito: public Componente_Visual {
 
@@ -48,6 +49,7 @@ private:
 	Boton_Upload upload;
 	Boton_entrada entrada;
 	Boton_Salida salida;
+	Boton_Mostrar mostrar;
 
 
 public:

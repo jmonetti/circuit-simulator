@@ -87,7 +87,6 @@ TIPO_COMPUERTA CajaNegra::getTipo() const {
 
 }
 
-
 EntradaCompuerta** CajaNegra::getEntradas() {
 
 	return entradas;
@@ -163,6 +162,19 @@ void CajaNegra::guardar(DOMDocument* doc, DOMNode* padre) {
 
     padre->appendChild(elem_CajaNegra);
 }
+
+Servidor CajaNegra::getServidor() const {
+
+	return servidor;
+
+}
+
+std::string CajaNegra::getNombre() const {
+
+	return nombreCircuito;
+
+}
+
 
 void CajaNegra::actualizarEntradas() {
 

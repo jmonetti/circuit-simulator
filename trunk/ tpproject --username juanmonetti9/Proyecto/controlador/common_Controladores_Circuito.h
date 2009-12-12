@@ -51,6 +51,8 @@ public:
 
 	static void callback_Simulacion( GtkWidget *widget,gpointer callback_data );
 
+	static void callback_Mostrar( GtkWidget *widget,gpointer callback_data );
+
 	/**
 	 * Controlador del evento de presionar el primer boton del raton
 	 */

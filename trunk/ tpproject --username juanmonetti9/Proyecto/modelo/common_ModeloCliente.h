@@ -154,6 +154,14 @@ public:
 	TamanioCajaNegra recibir(const std::string &nombreCircuito,Servidor servidor);
 
 	/*
+	 * Obtiene un circuito de un servidor
+	 * id= id del circuito a obtener
+	 * Retorna el circuito obtenido
+	 */
+	Circuito* obtenerCircuitoServidor(int id);
+
+
+	/*
 	 * Retorna el id del proximo circuito a agregar
 	 */
 	int getId();

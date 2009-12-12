@@ -2,9 +2,10 @@
 #ifndef COMMON_SALIDA_H_
 #define COMMON_SALIDA_H_
 
-#include "common_Compuerta.h"
 #include "common_EntradaCompuerta.h"
 #include <string>
+
+class Compuerta;
 
 class Salida: public Compuerta {
 

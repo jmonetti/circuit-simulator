@@ -205,10 +205,13 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 		case DISENIO: {
 
-			aux = persistencia.obtenerNombre(funcion);
-			Circuito* circuito = persistencia.recuperarCircuito(0,aux);
+			DOMNodeList* atributos = funcion->getChildNodes();
+			std::string nombre;
+			DOMNode* nodo_circuito = atributos->item(1);
+			DOMElement* nombre_circuito = dynamic_cast < xercesc::DOMElement* > ( nodo_circuito );
+			nombre = Persistencia::recuperarDatoTexto(nombre_circuito);
+			Circuito* circuito = persistencia.recuperarCircuito(0,nombre);
 			aux = generarRespuesta(circuito);
-
 			delete circuito;
 
 			return aux;

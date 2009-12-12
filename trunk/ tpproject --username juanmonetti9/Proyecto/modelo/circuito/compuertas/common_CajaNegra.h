@@ -2,7 +2,6 @@
 #ifndef COMMON_CAJANEGRA_H_
 #define COMMON_CAJANEGRA_H_
 
-#include "common_Compuerta.h"
 #include "common_EntradaCompuerta.h"
 #include "common_SalidaCompuerta.h"
 #include <vector>
@@ -10,6 +9,7 @@
 #include "../../publicacion/common_Publicacion.h"
 #include "../../publicacion/common_Servidor.h"
 #include "../../../common/common_TamanioCajaNegra.h"
+#include "common_Compuerta.h"
 
 using namespace std;
 
@@ -33,6 +33,10 @@ public:
 	int getCantidadSalidas();
 
 	void guardar(DOMDocument* doc, DOMNode* padre);
+
+	Servidor getServidor() const;
+
+	std::string getNombre() const;
 
 protected:
 

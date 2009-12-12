@@ -15,6 +15,7 @@
 #include "Acciones/common_Accion_new_entrada.h"
 #include "Acciones/common_Accion_new_salida.h"
 #include "Acciones/common_Accion_Draw_Caja_Negra.h"
+#include "Acciones/common_Accion_Mostrar.h"
 
 void Controlador_Circuito::callback_crear_Upload( GtkWidget *widget,gpointer callback_data ) {
 
@@ -150,13 +151,24 @@ void Controlador_Circuito::callback_Pista( GtkWidget *widget,gpointer callback_d
 
 void Controlador_Circuito::callback_Simulacion( GtkWidget *widget,gpointer callback_data ){
 
-	//TODO
 	Controlador* controlador=Controlador::get_instancia();
 
 	if(controlador){
 		controlador->desconectar_drag_drop();
 		controlador->simular();
 	}
+
+}
+
+void Controlador_Circuito::callback_Mostrar( GtkWidget *widget,gpointer callback_data ) {
+
+	Controlador* controlador=Controlador::get_instancia();
+
+	if(controlador){
+		controlador->desconectar_drag_drop();
+		controlador->agregar_accion(new Accion_Mostrar(controlador));
+	}
+
 
 }
 

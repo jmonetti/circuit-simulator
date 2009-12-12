@@ -310,6 +310,79 @@ void Controlador::agregar_caja_negra(int x,int y){
 	}
 }
 
+void Controlador::mostrar_caja_negra(int x,int y) {
+
+	Celda* aux=matrizActual->get_celda_px(x,y);
+
+	if(aux->esta_ocupada()){
+
+		Datos_celda* aux_datos = aux->get_datos();
+
+		if (aux_datos->get_tipo() == T_CAJANEGRA) {
+
+			int id= aux_datos->get_id();
+
+			try {
+
+				Circuito* circuito= modeloCliente->obtenerCircuitoServidor(id);
+
+				fachada_vista->mostrar_Caja_negra();
+
+				std::vector<Compuerta*> compuertas= circuito->getCompuertas();
+
+				Compuerta* compuerta;
+				for (unsigned int var = 0; var < compuertas.size(); ++var) {
+
+					compuerta= compuertas[var];
+
+					Posicion posicion= compuerta->getPosicion();
+
+					int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+					int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+					//Dibujo el componente
+					if(compuerta->getTipo()== T_CAJANEGRA){
+
+						fachada_vista->dibujar_caja_negra_CN(x,y,compuerta->getCantidadEntradas(),compuerta->getCantidadSalidas());
+
+					}
+					else
+
+						fachada_vista->dibujar_componente_CN(x,y,compuerta->getTipo(),compuerta->getSentido());
+				}
+
+				std::vector<ConexionVertice> conexiones;
+				circuito->getConexionVertice(&conexiones);
+
+				std::vector<ConexionVertice>::const_iterator it_conexion = conexiones.begin();
+
+				while( it_conexion != conexiones.end() ){
+
+					int x_rd= Modelo_vista_circuito::de_col_a_pixel(it_conexion->getPosicion().getX());
+					int y_rd= Modelo_vista_circuito::de_fila_a_pixel(it_conexion->getPosicion().getY());
+
+					fachada_vista->dibujar_vertice_CN(x_rd,y_rd,it_conexion->getSentido());
+					//incremento los iteradores
+					++it_conexion;
+
+				}
+
+				delete circuito;
+
+
+			} catch (PublicacionException e) {
+
+				fachada_vista->mostrar_error(e.getMensaje());
+
+			}
+
+
+
+		}
+	}
+
+
+}
+
 void Controlador::incluir_vertices(std::vector<ConexionVertice> conexiones){
 
 	std::vector<ConexionVertice>::const_iterator it_conexion = conexiones.begin();

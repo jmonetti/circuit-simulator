@@ -94,6 +94,8 @@ public:
 
 	void arrastrar(gdouble x, gdouble y);
 
+	void mostrar_caja_negra(int x,int y);
+
 	void crear_entrada();
 
 	void crear_salida();
@@ -105,6 +107,7 @@ public:
 	void aceptar_nuevo();
 
 	void destruir_vista();
+
 
 
 	static Controlador* crear_instancia(Fachada_vista* fachada,ModeloCliente* modeloCliente);
