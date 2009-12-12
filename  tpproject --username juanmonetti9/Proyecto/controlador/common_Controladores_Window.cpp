@@ -3,6 +3,7 @@
 
 #include "common_Controladores_Window.h"
 #include "common_Controlador.h"
+#include "../vista/common_Ventana_Caja_Negra.h"
 
 
 gint Controlador_Ventana::delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)	{
@@ -29,6 +30,15 @@ gint Controlador_Ventana::delete_event_true(GtkWidget *widget, GdkEvent *event, 
 
 	return true;
 
+
+}
+
+gint Controlador_Ventana::delete_event_esconder(GtkWidget *widget, GdkEvent *event, gpointer data) {
+
+	Ventana_Caja_Negra* ventana = (Ventana_Caja_Negra*) data;
+	ventana->hide();
+
+	return true;
 
 }
 
