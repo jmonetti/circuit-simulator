@@ -119,7 +119,7 @@ void Socket::connect(const std::string& host, unsigned int port){
 
 		servidor.sin_family = AF_INET;
 		//pone la direccion
-		servidor.sin_addr.s_addr = inet_addr(host.c_str());
+		servidor.sin_addr = *((struct in_addr *)he->h_addr);
 		//pone el puerto
 		servidor.sin_port = htons(port);
 		//completa con 0
