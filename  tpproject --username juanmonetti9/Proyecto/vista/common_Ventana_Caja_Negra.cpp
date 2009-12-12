@@ -2,20 +2,30 @@
 
 #include "common_Ventana_Caja_Negra.h"
 
-Ventana_Caja_Negra::Ventana_Caja_Negra() {
+Ventana_Caja_Negra::Ventana_Caja_Negra(){
+
 
 	//Creo la ventana
 	ventana = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	//seteo el titulo que llevara la ventana
 	gtk_window_set_title (GTK_WINDOW (ventana), " Caja Negra ");
+	gtk_widget_set_usize(ventana,400,400);
 	//creo la caja y la incluyo en la ventana
 	box_ventana=gtk_vbox_new(false,0);
-	gtk_container_add (GTK_CONTAINER (ventana),box_ventana);
+	//Creo la ventana scrollable
+	scroll= gtk_scrolled_window_new(NULL,NULL);
+	gtk_scrolled_window_set_policy((GtkScrolledWindow*)scroll,GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_container_border_width (GTK_CONTAINER (scroll), 20);
+	//Incluyo el componente
+	gtk_scrolled_window_add_with_viewport((GtkScrolledWindow*)scroll,box_ventana);
+	//incluyo el scroll en la ventana
+	gtk_container_add (GTK_CONTAINER (ventana),scroll);
 	//incluyo el area de disenio en la caja
 	gtk_container_add (GTK_CONTAINER (box_ventana),area_disenio.getWidget());
 	//Muestro la caja y el area de disenio
 	area_disenio.show();
 	gtk_widget_show(box_ventana);
+	gtk_widget_show(scroll);
 	//Conecto con sus controladores
 	gtk_signal_connect (GTK_OBJECT (ventana), "delete_event",
 							GTK_SIGNAL_FUNC (Controlador_Ventana::delete_event_esconder),this);
@@ -299,6 +309,7 @@ void Ventana_Caja_Negra::show() {
 void Ventana_Caja_Negra::hide() {
 
 	gtk_widget_hide(ventana);
+	area_disenio.borrar();
 
 
 
