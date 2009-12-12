@@ -479,7 +479,6 @@ Circuito* Publicacion::recuperarDisenioCajaNegra(const std::string &ruta) {
 	std::string elemento = "Circuito";
 	DOMElement* elem_Circuito = persistencia.getElemSOAP(ruta,elemento );
 
-	TIPO_SOAP tipo;
 	std::string aux;
 
 	aux = persistencia.obtenerNombre(elem_Circuito);
