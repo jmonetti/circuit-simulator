@@ -4,6 +4,7 @@
 
 #include "common_Componente_Visual.h"
 #include "../controlador/common_Controladores_Window.h"
+
 #include "../common/constantes.h"
 #include "common_Area_disenio.h"
 
@@ -14,6 +15,7 @@ private:
 	GtkWidget* ventana;
 	GtkWidget* box_ventana;
 	Area_disenio area_disenio;
+	GtkWidget* scroll;
 
 
 
