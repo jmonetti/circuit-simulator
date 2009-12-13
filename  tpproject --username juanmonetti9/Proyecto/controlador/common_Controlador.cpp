@@ -292,8 +292,9 @@ void Controlador::agregar_caja_negra(int x,int y){
 			this->agregar_accion(NULL);
 
 	} catch (ConexionException e) {
+
 		agregadaModelo= false;
-		modeloCliente->eliminarCompuerta(id);
+
 	} catch (PublicacionException e) {
 
 		agregadaModelo= false;
