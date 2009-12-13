@@ -13,6 +13,7 @@
 #include "../circuito/common_Circuito.h"
 #include "../circuito/common_FactoryCompuerta.h"
 #include "../publicacion/common_Servidor.h"
+#include "../../common/constantes.h"
 
 #include "common_Persistencia.h"
 

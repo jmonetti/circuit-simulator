@@ -192,7 +192,7 @@ void ModeloCliente::guardar() {
 std::vector<char*>* ModeloCliente::obtenerCircuitosGuardados() {
 
 	std::vector<char*>* circuitos= new std::vector<char*>();
-	Utils::obtenerArchivos(PATH_SAVES,circuitos);
+	Utils::obtenerArchivos(PATH_SAVES.c_str(),circuitos);
 	return circuitos;
 
 }

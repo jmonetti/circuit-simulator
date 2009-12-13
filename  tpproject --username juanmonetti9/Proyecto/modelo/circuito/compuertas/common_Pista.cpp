@@ -97,8 +97,8 @@ void Pista::actualizarEntradas() {
 	unsigned int xCompuerta= getPosicion().getX();
 	unsigned int yCompuerta= getPosicion().getY();
 
-	unsigned int xEntrada;
-	unsigned int yEntrada;
+	unsigned int xEntrada = 0;
+	unsigned int yEntrada = 0;
 
 
 	switch (getSentido()) {
@@ -156,8 +156,8 @@ void Pista::actualizarSalidas() {
 	unsigned int xCompuerta= getPosicion().getX();
 	unsigned int yCompuerta= getPosicion().getY();
 
-	unsigned int xSalida;
-	unsigned int ySalida;
+	unsigned int xSalida = 0;
+	unsigned int ySalida = 0;
 
 
 	switch (getSentido()) {

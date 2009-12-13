@@ -169,8 +169,16 @@ int Circuito::agregarCompuerta(Compuerta* compuerta) {
 	agregarEntradasCompuerta(compuerta);
 	agregarSalidasCompuerta(compuerta);
 
+	try{
+
 	conectarCompuerta(compuerta);
 
+	}catch (ConexionException e) {
+
+		eliminarCompuerta(compuerta->getId());
+		throw e;
+
+	}
 	contadorCompuertas++;
 
 	return contadorCompuertas - 1;
