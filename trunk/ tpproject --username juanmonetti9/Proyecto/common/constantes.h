@@ -45,6 +45,6 @@ const static int TIEMPO_TRANSICION_XOR= 30;
 const static int TIEMPO_TRANSICION_NOT= 5;
 
 //Path donde se guardan los circuitos
-const static char* PATH_SAVES= "saves/";
+const static std::string PATH_SAVES= "saves/";
 
 #endif /* CONSTANTES_H_ */

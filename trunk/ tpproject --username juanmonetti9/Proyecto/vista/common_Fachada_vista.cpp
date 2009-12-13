@@ -12,7 +12,7 @@ Fachada_vista::Fachada_vista(Box_Ventana_Interna* ventana_int) {
 void Fachada_vista::dibujar_componente(gdouble x,gdouble y,TIPO_COMPUERTA tipo,SENTIDO sentido,int tam_pista){
 
 	ventana_interna->dibujar_componente(x,y,tipo,sentido,tam_pista);
-};
+}
 
 void Fachada_vista::dibujar_caja_negra(gdouble x,gdouble y,int cant_entradas,int cant_salidas){
 

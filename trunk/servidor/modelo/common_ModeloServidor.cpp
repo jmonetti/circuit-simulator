@@ -117,7 +117,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 
 		case LISTA: {
 			std::vector<char*> circuitos;
-			Utils::obtenerArchivos(PATH_SAVES,&circuitos);
+			Utils::obtenerArchivos(PATH_SAVES.c_str(),&circuitos);
 
 			aux = generarListaCircuitos(circuitos);
 

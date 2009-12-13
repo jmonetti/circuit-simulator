@@ -120,8 +120,8 @@ void Salida::actualizarEntradas() {
 	unsigned int xCompuerta= getPosicion().getX();
 	unsigned int yCompuerta= getPosicion().getY();
 
-	unsigned int xEntrada;
-	unsigned int yEntrada;
+	unsigned int xEntrada = 0;
+	unsigned int yEntrada = 0;
 
 
 	switch (getSentido()) {

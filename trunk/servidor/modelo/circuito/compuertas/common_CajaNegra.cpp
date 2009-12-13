@@ -155,8 +155,8 @@ void CajaNegra::actualizarEntradas() {
 
 	for (int var = 0; var < getCantidadEntradas(); ++var) {
 
-		unsigned int xEntrada;
-		unsigned int yEntrada;
+		unsigned int xEntrada = 0;
+		unsigned int yEntrada = 0;
 
 		switch (getSentido()) {
 
@@ -213,8 +213,8 @@ void CajaNegra::actualizarSalidas() {
 
 	for (int var = 0; var < getCantidadSalidas(); ++var) {
 
-		unsigned int xSalida;
-		unsigned int ySalida;
+		unsigned int xSalida = 0;
+		unsigned int ySalida = 0;
 
 		switch (getSentido()) {
 

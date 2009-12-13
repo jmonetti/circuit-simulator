@@ -105,11 +105,11 @@ void XOR::actualizarEntradas() {
 	unsigned int xCompuerta= getPosicion().getX();
 	unsigned int yCompuerta= getPosicion().getY();
 
-	unsigned int xEntrada1;
-	unsigned int yEntrada1;
+	unsigned int xEntrada1 = 0;
+	unsigned int yEntrada1 = 0;
 
-	unsigned int xEntrada2;
-	unsigned int yEntrada2;
+	unsigned int xEntrada2 = 0;
+	unsigned int yEntrada2 = 0;
 
 
 	switch (getSentido()) {
@@ -179,8 +179,8 @@ void XOR::actualizarSalidas() {
 	unsigned int xCompuerta= getPosicion().getX();
 	unsigned int yCompuerta= getPosicion().getY();
 
-	unsigned int xSalida;
-	unsigned int ySalida;
+	unsigned int xSalida = 0;
+	unsigned int ySalida = 0;
 
 
 	switch (getSentido()) {

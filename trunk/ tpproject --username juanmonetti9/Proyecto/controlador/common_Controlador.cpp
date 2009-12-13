@@ -171,7 +171,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 	bool agregadaVista = false;
 	//puntero a celda donde agrego e id del componente a agregar
 	Celda* celda= NULL;
-	int id;
+	int id= 0;
 
 
 	switch(_tipo){
@@ -222,6 +222,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 						celda=matrizActual->get_celda_px(_x,_y);
 
 					} catch (ConexionException e) {
+
 						agregadaModelo= false;
 
 					}
@@ -240,6 +241,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 					celda=matrizActual->get_celda_px(_x,_y);
 
 				} catch (ConexionException e) {
+
 					agregadaModelo= false;
 				}
 			break;
@@ -251,7 +253,7 @@ void Controlador::agregar_componente(int x,int y,TIPO_COMPUERTA _tipo,SENTIDO se
 		//Redibujo
 		this->redibujar_circuito(modeloCliente->getCompuertas());
 
-	}else if (!agregadaVista) {
+	}else if ((!agregadaVista) && (agregadaModelo)) {
 		modeloCliente->eliminarCompuerta(id);
 	}
 
@@ -266,7 +268,7 @@ void Controlador::agregar_caja_negra(int x,int y){
 	bool agregadaVista = false;
 	//puntero a celda donde agrego e id del componente a agregar
 	Celda* celda= NULL;
-	int id;
+	int id=0;
 
 
 	int cant_entradas;
@@ -291,6 +293,7 @@ void Controlador::agregar_caja_negra(int x,int y){
 
 	} catch (ConexionException e) {
 		agregadaModelo= false;
+		modeloCliente->eliminarCompuerta(id);
 	} catch (PublicacionException e) {
 
 		agregadaModelo= false;

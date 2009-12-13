@@ -674,42 +674,40 @@ void Celda::desocupar_componente(int identificador){
 
 SENTIDO Celda::turn_left(SENTIDO _sent){
 
-	SENTIDO retorno;
 
 	switch(_sent){
 
-		case NORTE: retorno=OESTE;
-					break;
-		case ESTE: retorno=NORTE;
-					break;
-		case SUR: retorno=ESTE;
-					break;
-		case OESTE: retorno=SUR;
-					break;
+		case NORTE: return OESTE;
+
+		case ESTE: return NORTE;
+
+		case SUR: return ESTE;
+
+		case OESTE: return SUR;
+
 
 	}
-	return retorno;
+
+	return _sent;
 }
 
 /*----------------------------------------------------------------------------*/
 
 SENTIDO Celda::turn_right(SENTIDO _sent){
 
-	SENTIDO retorno;
-
 	switch(_sent){
 
-		case NORTE: retorno=ESTE;
-					break;
-		case ESTE: retorno=SUR;
-					break;
-		case SUR: retorno=OESTE;
-					break;
-		case OESTE: retorno=NORTE;
-					break;
+		case NORTE: return ESTE;
+
+		case ESTE: return SUR;
+
+		case SUR: return OESTE;
+
+		case OESTE: return NORTE;
 
 	}
-	return retorno;
+
+	return _sent;
 }
 /*----------------------------------------------------------------------------*/
 
