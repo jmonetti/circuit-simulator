@@ -74,7 +74,7 @@ bool Celda::esta_ocupada()const{
 void Celda::rotar(DIRECCION direcc){
 
 
-	//solo rota compuerta por ahora todo
+
 	if(!hay_secundario() && componente.esta_ocupada()){
 
 		//obtengo la celda principal y los datos del componente

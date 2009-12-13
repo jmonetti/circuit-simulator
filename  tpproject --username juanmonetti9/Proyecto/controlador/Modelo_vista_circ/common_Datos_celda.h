@@ -68,10 +68,6 @@ public:
 
 	void set_cant_salidas(int nueva_cant);
 
-	void agregar_a_entorno(Celda* nueva_celda);
-
-	void vaciar_entorno();
-
 
 	virtual ~Datos_celda();
 };
