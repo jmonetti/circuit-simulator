@@ -555,7 +555,7 @@ void Area_disenio::draw_CAJANEGRA(gdouble x,gdouble y,int cant_entradas,int cant
 
 	 //cantidad maxima entre entradas o salidas
 	 int cant_max = (cant_entradas > cant_salidas)? cant_entradas:cant_salidas;
-	 update_rect.height= (cant_max > 3)?(((2*cant_max)-1) * CELDA_HEIGHT):(3 * CELDA_HEIGHT);
+	 update_rect.height= (cant_max > 2)?(((2*cant_max)-1) * CELDA_HEIGHT):(3 * CELDA_HEIGHT);
 
 
 	 for (int i = 0; i < cant_entradas; ++i) {
