@@ -131,13 +131,6 @@ void Datos_celda::set_ppal(bool nueva_ppal){
 	this->celda_ppal = nueva_ppal;
 }
 
-void Datos_celda::agregar_a_entorno(Celda* nueva_celda){
-	//todo agregar a ebntoprno
-}
-
-void Datos_celda::vaciar_entorno(){
-	//todo vaciar todo el entorno?
-}
 
 std::list<Celda*>& Datos_celda::get_entorno(){
 

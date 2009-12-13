@@ -262,7 +262,7 @@ void Fachada_vista::mostrar_confirmacion(const std::string &texto) {
 
 void Fachada_vista::delete_vista(){
 
-	g_print("holaskdsjjfjnjndfj");
+
 	gtk_object_destroy(GTK_OBJECT(ventana_interna->getWidget()));
 	gtk_object_destroy(GTK_OBJECT(ventana_nuevo.getWidget()));
 
