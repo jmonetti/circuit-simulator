@@ -173,7 +173,7 @@ std::string ModeloServidor::generarRespuesta(std::string& ruta_pedido) {
 			bool* salidas = simular(circuito,entradas);
 			int cantSalidas = circuito->getCantidadSalidas();
 			aux = generarRespuesta(cantSalidas, salidas);
-			cout<<aux<<endl;
+
 			delete[] entradas;
 			delete[] salidas;
 			delete circuito;
