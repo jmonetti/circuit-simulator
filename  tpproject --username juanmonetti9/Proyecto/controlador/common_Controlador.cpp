@@ -625,7 +625,9 @@ void Controlador::mostrar_imprimir(){
 
 void Controlador::imprimir(GtkPrintContext* context) {
 
-	fachada_vista->imprimir(context);
+	std::vector<ConexionVertice> conexiones;
+	modeloCliente->getConexionVertice(&conexiones);
+	fachada_vista->imprimir(context,modeloCliente->getCompuertas(),conexiones);
 
 }
 
