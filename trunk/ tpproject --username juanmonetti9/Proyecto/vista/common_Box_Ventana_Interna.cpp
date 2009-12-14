@@ -34,10 +34,10 @@ void Box_Ventana_Interna::agregar_grilla(int id,const char* nombre){
 	Grilla* nueva_grilla=new Grilla(id);
 	_grillas.push_back(nueva_grilla);
 	nueva_grilla->show();
+	actual=nueva_grilla;
 	GtkWidget* label_grilla= gtk_label_new (nombre);
 	gtk_notebook_append_page(GTK_NOTEBOOK (noteb),nueva_grilla->getWidget(),label_grilla);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK (noteb),_grillas.size()-1);
-	actual=nueva_grilla;
 
 }
 
