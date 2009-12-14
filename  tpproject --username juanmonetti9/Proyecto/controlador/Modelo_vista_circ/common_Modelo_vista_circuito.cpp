@@ -13,7 +13,6 @@ Modelo_vista_circuito::Modelo_vista_circuito() {
 			modelo_grilla[i][j] = new Celda(this,(unsigned int)i+1,(unsigned int)j+1);
 		}
 	}
-
 }
 
 bool Modelo_vista_circuito::hay_componente(int* x,int* y,TIPO_COMPUERTA* tipo){
@@ -39,17 +38,16 @@ void Modelo_vista_circuito::eliminar_componente(int x,int y){
 	if(aux)
 		aux->eliminar_componente();
 }
+
 bool Modelo_vista_circuito::agregar_caja_negra(int* x,int* y,int id,int cant_entradas,int cant_salidas){
 
 
 	//obtengo la celda y los valores de x e y modificados con
 	//los valores del coentro de la celda
 	Celda* celda= get_celda_px(x,y);
-
 	return celda->agregar_caja_negra(id,cant_entradas,cant_salidas);
-
-
 }
+
 bool Modelo_vista_circuito::agregar_componente(int* x,int* y,TIPO_COMPUERTA _tipo,int id,SENTIDO sentido){
 
 	int agregado=false;
@@ -113,8 +111,6 @@ int Modelo_vista_circuito::de_fila_a_pixel(int fila){
 	return y;
 }
 
-
-
 Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 
 	if(fila>=1 && colum>=1 && fila<=FILAS_MODELO && colum<=COLUMNAS_MODELO ){
@@ -123,9 +119,7 @@ Celda* Modelo_vista_circuito::get_celda(int fila,int colum){
 	}
 	else
 		return NULL;
-
 }
-
 
 Celda* Modelo_vista_circuito::get_celda_px(int x,int y){
 
@@ -135,6 +129,7 @@ Celda* Modelo_vista_circuito::get_celda_px(int x,int y){
 	return modelo_grilla[fila-1][col-1];
 
 }
+
 Celda* Modelo_vista_circuito::get_celda_px(int* x,int* y){
 
 	int fila= de_pixel_a_fila(*y);
@@ -143,7 +138,6 @@ Celda* Modelo_vista_circuito::get_celda_px(int* x,int* y){
 	*x=de_col_a_pixel(col);
 
 	return modelo_grilla[fila-1][col-1];
-
 }
 
 Modelo_vista_circuito::~Modelo_vista_circuito() {
@@ -153,10 +147,6 @@ Modelo_vista_circuito::~Modelo_vista_circuito() {
 		for (int j = 0; j < COLUMNAS_MODELO; j++){
 
 			delete modelo_grilla[i][j];
-
 		}
-
-
 	}
-
 }
