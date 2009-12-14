@@ -715,7 +715,10 @@ void Imprimir::draw_AND_este(gdouble x, gdouble y,cairo_t *cr){
 
 	cairo_stroke(cr);
 
-//	gdk_draw_arc(pixmap, color,false,xRectangulo-(3*(CELDA_WIDTH/2)),yRectangulo,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
+	cairo_scale(cr,1,0.5);
+	//arco sur Salida
+	cairo_arc(cr,xRectangulo-4,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,-M_PI/2+M_PI/10,M_PI/2-M_PI/10);
+	cairo_stroke(cr);
 
 }
 
@@ -742,9 +745,10 @@ void Imprimir::draw_AND_oeste(gdouble x, gdouble y,cairo_t *cr){
 	cairo_line_to(cr, xRectangulo,yRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 	cairo_stroke(cr);
 
-	//arco para salida
-	// gdk_draw_arc(pixmap, color,false,xRectangulo+(CELDA_WIDTH/2),yRectangulo,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17400,11700);
-
+	cairo_scale(cr,1,0.5);
+	//arco sur Salida
+	cairo_arc(cr,xRectangulo+4+COMPUERTA_WIDTH,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,+M_PI/2+M_PI/12,-M_PI/2-M_PI/12);
+	cairo_stroke(cr);
 
 }
 
@@ -802,6 +806,10 @@ void Imprimir::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
 	cairo_move_to(cr, xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT);
 	cairo_line_to(cr, xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 
+	cairo_stroke(cr);
+	cairo_scale(cr,0.5,1);
+	//arco sur Salida
+	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
 	cairo_stroke(cr);
 
 	//arco para salida
@@ -865,12 +873,15 @@ void Imprimir::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
 
 	cairo_stroke(cr);
 
+	cairo_scale(cr,0.5,1);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo*2,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,-M_PI/2,M_PI/2);
+	cairo_stroke(cr);
 
-/*	//Dibujo compuerta or
-	gdk_draw_arc(pixmap, color,false,xRectangulo-(3*(CELDA_WIDTH/2)),yRectangulo,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
-
-	gdk_draw_arc(pixmap, color,false,xRectangulo-3,yRectangulo,10,COMPUERTA_HEIGHT,-5850,11700);
-*/
+	cairo_scale(cr,2,0.5);
+	//arco sur Salida
+	cairo_arc(cr,xRectangulo-4,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,-M_PI/2+M_PI/15,M_PI/2-M_PI/15);
+	cairo_stroke(cr);
 }
 
 void Imprimir::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
@@ -891,15 +902,19 @@ void Imprimir::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	cairo_move_to(cr, xRectangulo+(CELDA_HEIGHT/2),yRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 	cairo_line_to(cr, xRectangulo,yRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2));
-
 	cairo_stroke(cr);
 
-/*
-	  //arco para salida
-	  gdk_draw_arc(pixmap, color,false,xRectangulo+(CELDA_WIDTH/2),yRectangulo,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-	  //arco para salida
-	  gdk_draw_arc(pixmap, color,false,xRectangulo+27,yRectangulo,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-*/
+	cairo_scale(cr,0.5,1);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo*2+2*COMPUERTA_WIDTH,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,+M_PI/2,-M_PI/2);
+	cairo_stroke(cr);
+	//arco sur entrada_seg XOR
+	//cairo_arc(cr,6+xRectangulo*2+2*COMPUERTA_WIDTH-CELDA_WIDTH,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,+M_PI/2,-M_PI/2);
+	//cairo_stroke(cr);
+	cairo_scale(cr,2,0.5);
+	//arco sur Salida
+	cairo_arc(cr,xRectangulo+4+COMPUERTA_WIDTH,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,+M_PI/2+M_PI/17,-M_PI/2-M_PI/17);
+	cairo_stroke(cr);
 
 
 }
@@ -924,13 +939,23 @@ void Imprimir::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
 	cairo_line_to(cr, xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
 
 	cairo_stroke(cr);
+	//dibuja salida
+	cairo_move_to(cr,xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT);
+	cairo_line_to(cr,  xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	cairo_stroke(cr);
 
-/*
-	//arco para salida
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
-	 //arco para entrada
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo-3,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
-*/
+
+	cairo_scale(cr, 1, 0.5);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),yRectangulo*2,16,0,-M_PI);
+	cairo_stroke(cr);
+
+	cairo_scale(cr,0.5,2);
+	//arco sur Salida
+	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/15,-M_PI-M_PI/15);
+	cairo_stroke(cr);
+
+
 }
 
 /*------------------- Metodos para el dibujo de XORs -------------------*/
@@ -958,15 +983,18 @@ void Imprimir::draw_XOR_este(gdouble x, gdouble y,cairo_t *cr){
 
 	cairo_stroke(cr);
 
+	cairo_scale(cr,0.5,1);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo*2,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,-M_PI/2,M_PI/2);
+	cairo_stroke(cr);
+	//arco sur entrada_seg XOR
+	cairo_arc(cr,6+xRectangulo*2,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,-M_PI/2,M_PI/2);
+	cairo_stroke(cr);
+	cairo_scale(cr,2,0.5);
+	//arco sur Salida
+	cairo_arc(cr,xRectangulo-4,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,-M_PI/2+M_PI/15,M_PI/2-M_PI/15);
+	cairo_stroke(cr);
 
-
-/*
-  //Dibujo compuerta xor
-
-  gdk_draw_arc(pixmap, color,false,xRectangulo-(3*(CELDA_WIDTH/2)),yRectangulo,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-5850,11700);
-  gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo,10,COMPUERTA_HEIGHT,-5850,11700);
-  gdk_draw_arc(pixmap, color,false,xRectangulo-3,yRectangulo,10,COMPUERTA_HEIGHT,-5850,11700);
-*/
 }
 
 void Imprimir::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
@@ -989,13 +1017,17 @@ void Imprimir::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
 	cairo_line_to(cr, xRectangulo,yRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2));
 
 	cairo_stroke(cr);
-/*
-	//arco para salida
-	gdk_draw_arc(pixmap, color,false,xRectangulo+(CELDA_WIDTH/2),yRectangulo,4*CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-	//arco para salida
-	gdk_draw_arc(pixmap, color,false,xRectangulo+27,yRectangulo,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-	gdk_draw_arc(pixmap, color,false,xRectangulo+29,yRectangulo,CELDA_WIDTH,COMPUERTA_HEIGHT,-17550,11700);
-*/
+	cairo_scale(cr,0.5,1);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo*2+2*COMPUERTA_WIDTH,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,+M_PI/2,-M_PI/2);
+	cairo_stroke(cr);
+	//arco sur entrada_seg XOR
+	cairo_arc(cr,6+xRectangulo*2+2*COMPUERTA_WIDTH-CELDA_WIDTH,yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),16,+M_PI/2,-M_PI/2);
+	cairo_stroke(cr);
+	cairo_scale(cr,2,0.5);
+	//arco sur Salida
+	cairo_arc(cr,xRectangulo+4+COMPUERTA_WIDTH,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,+M_PI/2+M_PI/10,-M_PI/2-M_PI/10);
+	cairo_stroke(cr);
 
 }
 
@@ -1030,64 +1062,87 @@ void Imprimir::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 
 void Imprimir::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
 
-	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
-	xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
-	yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-	widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-	heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
-	//arco para salida
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
-	//arco para entrada
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo-4,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
-	 //arco para entrada
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo-2,COMPUERTA_HEIGHT,CELDA_WIDTH,-11400,11500);
-	//dibujo entradas
-	gdk_draw_line(pixmap, color,xRectangulo+(CELDA_HEIGHT/2),yRectangulo,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
-	gdk_draw_line(pixmap, color,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
-	//dibuja salida
-	gdk_draw_line(pixmap,color,xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT,
-		  	 						  xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-	//informa que la zona dada por update_rect debe actualizarse, el widget
-	//generara un evento de exposicion
-	gtk_widget_draw (drawing_area, &update_rect);
+	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
+	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
+	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
+	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
+
+  cairo_set_line_width(cr,1);
+  cairo_set_source_rgb(cr, 0, 0, 0);
+  cairo_scale(cr, 1, 1);
+
+  cairo_move_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo);
+  cairo_line_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
+  cairo_move_to(cr,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo);
+  cairo_line_to(cr,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
+
+  //dibuja salida
+  cairo_move_to(cr,xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT);
+  cairo_line_to(cr,  xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+  cairo_stroke(cr);
+
+
+  cairo_scale(cr, 1, 0.5);
+  //Arco sur entradas
+  cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),yRectangulo*2,16,0,-M_PI);
+  cairo_stroke(cr);
+  //arco sur entrada_seg XOR
+  cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),6+yRectangulo*2,16,0,-M_PI);
+  cairo_stroke(cr);
+  cairo_scale(cr,0.5,2);
+  //arco sur Salida
+  cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
+  cairo_stroke(cr);
+
+
 }
 
 void Imprimir::draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido){
 
-	GdkRectangle update_rect;	GdkGC *color=this->get_color_negro();
 
-	xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
-	yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
-	widthRectangulo = CELDA_WIDTH; //ancho del rectangulo a redibujar
-	heightRectangulo = CELDA_HEIGHT;//alto del rectangulo a redibujar
+	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
+	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
+	int widthRectangulo = CELDA_WIDTH; //ancho del rectangulo a redibujar
+	int heightRectangulo = CELDA_HEIGHT;//alto del rectangulo a redibujar
+
+	cairo_set_source_rgb(cr, 0, 0, 0);
+	cairo_set_line_width (cr, 0.5);
+
 
 	switch(sentido){
 
 		case ESTE:{
-			gdk_draw_line(pixmap,color,xRectangulo+(CELDA_WIDTH/2),yRectangulo+(CELDA_WIDTH/2),xRectangulo+(CELDA_HEIGHT),yRectangulo+(CELDA_HEIGHT/2));
+			//dibujo la linea este
+			cairo_move_to(cr, xRectangulo+(CELDA_WIDTH/2),yRectangulo+(CELDA_WIDTH/2));
+			cairo_line_to(cr, xRectangulo+(CELDA_HEIGHT),yRectangulo+(CELDA_HEIGHT/2));
+
 			break;
 		}
 		case OESTE:{
-			gdk_draw_line(pixmap,color,xRectangulo+(CELDA_WIDTH/2),yRectangulo+(CELDA_WIDTH/2),xRectangulo,yRectangulo+(CELDA_HEIGHT/2));
+			cairo_move_to(cr,xRectangulo+(CELDA_WIDTH/2),yRectangulo+(CELDA_WIDTH/2));
+			cairo_line_to(cr,xRectangulo,yRectangulo+(CELDA_HEIGHT/2));
 			break;
 			}
 		case NORTE:{
-			gdk_draw_line(pixmap,color,xRectangulo+(CELDA_WIDTH/2),yRectangulo,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
+			cairo_move_to(cr,xRectangulo+(CELDA_WIDTH/2),yRectangulo);
+			cairo_line_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
 			break;
 			}
 		case SUR:{
-			gdk_draw_line(pixmap,color,xRectangulo+(CELDA_WIDTH/2),yRectangulo+(CELDA_WIDTH),xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
+			cairo_move_to(cr,xRectangulo+(CELDA_WIDTH/2),yRectangulo+(CELDA_WIDTH));
+			cairo_line_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
 			break;
 			}
 	}
 
 	//informa que la zona dada por update_rect debe actualizarse, el widget
 	//generara un evento de exposicion
-	gtk_widget_draw (drawing_area, &update_rect);
+	cairo_stroke(cr);
 
 
 }
+
 
 /*----------------------------------------------------------------------------*/
