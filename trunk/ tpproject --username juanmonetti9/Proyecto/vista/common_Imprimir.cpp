@@ -1,51 +1,60 @@
 #include "common_Imprimir.h"
+#include "../controlador/common_Controladores_Archivo.h"
 
 #include <cairo/cairo.h>
 
 Imprimir::Imprimir() {
 
-	GtkWidget *window;
+	print= NULL;
+	settings= NULL;
+}
 
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+void Imprimir::mostrar() {
 
-	g_signal_connect(G_OBJECT(window), "expose-event",
-	  G_CALLBACK(on_expose_event), this);
-	g_signal_connect(G_OBJECT(window), "destroy",
-	  G_CALLBACK(gtk_main_quit), NULL);
+	GtkPrintOperationResult res;
 
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
-	gtk_window_set_title(GTK_WINDOW(window), "colors");
+	print = gtk_print_operation_new ();
 
-	gtk_widget_set_app_paintable(window, TRUE);
-	gtk_widget_show_all(window);
+	if (settings != NULL)
+		gtk_print_operation_set_print_settings (print, settings);
+
+	g_signal_connect (print, "begin_print", G_CALLBACK (begin_print), NULL);
+	g_signal_connect (print, "draw_page", G_CALLBACK (Controlador_Archivo::callback_draw_page), NULL);
+
+	res = gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+			GTK_WINDOW (NULL), NULL);
+
+	if (res == GTK_PRINT_OPERATION_RESULT_APPLY) {
+
+		if (settings != NULL)
+			g_object_unref (settings);
+		settings = (GtkPrintSettings*)g_object_ref (gtk_print_operation_get_print_settings (print));
+
+	}
+
+	g_object_unref (print);
 
 
 }
 
-gboolean Imprimir::on_expose_event(GtkWidget *widget,
-    GdkEventExpose *event,
-    gpointer data)
-{
+void Imprimir::begin_print(GtkPrintOperation* print,GtkPrintContext* context) {
+
+	gtk_print_operation_set_n_pages(print,1);
+
+}
+
+void Imprimir::imprimir(GtkPrintContext* context) {
 
 	cairo_t *cr;
 
-	cr = gdk_cairo_create(widget->window);
+	cr = gtk_print_context_get_cairo_context (context);
 
-	int width, height;
-	gtk_window_get_size(GTK_WINDOW(widget), &width, &height);
+	//grilla(cr);
 
-	Imprimir* imprimir= (Imprimir*) data;
-
-	imprimir->grilla(cr);
-
-	imprimir->draw_AND_este(50,50,cr);
-	imprimir->draw_AND_oeste(100,100,cr);
-	imprimir->draw_AND_norte(200,200,cr);
-	imprimir->draw_AND_sur(250,250,cr);
-
-	return false;
+	draw_AND_este(100,100,cr);
+	draw_NOT_este(200,200,cr);
 }
+
 
 
 void Imprimir::grilla(cairo_t *cr){
@@ -1025,7 +1034,7 @@ void Imprimir::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/11,-M_PI/11);
 	cairo_stroke(cr);
 }
-
+/*
 void Imprimir::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 

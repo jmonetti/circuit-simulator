@@ -15,6 +15,11 @@ public:
 
 	static void callback_Imprimir( GtkWidget *widget,gpointer callback_data );
 
+	static void callback_draw_page(GtkPrintOperation *operation,
+            GtkPrintContext   *context,
+            gint               page_nr,
+            gpointer           user_data);
+
 	static void callback_nuevo(GtkWidget *widget, gpointer callback_data );
 
 	static void callback_cerrar(GtkWidget *widget, gpointer data);

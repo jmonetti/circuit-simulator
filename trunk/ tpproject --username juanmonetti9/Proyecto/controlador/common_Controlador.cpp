@@ -612,6 +612,23 @@ void Controlador::crear_circuito(){
 }
 /*----------------------------------------------------------------------------*/
 
+void Controlador::mostrar_imprimir(){
+
+	if (modeloCliente->hayCircuito()) {
+
+		fachada_vista->mostrar_imprimir();
+
+	}
+
+
+}
+
+void Controlador::imprimir(GtkPrintContext* context) {
+
+	fachada_vista->imprimir(context);
+
+}
+
 void Controlador::cambiar_circuito(int index){
 
 	if (index >= 0) {

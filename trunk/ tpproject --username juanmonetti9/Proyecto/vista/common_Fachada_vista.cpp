@@ -57,6 +57,17 @@ void Fachada_vista::limpiar_area_disenio(){
 
 }
 
+void Fachada_vista:: mostrar_imprimir() {
+
+	impresion.mostrar();
+
+}
+
+void Fachada_vista::imprimir(GtkPrintContext *context) {
+
+	impresion.imprimir(context);
+
+}
 void Fachada_vista::completar_grilla(Resultado* resultado){
 
 	ventana_interna->completar_tabla_actual(resultado);

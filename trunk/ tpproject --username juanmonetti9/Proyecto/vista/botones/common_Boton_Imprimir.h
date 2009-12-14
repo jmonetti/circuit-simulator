@@ -13,6 +13,8 @@ public:
 	Boton_Imprimir();
 
 	virtual ~Boton_Imprimir();
+
+	static void callback_imprimir(GtkWidget* widget, gpointer data);
 };
 
 #endif /* COMMON_BOTON_IMPRIMIR_H_ */

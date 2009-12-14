@@ -18,6 +18,7 @@
 #include "common_Ventana_Upload.h"
 #include "common_Ventana_Download.h"
 #include "common_Ventana_Caja_Negra.h"
+#include "common_Imprimir.h"
 
 class Fachada_vista {
 
@@ -33,6 +34,7 @@ private:
 	Ventana_Upload ventana_upload;
 	Ventana_Download ventana_download;
 	Ventana_Caja_Negra ventana_caja_negra;
+	Imprimir impresion;
 
 public:
 
@@ -65,6 +67,9 @@ public:
 
 	void mostrar_Caja_negra(const std::string &nombre);
 
+	void mostrar_imprimir();
+
+	void imprimir(GtkPrintContext* context);
 
 	/**
 	 * Compĺeta la tabla de la vista con los datos del parametro

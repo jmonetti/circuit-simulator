@@ -10,12 +10,16 @@ public:
 
 	Imprimir();
 
-	static gboolean on_expose_event(GtkWidget *widget,
-	    GdkEventExpose *event,
-	    gpointer data);
+	void mostrar();
+
+	void imprimir(GtkPrintContext* context);
+
+	static void begin_print(GtkPrintOperation* print,GtkPrintContext* context);
 
 private:
 
+	GtkPrintSettings *settings;
+	GtkPrintOperation *print;
 
 	void grilla(cairo_t *cr);
 

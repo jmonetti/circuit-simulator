@@ -7,6 +7,23 @@
 
 void Controlador_Archivo::callback_Imprimir( GtkWidget *widget,gpointer callback_data ){
 
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->mostrar_imprimir();
+	}
+
+}
+
+void Controlador_Archivo::callback_draw_page(GtkPrintOperation *operation,
+           GtkPrintContext   *context,
+           gint               page_nr,
+           gpointer           user_data) {
+
+	Controlador* controlador=Controlador::get_instancia();
+	if(controlador){
+		controlador->imprimir(context);
+	}
+
 }
 
 void Controlador_Archivo::callback_nuevo(GtkWidget *widget, gpointer callback_data ){
