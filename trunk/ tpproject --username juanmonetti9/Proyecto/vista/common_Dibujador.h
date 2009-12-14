@@ -1,31 +1,40 @@
+#ifndef COMMON_DIBUJADOR_H_
+#define COMMON_DIBUJADOR_H_
 
-#ifndef COMMON_IMPRIMIR_H_
-#define COMMON_IMPRIMIR_H_
-
-#include <gtk-2.0/gtk/gtk.h>
-#include <vector>
-#include "common_Dibujador.h"
-#include "../common/constantes.h"
+#include <cairo/cairo.h>
+#include "../modelo/circuito/compuertas/common_Compuerta.h"
 #include "../modelo/circuito/common_ConexionVertice.h"
+#include <gtk-2.0/gtk/gtk.h>
 
+class Dibujador {
 
-class Imprimir {
 public:
 
-	Imprimir();
+	void dibujar(Compuerta* compuerta,cairo_t* cr);
 
-	void mostrar();
+	void dibujarConexion(ConexionVertice conexion,cairo_t* cr);
 
-	void imprimir(GtkPrintContext* context,std::vector<Compuerta*>& compuertas,std::vector<ConexionVertice>& conexiones);
+	void dibujarGrilla(cairo_t* cr);
 
-	static void begin_print(GtkPrintOperation* print,GtkPrintContext* context);
 
 private:
 
-	GtkPrintSettings *settings;
-	GtkPrintOperation *print;
+	void dibujarAnd(Posicion posicion, SENTIDO sentido,cairo_t* cr);
 
-	void grilla(cairo_t *cr);
+	void dibujarOr(Posicion posicion, SENTIDO sentido,cairo_t* cr);
+
+	void dibujarXOr(Posicion posicion, SENTIDO sentido,cairo_t* cr);
+
+	void dibujarNot(Posicion posicion, SENTIDO sentido,cairo_t* cr);
+
+	void dibujarPista(Posicion posicion, SENTIDO sentido,cairo_t* cr);
+
+	void dibujarEntrada(Posicion posicion, SENTIDO sentido,cairo_t* cr);
+
+	void dibujarSalida(Posicion posicion, SENTIDO sentido,cairo_t* cr);
+
+	void dibujarCajaNegra(Posicion posicion, SENTIDO sentido,int entradas,int salidas,cairo_t* cr);
+
 
 	void draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido);
 
@@ -108,8 +117,7 @@ private:
 
 	void draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr);
 
-	Dibujador dibujador;
 
 };
 
-#endif /* COMMON_IMPRIMIR_H_ */
+#endif /* COMMON_DIBUJADOR_H_ */

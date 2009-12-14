@@ -1,71 +1,289 @@
-#include "common_Imprimir.h"
-#include "../controlador/common_Controladores_Archivo.h"
+#include "common_Dibujador.h"
+#include "../controlador/Modelo_vista_circ/common_Modelo_vista_circuito.h"
 
-#include <cairo/cairo.h>
+void Dibujador::dibujar(Compuerta* compuerta,cairo_t* cr) {
 
-Imprimir::Imprimir() {
+	TIPO_COMPUERTA tipo= compuerta->getTipo();
+	Posicion posicion= compuerta->getPosicion();
+	SENTIDO sentido= compuerta->getSentido();
 
-	print= NULL;
-	settings= NULL;
-}
+	switch (tipo) {
 
-void Imprimir::mostrar() {
+		case T_AND:
 
-	GtkPrintOperationResult res;
+			dibujarAnd(posicion,sentido,cr);
+			break;
 
-	print = gtk_print_operation_new ();
+		case T_NOT:
+			dibujarNot(posicion,sentido,cr);
+			break;
 
-	if (settings != NULL)
-		gtk_print_operation_set_print_settings (print, settings);
+		case T_PISTA:
+			dibujarPista(posicion,sentido,cr);
+			break;
 
-	g_signal_connect (print, "begin_print", G_CALLBACK (begin_print), NULL);
-	g_signal_connect (print, "draw_page", G_CALLBACK (Controlador_Archivo::callback_draw_page), NULL);
+		case T_OR:
+			dibujarOr(posicion,sentido,cr);
+			break;
 
-	res = gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
-			GTK_WINDOW (NULL), NULL);
+		case T_XOR:
+			dibujarXOr(posicion,sentido,cr);
+			break;
 
-	if (res == GTK_PRINT_OPERATION_RESULT_APPLY) {
+		case T_ENTRADA:
+			dibujarEntrada(posicion,sentido,cr);
+			break;
 
-		if (settings != NULL)
-			g_object_unref (settings);
-		settings = (GtkPrintSettings*)g_object_ref (gtk_print_operation_get_print_settings (print));
+		case T_SALIDA:
+			dibujarSalida(posicion,sentido,cr);
+			break;
 
+		case T_CAJANEGRA:
+			dibujarCajaNegra(posicion,sentido,compuerta->getCantidadEntradas(),compuerta->getCantidadSalidas(),cr);
+			break;
+
+		default:
+
+			break;
 	}
 
-	g_object_unref (print);
-
-
 }
 
-void Imprimir::begin_print(GtkPrintOperation* print,GtkPrintContext* context) {
 
-	gtk_print_operation_set_n_pages(print,1);
+void Dibujador::dibujarAnd(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 
-}
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
 
-void Imprimir::imprimir(GtkPrintContext* context,std::vector<Compuerta*>& compuertas,std::vector<ConexionVertice>& conexiones) {
+	switch (sentido) {
 
-	cairo_t *cr;
+		case ESTE:
 
-	cr = gtk_print_context_get_cairo_context (context);
+			draw_AND_este(x,y,cr);
+			break;
 
-	dibujador.dibujarGrilla(cr);
+		case OESTE:
 
-	for (unsigned int var = 0; var < compuertas.size(); ++var) {
+			draw_AND_oeste(x,y,cr);
 
-		dibujador.dibujar(compuertas[var],cr);
+		case NORTE:
 
+			draw_AND_norte(x,y,cr);
+
+		case SUR:
+
+			draw_AND_sur(x,y,cr);
+
+		default:
+			break;
 	}
 
-	for (unsigned int var = 0; var < conexiones.size(); ++var) {
+}
 
-		dibujador.dibujarConexion(conexiones[var],cr);
+void Dibujador::dibujarOr(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	switch (sentido) {
+
+		case ESTE:
+
+			draw_OR_este(x,y,cr);
+			break;
+
+		case OESTE:
+
+			draw_OR_oeste(x,y,cr);
+
+		case NORTE:
+
+			draw_OR_norte(x,y,cr);
+
+		case SUR:
+
+			draw_OR_sur(x,y,cr);
+
+		default:
+			break;
 	}
+
+}
+
+void Dibujador::dibujarXOr(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	switch (sentido) {
+
+		case ESTE:
+
+			draw_XOR_este(x,y,cr);
+			break;
+
+		case OESTE:
+
+			draw_XOR_oeste(x,y,cr);
+
+		case NORTE:
+
+			draw_XOR_norte(x,y,cr);
+
+		case SUR:
+
+			draw_XOR_sur(x,y,cr);
+
+		default:
+			break;
+	}
+
+
+}
+
+void Dibujador::dibujarNot(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	switch (sentido) {
+
+		case ESTE:
+
+			draw_NOT_este(x,y,cr);
+			break;
+
+		case OESTE:
+
+			draw_NOT_oeste(x,y,cr);
+
+		case NORTE:
+
+			draw_NOT_norte(x,y,cr);
+
+		case SUR:
+
+			draw_NOT_sur(x,y,cr);
+
+		default:
+			break;
+	}
+
+
+}
+
+void Dibujador::dibujarPista(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	switch (sentido) {
+
+		case ESTE:
+
+			draw_pista_este(x,y,cr);
+			break;
+
+		case OESTE:
+
+			draw_pista_oeste(x,y,cr);
+
+		case NORTE:
+
+			draw_pista_norte(x,y,cr);
+
+		case SUR:
+
+			draw_pista_sur(x,y,cr);
+
+		default:
+			break;
+	}
+
+}
+
+void Dibujador::dibujarEntrada(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	switch (sentido) {
+
+		case ESTE:
+
+			draw_entrada_este(x,y,cr);
+			break;
+
+		case OESTE:
+
+			draw_entrada_oeste(x,y,cr);
+
+		case NORTE:
+
+			draw_entrada_norte(x,y,cr);
+
+		case SUR:
+
+			draw_entrada_sur(x,y,cr);
+
+		default:
+			break;
+	}
+
+
+}
+
+void Dibujador::dibujarSalida(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	switch (sentido) {
+
+		case ESTE:
+
+			draw_salida_este(x,y,cr);
+			break;
+
+		case OESTE:
+
+			draw_salida_oeste(x,y,cr);
+
+		case NORTE:
+
+			draw_salida_norte(x,y,cr);
+
+		case SUR:
+
+			draw_salida_sur(x,y,cr);
+
+		default:
+			break;
+	}
+
+}
+
+void Dibujador::dibujarCajaNegra(Posicion posicion, SENTIDO sentido,int entradas,int salidas,cairo_t* cr) {
+
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+
+	draw_CAJANEGRA(x,y,cr,entradas,salidas);
 }
 
 
 
-void Imprimir::grilla(cairo_t *cr){
+void Dibujador::dibujarConexion(ConexionVertice conexion,cairo_t* cr) {
+
+	Posicion posicion= conexion.getPosicion();
+	int x= Modelo_vista_circuito::de_col_a_pixel(posicion.getX());
+	int y= Modelo_vista_circuito::de_fila_a_pixel(posicion.getY());
+	draw_vertice(x,y,cr,conexion.getSentido());
+
+}
+
+
+void Dibujador::dibujarGrilla(cairo_t *cr){
 
 	int xRectangulo = 0; //pos x del rectangulo a redibujar
 	int yRectangulo = 0; //pos y del rectangulo a redibujar
@@ -104,7 +322,7 @@ void Imprimir::grilla(cairo_t *cr){
 
 /*------------------- Metodos para el dibujo de entradas -------------------*/
 
-void Imprimir::draw_entrada_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_entrada_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -144,7 +362,7 @@ void Imprimir::draw_entrada_sur(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_entrada_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_entrada_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT) - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -185,7 +403,7 @@ void Imprimir::draw_entrada_norte(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_entrada_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_entrada_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -226,7 +444,7 @@ void Imprimir::draw_entrada_este(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_entrada_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_entrada_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2)-(CELDA_WIDTH); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -269,7 +487,7 @@ void Imprimir::draw_entrada_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 /*------------------- Metodos para el dibujo de salidas -------------------*/
 
-void Imprimir::draw_salida_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_salida_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT) - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -314,7 +532,7 @@ void Imprimir::draw_salida_sur(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_salida_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_salida_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -359,7 +577,7 @@ void Imprimir::draw_salida_norte(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_salida_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_salida_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -CELDA_WIDTH-(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -404,7 +622,7 @@ void Imprimir::draw_salida_este(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_salida_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_salida_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -450,7 +668,7 @@ void Imprimir::draw_salida_oeste(gdouble x, gdouble y,cairo_t *cr){
 }
 /*------------------- Metodos para el dibujo de pistas -------------------*/
 
-void Imprimir::draw_pista_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_pista_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -473,7 +691,7 @@ void Imprimir::draw_pista_sur(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_pista_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_pista_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -496,7 +714,7 @@ void Imprimir::draw_pista_norte(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_pista_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_pista_este(gdouble x, gdouble y,cairo_t *cr){
 
 
 	int	xRectangulo = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
@@ -520,7 +738,7 @@ void Imprimir::draw_pista_este(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_pista_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_pista_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
@@ -546,7 +764,7 @@ void Imprimir::draw_pista_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 /*------------------- Metodos para el dibujo de cajaNegra  -----------------*/
 
-void Imprimir::draw_CAJANEGRA(gdouble x,gdouble y,cairo_t *cr,int cant_entradas,int cant_salidas){
+void Dibujador::draw_CAJANEGRA(gdouble x,gdouble y,cairo_t *cr,int cant_entradas,int cant_salidas){
 
 	//cantidad maxima entre entradas o salidas
 	int cant_max = (cant_entradas > cant_salidas)? cant_entradas:cant_salidas;
@@ -588,7 +806,7 @@ void Imprimir::draw_CAJANEGRA(gdouble x,gdouble y,cairo_t *cr,int cant_entradas,
 
 /*------------------- Metodos para el dibujo de NOT -------------------*/
 
-void Imprimir::draw_NOT_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_NOT_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -615,7 +833,7 @@ void Imprimir::draw_NOT_sur(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_NOT_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_NOT_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -642,7 +860,7 @@ void Imprimir::draw_NOT_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_NOT_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_NOT_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -670,7 +888,7 @@ void Imprimir::draw_NOT_este(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_NOT_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_NOT_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -699,7 +917,7 @@ void Imprimir::draw_NOT_norte(gdouble x, gdouble y,cairo_t *cr){
 
 /*------------------- Metodos para el dibujo de ANDs -------------------*/
 
-void Imprimir::draw_AND_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_AND_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -728,7 +946,7 @@ void Imprimir::draw_AND_este(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_AND_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_AND_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -756,7 +974,7 @@ void Imprimir::draw_AND_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_AND_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_AND_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -786,7 +1004,7 @@ void Imprimir::draw_AND_norte(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -815,7 +1033,7 @@ void Imprimir::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
 
 /*------------------- Metodos para el dibujo de ORs -------------------*/
 
-void Imprimir::draw_OR_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_OR_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -845,7 +1063,7 @@ void Imprimir::draw_OR_norte(gdouble x, gdouble y,cairo_t *cr){
 	cairo_stroke(cr);
 }
 
-void Imprimir::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -875,7 +1093,7 @@ void Imprimir::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
 	cairo_stroke(cr);
 }
 
-void Imprimir::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -908,7 +1126,7 @@ void Imprimir::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -947,7 +1165,7 @@ void Imprimir::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 /*------------------- Metodos para el dibujo de XORs -------------------*/
 
-void Imprimir::draw_XOR_este(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_XOR_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -980,7 +1198,7 @@ void Imprimir::draw_XOR_este(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -1012,7 +1230,7 @@ void Imprimir::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
@@ -1043,7 +1261,7 @@ void Imprimir::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 	cairo_stroke(cr);
 }
 
-void Imprimir::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
+void Dibujador::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 
 
@@ -1080,7 +1298,7 @@ void Imprimir::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 }
 
-void Imprimir::draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido){
+void Dibujador::draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido){
 
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
@@ -1122,6 +1340,3 @@ void Imprimir::draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido){
 
 
 }
-
-
-/*----------------------------------------------------------------------------*/

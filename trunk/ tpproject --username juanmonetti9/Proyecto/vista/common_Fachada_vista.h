@@ -69,7 +69,7 @@ public:
 
 	void mostrar_imprimir();
 
-	void imprimir(GtkPrintContext* context);
+	void imprimir(GtkPrintContext* context,std::vector<Compuerta*>& compuertas,std::vector<ConexionVertice>& conexiones);
 
 	/**
 	 * Compĺeta la tabla de la vista con los datos del parametro

@@ -63,9 +63,9 @@ void Fachada_vista:: mostrar_imprimir() {
 
 }
 
-void Fachada_vista::imprimir(GtkPrintContext *context) {
+void Fachada_vista::imprimir(GtkPrintContext *context,std::vector<Compuerta*>& compuertas,std::vector<ConexionVertice>& conexiones) {
 
-	impresion.imprimir(context);
+	impresion.imprimir(context,compuertas,conexiones);
 
 }
 void Fachada_vista::completar_grilla(Resultado* resultado){
