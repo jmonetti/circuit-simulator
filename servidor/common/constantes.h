@@ -46,4 +46,6 @@ const std::string PEDIDO = "pedido";
 
 const std::string RESPUESTA = "respuesta";
 
+const static std::string LENGTH = "Content-Length: ";
+
 #endif /* CONSTANTES_H_ */
