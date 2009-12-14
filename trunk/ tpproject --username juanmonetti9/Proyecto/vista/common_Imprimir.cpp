@@ -575,8 +575,6 @@ void Imprimir::draw_NOT_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -604,8 +602,6 @@ void Imprimir::draw_NOT_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -633,8 +629,6 @@ void Imprimir::draw_NOT_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -663,8 +657,6 @@ void Imprimir::draw_NOT_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -694,9 +686,6 @@ void Imprimir::draw_AND_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
-
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -726,8 +715,6 @@ void Imprimir::draw_AND_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -756,8 +743,6 @@ void Imprimir::draw_AND_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -776,10 +761,10 @@ void Imprimir::draw_AND_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	cairo_stroke(cr);
 
-	 //arco para salida
-//	 gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
-
-
+	cairo_scale(cr,0.5,1);
+	//arco sur Salida
+	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/12,-M_PI/12);
+	cairo_stroke(cr);
 
 
 }
@@ -788,8 +773,6 @@ void Imprimir::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -811,14 +794,6 @@ void Imprimir::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
 	cairo_stroke(cr);
-
-	//arco para salida
-//	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo-CELDA_WIDTH-(CELDA_WIDTH/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-11400,11500);
-
-
-
-
-
 }
 
 /*------------------- Metodos para el dibujo de ORs -------------------*/
@@ -827,8 +802,6 @@ void Imprimir::draw_OR_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -844,20 +817,21 @@ void Imprimir::draw_OR_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	cairo_stroke(cr);
 
-/*
-	 //arco para salida
-	 gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
-	 //arco para entrada
-	 gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo+26,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
-*/
+	cairo_scale(cr, 1, 0.5);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),yRectangulo*2+2*COMPUERTA_HEIGHT,16,M_PI,0);
+	cairo_stroke(cr);
+
+	cairo_scale(cr,0.5,2);
+	//arco sur Salida
+	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/18,-M_PI/18);
+	cairo_stroke(cr);
 }
 
 void Imprimir::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -888,8 +862,6 @@ void Imprimir::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -923,8 +895,6 @@ void Imprimir::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -962,12 +932,8 @@ void Imprimir::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 void Imprimir::draw_XOR_este(gdouble x, gdouble y,cairo_t *cr){
 
-
-
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -1001,8 +967,6 @@ void Imprimir::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -1035,8 +999,6 @@ void Imprimir::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-//	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -1051,13 +1013,17 @@ void Imprimir::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 	cairo_line_to(cr, xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
 
 	cairo_stroke(cr);
-/*
-	//arco para salida
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo+(CELDA_HEIGHT/2),COMPUERTA_HEIGHT,4*CELDA_WIDTH,-23100,11450);
-
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo+26,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
-	gdk_draw_arc(pixmap, color,false,xRectangulo,yRectangulo+28,COMPUERTA_HEIGHT,CELDA_WIDTH,-23100,11450);
-*/
+	cairo_scale(cr, 1, 0.5);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),yRectangulo*2+2*COMPUERTA_HEIGHT,16,M_PI,0);
+	cairo_stroke(cr);
+	//arco sur entrada_seg XOR
+	cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),-6+yRectangulo*2+2*COMPUERTA_HEIGHT,16,M_PI,0);
+	cairo_stroke(cr);
+	cairo_scale(cr,0.5,2);
+	//arco sur Salida
+	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/11,-M_PI/11);
+	cairo_stroke(cr);
 }
 
 void Imprimir::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
@@ -1066,35 +1032,33 @@ void Imprimir::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -(COMPUERTA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (COMPUERTA_HEIGHT/2); //pos y del rectangulo a redibujar
-	int widthRectangulo = COMPUERTA_WIDTH+1; //ancho del rectangulo a redibujar
-	int heightRectangulo = COMPUERTA_HEIGHT+1;//alto del rectangulo a redibujar
 
-  cairo_set_line_width(cr,1);
-  cairo_set_source_rgb(cr, 0, 0, 0);
-  cairo_scale(cr, 1, 1);
+	cairo_set_line_width(cr,1);
+	cairo_set_source_rgb(cr, 0, 0, 0);
+	cairo_scale(cr, 1, 1);
 
-  cairo_move_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo);
-  cairo_line_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
-  cairo_move_to(cr,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo);
-  cairo_line_to(cr,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
+	cairo_move_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo);
+	cairo_line_to(cr,xRectangulo+(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
+	cairo_move_to(cr,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo);
+	cairo_line_to(cr,xRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2),yRectangulo+(CELDA_HEIGHT/2));
 
-  //dibuja salida
-  cairo_move_to(cr,xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT);
-  cairo_line_to(cr,  xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
-  cairo_stroke(cr);
+	//dibuja salida
+	cairo_move_to(cr,xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT);
+	cairo_line_to(cr,  xRectangulo+CELDA_HEIGHT+(CELDA_HEIGHT/2),yRectangulo+COMPUERTA_HEIGHT-(CELDA_HEIGHT/2));
+	cairo_stroke(cr);
 
 
-  cairo_scale(cr, 1, 0.5);
-  //Arco sur entradas
-  cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),yRectangulo*2,16,0,-M_PI);
-  cairo_stroke(cr);
-  //arco sur entrada_seg XOR
-  cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),6+yRectangulo*2,16,0,-M_PI);
-  cairo_stroke(cr);
-  cairo_scale(cr,0.5,2);
-  //arco sur Salida
-  cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
-  cairo_stroke(cr);
+	cairo_scale(cr, 1, 0.5);
+	//Arco sur entradas
+	cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),yRectangulo*2,16,0,-M_PI);
+	cairo_stroke(cr);
+	//arco sur entrada_seg XOR
+	cairo_arc(cr,xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT),6+yRectangulo*2,16,0,-M_PI);
+	cairo_stroke(cr);
+	cairo_scale(cr,0.5,2);
+	//arco sur Salida
+	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
+	cairo_stroke(cr);
 
 
 }
@@ -1104,8 +1068,6 @@ void Imprimir::draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido){
 
 	int xRectangulo = x -(CELDA_WIDTH/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y - (CELDA_HEIGHT/2); //pos y del rectangulo a redibujar
-	int widthRectangulo = CELDA_WIDTH; //ancho del rectangulo a redibujar
-	int heightRectangulo = CELDA_HEIGHT;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 0.5);
