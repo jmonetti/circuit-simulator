@@ -86,6 +86,7 @@ private:
 
 
 	xercesc::XercesDOMParser *m_ConfigFileParser;
+
 	XMLCh* TAG_INITIALIZER;
 	XMLCh* TAG_CIRCUITO;
 

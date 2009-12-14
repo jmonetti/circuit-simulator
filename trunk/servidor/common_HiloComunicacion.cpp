@@ -29,14 +29,22 @@ std::string HiloComunicacion::recibirPedido(int &codigoError) {
 	std::string contPedidosAux;
 	std::string linea;
 	std::string mensaje;
-	protocolo->recibirMensaje(linea);
-	/* Codigo de error: chequeo codigo de error q llega en la primera linea
-	 * desde el caracter 8 al 13
-	 */
-	std::string codigo = linea.substr(0,3);
-	protocolo->recibirMensaje(linea);
-	std::string length = linea.substr(16);
-	protocolo->recibirMensaje(linea);
+	int contLineas = 0;
+	std::string codigo;
+	std::string length;
+	std::string aux;
+	do{
+		protocolo->recibirMensaje(linea);
+		if(contLineas == 0){
+			codigo = linea.substr(0,3);
+		}
+			contLineas++;
+		aux = linea.substr(0,16);
+		if(aux == LENGTH){
+			length = linea.substr(16);
+		}
+	}while(linea != "\n");
+
 	if(codigo == "GET") {
 
 		int longitud =  atoi(length.c_str());
