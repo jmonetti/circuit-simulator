@@ -8,8 +8,16 @@
 class Imprimir {
 public:
 
+	Imprimir();
+
+	static gboolean on_expose_event(GtkWidget *widget,
+	    GdkEventExpose *event,
+	    gpointer data);
+
 private:
 
+
+	void grilla(cairo_t *cr);
 
 	void draw_vertice(gdouble x,gdouble y,cairo_t *cr,SENTIDO sentido);
 
