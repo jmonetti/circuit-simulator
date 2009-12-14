@@ -12,7 +12,6 @@ Datos_celda::Datos_celda() {
 	this->tipo= T_VACIA;
 	cant_entradas = 0;
 	cant_salidas = 0;
-
 }
 
 TIPO_COMPUERTA Datos_celda::get_tipo()const{
@@ -23,7 +22,6 @@ TIPO_COMPUERTA Datos_celda::get_tipo()const{
 void Datos_celda::set_tipo(TIPO_COMPUERTA nuevo_tipo){
 
 	this->tipo = nuevo_tipo;
-
 }
 
 SENTIDO Datos_celda::get_sentido()const{
@@ -48,6 +46,7 @@ void Datos_celda::set_id(int nuevo_id){
 		this->id = nuevo_id;
 	}
 }
+
 int Datos_celda::get_cant_entradas()const{
 
 	return this->cant_entradas;
@@ -71,6 +70,7 @@ void Datos_celda::set_cant_salidas(int nueva_cant){
 		this->cant_salidas= nueva_cant;
 	}
 }
+
 int Datos_celda::get_fila_ppal()const{
 
 	return this->fila_ppal;
@@ -99,7 +99,6 @@ void Datos_celda::set_col_ppal(int nueva_col_ppal){
 bool Datos_celda::esta_ocupada()const{
 
 	return this->ocupada;
-
 }
 
 void Datos_celda::ocupar(){

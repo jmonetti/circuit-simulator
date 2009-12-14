@@ -16,29 +16,31 @@ Celda::Celda(Modelo_vista_circuito* nueva_grilla,unsigned int nueva_fila,unsigne
 	colum= nueva_col;
 
 }
+/*----------------------------------------------------------------------------*/
 
 Datos_celda* Celda::get_datos(){
 
 	return &this->componente;
-
 }
+/*----------------------------------------------------------------------------*/
 
 Datos_celda* Celda::get_datos_secundarios(){
 
 	return &this->componente_secundario;
-
 }
+/*----------------------------------------------------------------------------*/
 
 int Celda::get_fila()const{
 
 	return this->fila;
-
 }
+/*----------------------------------------------------------------------------*/
 
 int Celda::get_columna()const{
 
 	return this->colum;
 }
+/*----------------------------------------------------------------------------*/
 
 void Celda::set_componente(TIPO_COMPUERTA n_tipo,SENTIDO n_sentido,int n_id,int n_fila_ppal, int n_col_ppal){
 
@@ -49,6 +51,7 @@ void Celda::set_componente(TIPO_COMPUERTA n_tipo,SENTIDO n_sentido,int n_id,int 
 	this->componente.set_tipo(n_tipo);
 	this->componente.ocupar();
 }
+/*----------------------------------------------------------------------------*/
 
 void Celda::set_secundario(TIPO_COMPUERTA n_tipo,SENTIDO n_sentido,int n_id,int n_fila_ppal, int n_col_ppal){
 
@@ -59,21 +62,21 @@ void Celda::set_secundario(TIPO_COMPUERTA n_tipo,SENTIDO n_sentido,int n_id,int 
 	this->componente_secundario.set_tipo(n_tipo);
 	this->componente_secundario.ocupar();
 }
+/*----------------------------------------------------------------------------*/
 
 bool Celda::hay_secundario()const{
 
 	return this->componente_secundario.esta_ocupada();
 }
+/*----------------------------------------------------------------------------*/
 
 bool Celda::esta_ocupada()const{
 
 	 return this->componente.esta_ocupada();
-
 }
+/*----------------------------------------------------------------------------*/
 
 void Celda::rotar(DIRECCION direcc){
-
-
 
 	if(!hay_secundario() && componente.esta_ocupada()){
 
@@ -116,7 +119,6 @@ void Celda::rotar(DIRECCION direcc){
 				}
 			}
 		}
-
 	}
 }
 
@@ -227,10 +229,7 @@ bool Celda::agregar_caja_negra(int nuevo_id,int cant_entradas,int cant_salidas){
 		agregada=false;
 
 	return agregada;
-
 }
-
-
 /*----------------------------------------------------------------------------*/
 
 void Celda::eliminar_componente(){
@@ -252,26 +251,7 @@ void Celda::eliminar_componente(){
 	if(celda_ppal)
 		celda_ppal->desocupar_componente(aux_id);
 }
-/*
-void Celda::eliminar_componente(int identificador){
-
-	Celda* celda_ppal;
-
-	if(componente.get_id() == identificador){
-		celda_ppal = grilla->get_celda(componente.get_fila_ppal(),componente.get_col_ppal());
-		celda_ppal->desocupar_componente(identificador);
-		if(hay_secundario()){
-			componente
-		}
-	}
-	else if(componente_secundario.get_id() == identificador){
-
-		celda_ppal = grilla->get_celda(componente_secundario.get_fila_ppal(),componente_secundario.get_col_ppal());
-		celda_ppal->desocupar_componente(identificador);
-	}
-
-
-}*/
+/*----------------------------------------------------------------------------*/
 
 bool Celda::acepta_secundario(SENTIDO _sentido)const{
 
@@ -291,8 +271,7 @@ bool Celda::acepta_secundario(SENTIDO _sentido)const{
 
 	return acepta;
 }
-
-
+/*----------------------------------------------------------------------------*/
 
 bool Celda::puede_rotar()const{
 
@@ -434,9 +413,6 @@ void Celda::get_entorno_ES(int* fila_entorno,int* col_entorno,SENTIDO _sentido,T
 		}
 	}
 }
-
-
-
 
 bool Celda::agregar_entorno_caja_negra(int cant_entradas,int cant_salidas,int _id){
 
@@ -587,15 +563,8 @@ bool Celda::agregar_entorno_pista(SENTIDO _sentido,int _id){
 			componente.get_entorno().push_front(aux_1);
 			componente.get_entorno().push_front(aux_2);
 	}
-
-
 	return retorno;
-
-
 }
-
-
-
 /*----------------------------------------------------------------------------*/
 
 void Celda::vaciar_entorno(int identificador){
@@ -625,6 +594,7 @@ void Celda::vaciar_entorno(int identificador){
 				aux->desocupar_componente(identificador);
 				componente_secundario.get_entorno().pop_back();
 				vacia=componente_secundario.get_entorno().empty();
+
 			}while(!vacia);
 		}
 	}
@@ -665,11 +635,8 @@ void Celda::desocupar_componente(int identificador){
 
 		}
 		componente_secundario.desocupar();
-
 	}
-
 }
-
 /*----------------------------------------------------------------------------*/
 
 SENTIDO Celda::turn_left(SENTIDO _sent){
@@ -684,13 +651,9 @@ SENTIDO Celda::turn_left(SENTIDO _sent){
 		case SUR: return ESTE;
 
 		case OESTE: return SUR;
-
-
 	}
-
 	return _sent;
 }
-
 /*----------------------------------------------------------------------------*/
 
 SENTIDO Celda::turn_right(SENTIDO _sent){
@@ -704,9 +667,7 @@ SENTIDO Celda::turn_right(SENTIDO _sent){
 		case SUR: return OESTE;
 
 		case OESTE: return NORTE;
-
 	}
-
 	return _sent;
 }
 /*----------------------------------------------------------------------------*/

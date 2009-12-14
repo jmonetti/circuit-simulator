@@ -67,73 +67,174 @@ public:
 
 
 	/**
-	 * Metodos de la fachada
+	 * Compĺeta la tabla de la vista con los datos del parametro
+	 * resultado
 	 */
-
 	void completar_grilla(Resultado* resultado);
 
+	/**
+	 * Agrega un nuevo area de diseño a la vista
+	 */
 	void agregar_grilla(int id,const char* nombre);
 
+	/**
+	 * Setea el nombre del area de diseño
+	 */
 	void set_nombre_grilla(const char* nombre);
 
+	/**
+	 * Cambia el area de diseño que esta actualmente visible
+	 * en pantalla por la identifiicada con el parametro
+	 * index
+	 */
 	int cambiar_grilla(int index);
 
+	/**
+	 * Elimina el area de diseño actual
+	 */
 	void eliminar_grilla();
 
+	/**
+	 * Retorna el identificador del area de diseño
+	 * que se esta mostrando por pantalla
+	 */
 	int getIdActual() const;
 
+	/**
+	 * Muestra la ventana de upload
+	 */
 	void mostrar_ventana_upload(std::vector<char*>* circuitos);
 
+	/**
+	 * Retorna true si la ventana esta activa
+	 */
 	bool upload_activo();
 
+	/**
+	 * Retorna el texto con el circuito seleccionado
+	 */
 	char* get_circuito_upload();
 
+	/**
+	 * Oculta la ventana
+	 */
 	void ocultar_upload();
 
+	/**
+	 * Retorna el host recibido por el usuario
+	 */
 	const char* get_host_upload();
 
+	/**
+	 * Retorna el host recibido por el usuario
+	 */
 	const char* get_puerto_upload();
 
+	/**
+	 * Muestra la ventana de download
+	 */
 	void mostrar_ventana_download();
 
+	/**
+	 * Retorna true si la ventana esta activa
+	 */
 	bool download_activo();
 
+	/**
+	 * Retorna el texto con el circuito seleccionado
+	 */
 	char* get_circuito_download();
 
+	/**
+	 * Oculta la ventana
+	 */
 	void ocultar_download();
 
+	/**
+	 * Retorna el host recibido por el usuario
+	 */
 	const char* get_host_download();
 
+	/**
+	 * Retorna el puerto recibido por el usuario
+	 */
 	const char* get_puerto_download();
 
+	/**
+	 * Muestra la ventana conlos circuitos del servidor
+	 */
 	void mostrar_circuitos_servidor(std::vector<char*>* circuitos);
 
+	/**
+	 * Muestra la ventana para la incorporacion de una entrada
+	 */
 	void mostrar_ventana_entrada();
 
+	/**
+	 * Muestra la ventana para la incorporacion de una salida
+	 */
 	void mostrar_ventana_salida();
 
+	/**
+	 * Retorna el nombre de la entrada recibido por el usuario
+	 */
 	const char* get_nombre_entrada();
 
+	/**
+	 * Retorna el nombre de la salida recibido por el usuario
+	 */
 	const char* get_nombre_salida();
 
+	/**
+	 * Muestra la ventana de error, con el msj del parametro texto
+	 */
 	void mostrar_error(const std::string &texto);
 
+	/**
+	 * Muestra la ventana para abrir con los circuitos pasados
+	 * por parametro
+	 */
 	void mostrar_ventana_abrir(std::vector<char*>* circuitos);
 
+	/**
+	 * Oculta la ventana
+	 */
 	void ocultar_abrir();
 
+	/**
+	 * Retoirna true si la ventana esta activa
+	 */
 	bool abriendo();
 
+	/**
+	 * Muestra la ventana de nuevo circuit
+	 */
 	void mostrar_ventana_nuevo();
 
+	/**
+	 * Esconde la ventana
+	 */
 	void aceptar_nuevo();
 
+	/**
+	 * Retorna la cadena con el circuito selecc por el usuario
+	 */
 	char* getCircuitoAbrir();
 
+	/**
+	 *  Retorna la cadena ingresada por el usuario en la ventana
+	 */
 	const char* getNombreNuevo();
 
+	/**
+	 * Muestra la ventana de confirmacion con el texto pasado
+	 * por el parametro
+	 */
 	void mostrar_confirmacion(const std::string &texto);
 
+	/**
+	 * Destruye la vista
+	 */
 	void delete_vista();
 
 
