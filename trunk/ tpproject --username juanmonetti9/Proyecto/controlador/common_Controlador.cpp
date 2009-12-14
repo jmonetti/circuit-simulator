@@ -695,14 +695,9 @@ void Controlador::cambiar_circuito(int index){
 	if (index >= 0) {
 
 		int id= fachada_vista->cambiar_grilla(index);
-		try {
+		modeloCliente->cambiarCircuitoActual(id);
+		matrizActual= matrices[id];
 
-			modeloCliente->cambiarCircuitoActual(id);
-			matrizActual= matrices[id];
-
-		} catch (CircuitoException e) {
-
-		}
 
 	}
 

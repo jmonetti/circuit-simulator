@@ -62,8 +62,8 @@ void Box_Ventana_Interna::set_nombre_grilla(const char* nombre) {
 void Box_Ventana_Interna::eliminar_grilla_actual(){
 
 	gint page_num =gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));
-	gtk_notebook_remove_page(GTK_NOTEBOOK(noteb), page_num);
 	eliminarGrilla(page_num);
+	gtk_notebook_remove_page(GTK_NOTEBOOK(noteb), page_num);
 
 	page_num =gtk_notebook_get_current_page(GTK_NOTEBOOK(noteb));
 
