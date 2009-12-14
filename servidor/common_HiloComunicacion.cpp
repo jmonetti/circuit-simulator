@@ -24,8 +24,6 @@ void HiloComunicacion::terminar() {
 
 }
 
-
-
 std::string HiloComunicacion::recibirPedido(int &codigoError) {
 
 	std::string contPedidosAux;
@@ -122,9 +120,10 @@ void* HiloComunicacion::run() {
 
 		enviarRespuesta(ruta_respuesta, codigoError);
 		ManagerArchivos::getInstancia()->removerArchivo(ruta_respuesta);
-		cout<<"envia respuesta"<<endl;
+
 		protocolo->desconectar();
 		this->stop();
+		std::cerr<<"Cliente Desconectado"<<std::endl;
 	}
 	return NULL;
 
