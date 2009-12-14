@@ -67,6 +67,10 @@ public:
 	 */
 	void crear_circuito();
 
+	void mostrar_imprimir();
+
+	void imprimir(GtkPrintContext* context);
+
 	/**
 	 * Elimina un circuito del modelo y de la vista
 	 */
