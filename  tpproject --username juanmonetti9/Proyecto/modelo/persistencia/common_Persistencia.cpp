@@ -48,6 +48,8 @@ Persistencia::Persistencia() {
 	TAG_PEDIDOLISTA = XMLString::transcode("GetListaCircuitos");
 	TAG_PEDIDOCIRCUITO = XMLString::transcode("GetCircuito");
 
+	m_ConfigFileParser = new XercesDOMParser;
+
 
 }
 
@@ -225,7 +227,6 @@ DOMElement* Persistencia::getElemSOAP(const std::string &ruta, const std::string
 	      throw ( std::runtime_error("File can not be read\n"));
 
 	   // Configure DOM parser.
-	   xercesc::XercesDOMParser *m_ConfigFileParser = new XercesDOMParser;
 
 	   m_ConfigFileParser->setValidationScheme( XercesDOMParser::Val_Never );
 	   m_ConfigFileParser->setDoNamespaces( false );
@@ -286,7 +287,6 @@ Circuito* Persistencia::recuperarCircuito(int idCircuito, const std::string &nom
 	      throw ( std::runtime_error("File can not be read\n"));
 
 	   // Configure DOM parser.
-	   xercesc::XercesDOMParser *m_ConfigFileParser = new XercesDOMParser;
 
 	   m_ConfigFileParser->setValidationScheme( XercesDOMParser::Val_Never );
 	   m_ConfigFileParser->setDoNamespaces( false );

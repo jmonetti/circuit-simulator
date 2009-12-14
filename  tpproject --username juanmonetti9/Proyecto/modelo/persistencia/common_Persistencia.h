@@ -101,8 +101,8 @@ private:
 	void parserCajaNegra(DOMElement* ElementoCte, Circuito* circuito);
 
 
-
 	xercesc::XercesDOMParser *m_ConfigFileParser;
+
 	XMLCh* TAG_INITIALIZER;
 	XMLCh* TAG_CIRCUITO;
 
