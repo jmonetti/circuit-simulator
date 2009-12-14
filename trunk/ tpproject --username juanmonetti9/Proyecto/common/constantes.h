@@ -47,4 +47,6 @@ const static int TIEMPO_TRANSICION_NOT= 5;
 //Path donde se guardan los circuitos
 const static std::string PATH_SAVES= "saves/";
 
+const static std::string LENGTH = "Content-Length: ";
+
 #endif /* CONSTANTES_H_ */

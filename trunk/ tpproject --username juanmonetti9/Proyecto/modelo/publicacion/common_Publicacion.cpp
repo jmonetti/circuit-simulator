@@ -314,18 +314,27 @@ std::string Publicacion::recibirRespuesta() {
 
 	std::string linea;
 	std::string mensaje;
-	protocolo.recibirMensaje(linea);
-	/* Codigo de error: chequeo codigo de error q llega en la primera linea
+	std::string codigoError;
+	std::string aux;
+	std::string length;
+	int contLineas = 0;
+
+	do{
+		protocolo.recibirMensaje(linea);
+
+		if(contLineas == 0){
+			codigoError = linea.substr(9,3);
+		}
+			contLineas++;
+		aux = linea.substr(0,16);
+		if(aux == LENGTH){
+			length = linea.substr(16);
+		}
+
+	}while(linea != "\n");/* Codigo de error: chequeo codigo de error q llega en la primera linea
 	 * desde el caracter 8 al 13
 	 */
 
-	std::string codigoError = linea.substr(9,3);
-
-	protocolo.recibirMensaje(linea);
-
-	std::string length = linea.substr(16);
-
-	protocolo.recibirMensaje(linea);
 	if(codigoError == "400") {
 		throw runtime_error("Pedido Invalido");
 	}
