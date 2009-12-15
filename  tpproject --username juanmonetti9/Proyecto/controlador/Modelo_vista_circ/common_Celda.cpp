@@ -300,18 +300,20 @@ bool Celda::puede_rotar()const{
 			Celda* aux_1;
 			Celda* aux_2;
 
+
+			if(aux_sentido == ESTE || aux_sentido == OESTE){
+
+				aux_1 = grilla->get_celda(celda->get_fila()+1,celda->get_columna());
+				aux_2 = grilla->get_celda(celda->get_fila()-1,celda->get_columna());
+
+			}else{
+
+				aux_1 = grilla->get_celda(celda->get_fila(),celda->get_columna()+1);
+				aux_2 = grilla->get_celda(celda->get_fila(),celda->get_columna()-1);
+			}
+
 			if(aux_1!=NULL && aux_2 !=NULL){
 
-				if(aux_sentido == ESTE || aux_sentido == OESTE){
-
-					aux_1 = grilla->get_celda(celda->get_fila()+1,celda->get_columna());
-					aux_2 = grilla->get_celda(celda->get_fila()-1,celda->get_columna());
-
-				}else{
-
-					aux_1 = grilla->get_celda(celda->get_fila(),celda->get_columna()+1);
-					aux_2 = grilla->get_celda(celda->get_fila(),celda->get_columna()-1);
-				}
 				Datos_celda* aux_datos_1 = aux_1->get_datos();
 				Datos_celda* aux_datos_2 = aux_2->get_datos();
 
