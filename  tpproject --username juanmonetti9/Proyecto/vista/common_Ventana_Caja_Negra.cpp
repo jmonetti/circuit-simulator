@@ -333,5 +333,7 @@ GtkWidget* Ventana_Caja_Negra::getWidget() {
 
 
 Ventana_Caja_Negra::~Ventana_Caja_Negra() {
-	// TODO Auto-generated destructor stub
+
+	gtk_widget_destroy(ventana);
+
 }

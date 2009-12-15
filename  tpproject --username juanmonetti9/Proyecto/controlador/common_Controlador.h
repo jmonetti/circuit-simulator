@@ -201,11 +201,6 @@ public:
 	 */
 	void aceptar_nuevo();
 
-	/**
-	 * Destruye la vista
-	 */
-	void destruir_vista();
-
 
 	/**
 	 * Crea una nueva instancia del controlador y la retorna,

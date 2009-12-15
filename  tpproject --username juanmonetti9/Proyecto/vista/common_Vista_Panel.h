@@ -6,18 +6,6 @@
 
 #include "gtkmm.h"
 #include "common_Componente_Visual.h"
-#include "botones/common_Boton_AND.h"
-#include "botones/common_Boton_OR.h"
-#include "botones/common_Boton_XOR.h"
-#include "botones/common_Boton_NOT.h"
-#include "botones/common_Boton_Pista.h"
-#include "botones/common_Boton_Selector.h"
-#include "botones/common_Boton_Delete.h"
-#include "botones/common_Boton_Simular.h"
-#include "botones/common_Boton_Invertir.h"
-#include "botones/common_Boton_Imprimir.h"
-#include "botones/common_Boton_Download.h"
-#include "botones/common_Boton_Upload.h"
 #include "common_Box_herramientas_Circuito.h"
 #include "common_Box_herramientas_options.h"
 
@@ -48,6 +36,8 @@ class Vista_Panel: public Componente_Visual{
 		 * Muestra el panel
 		 */
 		void show();
+
+		void hide();
 
 		/**
 		 * Da un nuevo tamanio al componente visual

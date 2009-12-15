@@ -1,4 +1,4 @@
-/**************************   Clase Controlador         *************/
+	/**************************   Clase Controlador         *************/
 /**************************   	Grupo 8                 *************/
 #include "common_Controlador.h"
 #include "../excepciones/common_ConexionException.h"
@@ -744,12 +744,7 @@ void Controlador::aceptar_nuevo() {
 		fachada_vista->aceptar_nuevo();
 	}
 }
-/*----------------------------------------------------------------------------*/
 
-void Controlador::destruir_vista(){
-
-	fachada_vista->delete_vista();
-}
 /*----------------------------------------------------------------------------*/
 
 Controlador::~Controlador() {

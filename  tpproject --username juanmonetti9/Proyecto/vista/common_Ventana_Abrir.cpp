@@ -20,7 +20,7 @@ Ventana_Abrir::Ventana_Abrir() {
 	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Abrir");
 
 	gtk_signal_connect (GTK_OBJECT (&GTK_DIALOG(cuadro)->window), "delete_event",
-	                        GTK_SIGNAL_FUNC (Controlador_Ventana::delete_event_true), NULL);
+	                        GTK_SIGNAL_FUNC (Controlador_Ventana::delete_event_esconder), this);
 
 	GtkWidget* boton= gtk_button_new_with_label("Aceptar");
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (cuadro)->action_area), boton,TRUE, TRUE, 0);
@@ -44,7 +44,9 @@ Ventana_Abrir::Ventana_Abrir() {
 }
 
 Ventana_Abrir::~Ventana_Abrir() {
-	// TODO Auto-generated destructor stub
+
+	gtk_widget_destroy(cuadro);
+
 }
 
 void Ventana_Abrir::show() {

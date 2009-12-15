@@ -209,6 +209,11 @@ void Decorador_Menu::show(){
 	show_componente();
     gtk_widget_show(_box);
 }
+
+void Decorador_Menu::hide() {
+
+	gtk_widget_hide(_box);
+}
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Decorador_Menu::getWidget(){

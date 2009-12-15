@@ -39,6 +39,15 @@ void Box_herramientas_Options::show(){
 	gtk_widget_show (_panel);
 }
 
+void Box_herramientas_Options::hide() {
+
+	gtk_widget_hide (_panel_box1);
+	gtk_widget_hide (_panel_box2);
+	gtk_widget_hide (_panel);
+
+
+}
+
 void Box_herramientas_Options::escalar(int _fa){
 
 }

@@ -31,7 +31,7 @@ public:
 	 */
 	virtual void show();
 
-
+	void hide();
 	/**
 	 * Retorna el widget
 	 */

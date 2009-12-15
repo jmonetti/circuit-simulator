@@ -106,6 +106,13 @@ void Box_Ventana_Interna::show(){
     gtk_widget_show (noteb);
 
 }
+
+void Box_Ventana_Interna::hide() {
+
+    gtk_widget_hide (_box_ventana);
+    gtk_widget_hide (noteb);
+
+}
 /*----------------------------------------------------------------------------*/
 
 void Box_Ventana_Interna::escalar(int _fa){

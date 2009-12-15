@@ -25,6 +25,11 @@ void Vista_Panel::show(){
    box_options.show();
    gtk_widget_show (box_panel);
 }
+
+void Vista_Panel::hide() {
+
+	gtk_widget_hide (box_panel);
+}
 /*----------------------------------------------------------------------------*/
 void Vista_Panel::escalar(int _fa){
 

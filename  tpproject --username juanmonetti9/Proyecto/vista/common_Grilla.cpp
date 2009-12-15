@@ -40,6 +40,16 @@ void Grilla::show() {
 
 }
 
+void Grilla::hide() {
+
+	gtk_widget_hide(box_notebook);
+	gtk_widget_hide(notebook);
+	gtk_widget_hide(tab_pestania_uno);
+	gtk_widget_hide(tab_pestania_dos);
+
+
+}
+
 
 GtkWidget* Grilla::getWidget() {
 

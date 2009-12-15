@@ -23,6 +23,7 @@ public:
 	 */
 	virtual void show();
 
+	virtual void hide();
 
 	/**
 	 * Retorna el widget
