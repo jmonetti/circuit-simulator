@@ -49,6 +49,8 @@ void Imprimir::imprimir(GtkPrintContext* context,std::vector<Compuerta*>& compue
 
 	cr = gtk_print_context_get_cairo_context (context);
 
+	cairo_scale(cr,0.5,0.5);
+
 	dibujador.dibujarGrilla(cr);
 
 	for (unsigned int var = 0; var < compuertas.size(); ++var) {

@@ -939,6 +939,7 @@ void Dibujador::draw_AND_este(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,xRectangulo-4,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,-M_PI/2+M_PI/10,M_PI/2-M_PI/10);
 	cairo_stroke(cr);
+	cairo_scale(cr,1,2);
 
 }
 
