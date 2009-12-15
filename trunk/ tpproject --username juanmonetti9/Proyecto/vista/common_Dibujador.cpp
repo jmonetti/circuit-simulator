@@ -310,13 +310,10 @@ void Dibujador::dibujarGrilla(cairo_t *cr){
 	int widthRectangulo = DRW_AREA_WIDTH; //ancho del rectangulo a redibujar
 	int heightRectangulo = DRW_AREA_HEIGHT;//alto del rectangulo a redibujar
 
-	cairo_set_source_rgb(cr, 0, 0, 1);
-	cairo_set_line_width (cr, 0);
+	cairo_set_source_rgb(cr, 0.77, 0.77, 0.77);
+	cairo_set_line_width (cr, 1);
 
 	cairo_rectangle(cr, xRectangulo,yRectangulo,widthRectangulo,heightRectangulo);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	cairo_set_source_rgb(cr, 0.77, 0.77, 0.77);
 	cairo_set_line_width (cr, 0.5);
@@ -354,9 +351,7 @@ void Dibujador::draw_entrada_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo+1,yRectangulo,widthRectangulo-2,heightRectangulo-(CELDA_HEIGHT/2));
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
+
 
 	cairo_set_source_rgb(cr, 0, 0, 1);
 	cairo_set_line_width (cr, 1);
@@ -394,9 +389,6 @@ void Dibujador::draw_entrada_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo,yRectangulo+(CELDA_WIDTH/2),widthRectangulo-1,heightRectangulo-(CELDA_HEIGHT/2)-1);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -435,9 +427,6 @@ void Dibujador::draw_entrada_este(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo,yRectangulo,widthRectangulo-(CELDA_WIDTH/2),heightRectangulo-1);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -476,9 +465,6 @@ void Dibujador::draw_entrada_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo+6,yRectangulo,widthRectangulo -(CELDA_WIDTH/2)-1,heightRectangulo-1);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -519,9 +505,7 @@ void Dibujador::draw_salida_sur(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo,yRectangulo+(CELDA_WIDTH/2),widthRectangulo-1,heightRectangulo-(CELDA_HEIGHT/2)-1);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
+
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -564,9 +548,7 @@ void Dibujador::draw_salida_norte(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo+1,yRectangulo,widthRectangulo-2,heightRectangulo-(CELDA_HEIGHT/2));
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
+
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -609,9 +591,6 @@ void Dibujador::draw_salida_este(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo+6,yRectangulo,18,11);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -654,9 +633,6 @@ void Dibujador::draw_salida_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo,yRectangulo,widthRectangulo-(CELDA_WIDTH/2),heightRectangulo-1);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	//dibujo la linea de salida
 	cairo_set_source_rgb(cr, 0, 0, 1);
@@ -795,9 +771,6 @@ void Dibujador::draw_CAJANEGRA(gdouble x,gdouble y,cairo_t *cr,int cant_entradas
 
 	//dibnujo el rectangulo
 	cairo_rectangle(cr, xRectangulo+6,yRectangulo+2,widthRectangulo-CELDA_WIDTH ,heightRectangulo-4);
-	cairo_stroke_preserve(cr);
-	cairo_set_source_rgb(cr, 1, 1, 1);
-	cairo_fill(cr);
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
