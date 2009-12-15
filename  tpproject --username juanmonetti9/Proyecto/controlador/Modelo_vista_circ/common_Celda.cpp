@@ -520,38 +520,40 @@ bool Celda::agregar_entorno_pista(SENTIDO _sentido,int _id){
 		aux_2 = grilla->get_celda(fila-1,colum);
 
 	}
+	if(aux_1!=NULL && aux_2 != NULL){
+		//Obtengo los datos de las celdas
+		Datos_celda* datos_1 = aux_1->get_datos();
+		Datos_celda* datos_2 = aux_2->get_datos();
 
-	//Obtengo los datos de las celdas
-	Datos_celda* datos_1 = aux_1->get_datos();
-	Datos_celda* datos_2 = aux_2->get_datos();
+		//Si es que la celda que sera parte del entorno estan vacias o aceptan
+		//una pista secundaria
+		if (!datos_1->esta_ocupada() && !datos_2->esta_ocupada() ){
 
-	//Si es que la celda que sera parte del entorno estan vacias o aceptan
-	//una pista secundaria
-	if (!datos_1->esta_ocupada() && !datos_2->esta_ocupada() ){
+			 aux_1->set_componente(T_PISTA,_sentido,_id,fila,colum);
+			 aux_2->set_componente(T_PISTA,_sentido,_id,fila,colum);
 
-		 aux_1->set_componente(T_PISTA,_sentido,_id,fila,colum);
-		 aux_2->set_componente(T_PISTA,_sentido,_id,fila,colum);
+		 }
+		 else if(!datos_1->esta_ocupada() && aux_2->acepta_secundario(_sentido) && datos_2->es_principal()){
 
-	 }
-	 else if(!datos_1->esta_ocupada() && aux_2->acepta_secundario(_sentido) && datos_2->es_principal()){
+			 aux_1->set_componente(T_PISTA,_sentido,_id,fila,colum);
+			 aux_2->set_secundario(T_PISTA,_sentido,_id,fila,colum);
+		 }
+		 else if(!datos_2->esta_ocupada() && aux_1->acepta_secundario(_sentido) && datos_1->es_principal()){
 
-		 aux_1->set_componente(T_PISTA,_sentido,_id,fila,colum);
-		 aux_2->set_secundario(T_PISTA,_sentido,_id,fila,colum);
-	 }
-	 else if(!datos_2->esta_ocupada() && aux_1->acepta_secundario(_sentido) && datos_1->es_principal()){
+			 aux_1->set_secundario(T_PISTA,_sentido,_id,fila,colum);
+			 aux_2->set_componente(T_PISTA,_sentido,_id,fila,colum);
+		 }
+		 else if(!aux_2->acepta_secundario(_sentido) && aux_1->acepta_secundario(_sentido)
+				 && datos_1->es_principal() && datos_2->es_principal()){
 
-		 aux_1->set_secundario(T_PISTA,_sentido,_id,fila,colum);
-		 aux_2->set_componente(T_PISTA,_sentido,_id,fila,colum);
-	 }
-	 else if(!aux_2->acepta_secundario(_sentido) && aux_1->acepta_secundario(_sentido)
-			 && datos_1->es_principal() && datos_2->es_principal()){
-
-		 aux_1->set_secundario(T_PISTA,_sentido,_id,fila,colum);
-		 aux_2->set_secundario(T_PISTA,_sentido,_id,fila,colum);
-	 }
-	 else
-		 retorno=false;
-
+			 aux_1->set_secundario(T_PISTA,_sentido,_id,fila,colum);
+			 aux_2->set_secundario(T_PISTA,_sentido,_id,fila,colum);
+		 }
+		 else
+			 retorno=false;
+	}
+	else
+		retorno=false;
 
 	if(retorno){
 
