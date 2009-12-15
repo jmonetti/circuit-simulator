@@ -65,14 +65,17 @@ void Dibujador::dibujarAnd(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_AND_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_AND_norte(x,y,cr);
+			break;
 
 		case SUR:
 
 			draw_AND_sur(x,y,cr);
+			break;
 
 		default:
 			break;
@@ -95,10 +98,12 @@ void Dibujador::dibujarOr(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_OR_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_OR_norte(x,y,cr);
+			break;
 
 		case SUR:
 
@@ -125,14 +130,17 @@ void Dibujador::dibujarXOr(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_XOR_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_XOR_norte(x,y,cr);
+			break;
 
 		case SUR:
 
 			draw_XOR_sur(x,y,cr);
+			break;
 
 		default:
 			break;
@@ -156,14 +164,17 @@ void Dibujador::dibujarNot(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_NOT_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_NOT_norte(x,y,cr);
+			break;
 
 		case SUR:
 
 			draw_NOT_sur(x,y,cr);
+			break;
 
 		default:
 			break;
@@ -187,14 +198,17 @@ void Dibujador::dibujarPista(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_pista_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_pista_norte(x,y,cr);
+			break;
 
 		case SUR:
 
 			draw_pista_sur(x,y,cr);
+			break;
 
 		default:
 			break;
@@ -217,14 +231,17 @@ void Dibujador::dibujarEntrada(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_entrada_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_entrada_norte(x,y,cr);
+			break;
 
 		case SUR:
 
 			draw_entrada_sur(x,y,cr);
+			break;
 
 		default:
 			break;
@@ -248,14 +265,17 @@ void Dibujador::dibujarSalida(Posicion posicion, SENTIDO sentido,cairo_t* cr) {
 		case OESTE:
 
 			draw_salida_oeste(x,y,cr);
+			break;
 
 		case NORTE:
 
 			draw_salida_norte(x,y,cr);
+			break;
 
 		case SUR:
 
 			draw_salida_sur(x,y,cr);
+			break;
 
 		default:
 			break;
