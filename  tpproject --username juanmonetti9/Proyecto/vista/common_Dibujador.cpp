@@ -318,7 +318,7 @@ void Dibujador::dibujarGrilla(cairo_t *cr){
 	cairo_set_source_rgb(cr, 1, 1, 1);
 	cairo_fill(cr);
 
-	cairo_set_source_rgb(cr, 0.5, 0.5, 0.5);
+	cairo_set_source_rgb(cr, 0.77, 0.77, 0.77);
 	cairo_set_line_width (cr, 0.5);
 
 	for (int var = 0; var < 65; ++var) {
