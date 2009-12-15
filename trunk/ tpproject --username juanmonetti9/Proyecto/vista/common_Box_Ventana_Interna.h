@@ -48,6 +48,8 @@ public:
 	 */
 	virtual void show();
 
+	void hide();
+
 	/**
 	 * Da un nuevo tamanio al componente visual
 	 * @param: factor de amplificacion de la escala

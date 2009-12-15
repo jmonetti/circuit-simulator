@@ -237,11 +237,6 @@ public:
 	 */
 	void mostrar_confirmacion(const std::string &texto);
 
-	/**
-	 * Destruye la vista
-	 */
-	void delete_vista();
-
 
 };
 

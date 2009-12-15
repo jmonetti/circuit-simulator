@@ -141,6 +141,13 @@ void Area_disenio::show() {
 
 }
 
+void Area_disenio::hide() {
+
+	gtk_widget_hide (drawing_area);
+	gtk_widget_hide (box_size_pestania_uno);
+	gtk_widget_hide(box_pestania_uno);
+
+}
 
 GtkWidget* Area_disenio::getWidget() {
 

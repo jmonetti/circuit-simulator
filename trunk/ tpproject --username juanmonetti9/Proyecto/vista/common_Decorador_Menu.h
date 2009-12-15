@@ -38,6 +38,8 @@ private:
 		 */
 		void show();
 
+		void hide();
+
 
 		/**
 		 * Retorna el widget

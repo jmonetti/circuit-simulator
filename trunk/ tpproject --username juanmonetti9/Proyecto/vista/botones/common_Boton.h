@@ -22,6 +22,8 @@ public:
 
 	void show();
 
+	void hide();
+
 	virtual GtkWidget* getWidget();
 
 	void escalar(int fa);

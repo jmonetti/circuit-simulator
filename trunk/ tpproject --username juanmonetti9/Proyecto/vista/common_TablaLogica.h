@@ -19,6 +19,8 @@ public:
 
 	virtual void show();
 
+	virtual void hide();
+
 	virtual void escalar(int fd);
 
 	virtual GtkWidget* getWidget();

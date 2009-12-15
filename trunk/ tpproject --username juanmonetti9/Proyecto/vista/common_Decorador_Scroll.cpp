@@ -27,6 +27,12 @@ void Decorador_Scroll::show(){
 
 }
 
+void Decorador_Scroll::hide() {
+
+	gtk_widget_hide (_scroll);
+
+}
+
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Decorador_Scroll::getWidget(){

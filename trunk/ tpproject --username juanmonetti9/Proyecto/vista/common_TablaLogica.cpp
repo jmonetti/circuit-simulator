@@ -42,6 +42,12 @@ void TablaLogica::show() {
 
 }
 
+void TablaLogica::hide() {
+
+	gtk_widget_hide(box_Tabla);
+
+}
+
 void TablaLogica::escalar(int fd) {
 
 }

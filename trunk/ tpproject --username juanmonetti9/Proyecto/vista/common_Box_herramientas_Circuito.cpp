@@ -50,6 +50,14 @@ void Box_herramientas_Circuito::show(){
 	mostrar.show();
 	gtk_widget_show (_panel_size);
 	gtk_widget_show (_panel);
+
+}
+
+void Box_herramientas_Circuito::hide() {
+
+	gtk_widget_hide (_panel_size);
+	gtk_widget_hide (_panel);
+
 }
 
 void Box_herramientas_Circuito::escalar(int _fa){

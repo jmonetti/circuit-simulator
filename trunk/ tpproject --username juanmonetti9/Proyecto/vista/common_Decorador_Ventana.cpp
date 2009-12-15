@@ -34,6 +34,12 @@ void Decorador_Ventana::show(){
 
 }
 
+void Decorador_Ventana::hide() {
+
+	gtk_widget_hide (_ventana);
+
+}
+
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Decorador_Ventana::getWidget(){

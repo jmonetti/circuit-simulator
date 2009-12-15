@@ -19,6 +19,11 @@ class Componente_Visual{
 		 */
 		virtual void show()=0;
 
+		/*
+		 * Esconde el componente visual
+		 */
+
+		virtual void hide()=0;
 
 		/**
 		 * Retorna el widget

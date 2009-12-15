@@ -9,7 +9,7 @@ Ventana_Entrada::Ventana_Entrada() {
 	gtk_window_set_title (&GTK_DIALOG(cuadro)->window, "Entrada");
 
 	gtk_signal_connect (GTK_OBJECT (&GTK_DIALOG(cuadro)->window), "delete_event",
-							GTK_SIGNAL_FUNC (Controlador_Ventana::delete_event_true), NULL);
+							GTK_SIGNAL_FUNC (Controlador_Ventana::delete_event_esconder), this);
 
 
 	GtkWidget* boton= gtk_button_new_with_label("Aceptar");
@@ -40,7 +40,9 @@ Ventana_Entrada::Ventana_Entrada() {
 }
 
 Ventana_Entrada::~Ventana_Entrada() {
-	// TODO Auto-generated destructor stub
+
+	gtk_widget_destroy(cuadro);
+
 }
 
 

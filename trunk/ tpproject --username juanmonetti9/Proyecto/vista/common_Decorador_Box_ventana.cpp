@@ -34,6 +34,11 @@ void Decorador_Box_ventana::show(){
 
 }
 
+void Decorador_Box_ventana::hide() {
+
+	gtk_widget_hide (_box_ventana);
+}
+
 /*----------------------------------------------------------------------------*/
 
 GtkWidget* Decorador_Box_ventana::getWidget(){

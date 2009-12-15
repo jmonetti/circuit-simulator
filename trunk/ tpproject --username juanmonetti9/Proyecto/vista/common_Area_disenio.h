@@ -30,6 +30,8 @@ public:
 
 	void show();
 
+	void hide();
+
 	GtkWidget* getWidget();
 
 	void conectarClick();

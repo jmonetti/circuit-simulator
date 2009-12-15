@@ -39,6 +39,8 @@ public:
 
 	void show();
 
+	void hide();
+
 	void escalar(int _fa);
 
 	GtkWidget* getWidget();

@@ -38,6 +38,8 @@ public:
 
 	void show();
 
+	void hide();
+
 	void escalar(int fa);
 
 	GtkWidget* getWidget();

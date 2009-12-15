@@ -37,6 +37,12 @@ void Boton::show() {
 
 }
 
+void Boton::hide() {
+
+	gtk_widget_hide(boton);
+	gtk_widget_hide(box);
+}
+
 GtkWidget* Boton::getWidget() {
 
 	return boton;
