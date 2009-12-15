@@ -286,7 +286,7 @@ bool Celda::puede_rotar()const{
 		Datos_celda* datos = celda->get_datos();
 		Datos_celda* datos_secundarios = celda->get_datos_secundarios();
 
-		if(datos->get_tipo() == T_PISTA){ //faltaria != caja negra todo
+		if(datos->get_tipo() == T_PISTA){
 
 			//obtengo el sentido del componente a rotar
 			SENTIDO aux_sentido;
@@ -300,23 +300,26 @@ bool Celda::puede_rotar()const{
 			Celda* aux_1;
 			Celda* aux_2;
 
-			if(aux_sentido == ESTE || aux_sentido == OESTE){
+			if(aux_1!=NULL && aux_2 !=NULL){
 
-				aux_1 = grilla->get_celda(celda->get_fila()+1,celda->get_columna());
-				aux_2 = grilla->get_celda(celda->get_fila()-1,celda->get_columna());
+				if(aux_sentido == ESTE || aux_sentido == OESTE){
 
-			}else{
+					aux_1 = grilla->get_celda(celda->get_fila()+1,celda->get_columna());
+					aux_2 = grilla->get_celda(celda->get_fila()-1,celda->get_columna());
 
-				aux_1 = grilla->get_celda(celda->get_fila(),celda->get_columna()+1);
-				aux_2 = grilla->get_celda(celda->get_fila(),celda->get_columna()-1);
-			}
-			Datos_celda* aux_datos_1 = aux_1->get_datos();
-			Datos_celda* aux_datos_2 = aux_2->get_datos();
+				}else{
 
-			if(( (!aux_1->hay_secundario() && aux_datos_1->es_principal() ) || !aux_1->esta_ocupada()) &&
-			   ( (!aux_2->hay_secundario() && aux_datos_2->es_principal() ) || !aux_2->esta_ocupada()))
-			{
-				retorno = true;
+					aux_1 = grilla->get_celda(celda->get_fila(),celda->get_columna()+1);
+					aux_2 = grilla->get_celda(celda->get_fila(),celda->get_columna()-1);
+				}
+				Datos_celda* aux_datos_1 = aux_1->get_datos();
+				Datos_celda* aux_datos_2 = aux_2->get_datos();
+
+				if(( (!aux_1->hay_secundario() && aux_datos_1->es_principal() ) || !aux_1->esta_ocupada()) &&
+				   ( (!aux_2->hay_secundario() && aux_datos_2->es_principal() ) || !aux_2->esta_ocupada()))
+				{
+					retorno = true;
+				}
 			}
 		}
 		else if (datos->get_tipo() != T_CAJANEGRA){
