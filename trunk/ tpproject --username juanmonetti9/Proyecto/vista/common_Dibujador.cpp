@@ -719,8 +719,6 @@ void Dibujador::draw_pista_este(gdouble x, gdouble y,cairo_t *cr){
 
 	int	xRectangulo = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
-//	int heightRectangulo = CELDA_WIDTH;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -742,8 +740,6 @@ void Dibujador::draw_pista_oeste(gdouble x, gdouble y,cairo_t *cr){
 
 	int xRectangulo = x -CELDA_HEIGHT- (CELDA_HEIGHT/2); //pos x del rectangulo a redibujar
 	int yRectangulo = y -(CELDA_WIDTH/2); //pos y del rectangulo a redibujar
-//	int widthRectangulo = 3 * CELDA_HEIGHT; //ancho del rectangulo a redibujar
-//	int heightRectangulo = CELDA_WIDTH;//alto del rectangulo a redibujar
 
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_line_width (cr, 1);
@@ -971,6 +967,7 @@ void Dibujador::draw_AND_oeste(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,xRectangulo+4+COMPUERTA_WIDTH,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,+M_PI/2+M_PI/12,-M_PI/2-M_PI/12);
 	cairo_stroke(cr);
+	cairo_scale(cr,1,2);
 
 }
 
@@ -1000,6 +997,7 @@ void Dibujador::draw_AND_norte(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/12,-M_PI/12);
 	cairo_stroke(cr);
+	cairo_scale(cr,2,1);
 
 
 }
@@ -1029,6 +1027,7 @@ void Dibujador::draw_AND_sur(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
 	cairo_stroke(cr);
+	cairo_scale(cr,2,1);
 }
 
 /*------------------- Metodos para el dibujo de ORs -------------------*/
@@ -1061,6 +1060,7 @@ void Dibujador::draw_OR_norte(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/18,-M_PI/18);
 	cairo_stroke(cr);
+	cairo_scale(cr,2,1);
 }
 
 void Dibujador::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
@@ -1091,6 +1091,7 @@ void Dibujador::draw_OR_este(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,xRectangulo-4,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,-M_PI/2+M_PI/15,M_PI/2-M_PI/15);
 	cairo_stroke(cr);
+	cairo_scale(cr,1,2);
 }
 
 void Dibujador::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
@@ -1122,6 +1123,7 @@ void Dibujador::draw_OR_oeste(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,xRectangulo+4+COMPUERTA_WIDTH,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,+M_PI/2+M_PI/17,-M_PI/2-M_PI/17);
 	cairo_stroke(cr);
+	cairo_scale(cr,1,2);
 
 
 }
@@ -1159,6 +1161,7 @@ void Dibujador::draw_OR_sur(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/15,-M_PI-M_PI/15);
 	cairo_stroke(cr);
+	cairo_scale(cr,2,1);
 
 
 }
@@ -1195,6 +1198,7 @@ void Dibujador::draw_XOR_este(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,xRectangulo-4,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,-M_PI/2+M_PI/15,M_PI/2-M_PI/15);
 	cairo_stroke(cr);
+	cairo_scale(cr,1,2);
 
 }
 
@@ -1227,6 +1231,7 @@ void Dibujador::draw_XOR_oeste(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,xRectangulo+4+COMPUERTA_WIDTH,(yRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,34,+M_PI/2+M_PI/10,-M_PI/2-M_PI/10);
 	cairo_stroke(cr);
+	cairo_scale(cr,1,2);
 
 }
 
@@ -1259,6 +1264,7 @@ void Dibujador::draw_XOR_norte(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo+4+COMPUERTA_HEIGHT,34,M_PI+M_PI/11,-M_PI/11);
 	cairo_stroke(cr);
+	cairo_scale(cr,2,1);
 }
 
 void Dibujador::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
@@ -1294,6 +1300,7 @@ void Dibujador::draw_XOR_sur(gdouble x, gdouble y,cairo_t *cr){
 	//arco sur Salida
 	cairo_arc(cr,(xRectangulo+(CELDA_HEIGHT/2)+(CELDA_HEIGHT))*2,yRectangulo-4,34,M_PI/11,-M_PI-M_PI/11);
 	cairo_stroke(cr);
+	cairo_scale(cr,2,1);
 
 
 }
